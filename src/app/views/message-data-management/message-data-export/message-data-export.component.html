@@ -11,9 +11,10 @@
   <mat-card-content>
     <div class="entry-actions extra-format">
       <div style="display: flex; flex-direction: column; flex: 1">
-        <label style="font-weight: 700">Date</label>
+        <label for="message-export-date-input" style="font-weight: 700">Date</label>
         <mat-form-field style="width: 420px">
           <input
+            id="message-export-date-input"
             aria-label="Date"
             placeholder="Select Date"
             matInput
@@ -75,13 +76,6 @@
           {{ element.message_data_filename }}
         </td>
       </ng-container>
-
-      <!-- <ng-container matColumnDef="depot_id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Depot ID</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.depot_name }}
-        </td>
-      </ng-container> -->
 
       <ng-container matColumnDef="sequence_no">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>

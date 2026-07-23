@@ -15,18 +15,7 @@ import { MatTableModule } from '@angular/material/table';
 
 import { AgGridAngular } from 'ag-grid-angular';
 import type {
-  ColDef,
-  ColGroupDef,
-  GetDetailRowDataParams,
-  GridApi,
   GridOptions,
-  GridReadyEvent,
-  SizeColumnsToFitGridStrategy,
-  ValueFormatterFunc,
-  ValueFormatterParams,
-  ValueGetterParams,
-  RowHeightParams,
-  IsFullWidthRowParams,
 } from 'ag-grid-community';
 import {
   AllCommunityModule,

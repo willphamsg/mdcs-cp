@@ -13,7 +13,7 @@
     <div class="background middle">
         <div class="container-fluid p-5">
             <div class="container-fluid text-center p-3">
-                <img src="./images/sign-logo.png" alt="image" />
+                <img src="./images/sign-logo.png" alt="Sign-in logo" />
             </div>
             <h1 class="title container-fluid text-center">
                 Select Service Provider
@@ -22,6 +22,7 @@
             <form id="submit-form" action="#">
                 <div class="container border-1 p-3 text-black-50" style="max-width: 400px">
                     <div class="mb-3">
+                        <label for="svc-prov-select-fld" class="visually-hidden">Service Provider</label>
                         <select id="svc-prov-select-fld" class="form-control transparent form-input"></select>
                     </div>
                     <div class="mb-3 text-end">
@@ -31,7 +32,7 @@
             </form>
 
             <div class="container">
-                <h3 class="bg-danger text-white" id="message-fld"></h3>
+                <div class="bg-danger text-white" id="message-fld" role="alert"></div>
             </div>
         </div>
 
@@ -69,8 +70,7 @@
     function getCookie(cookieName) {
         let cookies = document.cookie;
         let cookieArray = cookies.split("; ");
-        for (let i = 0; i < cookieArray.length; i++) {
-            let cookie = cookieArray[i];
+        for (const cookie of cookieArray) {
             let [name, value] = cookie.split("=");
             if (name === cookieName) {
                 return decodeURIComponent(value);

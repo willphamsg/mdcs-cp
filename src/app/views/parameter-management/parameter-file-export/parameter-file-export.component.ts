@@ -83,7 +83,7 @@ import { WebSocketService, WS_TOPICS } from '@app/services/web-socket.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ParameterFileExportComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   private statusPollingSub?: Subscription;
   paginatedData: any[] = [];
   dataSource: (IParameterFileExportEntity & {
@@ -145,16 +145,16 @@ export class ParameterFileExportComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private importExportService: FileImportExportService,
-    private filterService: FilterService,
-    private paginationService: PaginationService,
-    private depoService: DepoService,
-    private cdr: ChangeDetectorRef,
+    private readonly importExportService: FileImportExportService,
+    private readonly filterService: FilterService,
+    private readonly paginationService: PaginationService,
+    private readonly depoService: DepoService,
+    private readonly cdr: ChangeDetectorRef,
     public dialog: MatDialog,
-    private commonService: CommonService,
+    private readonly commonService: CommonService,
     public authService: AuthService,
-    private message: MessageService,
-    private webSocketService: WebSocketService
+    private readonly message: MessageService,
+    private readonly webSocketService: WebSocketService
   ) {}
 
   ngOnInit() {
@@ -314,7 +314,7 @@ export class ParameterFileExportComponent implements OnInit, OnDestroy {
           link.download = filename;
           document.body.appendChild(link);
           link.click();
-          document.body.removeChild(link);
+          link.remove();
           window.URL.revokeObjectURL(url);
 
           console.log('File downloaded successfully:', filename);
@@ -502,7 +502,7 @@ export class ParameterFileExportComponent implements OnInit, OnDestroy {
     this.params.sort_order = [
       {
         name: backendFieldName,
-        desc: element.direction === 'asc' ? false : true,
+        desc: element.direction != 'asc',
       },
     ];
 
@@ -516,7 +516,7 @@ export class ParameterFileExportComponent implements OnInit, OnDestroy {
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element).chk;
   }
 
   export() {
@@ -602,23 +602,7 @@ export class ParameterFileExportComponent implements OnInit, OnDestroy {
   }
 
   cancel(): void {
-    this.stopStatusPolling();
-
-    localStorage.removeItem('param_file_export_data');
-    this.storedExportData = [];
-    this.grpIdentifierIds = [];
-    this.isParameterReadDialogShown = false;
-    this.selection = [];
-    this.chkAll = false;
-
-    this.params.search_select_filter = {
-      ...this.params.search_select_filter,
-      grp_identifier_id: [],
-    };
-
-    this.checkLocalStorage();
-    this.reloadHandler();
-    this.cdr.markForCheck();
+    this.cleanupAfterDownload();
   }
 
   openCancelDownloadDialog(): void {

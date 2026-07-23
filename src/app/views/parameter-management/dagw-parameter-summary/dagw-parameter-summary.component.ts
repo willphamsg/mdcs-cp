@@ -77,7 +77,7 @@ export class DagwParameterSummaryComponent implements OnInit, OnDestroy {
 
   headerData = DawgParameterSummaryHeader;
   tab1Columns: string[] = this.headerData
-    .filter(x => x.hidden == false)
+    .filter(x => !x.hidden)
     .map((x: IHeader) => x.field);
 
   consistencyOptions: DropdownList[] = [
@@ -87,14 +87,14 @@ export class DagwParameterSummaryComponent implements OnInit, OnDestroy {
 
   filterConfigs: IFilterConfig[] = [];
 
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
-    private dagwParameterSummaryService: DagwParameterSummaryService,
-    private depoService: DepoService,
-    private paginationService: PaginationService,
-    private filterService: FilterService,
-    private commonService: CommonService
+    private readonly dagwParameterSummaryService: DagwParameterSummaryService,
+    private readonly depoService: DepoService,
+    private readonly paginationService: PaginationService,
+    private readonly filterService: FilterService,
+    private readonly commonService: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -232,7 +232,7 @@ export class DagwParameterSummaryComponent implements OnInit, OnDestroy {
     return <IDagwParameterSummary>{
       ...item,
       depot_name:
-        parseInt(item.depot_id) === 0 ? 'All Depot' : depot?.depot_name,
+        Number.parseInt(item.depot_id) === 0 ? 'All Depot' : depot?.depot_name,
     };
   }
 
@@ -247,7 +247,7 @@ export class DagwParameterSummaryComponent implements OnInit, OnDestroy {
 
   sortHandler(element: Sort) {
     this.params.sort_order = [
-      { name: element.active, desc: element.direction == 'asc' ? false : true },
+      { name: element.active, desc: element.direction != 'asc' },
     ];
     this.reloadHandler();
   }

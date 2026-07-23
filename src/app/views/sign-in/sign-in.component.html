@@ -1,7 +1,7 @@
 <div class="background middle">
   <div class="container">
     <div class="logo">
-      <img src="/assets/images/sign-logo.png" alt="image" />
+      <img src="/assets/images/sign-logo.png" alt="Sign-in logo" />
     </div>
     <h1 class="title container-fluid text-center">Welcome to DACS/DAGW</h1>
     <form class="login-form" [formGroup]="form" (ngSubmit)="submit()">
@@ -11,7 +11,9 @@
         >
         <mat-form-field>
           <input
+            id="sign-in-username-input"
             matInput
+            aria-label="User Name"
             formControlName="username"
             name="username"
             required
@@ -23,25 +25,30 @@
         >
         <mat-form-field>
           <input
+            id="sign-in-password-input"
             matInput
+            aria-label="Password"
             [type]="hidePassword ? 'password' : 'text'"
             formControlName="password"
             name="password"
             required />
-          <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
-            hidePassword ? 'visibility_off' : 'visibility'
-          }}</mat-icon>
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            class="password-toggle-btn"
+            [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'"
+            (click)="hidePassword = !hidePassword">
+            <mat-icon>{{
+              hidePassword ? 'visibility_off' : 'visibility'
+            }}</mat-icon>
+          </button>
           <mat-error> Please provide a valid password </mat-error>
         </mat-form-field>
         <mat-label style="text-align: left; color: #4a5964; font-weight: 600"
           >Service Provider</mat-label
         >
         <mat-form-field>
-          <!-- <input
-                matInput
-                type="text"
-                formControlName="svc_prov_id"
-                name="svc_prov_id" /> -->
           <mat-select
             formControlName="svc_prov_id"
             placeholder="Service Provider"
@@ -57,11 +64,6 @@
         </mat-form-field>
       } @else {
         <mat-form-field>
-          <!-- <input
-                  matInput
-                  type="text"
-                  formControlName="svc_prov_id"
-                  name="svc_prov_id" /> -->
           <mat-select
             formControlName="roles"
             style="font-style: normal; width: 100%"
@@ -117,7 +119,9 @@
         </mat-form-field>
         <mat-form-field>
           <input
+            id="sign-in-svc-prov-input"
             matInput
+            aria-label="Service Provider"
             formControlName="svc_prov"
             name="svc_prov"
             placeholder="Service Provider"
@@ -125,7 +129,9 @@
         </mat-form-field>
         <mat-form-field>
           <input
+            id="sign-in-depots-input"
             matInput
+            aria-label="Depots(Comma Separated)"
             formControlName="depots"
             name="depots"
             placeholder="Depots(Comma Separated)"
@@ -133,7 +139,9 @@
         </mat-form-field>
         <mat-form-field>
           <input
+            id="sign-in-given-name-input"
             matInput
+            aria-label="Given Name"
             formControlName="given_name"
             name="given_name"
             placeholder="Given Name"
@@ -141,7 +149,9 @@
         </mat-form-field>
         <mat-form-field>
           <input
+            id="sign-in-user-name-input"
             matInput
+            aria-label="User Name"
             formControlName="user_name"
             name="user_name"
             placeholder="User Name"
@@ -158,7 +168,9 @@
       @if (useDevSign) {
         <mat-form-field>
           <input
+            id="sign-in-token-input"
             matInput
+            aria-label="Token"
             formControlName="token"
             name="token"
             placeholder="Token"
@@ -172,7 +184,6 @@
           Apply Token
         </button>
       }
-      <!-- <a href="#">Forgot your password?</a> -->
     </form>
   </div>
 </div>

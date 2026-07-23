@@ -20,8 +20,11 @@
     <div class="notification">
       <div class="notification__header">
         <span class="notification__header-label">Notifications</span>
-        <span class="notification__header-mark" (click)="markAllAsRead()"
-          >Mark all as read</span
+        <button
+          type="button"
+          class="notification__header-mark"
+          (click)="markAllAsRead()"
+          >Mark all as read</button
         >
       </div>
 

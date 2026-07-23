@@ -31,7 +31,9 @@
             } @else {
               <mat-form-field appearance="outline">
                 <input
+                  id="bus-num-input"
                   matInput
+                  aria-label="Bus ID"
                   placeholder="Enter"
                   formControlName="bus_num"
                   minlength="5"
@@ -102,52 +104,10 @@
                     <strong>Required</strong>
                   </mat-error>
                 }
-                <!-- <mat-icon style="padding: unset !important" matSuffix
-                    >keyboard_arrow_down</mat-icon
-                    > -->
               </mat-form-field>
             }
           </mat-cell>
         </ng-container>
-
-        <!-- Service No. Column -->
-        <!-- <ng-container matColumnDef="service_num">
-            <mat-header-cell *matHeaderCellDef>Service No.</mat-header-cell>
-            <mat-cell
-              *matCellDef="let element"
-              [formGroup]="element"
-              class="labelCol">
-              @if (isDelete) {
-                {{ element.get('service_num')?.value }}
-              } @else {
-                <mat-form-field
-                  [style.width.px]="250"
-                  class="custom-input"
-                  appearance="outline">
-                  <input
-                    matInput
-                    placeholder="Service No."
-                    formControlName="service_num" />
-                  @if (
-                    element.get('service_num')?.hasError('required') &&
-                    element.get('service_num')?.touched
-                    ) {
-                    <mat-error>
-                      <strong>Required</strong>
-                    </mat-error>
-                  }
-                  @if (
-                    element.get('service_num')?.hasError('maxlength') &&
-                    element.get('service_num')?.touched
-                    ) {
-                    <mat-error
-                      ><strong>Maximum of 4 characters allowed</strong></mat-error
-                      >
-                    }
-                  </mat-form-field>
-                }
-              </mat-cell>
-            </ng-container> -->
 
         <!-- Day Type Column -->
         <ng-container matColumnDef="day_type">
@@ -218,14 +178,10 @@
               {{ element.get('est_arrival_time')?.value }}
             } @else {
               <mat-form-field appearance="outline" [style.width.px]="250">
-                <!-- <input
-                  matInput
-                  name="est_arrival_time"
-                  formControlName="est_arrival_time"
-                  placeholder="Select"
-                  type="time" /> -->
                 <input
+                  id="est-arrival-time-input"
                   matInput
+                  aria-label="Expected Last Arrival Time"
                   appTimeInput24h
                   name="est_arrival_time"
                   formControlName="est_arrival_time"
@@ -234,7 +190,10 @@
                   inputmode="numeric"
                   autocomplete="off" />
                 <mat-icon matSuffix style="padding: 0"
-                  ><img style="height: 24px" src="/assets/icons/clock.svg"
+                  ><img
+                    style="height: 24px"
+                    src="/assets/icons/clock.svg"
+                    alt=""
                 /></mat-icon>
                 @if (
                   element.get('est_arrival_time')?.hasError('required') &&
@@ -245,10 +204,6 @@
                   </mat-error>
                 }
               </mat-form-field>
-              <!-- <ngx-mat-timepicker
-                  #pickerA
-                  dottedMinutesInGap
-                enableKeyboardInput></ngx-mat-timepicker> -->
             }
           </mat-cell>
         </ng-container>
@@ -270,7 +225,9 @@
                 class="custom-input"
                 appearance="outline">
                 <input
+                  id="est-arrival-count-input"
                   matInput
+                  aria-label="Expected Number of Arrival"
                   min="0"
                   max="255"
                   type="number"
@@ -308,7 +265,7 @@
               (click)="removeItem(i)">
               <img
                 src="/assets/icons/mdcs-icon-delete.svg"
-                alt="image"
+                alt="Delete"
                 class="icon-delete" />
             </button>
           </mat-cell>
@@ -334,14 +291,6 @@
       </button>
     }
   </form>
-
-  <!-- <button
-      *ngIf="!isDelete"
-      (click)="addItem()"
-      class="btn-add divider line razor">
-      <mat-icon>add_circle</mat-icon>
-      <div class="text-btn">Add new</div>
-    </button> -->
 </mat-dialog-content>
 
 <mat-divider></mat-divider>
@@ -364,16 +313,6 @@
             Cancel
           </button>
         </div>
-        <!-- <div>
-          <button
-            class="h-40"
-            *ngIf="!isDelete"
-            [mat-dialog-close]="'saveAsDraft'"
-            mat-stroked-button
-            mat-dialog-close>
-            Save as draft
-          </button>
-        </div> -->
         <div>
           <button
             type="button"

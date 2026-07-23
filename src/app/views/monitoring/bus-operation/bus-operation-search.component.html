@@ -81,24 +81,6 @@
           </td>
         </ng-container>
 
-        <!-- Service Provider Id Column -->
-        <!-- <ng-container matColumnDef="service_num">
-        <th
-          [hidden]="!hiddenHandler('service_num')"
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header>
-          Service No. <span class="custom-sort"> </span>
-        </th>
-        <td
-          [hidden]="!hiddenHandler('service_num')"
-          mat-cell
-          *matCellDef="let element"
-          [class.conn-status]="element.conn_status">
-          {{ element.service_num }}
-        </td>
-      </ng-container> -->
-
         <!-- Effective Date Column -->
         <ng-container matColumnDef="download_status">
           <th
@@ -251,7 +233,6 @@
                 <img
                   src="/assets/icons/do-not-disturb-on.svg"
                   alt="Selected Checkbox" />
-                <!-- <mat-icon style="color: #cdcdcd">do_not_disturb_on</mat-icon> -->
               </span>
             }
             @if (element.conn_status) {
@@ -288,12 +269,6 @@
           mat-row
           *matRowDef="let row; columns: displayedColumns"
           class="data-row"></tr>
-
-        <!-- <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
-        No Records Found
-      </td>
-    </tr> -->
       </table>
       @if (!dataSource.length) {
         <div class="no-data">No Records Found</div>

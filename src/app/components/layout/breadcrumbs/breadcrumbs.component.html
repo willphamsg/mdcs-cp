@@ -2,19 +2,6 @@
   @if (showHome) {
     <li>Home</li>
   }
-  <!-- @if (showHome) {
-    @if (isMenuArray) {
-      @for (item of menuItem; track item) {
-        <li>
-          <a> {{ item }}</a>
-        </li>
-      }
-    } @else {
-      <li>
-        <a>{{ menuItem }}</a>
-      </li>
-    }
-  } -->
 
   @if (isMenuArray) {
     @for (item of menuItem; track item) {
@@ -32,5 +19,3 @@
     <span>{{ headerTitle }}</span>
   </li>
 </ul>
-
-<!-- <h1>{{ headerTitle }}</h1> -->

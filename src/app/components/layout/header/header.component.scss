@@ -49,6 +49,20 @@
   }
 }
 
+.menu-icon-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  padding-right: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  @include respond-to-min(1280px) {
+    display: none;
+  }
+}
+
 .header-container {
   display: flex;
   flex-flow: row nowrap;

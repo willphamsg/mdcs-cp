@@ -48,7 +48,7 @@ export const DD_MM_YYYY_FORMAT = {
 export class DdMmYyyyDateAdapter extends NativeDateAdapter {
   override parse(value: any): Date | null {
     if (typeof value === 'string') {
-      const match = value.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+      const match = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(value.trim());
       if (match) {
         const day = Number(match[1]);
         const month = Number(match[2]);

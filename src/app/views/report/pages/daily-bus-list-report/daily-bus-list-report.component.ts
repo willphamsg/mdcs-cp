@@ -63,7 +63,7 @@ import { DD_MM_YYYY_FORMAT } from '@app/shared/utils/date-time';
   styleUrl: './daily-bus-list-report.component.scss',
 })
 export class DailyBusListReportComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   depots: IDepoList[] = [];
   operators: IOperatorList[] = [];
@@ -106,12 +106,12 @@ export class DailyBusListReportComponent implements OnInit, OnDestroy {
   isAdhocReport: boolean = false;
 
   constructor(
-    private depoService: DepoService,
-    private authService: AuthService,
-    private dailyReportService: DailyReportService,
-    private route: ActivatedRoute,
-    private commonService: CommonService,
-    private messageService: MessageService
+    private readonly depoService: DepoService,
+    private readonly authService: AuthService,
+    private readonly dailyReportService: DailyReportService,
+    private readonly route: ActivatedRoute,
+    private readonly commonService: CommonService,
+    private readonly messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -223,8 +223,8 @@ export class DailyBusListReportComponent implements OnInit, OnDestroy {
         ? ''
         : this.formatDate(this.businessDaySelected),
       format: downloadFormat,
-      svc_prov_id: parseInt(this.svcProviderID!),
-      depot_id: parseInt(this.depotSelected),
+      svc_prov_id: Number.parseInt(this.svcProviderID!),
+      depot_id: Number.parseInt(this.depotSelected),
     };
 
     this.dailyReportService

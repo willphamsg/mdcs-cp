@@ -123,12 +123,6 @@
           mat-row
           *matRowDef="let row; columns: tab1Columns"
           class="data-row"></tr>
-
-        <!-- <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell no-data" [attr.colspan]="tab1Columns.length">
-            No Records Found
-          </td>
-        </tr> -->
       </table>
       @if (!dataSource.length) {
         <div class="no-data">

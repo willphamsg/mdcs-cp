@@ -56,9 +56,9 @@ export class FooterComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     @Inject(PLATFORM_ID) platformId: object,
-    private depoService: DepoService,
-    private authService: AuthService,
-    private commonService: CommonService
+    private readonly depoService: DepoService,
+    private readonly authService: AuthService,
+    private readonly commonService: CommonService
   ) {
     this.isBrowser.set(isPlatformBrowser(platformId));
   }

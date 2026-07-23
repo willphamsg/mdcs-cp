@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { IParameterJSONData } from '@app/models/parameter-management';
@@ -36,7 +36,7 @@ import { PaginationService } from '@app/services/pagination.service';
 })
 
 export class ParameterViewerTableComponent
-  implements OnInit, OnChanges, OnDestroy
+  implements OnInit, OnChanges
 {
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<any>();
@@ -95,7 +95,7 @@ export class ParameterViewerTableComponent
   public shouldShowNoColumn: boolean = true;
 
   constructor(
-    private paginationService: PaginationService,
+    private readonly paginationService: PaginationService,
   ) {
   }
 
@@ -107,7 +107,7 @@ export class ParameterViewerTableComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['payload'] && changes['payload'].currentValue) {
+    if (changes['payload']?.currentValue) {
       this.filterValue = '';
       this.searchText = '';
       // Reset pagination to defaults when payload changes
@@ -141,12 +141,6 @@ export class ParameterViewerTableComponent
         this.forSVT(this.payload);
       }
     }
-  }
-
-  ngOnDestroy(): void {
-  }
-
-  ngAfterViewInit() {
   }
 
   applyFilter(event?: Event) {
@@ -249,7 +243,7 @@ export class ParameterViewerTableComponent
   }
 
   forSVT(json: IParameterJSONData): void {
-    if (!json || !json.jsondata) return;
+    if (!json?.jsondata) return;
 
     // Handle both string and object types for jsondata
     const parseJSONPayload = typeof json.jsondata === 'string'
@@ -294,7 +288,7 @@ export class ParameterViewerTableComponent
   }
 
   massagePayload(json: IParameterJSONData): void {
-    if (!json || !json.jsondata) return;
+    if (!json?.jsondata) return;
 
     // Handle both string and object types for jsondata
     const parseJSONPayload = typeof json.jsondata === 'string'
@@ -387,37 +381,42 @@ export class ParameterViewerTableComponent
 
   //Function to Extract Headers and Rows (for table header and data)
   massageTableContent(obj: Record<string, any>, key: string): { headers: string[]; rows: any[] } | null {
-    switch (this.tabPayload[this.tabIdx]) {
-      case 'aobjPatronCatMap': {
-        this.isPatronCatMap = true;
-
-        const paramData = obj[key];
-        this.categorySelection = Object.keys(paramData[0]);
-        this.categorySelected = !this.categorySelected ? this.categorySelection[0] : this.categorySelected;
-
-        const category = this.categorySelected;
-
-        if (Array.isArray(paramData[0][category]) && paramData[0][category].length > 0 && typeof paramData[0][category] === 'object') {
-          const headers = Object.keys(paramData[0][category][0]);
-          const rows = paramData[0][category];
-
-          return { headers, rows };
-        }
-        return null;
-      }
-      default: {
-        this.isPatronCatMap = false;
-        this.categorySelection = [];
-        this.categorySelected = "";
-
-        if (obj[key] && Array.isArray(obj[key]) && obj[key].length > 0 && typeof obj[key][0] === 'object') {
-          const headers = Object.keys(obj[key][0]);
-          const rows = obj[key];
-          return { headers, rows };
-        }
-        return null;
-      };
+    const currentTab = this.tabPayload[this.tabIdx];
+    if (currentTab === 'aobjPatronCatMap') {
+      return this.massagePatronCatMapContent(obj, key);
     }
+    return this.massageDefaultTableContent(obj, key);
+  }
+
+  private massagePatronCatMapContent(obj: Record<string, any>, key: string): { headers: string[]; rows: any[] } | null {
+    this.isPatronCatMap = true;
+
+    const paramData = obj[key];
+    this.categorySelection = Object.keys(paramData[0]);
+    this.categorySelected = !this.categorySelected ? this.categorySelection[0] : this.categorySelected;
+
+    const category = this.categorySelected;
+
+    if (Array.isArray(paramData[0][category]) && paramData[0][category].length > 0 && typeof paramData[0][category] === 'object') {
+      const headers = Object.keys(paramData[0][category][0]);
+      const rows = paramData[0][category];
+
+      return { headers, rows };
+    }
+    return null;
+  }
+
+  private massageDefaultTableContent(obj: Record<string, any>, key: string): { headers: string[]; rows: any[] } | null {
+    this.isPatronCatMap = false;
+    this.categorySelection = [];
+    this.categorySelected = "";
+
+    if (obj[key] && Array.isArray(obj[key]) && obj[key].length > 0 && typeof obj[key][0] === 'object') {
+      const headers = Object.keys(obj[key][0]);
+      const rows = obj[key];
+      return { headers, rows };
+    }
+    return null;
   }
 
   extractDividePropertyToArray(data: any) {
@@ -480,7 +479,7 @@ export class ParameterViewerTableComponent
       }
 
       return parsed;
-    } catch (e) {
+    } catch {
       const fixed = this.autoFixJsonString(data);
       if (fixed !== null) {
         return fixed;
@@ -489,11 +488,11 @@ export class ParameterViewerTableComponent
     }
   }
 
-  autoFixJsonString(input: string): any | null {
+  autoFixJsonString(input: string): any {
     const tryParse = (str: string) => {
       try {
         return JSON.parse(str);
-      } catch (err) {
+      } catch {
         return null;
       }
     };
@@ -503,18 +502,28 @@ export class ParameterViewerTableComponent
     if (parsed !== null) return parsed;
 
     // Second attempt: if it's a double-encoded string, try to parse it twice
-    if (input.startsWith('"') && input.endsWith('"')) {
-      try {
-        // Remove outer quotes and unescape
-        let unescaped = input.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
-        const doubleParsed = tryParse(unescaped);
-        if (doubleParsed !== null) return doubleParsed;
-      } catch (err) {
-        // Continue to next attempt
-      }
-    }
+    const doubleParsed = this.tryDoubleEncodedParse(input, tryParse);
+    if (doubleParsed !== null) return doubleParsed;
 
     // Third attempt: fix unbalanced brackets/braces
+    const fixedInput = this.balanceBracketsAndBraces(input);
+    const fixedParsed = tryParse(fixedInput);
+    if (fixedParsed !== null) return fixedParsed;
+
+    // Fourth attempt: for double-encoded strings with missing brackets
+    return this.tryUnescapedDoubleEncodedParse(input, tryParse);
+  }
+
+  private tryDoubleEncodedParse(input: string, tryParse: (str: string) => any): any {
+    if (!(input.startsWith('"') && input.endsWith('"'))) {
+      return null;
+    }
+    // Remove outer quotes and unescape
+    const unescaped = input.slice(1, -1).replaceAll(String.raw`\"`, '"').replaceAll(String.raw`\\`, '\\');
+    return tryParse(unescaped);
+  }
+
+  private balanceBracketsAndBraces(input: string): string {
     const openBraces = (input.match(/{/g) || []).length;
     const closeBraces = (input.match(/}/g) || []).length;
     const openBrackets = (input.match(/\[/g) || []).length;
@@ -530,42 +539,31 @@ export class ParameterViewerTableComponent
       fixedInput += '}'.repeat(openBraces - closeBraces);
     }
 
-    const fixedParsed = tryParse(fixedInput);
-    if (fixedParsed !== null) return fixedParsed;
+    return fixedInput;
+  }
 
+  private tryUnescapedDoubleEncodedParse(input: string, tryParse: (str: string) => any): any {
     // Fourth attempt: for double-encoded strings with missing brackets
-    if (input.includes('\\\"')) {
-      try {
-        // Remove outer quotes if present
-        let cleanInput = input.startsWith('"') && input.endsWith('"')
-          ? input.slice(1, -1)
-          : input;
-
-        // Unescape the string
-        cleanInput = cleanInput.replace(/\\"/g, '"').replace(/\\\\/g, '\\');
-
-        // Count brackets/braces again after unescaping
-        const openBraces2 = (cleanInput.match(/{/g) || []).length;
-        const closeBraces2 = (cleanInput.match(/}/g) || []).length;
-        const openBrackets2 = (cleanInput.match(/\[/g) || []).length;
-        const closeBrackets2 = (cleanInput.match(/]/g) || []).length;
-
-        // Add missing closing brackets/braces
-        if (openBrackets2 > closeBrackets2) {
-          cleanInput += ']'.repeat(openBrackets2 - closeBrackets2);
-        }
-        if (openBraces2 > closeBraces2) {
-          cleanInput += '}'.repeat(openBraces2 - closeBraces2);
-        }
-
-        const lastAttempt = tryParse(cleanInput);
-        if (lastAttempt !== null) return lastAttempt;
-      } catch (err) {
-        // Failed to fix double-encoded JSON
-      }
+    if (!input.includes(String.raw`\"`)) {
+      return null;
     }
+    try {
+      // Remove outer quotes if present
+      let cleanInput = input.startsWith('"') && input.endsWith('"')
+        ? input.slice(1, -1)
+        : input;
 
-    return null;
+      // Unescape the string
+      cleanInput = cleanInput.replaceAll(String.raw`\"`, '"').replaceAll(String.raw`\\`, '\\');
+
+      // Count brackets/braces again after unescaping and add missing ones
+      cleanInput = this.balanceBracketsAndBraces(cleanInput);
+
+      return tryParse(cleanInput);
+    } catch {
+      // Failed to fix double-encoded JSON
+      return null;
+    }
   }
 
   getRowNumber(index: number): number {

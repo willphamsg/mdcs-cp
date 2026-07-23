@@ -127,16 +127,16 @@ export class BusSearchComponent implements OnInit, OnDestroy {
   filterConfigs: IFilterConfig[] = [];
 
   constructor(
-    private manageDailyBusListService: ManageDailyBusListService,
-    private depoService: DepoService,
+    private readonly manageDailyBusListService: ManageDailyBusListService,
+    private readonly depoService: DepoService,
     public dialog: MatDialog,
-    private filterService: FilterService,
+    private readonly filterService: FilterService,
     public paginationService: PaginationService,
-    private cdr: ChangeDetectorRef,
-    private commonService: CommonService,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly commonService: CommonService,
     public authService: AuthService,
-    private busSelectionService: BusSelectionService,
-    private webSocketService: WebSocketService
+    private readonly busSelectionService: BusSelectionService,
+    private readonly webSocketService: WebSocketService
   ) {}
 
   ngOnInit() {
@@ -348,13 +348,13 @@ export class BusSearchComponent implements OnInit, OnDestroy {
 
   sortHandler(element: Sort) {
     this.params.sort_order = [
-      { name: element.active, desc: element.direction == 'asc' ? false : true },
+      { name: element.active, desc: element.direction != 'asc' },
     ];
     this.reloadHandler();
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element).chk;
   }
 
   openView() {

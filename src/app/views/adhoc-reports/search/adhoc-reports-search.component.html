@@ -30,7 +30,9 @@
         <mat-form-field class="mat-custom hide">
           <mat-label>Business Day</mat-label>
           <input
+            id="adhoc-report-business-day-input"
             matInput
+            aria-label="Business Day"
             [matDatepicker]="picker"
             [max]="todayJS"
             [(ngModel)]="businessDaySelected" />
@@ -100,7 +102,9 @@
         <mat-form-field class="mat-custom" style="width: 290px">
           <mat-label>Future Effective Start Date</mat-label>
           <input
+            id="adhoc-report-start-date-input"
             matInput
+            aria-label="Future Effective Start Date"
             [matDatepicker]="picker"
             [(ngModel)]="startDateSelected" />
           <mat-datepicker-toggle
@@ -114,7 +118,9 @@
         <mat-form-field class="mat-custom" style="width: 290px">
           <mat-label>Future Effective End Date</mat-label>
           <input
+            id="adhoc-report-end-date-input"
             matInput
+            aria-label="Future Effective End Date"
             [matDatepicker]="picker"
             [(ngModel)]="endDateSelected" />
           <mat-datepicker-toggle

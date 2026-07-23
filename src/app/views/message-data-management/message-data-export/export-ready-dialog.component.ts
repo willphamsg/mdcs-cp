@@ -131,7 +131,7 @@ export class MessageExportReadyDialogComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: MessageExportReadyDialogData,
-    private dialogRef: MatDialogRef<MessageExportReadyDialogComponent>
+    private readonly dialogRef: MatDialogRef<MessageExportReadyDialogComponent>
   ) {}
 
   download(): void {

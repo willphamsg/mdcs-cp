@@ -15,7 +15,7 @@
           class="import-button"
           mat-flat-button>
           <mat-icon>
-            <img src="/assets/icons/import.png" alt="image"
+            <img src="/assets/icons/import.png" alt="Import icon"
           /></mat-icon>
           Import
         </button>
@@ -24,6 +24,7 @@
         placeholder="Import"
         type="file"
         id="fileUpload"
+        aria-label="Upload message data file"
         accept=".zip,application/zip,application/x-zip-compressed"
         class="input-file"
         (change)="importHandler($event)" />

@@ -30,8 +30,8 @@ export class CommonDialogComponent {
     this.message = data.message;
     this.okOnly = data.okOnly;
     this.multiMessage = data.multiMessage;
-    this.cancelText = !!data.cancelText ? data.cancelText : 'Cancel';
-    this.confirmText = !!data.confirmText ? data.confirmText : 'Confirm';
+    this.cancelText = data.cancelText ? data.cancelText : 'Cancel';
+    this.confirmText = data.confirmText ? data.confirmText : 'Confirm';
   }
 
   onConfirm(): void {

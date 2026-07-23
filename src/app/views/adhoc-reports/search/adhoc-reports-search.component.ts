@@ -86,7 +86,7 @@ export interface MonthList {
   styleUrl: './adhoc-reports-search.component.scss',
 })
 export class AdhocReportsComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   tabList: TabList[] = [
     {
@@ -160,11 +160,11 @@ export class AdhocReportsComponent implements OnInit, OnDestroy {
   isButtonClick: boolean = false;
 
   constructor(
-    private depoService: DepoService,
+    private readonly depoService: DepoService,
     public dialog: MatDialog,
-    private authService: AuthService,
-    private commonService: CommonService,
-    private messageService: MessageService
+    private readonly authService: AuthService,
+    private readonly commonService: CommonService,
+    private readonly messageService: MessageService
   ) {}
 
   ngOnInit() {

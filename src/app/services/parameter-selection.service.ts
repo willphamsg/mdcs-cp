@@ -15,8 +15,8 @@ interface ISelectable {
 
 // Generic selection manager class
 class SelectionManager<T extends ISelectable> {
-  private selectedItemsMap = new Map<string, T>();
-  private selectionSubject = new BehaviorSubject<T[]>([]);
+  private readonly selectedItemsMap = new Map<string, T>();
+  private readonly selectionSubject = new BehaviorSubject<T[]>([]);
 
   public selection$: Observable<T[]> = this.selectionSubject.asObservable();
 
@@ -79,11 +79,11 @@ class SelectionManager<T extends ISelectable> {
 })
 export class ParameterSelectionService {
   // Separate selection managers for each component type
-  private newParameterApprovalManager =
+  private readonly newParameterApprovalManager =
     new SelectionManager<INewParameterApproval>();
-  private parameterModeManager = new SelectionManager<IParameterMode>();
-  private endTrialManager = new SelectionManager<IEndTrial>();
-  private trialDeviceSelectionManager =
+  private readonly parameterModeManager = new SelectionManager<IParameterMode>();
+  private readonly endTrialManager = new SelectionManager<IEndTrial>();
+  private readonly trialDeviceSelectionManager =
     new SelectionManager<ITrialDeviceSelection>();
 
   // Expose observables for each type

@@ -45,7 +45,7 @@ export class PaginationComponent implements OnDestroy {
     }
   }
 
-  constructor(private paginationService: PaginationService) {}
+  constructor(private readonly paginationService: PaginationService) {}
 
   get totalPages(): number {
     return Math.ceil(this.totalItems / this.itemsPerPage) || 0;
@@ -56,11 +56,7 @@ export class PaginationComponent implements OnDestroy {
   }
 
   generatePageSizeOptions(): void {
-    const totalItemsBasedMax = Math.ceil(this.totalItems / 10) * 10;
-    // TODO: temporary comment by set maximum 500 on Front end side
-    // const maxPageSize = Math.max(totalItemsBasedMax, this.itemsPerPage);
-    // const maxPageSize = 500;
-
+    // Fixed page size options (max capped at 500 on the front end side).
     this.pageSizeOptions = [10, 20, 50, 100, 200, 500];
     // for (let i = 10; i <= maxPageSize; i += 10) {
     //   this.pageSizeOptions.push(i);
@@ -97,7 +93,7 @@ export class PaginationComponent implements OnDestroy {
 
   getEndIndex(): number {
     const endIndex = this.currentPage * this.itemsPerPage;
-    return endIndex > this.totalItems ? this.totalItems : endIndex;
+    return Math.min(endIndex, this.totalItems);
   }
 
   prevPage(): void {

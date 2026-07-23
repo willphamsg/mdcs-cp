@@ -21,7 +21,8 @@
               @case ('select') {
                 <div
                   class="input-filter-wrapper"
-                  (click)="$event.stopPropagation()">
+                  (click)="$event.stopPropagation()"
+                  (keydown)="$event.stopPropagation()">
                   <span>{{ FILTER_NAMES[config.controlName] }}</span>
                   <mat-form-field style="width: 100%">
                     <mat-select [formControlName]="config.controlName">
@@ -44,12 +45,17 @@
               @case ('date-field') {
                 <div
                   class="input-filter-wrapper"
-                  (click)="$event.stopPropagation()">
+                  (click)="$event.stopPropagation()"
+                  (keydown)="$event.stopPropagation()">
                   <span>{{ FILTER_NAMES[config.controlName] }}</span>
-                  <div style="width: 400px" (click)="$event.stopPropagation()">
+                  <div
+                    style="width: 400px"
+                    (click)="$event.stopPropagation()"
+                    (keydown)="$event.stopPropagation()">
                     <mat-form-field style="width: 100%">
                       <input
                         matInput
+                        aria-label="Date"
                         [matDatepicker]="picker"
                         placeholder="DD/MM/YYYY"
                         [formControlName]="config.controlName"
@@ -68,16 +74,20 @@
               @case ('control') {
                 <mat-expansion-panel>
                   <mat-expansion-panel-header
-                    (click)="$event.stopPropagation()">
+                    (click)="$event.stopPropagation()"
+                    (keydown)="$event.stopPropagation()">
                     <mat-panel-title>{{
                       FILTER_NAMES[config.controlName]
                     }}</mat-panel-title>
                   </mat-expansion-panel-header>
-                  <div style="width: 400px" (click)="$event.stopPropagation()">
+                  <div
+                    style="width: 400px"
+                    (click)="$event.stopPropagation()"
+                    (keydown)="$event.stopPropagation()">
                     <mat-form-field style="width: 100%">
-                      <!-- <mat-label>Search...</mat-label> -->
                       <input
                         matInput
+                        aria-label="Enter value"
                         [formControlName]="config.controlName"
                         placeholder="Enter value" />
                       <mat-icon matSuffix>search</mat-icon>
@@ -88,7 +98,8 @@
               @case ('array') {
                 <mat-expansion-panel>
                   <mat-expansion-panel-header
-                    (click)="$event.stopPropagation()">
+                    (click)="$event.stopPropagation()"
+                    (keydown)="$event.stopPropagation()">
                     <mat-panel-title>{{
                       FILTER_NAMES[config.controlName]
                     }}</mat-panel-title>
@@ -101,7 +112,8 @@
                     ) {
                       <div
                         style="width: 400px"
-                        (click)="$event.stopPropagation()">
+                        (click)="$event.stopPropagation()"
+                        (keydown)="$event.stopPropagation()">
                         <mat-checkbox [formControlName]="index" color="primary">
                           {{
                             getOptionDisplayLabel(config.controlName, control)
@@ -115,12 +127,16 @@
               @case ('radio') {
                 <mat-expansion-panel>
                   <mat-expansion-panel-header
-                    (click)="$event.stopPropagation()">
+                    (click)="$event.stopPropagation()"
+                    (keydown)="$event.stopPropagation()">
                     <mat-panel-title>
                       {{ FILTER_NAMES[config.controlName] }}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
-                  <div style="width: 400px" (click)="$event.stopPropagation()">
+                  <div
+                    style="width: 400px"
+                    (click)="$event.stopPropagation()"
+                    (keydown)="$event.stopPropagation()">
                     <mat-radio-group
                       style="display: flex; flex-direction: column"
                       [formControlName]="config.controlName">
@@ -143,15 +159,20 @@
               @case ('date-picker') {
                 <mat-expansion-panel>
                   <mat-expansion-panel-header
-                    (click)="$event.stopPropagation()">
+                    (click)="$event.stopPropagation()"
+                    (keydown)="$event.stopPropagation()">
                     <mat-panel-title>{{
                       FILTER_NAMES[config.controlName]
                     }}</mat-panel-title>
                   </mat-expansion-panel-header>
-                  <div style="width: 400px" (click)="$event.stopPropagation()">
+                  <div
+                    style="width: 400px"
+                    (click)="$event.stopPropagation()"
+                    (keydown)="$event.stopPropagation()">
                     <mat-form-field style="width: 100%">
                       <input
                         matInput
+                        aria-label="Date"
                         [matDatepicker]="picker"
                         placeholder="DD/MM/YYYY"
                         [formControlName]="config.controlName"
@@ -170,7 +191,8 @@
               @case ('date-range') {
                 <mat-expansion-panel>
                   <mat-expansion-panel-header
-                    (click)="$event.stopPropagation()">
+                    (click)="$event.stopPropagation()"
+                    (keydown)="$event.stopPropagation()">
                     <mat-panel-title>{{
                       FILTER_NAMES[config.controlName]
                     }}</mat-panel-title>
@@ -178,11 +200,13 @@
                   <div
                     [formGroupName]="config.controlName"
                     style="width: 400px"
-                    (click)="$event.stopPropagation()">
+                    (click)="$event.stopPropagation()"
+                    (keydown)="$event.stopPropagation()">
                     <mat-form-field style="width: 100%">
                       <mat-date-range-input [rangePicker]="picker">
                         <input
                           matStartDate
+                          aria-label="Start date"
                           placeholder="Start date"
                           formControlName="startDate"
                           (keydown)="onDateInputKeydown($event)"
@@ -191,6 +215,7 @@
                           maxlength="10" />
                         <input
                           matEndDate
+                          aria-label="End date"
                           placeholder="End date"
                           formControlName="endDate"
                           (keydown)="onDateInputKeydown($event)"
@@ -219,7 +244,8 @@
                 gap: 20px;
                 padding: 12px;
               "
-              (click)="$event.stopPropagation()">
+              (click)="$event.stopPropagation()"
+              (keydown)="$event.stopPropagation()">
               <div>
                 <button
                   (click)="clearFilter()"
@@ -257,9 +283,9 @@
     }
     @if (enableSearch) {
       <mat-form-field class="search-text" appearance="outline">
-        <!-- <mat-label>{{ placeholder }}</mat-label> -->
         <input
           matInput
+          [attr.aria-label]="placeholder"
           [placeholder]="placeholder"
           [formControl]="searchControl"
           type="search" />

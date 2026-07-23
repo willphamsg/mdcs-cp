@@ -11,14 +11,14 @@ import { DynamicEndpoint } from './dynamic-endpoint';
   providedIn: 'root',
 })
 export class DashboardService {
-  private busUri = environment.gateway + '';
-  private commonUri = environment.gateway + '';
-  private paramUri = environment.gateway + '';
+  private readonly busUri = environment.gateway + '';
+  private readonly commonUri = environment.gateway + '';
+  private readonly paramUri = environment.gateway + '';
   constructor(
-    private http: HttpClient,
+    private readonly http: HttpClient,
     public dialog: MatDialog,
-    private message: MessageService,
-    private dynamic: DynamicEndpoint
+    private readonly message: MessageService,
+    private readonly dynamic: DynamicEndpoint
   ) {
     this.busUri = this.dynamic.setDynamicEndpoint('bus', this.busUri);
     this.commonUri = this.dynamic.setDynamicEndpoint('common', this.commonUri);

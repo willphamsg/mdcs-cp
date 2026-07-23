@@ -26,11 +26,11 @@
     </mat-tab-group>
 
     <div class="entry-actions">
-      <!-- <app-filter [filterConfigs]="filterConfigs"></app-filter> -->
       <mat-form-field class="mat-custom">
         <mat-label>Business Day</mat-label>
         <input
           matInput
+          aria-label="Business Day"
           [matDatepicker]="picker"
           [max]="todayJS"
           [(ngModel)]="businessDaySelected" />

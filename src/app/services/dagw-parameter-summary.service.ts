@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
-import { BusRequest, IParams, PayloadResponse } from '../models/common';
-import { IDagwParameterSummary } from '../models/parameter-management';
+import { IParams, PayloadResponse } from '../models/common';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from '@env/environment';
 import DummyData from '@data/db.json';
@@ -14,16 +13,16 @@ import { DynamicEndpoint } from './dynamic-endpoint';
   providedIn: 'root',
 })
 export class DagwParameterSummaryService {
-  private uri = environment.gateway + 'dagw-param-version-summary/';
-  private depotListSubject: BehaviorSubject<IDepoList[]> = new BehaviorSubject<
+  private readonly uri = environment.gateway + 'dagw-param-version-summary/';
+  private readonly depotListSubject: BehaviorSubject<IDepoList[]> = new BehaviorSubject<
     IDepoList[]
   >([]);
 
   constructor(
-    private http: HttpClient,
+    private readonly http: HttpClient,
     public dialog: MatDialog,
-    private dynamic: DynamicEndpoint,
-    private message: MessageService
+    private readonly dynamic: DynamicEndpoint,
+    private readonly message: MessageService
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('param', this.uri);
   }

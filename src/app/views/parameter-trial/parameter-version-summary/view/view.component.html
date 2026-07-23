@@ -9,19 +9,6 @@
 </div>
 <mat-divider></mat-divider>
 <mat-dialog-content>
-  <!-- <p *ngIf="mode === 'approve'" style="color: #000">
-    The selected records will be
-    <span style="color: #009e73">Approved</span> once confirmed. Please
-    carefully review this update,<br />
-    as the decision becomes irreversible afterward. You can proceed to Select
-    mode for the approved <br />parameters
-  </p>
-  <p *ngIf="mode === 'reject'" style="color: #000">
-    The selected parameters will be
-    <span style="color: #9f0f0f">Rejected</span> once confirmed. Please
-    carefully review this update,<br />as the decision becomes irreversible
-    afterward.
-  </p> -->
   <form [formGroup]="myForm">
     <ng-container formArrayName="items">
       <mat-table #table [dataSource]="items.controls" class="stripped">
@@ -44,26 +31,6 @@
             } @else {
               {{ element.get('depot')?.value }}
             }
-            <!-- <mat-form-field appearance="outline">
-              <input matInput formControlName="current_depot" />
-              <mat-select
-                formControlName="current_depot"
-                style="font-style: normal; width: 100%"
-                placeholder="Depot"
-                [(value)]="element.current_depot">
-                <mat-option value="">All</mat-option>
-                <mat-option
-                  *ngFor="let option of depots"
-                  [value]="option.depot_id">
-                  {{ option.depot_name }}
-                </mat-option>
-              </mat-select>
-              @if (element.get('current_depot')?.hasError('required')) {
-                <mat-error>
-                  <strong>Required</strong>
-                </mat-error>
-              }
-            </mat-form-field> -->
           </mat-cell>
         </ng-container>
 
@@ -83,9 +50,6 @@
             } @else {
               {{ element.get('parameter_name')?.value }}
             }
-            <!-- <mat-form-field class="custom-input" appearance="outline">
-              <input matInput formControlName="current_operator" />
-            </mat-form-field> -->
           </mat-cell>
         </ng-container>
 
@@ -105,9 +69,6 @@
             } @else {
               {{ element.get('parameter_version')?.value }}
             }
-            <!-- <mat-form-field class="custom-input" appearance="outline">
-              <input matInput formControlName="current_operator" />
-            </mat-form-field> -->
           </mat-cell>
         </ng-container>
 

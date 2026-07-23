@@ -6,9 +6,9 @@ import { environment } from '@env/environment';
   providedIn: 'root',
 })
 export class DynamicEndpoint {
-  private isDynamic = environment.useDynamicEndpoint;
+  private readonly isDynamic = environment.useDynamicEndpoint;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private readonly platformId: Object) {}
 
   public setDynamicEndpoint(module: string, uri: string): string {
     if (this.isDynamic && isPlatformBrowser(this.platformId)) {
@@ -25,9 +25,10 @@ export class DynamicEndpoint {
         }
       });
 
+      const modulePrefix = module ? '/' : '';
       uri = environment.useDummyData
-        ? `http://localhost:3000${!!module ? '/' : ''}${module}/${endpoint}`
-        : `${protocol}//${hostname}:${port}${!!module ? '/' : ''}${module}/${endpoint}`;
+        ? `http://localhost:3000${modulePrefix}${module}/${endpoint}`
+        : `${protocol}//${hostname}:${port}${modulePrefix}${module}/${endpoint}`;
     }
 
     return uri;

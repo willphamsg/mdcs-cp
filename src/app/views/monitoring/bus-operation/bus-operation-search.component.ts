@@ -108,12 +108,12 @@ export class BusOperationSearchComponent implements OnInit, OnDestroy {
   filterConfigs: any = {};
 
   constructor(
-    private busOperationService: BusOperationService,
-    private depoService: DepoService,
+    private readonly busOperationService: BusOperationService,
+    private readonly depoService: DepoService,
     public dialog: MatDialog,
     public paginationService: PaginationService,
-    private filterService: FilterService,
-    private webSocketService: WebSocketService
+    private readonly filterService: FilterService,
+    private readonly webSocketService: WebSocketService
   ) {}
 
   ngOnInit() {
@@ -275,12 +275,12 @@ export class BusOperationSearchComponent implements OnInit, OnDestroy {
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element)!.chk;
   }
 
   sortHandler(element: Sort) {
     this.params.sort_order = [
-      { name: element.active, desc: element.direction == 'asc' ? false : true },
+      { name: element.active, desc: element.direction != 'asc' },
     ];
     this.reloadHandler();
   }
@@ -292,10 +292,10 @@ export class BusOperationSearchComponent implements OnInit, OnDestroy {
       ? connectionValues
       : [connectionValues];
     return values.map(val => {
-      const strVal = String(val);
+      const strVal = typeof val === 'string' || typeof val === 'number' ? String(val) : '';
       if (strVal === '0' || strVal === 'connect') return 0;
       if (strVal === '1' || strVal === 'disconnect') return 1;
-      return typeof val === 'number' ? val : parseInt(strVal, 10);
+      return typeof val === 'number' ? val : Number.parseInt(strVal, 10);
     });
   }
 
@@ -304,11 +304,11 @@ export class BusOperationSearchComponent implements OnInit, OnDestroy {
     if (!statusValues) return [];
     const values = Array.isArray(statusValues) ? statusValues : [statusValues];
     return values.map(val => {
-      const strVal = String(val);
+      const strVal = typeof val === 'string' || typeof val === 'number' ? String(val) : '';
       if (strVal === '0' || strVal === 'failed') return 0;
       if (strVal === '1' || strVal === 'success') return 1;
       if (strVal === '2' || strVal === 'in_progress') return 2;
-      return typeof val === 'number' ? val : parseInt(strVal, 10);
+      return typeof val === 'number' ? val : Number.parseInt(strVal, 10);
     });
   }
 }

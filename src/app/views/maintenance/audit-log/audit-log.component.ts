@@ -62,11 +62,11 @@ export class AuditLogComponent implements OnInit, OnDestroy {
   dataSource: IAuditTrail[] = [];
   headerData = AuditTrailHeader;
   displayedColumns: string[] = this.headerData
-    .filter(x => x.hidden == false)
+    .filter(x => !x.hidden)
     .map((x: IHeader) => x.field);
 
   filterConfigs: IFilterConfig[] = [];
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   params: IParams & {
     // is_regular_expression?: boolean;
@@ -88,14 +88,14 @@ export class AuditLogComponent implements OnInit, OnDestroy {
   svcProviderId: number;
 
   constructor(
-    private sharedService: MaintenanceSharedService,
+    private readonly sharedService: MaintenanceSharedService,
     public paginationService: PaginationService,
-    private dagwParameterSummaryService: DagwParameterSummaryService,
-    private depoService: DepoService,
-    private filterService: FilterService,
-    private commonService: CommonService,
-    private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    private readonly dagwParameterSummaryService: DagwParameterSummaryService,
+    private readonly depoService: DepoService,
+    private readonly filterService: FilterService,
+    private readonly commonService: CommonService,
+    private readonly authService: AuthService,
+    private readonly cdr: ChangeDetectorRef
   ) {
     this.depoService.depoList$.subscribe((value: IDepoList[]) => {
       this.depots = value;
@@ -103,7 +103,7 @@ export class AuditLogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.svcProviderId = parseInt(this.authService.getSVCProvider()!);
+    this.svcProviderId = Number.parseInt(this.authService.getSVCProvider()!);
     this.params.search_select_filter = {
       ...this.params.search_select_filter,
       svc_provider_id: this.svcProviderId,
@@ -120,7 +120,7 @@ export class AuditLogComponent implements OnInit, OnDestroy {
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element).chk;
   }
 
   subscribeToDepoChanges(): void {
@@ -228,7 +228,7 @@ export class AuditLogComponent implements OnInit, OnDestroy {
 
   sortHandler(sort: Sort): void {
     this.params.sort_order = [
-      { name: sort.active, desc: sort.direction === 'asc' ? false : true },
+      { name: sort.active, desc: sort.direction != 'asc' },
     ];
     this.reloadHandler();
   }

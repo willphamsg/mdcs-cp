@@ -35,11 +35,11 @@ export class DiagnosticsComponent implements OnInit, OnDestroy {
   depot: IDepoList | null = null;
   params: DepotParam;
   categoryItems: IStatusCategory[] = [];
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
-    private sharedService: MaintenanceSharedService,
-    private cdr: ChangeDetectorRef
+    private readonly sharedService: MaintenanceSharedService,
+    private readonly cdr: ChangeDetectorRef
   ) {}
 
   // TODO: Create a loading screen for while waiting for api response

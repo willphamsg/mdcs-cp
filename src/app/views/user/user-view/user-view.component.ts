@@ -1,12 +1,8 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { UserService } from '../../../services/user.service';
-import {
-  PayloadRequest,
-  PayloadResponse,
-  Parameters,
-} from '../../../models/common';
+import { PayloadRequest, Parameters } from '../../../models/common';
 
 @Component({
     selector: 'app-user-view',
@@ -27,5 +23,5 @@ export class UserViewComponent {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 }

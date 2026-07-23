@@ -21,8 +21,8 @@ export class TimeInput24hDirective {
   };
 
   constructor(
-    private elementRef: ElementRef<HTMLInputElement>,
-    @Optional() @Self() private ngControl: NgControl
+    private readonly elementRef: ElementRef<HTMLInputElement>,
+    @Optional() @Self() private readonly ngControl: NgControl
   ) {}
 
   @HostListener('focus')
@@ -70,7 +70,7 @@ export class TimeInput24hDirective {
       return;
     }
 
-    if (!/^[0-9]$/.test(event.key)) {
+    if (!/^\d$/.test(event.key)) {
       event.preventDefault();
       return;
     }
@@ -121,29 +121,45 @@ export class TimeInput24hDirective {
 
     const direction = event.deltaY < 0 ? 1 : -1;
 
-    if (part === 'hour') {
-      hour += direction;
-
-      if (hour > 23) hour = 0;
-      if (hour < 0) hour = 23;
-    } else {
-      minute += direction;
-
-      if (minute > 59) {
-        minute = 0;
-        hour += 1;
-        if (hour > 23) hour = 0;
-      }
-
-      if (minute < 0) {
-        minute = 59;
-        hour -= 1;
-        if (hour < 0) hour = 23;
-      }
-    }
+    ({ hour, minute } =
+      part === 'hour'
+        ? this.stepHour(hour, minute, direction)
+        : this.stepMinute(hour, minute, direction));
 
     this.setValue(this.formatTime(hour, minute));
     this.selectPart(part);
+  }
+
+  private stepHour(
+    hour: number,
+    minute: number,
+    direction: number
+  ): { hour: number; minute: number } {
+    let nextHour = hour + direction;
+
+    if (nextHour > 23) nextHour = 0;
+    if (nextHour < 0) nextHour = 23;
+
+    return { hour: nextHour, minute };
+  }
+
+  private stepMinute(
+    hour: number,
+    minute: number,
+    direction: number
+  ): { hour: number; minute: number } {
+    let nextHour = hour;
+    let nextMinute = minute + direction;
+
+    if (nextMinute > 59) {
+      nextMinute = 0;
+      nextHour = nextHour + 1 > 23 ? 0 : nextHour + 1;
+    } else if (nextMinute < 0) {
+      nextMinute = 59;
+      nextHour = nextHour - 1 < 0 ? 23 : nextHour - 1;
+    }
+
+    return { hour: nextHour, minute: nextMinute };
   }
 
   @HostListener('blur')
@@ -218,7 +234,7 @@ export class TimeInput24hDirective {
     const x = event.clientX - rect.left;
 
     const style = window.getComputedStyle(this.input);
-    const paddingLeft = parseFloat(style.paddingLeft || '0');
+    const paddingLeft = Number.parseFloat(style.paddingLeft || '0');
 
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./suspend.component.scss'],
 })
 export class SuspendComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private readonly router: Router) {}
 
   ngOnInit(): void {
     // Wait 2 seconds then redirect based on environment

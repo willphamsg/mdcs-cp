@@ -35,7 +35,6 @@ import { AdfsSignInComponent } from './views/adfs-sign-in/adfs-sign-in.component
 import { RoleGuard } from './guards/role.guard';
 import { MENU_ACCESS } from './services/role-access.config';
 import { ADFSLogoutComponent } from './views/adfs-logout/adfs-logout.component';
-import { NotFoundComponent } from './views/not-found/not-found.component';
 import { UnauthorizedComponent } from './views/unauthorized/unauthorized.component';
 
 import { DailyReportComponent } from './views/report/daily-report/daily-report.component';

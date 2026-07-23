@@ -21,15 +21,15 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class MessageDataImportExportService {
-  private uri = `${environment.gateway}message-data/`;
-  private handler = inject(HttpBackend);
+  private readonly uri = `${environment.gateway}message-data/`;
+  private readonly handler = inject(HttpBackend);
 
   constructor(
-    private http: HttpClient,
+    private readonly http: HttpClient,
     public dialog: MatDialog,
-    private auth: AuthService,
-    private message: MessageService,
-    private dynamic: DynamicEndpoint
+    private readonly auth: AuthService,
+    private readonly message: MessageService,
+    private readonly dynamic: DynamicEndpoint
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('common', this.uri);
   }

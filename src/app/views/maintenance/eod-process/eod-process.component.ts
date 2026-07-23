@@ -18,8 +18,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { BreadcrumbsComponent } from '@app/components/layout/breadcrumbs/breadcrumbs.component';
-import { PaginationComponent } from '@app/components/pagination/pagination.component';
 import { PayloadResponse } from '@app/models/common';
 import { IDepoList } from '@app/models/depo';
 import { IEodDates, IEodProcess } from '@app/models/maitenance';
@@ -74,20 +72,20 @@ export class EodProcessComponent implements OnInit, OnDestroy {
   isForcingEOD: boolean = false;
 
   params: {
-    depot_id: string | '';
+    depot_id: string;
   };
 
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   private pollingSubscription: Subscription | null = null;
 
   constructor(
-    private cdr: ChangeDetectorRef,
-    private sharedService: MaintenanceSharedService,
-    private filterService: FilterService,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly sharedService: MaintenanceSharedService,
+    private readonly filterService: FilterService,
     public authService: AuthService,
-    private router: Router,
-    private dialog: MatDialog,
-    private webSocketService: WebSocketService
+    private readonly router: Router,
+    private readonly dialog: MatDialog,
+    private readonly webSocketService: WebSocketService
   ) {}
 
   ngOnInit(): void {
@@ -313,7 +311,7 @@ export class EodProcessComponent implements OnInit, OnDestroy {
       } else {
         // Try to parse as ISO date or other formats
         const parsedDate = new Date(trimmedValue);
-        if (!isNaN(parsedDate.getTime())) {
+        if (!Number.isNaN(parsedDate.getTime())) {
           return this.formatDate(parsedDate);
         }
         // If parsing fails, return the original value

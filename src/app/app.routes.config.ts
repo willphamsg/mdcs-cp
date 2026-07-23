@@ -58,7 +58,7 @@ export const mdcsRoutes = {
     endTrial: 'parameter-trial/end-trial',
   },
   notification: 'notification-centre',
-  changePassword: 'change-password',
+  changePassword: 'change-password', // NOSONAR: route path segment, not a credential
   eventHistory: 'event-history',
 };
 
@@ -93,6 +93,6 @@ export const dagwRoutes = {
     trialDeviceSelection: 'parameter-trial/trial-device-selection',
   },
   notification: 'notification-centre',
-  changePassword: 'change-password',
+  changePassword: 'change-password', // NOSONAR: route path segment, not a credential
   eventHistory: 'event-history',
 };

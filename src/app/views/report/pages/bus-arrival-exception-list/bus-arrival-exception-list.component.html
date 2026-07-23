@@ -4,10 +4,10 @@
     style="margin-bottom: 20px; display: flex; align-items: flex-end">
     @if (!isAdhocReport) {
       <div style="display: flex; flex-direction: column">
-        <label style="font-weight: 700">Business Date</label>
+        <label for="bus-arrival-exception-date-input" style="font-weight: 700">Business Date</label>
         <mat-form-field style="width: 320px">
-          <!-- <mat-label>Business Day</mat-label> -->
           <input
+            id="bus-arrival-exception-date-input"
             matInput
             placeholder="Select Date"
             [matDatepicker]="picker"
@@ -24,6 +24,7 @@
             (click)="picker.open()">
             <img
               src="assets/icons/calendar_small.svg"
+              alt=""
               style="padding: unset !important; width: 16px; height: 16px" />
           </button>
         </mat-form-field>
@@ -31,9 +32,10 @@
     }
 
     <div style="display: flex; flex-direction: column">
-      <label style="font-weight: 700">Depot Name</label>
+      <label for="bus-arrival-exception-depot-select" style="font-weight: 700">Depot Name</label>
       <mat-form-field class="mat-custom" style="width: 360px">
         <mat-select
+          id="bus-arrival-exception-depot-select"
           [(ngModel)]="depotSelected"
           placeholder="Select Depot"
           [multiple]="isAdhocReport">
@@ -51,9 +53,9 @@
 
     @if (isAdhocReport) {
       <div style="display: flex; flex-direction: column">
-        <label style="font-weight: 700">SP Name</label>
+        <label for="bus-arrival-exception-sp-select" style="font-weight: 700">SP Name</label>
         <mat-form-field class="mat-custom" style="width: 360px">
-          <mat-select [(ngModel)]="spNameSelected" placeholder="Select SP Name">
+          <mat-select id="bus-arrival-exception-sp-select" [(ngModel)]="spNameSelected" placeholder="Select SP Name">
             @for (operator of operators; track operator) {
               <mat-option [value]="operator.svc_prov_id">
                 {{ operator.svc_prov_name }}
@@ -68,36 +70,6 @@
     }
 
     <div class="button-filter" style="text-align: right">
-      <!-- <div class="item download-item" *ngIf="!isAdhocReport">
-          <button
-            type="button"
-            class="btn btn-download"
-            style="font-size: 16px"
-            [matMenuTriggerFor]="downloadMenu"
-          [disabled]="
-            !depotSelected || (!isAdhocReport && !businessDaySelected)
-          "
-            (menuOpened)="menuHandler(true)"
-            (menuClosed)="menuHandler(false)">
-            <img
-              src="/assets/icons/download-icon.svg"
-              class="download-icon"
-              alt="" />
-            Download as
-            <div class="expand-icon">
-              <mat-icon [ngClass]="{ 'rotated-reverse': expandedMenu }"
-                >expand_less</mat-icon
-                >
-              </div>
-            </button>
-            <mat-menu #downloadMenu="matMenu">
-              <button (click)="exportExcel()" mat-menu-item>Excel</button>
-              <button (click)="exportCSV()" mat-menu-item>CSV</button>
-              <button (click)="print()" mat-menu-item class="menu-download">
-                PDF
-              </button>
-            </mat-menu>
-          </div> -->
       <div class="item">
         <button
           type="button"
@@ -118,14 +90,7 @@
     </div>
   </div>
   <!-- Selected Filter Component -->
-  <!-- <app-selected-filter /> -->
-  <!-- <mat-divider /> -->
 
-  <!-- <div class="empty-depot-display">
-      <img src="/assets/icons/camera.svg" alt="empty files" />
-      <p>Complete selection to view info.</p>
-      <p>No data to display.</p>
-    </div> -->
   <div class="table-wrapper">
     <app-ssrs-reportviewer
       [reportname]="reportName"
@@ -136,5 +101,4 @@
         isIframeLoadedEvent($event)
       "></app-ssrs-reportviewer>
   </div>
-  <!-- <div class="table-footer"></div> -->
 </div>

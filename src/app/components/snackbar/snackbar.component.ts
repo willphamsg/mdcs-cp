@@ -18,7 +18,7 @@ export class SnackbarComponent {
   isMessageString: boolean;
   constructor(
     @Inject(MAT_SNACK_BAR_DATA) public data: any,
-    private store: Store<AppStore>,
+    private readonly store: Store<AppStore>,
     public snackBarRef: MatSnackBarRef<SnackbarComponent>
   ) {
     this.isMessageString = typeof this.data?.message === 'string';

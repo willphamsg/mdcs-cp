@@ -34,10 +34,6 @@ import {
 } from '@app/models/parameter-management';
 import { ParameterViewerService } from '@app/services/parameter-viewer.service';
 import { Observable, of, Subject, takeUntil, combineLatest } from 'rxjs';
-import { ApplicationParametersComponent } from './application-parameters/application-parameters.component';
-import { DeviceConfigurationComponent } from './device-configuration/device-configuration.component';
-import { SystemParametersComponent } from './system-parameters/system-parameters.component';
-import { environment } from '@env/environment';
 import { SelectDepotComponent } from './select-depot/select-depot.component';
 import { SelectParameterVersionComponent } from './select-parameter-version/select-parameter-version.component';
 import { ParameterViewerTableComponent } from './parameter-viewer-table/parameter-viewer-table.component';
@@ -84,7 +80,7 @@ enum ParameterCode {
   styleUrls: ['./parameter-viewer.component.scss'],
 })
 export class ParameterViewerComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   accordion = viewChild.required(MatAccordion);
 
@@ -126,10 +122,10 @@ export class ParameterViewerComponent implements OnInit, OnDestroy {
 
   // TODO: Refactor retrieval of data... Probably use services efficiently
   constructor(
-    private parameterViewerService: ParameterViewerService,
-    private cdr: ChangeDetectorRef,
-    private depoService: DepoService,
-    private authService: AuthService
+    private readonly parameterViewerService: ParameterViewerService,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly depoService: DepoService,
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -321,66 +317,21 @@ export class ParameterViewerComponent implements OnInit, OnDestroy {
         next: value => {
           this.noContent();
 
-          if (value.status === 200) {
-            // For PDT files, they might come as a single item in the list
-            let matchedItem = null;
-            if (value.payload?.ParameterViewObjectList?.length > 0) {
-              // First try exact match
-              matchedItem = value.payload.ParameterViewObjectList.find(
-                (item: any) =>
-                  item.parameter_name ===
-                  parameterVersionSelected.parameter_name
-              );
+          if (value.status !== 200) {
+            return;
+          }
 
-              // If no exact match and only one item, use it (common for PDT)
-              if (
-                !matchedItem &&
-                value.payload.ParameterViewObjectList.length === 1
-              ) {
-                matchedItem = value.payload.ParameterViewObjectList[0];
-              }
-            }
+          const matchedItem = this.findMatchedParameterItem(
+            value.payload?.ParameterViewObjectList,
+            parameterVersionSelected
+          );
 
-            if (matchedItem) {
-              this.noDataFound = false;
-
-              this.dataSource = matchedItem;
-              this.parameterName = matchedItem.parameter_name || '';
-
-              this.parameterList$ =
-                this.parameterViewerService.getParameterList(
-                  this.parameterName!
-                );
-
-              // Parse fileId properly (handle hex string format)
-              let fileId = parameterVersionSelected.id;
-              if (matchedItem.fileId) {
-                if (
-                  typeof matchedItem.fileId === 'string' &&
-                  matchedItem.fileId.startsWith('0x')
-                ) {
-                  fileId = parseInt(matchedItem.fileId, 16);
-                } else {
-                  fileId = matchedItem.fileId;
-                }
-              }
-
-              this.payload = {
-                parameter_name: this.parameterName,
-                jsondata: matchedItem.parameterPayloadDto?.jsondata || '',
-                fileId: fileId,
-              };
-
-              if (matchedItem.bus_group_list) {
-                this.isSVT = true;
-                this.busGroupNoList = matchedItem.bus_group_list;
-                this.payloadId = matchedItem.parameter_payload_id;
-              }
-            } else {
-              this.noContent();
-              if (parameterVersionSelected.is_location_specific)
-                this.noParameterReturn();
-            }
+          if (matchedItem) {
+            this.applyMatchedParameterItem(matchedItem, parameterVersionSelected);
+          } else {
+            this.noContent();
+            if (parameterVersionSelected.is_location_specific)
+              this.noParameterReturn();
           }
         },
         error: err => {
@@ -388,6 +339,70 @@ export class ParameterViewerComponent implements OnInit, OnDestroy {
         },
       });
   }
+
+  private findMatchedParameterItem(
+    list: any[] | undefined,
+    parameterVersionSelected: any
+  ): any {
+    if (!list || list.length === 0) {
+      return null;
+    }
+    const exactMatch = list.find(
+      (item: any) =>
+        item.parameter_name === parameterVersionSelected.parameter_name
+    );
+    if (exactMatch) {
+      return exactMatch;
+    }
+    // If no exact match and only one item, use it (common for PDT)
+    return list.length === 1 ? list[0] : null;
+  }
+
+  private resolveParameterFileId(matchedItem: any, fallbackId: any): any {
+    if (!matchedItem.fileId) {
+      return fallbackId;
+    }
+    // Parse fileId properly (handle hex string format)
+    if (
+      typeof matchedItem.fileId === 'string' &&
+      matchedItem.fileId.startsWith('0x')
+    ) {
+      return Number.parseInt(matchedItem.fileId, 16);
+    }
+    return matchedItem.fileId;
+  }
+
+  private applyMatchedParameterItem(
+    matchedItem: any,
+    parameterVersionSelected: any
+  ): void {
+    this.noDataFound = false;
+
+    this.dataSource = matchedItem;
+    this.parameterName = matchedItem.parameter_name || '';
+
+    this.parameterList$ = this.parameterViewerService.getParameterList(
+      this.parameterName!
+    );
+
+    const fileId = this.resolveParameterFileId(
+      matchedItem,
+      parameterVersionSelected.id
+    );
+
+    this.payload = {
+      parameter_name: this.parameterName,
+      jsondata: matchedItem.parameterPayloadDto?.jsondata || '',
+      fileId: fileId,
+    };
+
+    if (matchedItem.bus_group_list) {
+      this.isSVT = true;
+      this.busGroupNoList = matchedItem.bus_group_list;
+      this.payloadId = matchedItem.parameter_payload_id;
+    }
+  }
+
 
   noContent() {
     this.noDataFound = true;

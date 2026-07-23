@@ -5,7 +5,6 @@ import { PayloadResponse } from '@app/models/common';
 import { UserProfile } from '@app/models/user';
 import { AuthService } from '@app/services/auth.service';
 import { UserService } from '@app/services/user.service';
-import { environment } from '@env/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { REFRESH_TOKEN_COOKIE } from '@app/shared/utils/constants';
 
@@ -22,11 +21,11 @@ export class AdfsSignInComponent implements OnInit {
     ? '/dagw/bus-operation'
     : '/mdcs/dashboard';
   constructor(
-    private route: ActivatedRoute,
-    private authService: AuthService,
-    private userService: UserService,
-    private router: Router,
-    private cookieService: CookieService
+    private readonly route: ActivatedRoute,
+    private readonly authService: AuthService,
+    private readonly userService: UserService,
+    private readonly router: Router,
+    private readonly cookieService: CookieService
   ) {}
 
   ngOnInit() {
@@ -68,40 +67,25 @@ export class AdfsSignInComponent implements OnInit {
 
             const isDagw = this.authService.isDagw();
             const roles = this.authService.getUserRoles();
-
-            let redirectUrl = isDagw
-              ? '/dagw/bus-operation'
-              : '/mdcs/dashboard'; // default
-
-            for (const role of roles) {
-              if (role === 'adm') {
-                redirectUrl = isDagw
-                  ? '/dagw/change-password'
-                  : '/mdcs/maintenance/audit-log';
-                break;
-              }
-              if (role === 'mai') {
-                redirectUrl = isDagw
-                  ? '/dagw/import-parameter'
-                  : '/mdcs/import-parameter';
-                break;
-              }
-              if (role === 'sup' || role === 'ope') {
-                redirectUrl = isDagw
-                  ? '/dagw/bus-operation'
-                  : '/mdcs/dashboard';
-                break;
-              }
-            }
+            const redirectUrl = this.resolveRedirectUrl(isDagw, roles);
 
             this.router.navigate([redirectUrl]);
           }
         },
       });
-    } else {
-      if (typeof window !== 'undefined') {
-        alert('Token invalid or expired');
-      }
+    } else if (typeof window !== 'undefined') {
+      alert('Token invalid or expired');
     }
+  }
+
+  private resolveRedirectUrl(isDagw: boolean, roles: string[]): string {
+    if (roles.includes('adm')) {
+      return isDagw ? '/dagw/change-password' : '/mdcs/maintenance/audit-log';
+    }
+    if (roles.includes('mai')) {
+      return isDagw ? '/dagw/import-parameter' : '/mdcs/import-parameter';
+    }
+
+    return isDagw ? '/dagw/bus-operation' : '/mdcs/dashboard';
   }
 }

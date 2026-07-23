@@ -19,7 +19,11 @@
   </div>
 
   <div class="page-size-selector">
-    <select [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange()">
+    <label for="items-per-page-select" class="visually-hidden">Items per page</label>
+    <select
+      id="items-per-page-select"
+      [(ngModel)]="itemsPerPage"
+      (change)="onItemsPerPageChange()">
       @for (size of pageSizeOptions; track size) {
         <option [value]="size">
           {{ size }}

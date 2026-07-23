@@ -25,7 +25,7 @@ export const generateUniqueNumberId = (): number => {
   // Convert UUID to a positive integer by taking hash of uuid string
   let hash = 0;
   for (let i = 0; i < uuid.length; i++) {
-    const char = uuid.charCodeAt(i);
+    const char = uuid.codePointAt(i) ?? 0;
     hash = (hash << 5) - hash + char;
     hash = hash & hash; // Convert to 32-bit integer
   }

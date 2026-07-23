@@ -83,7 +83,7 @@ import { MatIconModule } from '@angular/material/icon';
   ],
 })
 export class LogoutConfirmationDialogComponent {
-  private dialogRef = inject(MatDialogRef<LogoutConfirmationDialogComponent>);
+  private readonly dialogRef = inject(MatDialogRef<LogoutConfirmationDialogComponent>);
 
   onCancel(): void {
     this.dialogRef.close(false);

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,7 +13,6 @@ import { BreadcrumbsComponent } from '@app/components/layout/breadcrumbs/breadcr
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
 import { IHeader } from '@app/models/common';
 import { IMessage } from '@app/models/message';
-import { IFilterConfig } from '@app/shared/utils/form-utils';
 
 @Component({
   selector: 'app-notification-list',
@@ -34,7 +33,7 @@ import { IFilterConfig } from '@app/shared/utils/form-utils';
   templateUrl: './notification-list.component.html',
   styleUrl: './notification-list.component.scss',
 })
-export class NotificationListComponent implements OnInit {
+export class NotificationListComponent {
   notifications: IMessage[] = [];
   headerData = [
     {
@@ -80,7 +79,5 @@ export class NotificationListComponent implements OnInit {
     },
   ];
 
-  constructor(private cdr: ChangeDetectorRef) {}
-
-  ngOnInit(): void {}
+  constructor(private readonly cdr: ChangeDetectorRef) {}
 }

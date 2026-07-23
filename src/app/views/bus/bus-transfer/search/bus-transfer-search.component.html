@@ -38,7 +38,7 @@
           <div class="import-wrapper">
             <button class="import-button" mat-flat-button>
               <mat-icon>
-                <img src="/assets/icons/import.png" alt="image"
+                <img src="/assets/icons/import.png" alt="Import icon"
               /></mat-icon>
               Import
             </button>
@@ -47,6 +47,7 @@
               placeholder="Import"
               type="file"
               id="fileUpload"
+              aria-label="Upload bus transfer file"
               accept=".zip,application/zip,application/x-zip-compressed"
               class="input-file"
               (change)="importHandler($event)" />
@@ -127,17 +128,6 @@
         <!-- Check Column -->
         <ng-container matColumnDef="chk">
           <th mat-header-cell *matHeaderCellDef [hidden]="tabIdx !== 0">
-            <!-- <div class="custom-checkbox" (click)="onCheckAllToggle()">
-              @if (chkAll) {
-                <img
-                  src="/assets/icons/selected_checkbox.svg"
-                  alt="Selected Checkbox" />
-              } @else {
-                <img
-                  src="/assets/icons/white_checkbox.svg"
-                  alt="Unselected Checkbox" />
-              }
-            </div> -->
             @if (
               authService.hasAccess(['bus', 'busTransfer', 'manage'], 'mdcs')
             ) {
@@ -150,17 +140,6 @@
             }
           </th>
           <td mat-cell *matCellDef="let element" [hidden]="tabIdx !== 0">
-            <!-- <div class="custom-checkbox" (click)="checkboxToggle(element)">
-            @if (element.chk) {
-              <img
-                src="/assets/icons/selected_checkbox.svg"
-                alt="Selected Checkbox" />
-            } @else {
-              <img
-                src="/assets/icons/white_checkbox.svg"
-                alt="Unselected Checkbox" />
-            }
-          </div> -->
             @if (
               authService.hasAccess(['bus', 'busTransfer', 'manage'], 'mdcs')
             ) {
@@ -373,12 +352,6 @@
           *matRowDef="let row; columns: displayedColumns"
           class="data-row"
           [class.selected]="row.chk"></tr>
-
-        <!-- <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
-        No Records Found
-      </td>
-    </tr> -->
       </table>
       @if (!dataSource.length) {
         <div class="no-data">No Records Found</div>

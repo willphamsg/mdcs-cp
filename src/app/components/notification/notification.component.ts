@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
@@ -24,8 +24,8 @@ import { IMessage } from '@app/models/message';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotificationComponent {
-  // TODO: Create a notification service that will fetch notifications
-  notifications: IMessage[] = Array(3)
+  // Static placeholder notifications until a notification service/API exists.
+  notifications: IMessage[] = new Array(3)
     .fill(null)
     .map(() => ({
       title: 'System Update',
@@ -39,7 +39,7 @@ export class NotificationComponent {
     return this.notifications.filter(notif => !notif.read).length;
   }
 
-  // TODO: Call API that will update notification
+  // Marks all notifications as read locally; wire to an update API once available.
   markAllAsRead(): void {
     this.notifications.forEach(notification => (notification.read = true));
   }

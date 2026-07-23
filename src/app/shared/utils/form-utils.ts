@@ -135,7 +135,12 @@ export const getSelectedDepotValues = (
     .forEach(key => {
       const selectedDepot = depotMap[key];
       if (selectedDepot) {
-        selectedValues.push(String(selectedDepot[displayKey]));
+        const rawValue = selectedDepot[displayKey];
+        const displayValue =
+          typeof rawValue === 'string' || typeof rawValue === 'number'
+            ? String(rawValue)
+            : '';
+        selectedValues.push(displayValue);
         // selectedIds.push(String(selectedDepot.depot_id));
         selectedIds.push(selectedDepot.depot_id);
       }
@@ -151,8 +156,7 @@ export const isDateRangeControl = (
   control: AbstractControl | null
 ): boolean => {
   return (
-    control &&
-    control.value &&
+    !!control?.value &&
     control.value.startDate !== undefined &&
     control.value.endDate !== undefined
   );

@@ -15,7 +15,11 @@
     <!-- FILTER COMPONENT -->
     <div class="filter-wrapper">
       <mat-form-field style="width: 420px" appearance="outline">
-        <input matInput [placeholder]="'Search by keyword'" type="search" />
+        <input
+          matInput
+          aria-label="Search by keyword"
+          [placeholder]="'Search by keyword'"
+          type="search" />
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
     </div>
@@ -55,12 +59,6 @@
           mat-row
           *matRowDef="let row; columns: tab1Columns"
           class="data-row"></tr>
-
-        <!-- <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell no-data" [attr.colspan]="tab1Columns.length">
-            No Records Found
-          </td>
-        </tr> -->
       </table>
 
       @if (!dataSource.length) {

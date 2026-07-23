@@ -42,7 +42,7 @@
             <mat-form-field
               style="background-color: #f7f7f7; border: unset"
               appearance="outline">
-              <input formControlName="fileName" matInput />
+              <input formControlName="fileName" matInput aria-label="File name" />
             </mat-form-field>
 
             <div class="import-wrapper">
@@ -53,6 +53,7 @@
                   placeholder="Import"
                   type="file"
                   id="fileUpload"
+                  aria-label="Browse message data file"
                   accept=".zip,application/zip,application/x-zip-compressed"
                   class="input-file"
                   (change)="importHandler($event,  i)" />
@@ -66,7 +67,7 @@
               (click)="removeItem(i)">
               <img
                 src="/assets/icons/mdcs-icon-delete.svg"
-                alt="image"
+                alt="Delete"
                 class="icon-delete" />
             </button>
           </mat-cell>

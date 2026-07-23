@@ -28,7 +28,7 @@ export class SelectDepotComponent implements OnInit, OnDestroy {
   @Input() depotSelected: string;
   @Output() depotEmitted = new EventEmitter<string>();
 
-  constructor(private depoService: DepoService) {}
+  constructor(private readonly depoService: DepoService) {}
 
   ngOnInit(): void {
     this.subscribeToDepoChanges();

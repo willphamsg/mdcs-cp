@@ -175,12 +175,6 @@
           [class.selected]="row.chk"
           mat-row
           *matRowDef="let row; columns: tab1Columns"></tr>
-
-        <!-- <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell no-data" [attr.colspan]="tab1Columns.length">
-          No Records Found
-        </td>
-      </tr> -->
       </table>
       @if (!dataSource.length) {
         <div class="no-data">No Records Found</div>

@@ -83,7 +83,7 @@ import { environment } from '@env/environment';
 })
 export class BusTransferSearchComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
-  private datePipe = new DatePipe('en-US');
+  private readonly datePipe = new DatePipe('en-US');
   private readonly dateFormat = 'yyyy-MM-dd HH:mm:ss';
   paginatedData$: Observable<IBusTransferList[]> = of([]);
 
@@ -150,16 +150,16 @@ export class BusTransferSearchComponent implements OnInit, OnDestroy {
   clientSortColumns = ['current_depot', 'future_depot'];
 
   constructor(
-    private manageBusTransferService: ManageBusTransferService,
-    private depoService: DepoService,
-    private commonService: CommonService,
-    private messageService: MessageService,
+    private readonly manageBusTransferService: ManageBusTransferService,
+    private readonly depoService: DepoService,
+    private readonly commonService: CommonService,
+    private readonly messageService: MessageService,
     public dialog: MatDialog,
-    private store: Store<AppStore>,
+    private readonly store: Store<AppStore>,
     public paginationService: PaginationService,
-    private filterService: FilterService,
+    private readonly filterService: FilterService,
     public authService: AuthService,
-    private busSelectionService: BusSelectionService
+    private readonly busSelectionService: BusSelectionService
   ) {}
 
   ngOnInit() {
@@ -479,7 +479,7 @@ export class BusTransferSearchComponent implements OnInit, OnDestroy {
       this.params.sort_order = [
         {
           name: element.active,
-          desc: element.direction == 'asc' ? false : true,
+          desc: element.direction != 'asc',
         },
       ];
       this.reloadHandler();
@@ -522,7 +522,14 @@ export class BusTransferSearchComponent implements OnInit, OnDestroy {
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element).chk;
+  }
+
+  private getBusTransferDialogTitle(action: string): string {
+    if (action === 'update') {
+      return 'Edit';
+    }
+    return action === 'reject' ? 'Reject' : 'Approve';
   }
 
   updateView(action: string) {
@@ -535,7 +542,7 @@ export class BusTransferSearchComponent implements OnInit, OnDestroy {
       height: '70%',
       disableClose: true,
       data: {
-        title: `${action === 'update' ? 'Edit' : action === 'reject' ? 'Reject' : 'Approve'} Bus Transfer`,
+        title: `${this.getBusTransferDialogTitle(action)} Bus Transfer`,
         selection: allSelectedItems, // Pass all selected items from the service
         action,
       },
@@ -623,7 +630,7 @@ export class BusTransferSearchComponent implements OnInit, OnDestroy {
       case 0:
         this.statusView = [0];
         break;
-      case 1:
+      case 1: {
         this.statusView = [1, 2, 3];
         const range = this.initDefaultMonth();
         this.params.search_select_filter = {
@@ -633,6 +640,7 @@ export class BusTransferSearchComponent implements OnInit, OnDestroy {
         };
         sortOrder = [{ name: 'last_update', desc: true }];
         break;
+      }
       default:
         this.statusView = [0];
         break;

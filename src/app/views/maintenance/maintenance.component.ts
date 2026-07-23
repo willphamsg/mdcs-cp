@@ -17,14 +17,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { FilterComponent } from '@app/components/filter/filter.component';
-import { SelectedFilterComponent } from '@app/components/filter/selected-filter/selected-filter.component';
 import { BreadcrumbsComponent } from '@app/components/layout/breadcrumbs/breadcrumbs.component';
-import { PaginationComponent } from '@app/components/pagination/pagination.component';
-import { DropdownList, IParams, PayloadResponse } from '@app/models/common';
+import { DropdownList, IParams } from '@app/models/common';
 import { IDepoList } from '@app/models/depo';
 import { AuthService } from '@app/services/auth.service';
-import { DagwParameterSummaryService } from '@app/services/dagw-parameter-summary.service';
 import { DepoService } from '@app/services/depo.service';
 import { MaintenanceSharedService } from '@app/services/maintenance-shared.service';
 import { createFormGroup, IFilterConfig } from '@app/shared/utils/form-utils';
@@ -61,7 +57,7 @@ export class MaintenanceComponent implements OnInit, OnDestroy {
   currentPath: string = '';
   selectedDepot: IDepoList | null = null;
 
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   params: IParams = {
     page_size: 10,
@@ -81,9 +77,9 @@ export class MaintenanceComponent implements OnInit, OnDestroy {
 
   // TODO: Optimize child components form. Update/Remove unnecessary code
   constructor(
-    private depoService: DepoService,
-    private sharedService: MaintenanceSharedService,
-    private route: ActivatedRoute,
+    private readonly depoService: DepoService,
+    private readonly sharedService: MaintenanceSharedService,
+    private readonly route: ActivatedRoute,
     public authService: AuthService
   ) {}
 

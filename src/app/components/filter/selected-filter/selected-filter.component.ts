@@ -25,7 +25,7 @@ export class SelectedFilterComponent implements OnInit, OnDestroy {
   filterConfigs: Observable<IFilterConfig[]>;
   FILTER_NAMES: { [key: string]: string } = CONTROL_NAME_LABELS;
 
-  constructor(private filterService: FilterService) {}
+  constructor(private readonly filterService: FilterService) {}
 
   ngOnInit(): void {
     this.selectedFilters = this.filterService.selectedFilters$;

@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
-import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
 export interface LineChartDataPoint {
@@ -26,7 +26,7 @@ export interface LineChartConfig {
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.scss'],
 })
-export class LineChartComponent implements OnInit {
+export class LineChartComponent implements OnInit, OnChanges {
   @Input() data: LineChartDataPoint[] = [];
   @Input() config: LineChartConfig = {};
   @Input() height: number = 400;
@@ -101,10 +101,7 @@ export class LineChartComponent implements OnInit {
             minRotation: this.config.verticalLabels ? 90 : 0,
           },
           grid: {
-            display:
-              this.config.showXGrid !== undefined
-                ? this.config.showXGrid
-                : false,
+            display: this.config.showXGrid ?? false,
           },
         },
         y: {
@@ -120,10 +117,7 @@ export class LineChartComponent implements OnInit {
             display: true,
           },
           grid: {
-            display:
-              this.config.showYGrid !== undefined
-                ? this.config.showYGrid
-                : true,
+            display: this.config.showYGrid ?? true,
           },
         },
       },

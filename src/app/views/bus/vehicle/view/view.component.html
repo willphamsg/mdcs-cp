@@ -45,9 +45,6 @@
                     </mat-option>
                   }
                 </mat-select>
-                <!-- <mat-icon style="padding: unset !important" matSuffix
-                >keyboard_arrow_down</mat-icon
-                > -->
                 @if (
                   element.get('depot_id')?.hasError('required') &&
                   element.get('depot_id')?.touched
@@ -75,6 +72,7 @@
                 <input
                   matInput
                   placeholder="Enter"
+                  aria-label="Bus ID"
                   (keypress)="handleBusValidate($event)"
                   formControlName="bus_num"
                   (change)="busHandler(i)" />
@@ -123,6 +121,7 @@
                     [style.width.px]="200">
                     <input
                       matInput
+                      aria-label="Effective date"
                       [matDatepicker]="picker"
                       [readonly]="isReadOnlyForEffectiveFields(i)"
                       [disabled]="isBusTransferNeeded(i)"
@@ -162,27 +161,23 @@
             <div>
               <div [hidden]="getHiddenValue(i)">
                 <mat-form-field appearance="outline" [style.width.px]="200">
-                  <!-- <input
-                    matInput
-                    name="effective_time"
-                    formControlName="effective_time"
-                    placeholder="Select"
-                    type="time"
-                    [readonly]="isReadOnlyForEffectiveFields(i)"
-                    [disabled]="isBusTransferNeeded(i)" /> -->
                   <input
                     matInput
                     appTimeInput24h
                     name="effective_time"
                     formControlName="effective_time"
                     placeholder="HH:mm"
+                    aria-label="Effective time"
                     maxlength="5"
                     inputmode="numeric"
                     autocomplete="off"
                     [readonly]="isReadOnlyForEffectiveFields(i)"
                     [disabled]="isBusTransferNeeded(i)" />
                   <mat-icon matSuffix style="padding: 0"
-                    ><img style="height: 24px" src="/assets/icons/clock.svg"
+                    ><img
+                      style="height: 24px"
+                      src="/assets/icons/clock.svg"
+                      alt=""
                   /></mat-icon>
                   @if (
                     element.get('effective_time')?.hasError('required') &&
@@ -193,11 +188,6 @@
                     </mat-error>
                   }
                 </mat-form-field>
-                <!-- <ngx-mat-timepicker
-                #pickerA
-                dottedMinutesInGap
-                enableKeyboardInput>
-              </ngx-mat-timepicker> -->
               </div>
             </div>
             <div
@@ -236,7 +226,7 @@
               (click)="removeItem(i)">
               <img
                 src="/assets/icons/mdcs-icon-delete.svg"
-                alt="image"
+                alt="Delete"
                 class="icon-delete" />
             </button>
           </mat-cell>

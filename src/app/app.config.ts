@@ -26,7 +26,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAnimationsAsync(),
     provideOAuthClient(),
-    provideHttpClient(withFetch(), withInterceptors([headerInterceptor, tokenRefreshInterceptor, requestLogInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([headerInterceptor, sessionExpiryInterceptor, tokenRefreshInterceptor, requestLogInterceptor])),
     provideStore(appStore),
     provideCharts(withDefaultRegisterables()),
     {

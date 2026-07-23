@@ -13,14 +13,14 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./adfs-logout.component.scss'],
 })
 export class ADFSLogoutComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   settingDefault: any = null;
   sanitizedUrl: SafeResourceUrl | null = null;
   redirect: string;
 
   constructor(
-    private sanitizer: DomSanitizer,
-    private commonService: CommonService
+    private readonly sanitizer: DomSanitizer,
+    private readonly commonService: CommonService
   ) {}
 
   ngOnInit() {

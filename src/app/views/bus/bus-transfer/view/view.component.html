@@ -166,7 +166,9 @@
             @if (isEdit) {
               <mat-form-field [style.width.px]="140">
                 <input
+                  id="target-effective-date-input"
                   matInput
+                  aria-label="Target Effective Date"
                   [matDatepicker]="picker"
                   formControlName="target_effective_date"
                   placeholder="Select Date" />
@@ -202,43 +204,11 @@
             class="labelCol"
             style="display: flex; align-items: center">
             @if (isEdit) {
-              <!-- <mat-form-field appearance="outline" [style.width.px]="200">
-                        <input
-                          matInput
-                          name="selected_time_A"
-                          [format]="24"
-                          [ngxMatTimepicker]="pickerA"
-                          placeholder="Select"
-                          formControlName="target_effective_time"
-                          readonly />
-                        <mat-icon matSuffix (click)="pickerA.open()">
-                          watch_later
-                        </mat-icon>
-                        <mat-error
-                  *ngIf="
-                    element
-                      .get('target_effective_time')
-                      ?.hasError('required') &&
-                    element.get('target_effective_time')?.touched
-                  ">
-                          <strong>Required</strong>
-                        </mat-error>
-                      </mat-form-field>
-                      <ngx-mat-timepicker
-                        #pickerA
-                        dottedMinutesInGap
-                        enableKeyboardInput>
-                      </ngx-mat-timepicker> -->
-
               <mat-form-field appearance="outline" [style.width.px]="200">
-                <!-- <input
-                  matInput
-                  name="target_effective_time"
-                  formControlName="target_effective_time"
-                  placeholder="Select"
-                  type="time" /> -->
                 <input
+                  id="target-effective-time-input"
                   matInput
+                  aria-label="Target Effective Time"
                   appTimeInput24h
                   name="target_effective_time"
                   formControlName="target_effective_time"
@@ -247,7 +217,10 @@
                   inputmode="numeric"
                   autocomplete="off" />
                 <mat-icon matSuffix style="padding: 0"
-                  ><img style="height: 24px" src="/assets/icons/clock.svg"
+                  ><img
+                    style="height: 24px"
+                    src="/assets/icons/clock.svg"
+                    alt=""
                 /></mat-icon>
                 @if (
                   element.get('target_effective_time')?.hasError('required') &&

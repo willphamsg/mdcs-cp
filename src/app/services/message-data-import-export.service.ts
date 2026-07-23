@@ -30,7 +30,7 @@ export interface MessageDataExportProcessState {
   grpIdentifierId: string | null;
   serviceProviderId: number | null;
   startedAt: number | null;
-  payload: any | null;
+  payload: any;
   success: boolean;
   timedOut: boolean;
 }
@@ -58,8 +58,8 @@ const INITIAL_MESSAGE_DATA_EXPORT_PROCESS_STATE: MessageDataExportProcessState =
   providedIn: 'root',
 })
 export class MessageDataImportExportService {
-  private uri = `${environment.gateway}message-data/`;
-  private handler = inject(HttpBackend);
+  private readonly uri = `${environment.gateway}message-data/`;
+  private readonly handler = inject(HttpBackend);
   private readonly messageExportStorageKey =
     'dagw-message-data-export-running-state';
   private readonly messageExportPollIntervalMs = 5000;
@@ -67,7 +67,7 @@ export class MessageDataImportExportService {
   private messageExportPollingSubscription?: Subscription;
   private messageExportTimeoutHandle?: ReturnType<typeof setTimeout>;
   private messageExportStatusCheckInProgress = false;
-  private messageExportProcessSubject =
+  private readonly messageExportProcessSubject =
     new BehaviorSubject<MessageDataExportProcessState>({
       ...INITIAL_MESSAGE_DATA_EXPORT_PROCESS_STATE,
     });
@@ -75,12 +75,12 @@ export class MessageDataImportExportService {
   messageExportProcess$ = this.messageExportProcessSubject.asObservable();
 
   constructor(
-    private http: HttpClient,
+    private readonly http: HttpClient,
     public dialog: MatDialog,
-    private auth: AuthService,
-    private message: MessageService,
-    private dynamic: DynamicEndpoint,
-    private webSocketService: WebSocketService
+    private readonly auth: AuthService,
+    private readonly message: MessageService,
+    private readonly dynamic: DynamicEndpoint,
+    private readonly webSocketService: WebSocketService
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('common', this.uri);
   }

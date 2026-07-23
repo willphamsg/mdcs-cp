@@ -84,7 +84,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 })
 export class ExportDownloadFailedDialogComponent {
   constructor(
-    private dialogRef: MatDialogRef<ExportDownloadFailedDialogComponent>
+    private readonly dialogRef: MatDialogRef<ExportDownloadFailedDialogComponent>
   ) {}
 
   close(): void {

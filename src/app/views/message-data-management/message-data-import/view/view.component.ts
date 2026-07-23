@@ -1,9 +1,5 @@
 import {
-  AsyncPipe,
   CommonModule,
-  DatePipe,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -113,15 +109,15 @@ export class ViewComponent implements OnInit {
   isDisabled: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     public dialog: MatDialog,
-    private manageDailyBusListService: ManageDailyBusListService,
-    private depoService: DepoService,
-    private message: MessageService,
+    private readonly manageDailyBusListService: ManageDailyBusListService,
+    private readonly depoService: DepoService,
+    private readonly message: MessageService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ViewComponent>,
-    private _snackBar: MatSnackBar,
-    private store: Store<AppStore>
+    private readonly _snackBar: MatSnackBar,
+    private readonly store: Store<AppStore>
   ) {
     this.depoService.depo$.subscribe((value: string) => {
       this.depotId = value;
@@ -166,10 +162,10 @@ export class ViewComponent implements OnInit {
       const formData = new FormData();
       const itemGroup = this.items.at(index) as FormGroup;
       const fileNameControl = itemGroup.get('fileName');
-      for (let index = 0; index < fileList.length; index++) {
-        formData.append('file', fileList[index]);
+      for (const file of fileList) {
+        formData.append('file', file);
 
-        fileNameControl?.setValue(fileList[index].name);
+        fileNameControl?.setValue(file.name);
       }
     }
   }
@@ -245,7 +241,7 @@ export class ViewComponent implements OnInit {
           .subscribe({
             next: (value: PayloadResponse) => {
               if (value.status == 201) {
-                const dialogRef = this.message.confirmation(
+                this.message.confirmation(
                   value.status_code,
                   value.message
                 );

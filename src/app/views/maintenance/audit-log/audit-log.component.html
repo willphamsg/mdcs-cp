@@ -13,12 +13,6 @@
     <div class="filter-wrapper">
       <app-filter [filterConfigs]="filterConfigs"></app-filter>
       <div class="chkb-group">
-        <!-- <mat-checkbox
-          color="primary"
-          [(ngModel)]="params.is_regular_expression"
-          (change)="onCheckboxChange()">
-          <span class="label">Regular expression</span>
-        </mat-checkbox> -->
         <mat-checkbox
           color="primary"
           [(ngModel)]="params.is_case_sensitive"
@@ -176,12 +170,6 @@
           mat-row
           *matRowDef="let row; columns: displayedColumns"
           class="data-row"></tr>
-
-        <!-- <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
-            No Records Found
-          </td>
-        </tr> -->
       </table>
       @if (!dataSource.length) {
         <div class="no-data">

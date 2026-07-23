@@ -1,9 +1,10 @@
 <div class="content-container">
   <div class="entry-actions">
     <div style="display: flex; flex-direction: column">
-      <label style="font-weight: 500; font-size: 14px">Business Date:</label>
+      <label for="all-daily-report-date-input" style="font-weight: 500; font-size: 14px">Business Date:</label>
       <mat-form-field style="width: 320px">
         <input
+          id="all-daily-report-date-input"
           matInput
           [matDatepicker]="picker"
           placeholder="Select Month Type" />
@@ -18,6 +19,7 @@
           (click)="picker.open()">
           <img
             src="assets/icons/calendar_small.svg"
+            alt=""
             style="padding: unset !important; width: 16px; height: 16px" />
         </button>
       </mat-form-field>
@@ -65,7 +67,7 @@
     <table mat-table class="stripped" [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="chk">
         <th mat-header-cell *matHeaderCellDef>
-          <div class="custom-checkbox" (click)="onCheckAllToggle()">
+          <button type="button" class="custom-checkbox" (click)="onCheckAllToggle()">
             @if (chkAll) {
               <img
                 src="/assets/icons/selected_checkbox.svg"
@@ -75,10 +77,10 @@
                 src="/assets/icons/white_checkbox.svg"
                 alt="Unselected Checkbox" />
             }
-          </div>
+          </button>
         </th>
         <td mat-cell *matCellDef="let element">
-          <div class="custom-checkbox" (click)="checkboxToggle(element)">
+          <button type="button" class="custom-checkbox" (click)="checkboxToggle(element)">
             @if (element.chk) {
               <img
                 src="/assets/icons/selected_checkbox.svg"
@@ -88,7 +90,7 @@
                 src="/assets/icons/white_checkbox.svg"
                 alt="Unselected Checkbox" />
             }
-          </div>
+          </button>
         </td>
       </ng-container>
 
@@ -146,12 +148,6 @@
         mat-row
         *matRowDef="let row; columns: displayedColumns"
         class="data-row"></tr>
-
-      <!-- <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
-          No Records Found
-        </td>
-      </tr> -->
     </table>
     @if (!dataSource.length) {
       <div class="no-data">

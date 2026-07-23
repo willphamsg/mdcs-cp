@@ -30,7 +30,7 @@ import { AuthService } from '@app/services/auth.service';
   styleUrl: './system-information.component.scss',
 })
 export class SystemInformationComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   mdcsInformation: ISystemInfo[] = [];
   dagwInformation: ISystemInfo[] = [];
   dagw = this.authService.isDagw();
@@ -47,7 +47,7 @@ export class SystemInformationComponent implements OnInit, OnDestroy {
   params: DepotParam;
   depot: IDepoList | null = null;
 
-  constructor(private sharedService: MaintenanceSharedService, private authService: AuthService) {}
+  constructor(private readonly sharedService: MaintenanceSharedService, private readonly authService: AuthService) {}
 
   ngOnInit(): void {
     this.sharedService.selectedDepot$.subscribe(depot => {

@@ -66,7 +66,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 })
 export class EodConfirmationDialogComponent {
   constructor(
-    private dialogRef: MatDialogRef<EodConfirmationDialogComponent>
+    private readonly dialogRef: MatDialogRef<EodConfirmationDialogComponent>
   ) {}
 
   onClose(): void {

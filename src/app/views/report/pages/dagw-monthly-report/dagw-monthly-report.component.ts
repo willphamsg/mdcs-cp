@@ -60,7 +60,7 @@ export interface MonthList {
   styleUrl: './dagw-monthly-report.component.scss',
 })
 export class DagwMonthlyReportComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   depots: IDepoList[] = [];
   months: MonthList[] = [];
@@ -94,10 +94,10 @@ export class DagwMonthlyReportComponent implements OnInit, OnDestroy {
   isAdhocReport: boolean = false;
 
   constructor(
-    private depoService: DepoService,
-    private authService: AuthService,
-    private dailyReportService: DailyReportService,
-    private route: ActivatedRoute
+    private readonly depoService: DepoService,
+    private readonly authService: AuthService,
+    private readonly dailyReportService: DailyReportService,
+    private readonly route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -224,8 +224,8 @@ export class DagwMonthlyReportComponent implements OnInit, OnDestroy {
         ? null
         : this.formatDate(this.businessDaySelected),
       format: downloadFormat,
-      svc_prov_id: parseInt(this.svcProviderID!),
-      depot_id: parseInt(this.depotSelected),
+      svc_prov_id: Number.parseInt(this.svcProviderID!),
+      depot_id: Number.parseInt(this.depotSelected),
       month: this.monthSelected,
     };
 

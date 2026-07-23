@@ -11,6 +11,7 @@ import {
   viewChild,
 } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormControl,
   FormGroup,
@@ -95,8 +96,8 @@ export class FilterComponent implements OnInit, OnChanges, OnDestroy {
 
   // TODO: Filter Component can still be optimized, still temporary. Need the final logic
   constructor(
-    private cdr: ChangeDetectorRef,
-    private filterService: FilterService
+    private readonly cdr: ChangeDetectorRef,
+    private readonly filterService: FilterService
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -158,60 +159,22 @@ export class FilterComponent implements OnInit, OnChanges, OnDestroy {
     const filters: any = {};
 
     this.filterConfigs.forEach(({ controlName }) => {
-      const control = this.filterForm.get(controlName);
-      if (!control || !control.value || control.value == null) return;
+      const result = this.resolveFilterBranch(controlName);
 
-      const configType = this.getConfigType(controlName);
-      const configOptions = this.getConfigOptions(controlName);
-
-      if (
-        controlName.toLowerCase().includes('depot') &&
-        configType !== 'select'
-      ) {
-        const depotData = getSelectedDepotValues(
-          this.filterForm,
-          controlName,
-          'depot_name',
-          configOptions
-        );
-        filters[controlName] = depotData.selectedValues;
-      } else if (
-        control instanceof FormArray &&
-        !controlName.toLowerCase().includes('depot')
-      ) {
-        const formArrayValue = getSelectedValuesFromFormArray(
-          this.filterForm,
-          controlName,
-          configOptions
-        );
-        filters[controlName] = formArrayValue.selectedValues;
-      } else if (isDateRangeControl(control)) {
-        const dateRangeValue = getDateRangeValue(control);
-
-        if (dateRangeValue.startDate || dateRangeValue.endDate) {
-          // Auto-set endDate = startDate if only startDate is provided
-          if (dateRangeValue.startDate && !dateRangeValue.endDate) {
-            dateRangeValue.endDate = dateRangeValue.startDate;
-          }
-          // Auto-set startDate = endDate if only endDate is provided
-          if (!dateRangeValue.startDate && dateRangeValue.endDate) {
-            dateRangeValue.startDate = dateRangeValue.endDate;
-          }
-          filters[controlName] = dateRangeValue;
-        }
-      } else if (configType === 'radio') {
-        const formArrayValue = getSelectedValuesFromRadioGroup(
-          this.filterForm,
-          controlName,
-          configOptions
-        );
-        filters[controlName] = formArrayValue.selectedValue;
-      } else {
-        const controlValue = control.value || null;
-
-        if (controlValue) {
-          filters[controlName] = controlValue;
-        }
+      switch (result.kind) {
+        case 'depot':
+        case 'formArray':
+        case 'radio':
+          filters[controlName] = result.displayValue;
+          break;
+        case 'dateRange':
+          filters[controlName] = result.dateRange;
+          break;
+        case 'default':
+          filters[controlName] = result.controlValue;
+          break;
+        default:
+          break;
       }
     });
 
@@ -223,69 +186,26 @@ export class FilterComponent implements OnInit, OnChanges, OnDestroy {
     const dateRangeFilters: { controlName: string; dateRange: any }[] = [];
 
     this.filterConfigs.forEach(({ controlName }) => {
-      const control = this.filterForm.get(controlName);
-      if (!control || !control.value || control.value == null) return;
+      const result = this.resolveFilterBranch(controlName);
 
-      const configType = this.getConfigType(controlName);
-      const configOptions = this.getConfigOptions(controlName);
-
-      if (
-        controlName.toLowerCase().includes('depot') &&
-        configType !== 'select'
-      ) {
-        const depotData = getSelectedDepotValues(
-          this.filterForm,
-          controlName,
-          'depot_name',
-          configOptions
-        );
-
-        if (depotData.selectedIds && depotData.selectedIds.length > 0) {
-          batchedFilterValues[controlName] = depotData.selectedIds;
-        }
-      } else if (
-        control instanceof FormArray &&
-        !controlName.toLowerCase().includes('depot')
-      ) {
-        const formArrayValue = getSelectedValuesFromFormArray(
-          this.filterForm,
-          controlName,
-          configOptions
-        );
-
-        if (
-          formArrayValue.selectedIds &&
-          formArrayValue.selectedIds.length > 0
-        ) {
-          batchedFilterValues[controlName] = formArrayValue.selectedIds;
-        }
-      } else if (isDateRangeControl(control)) {
-        const dateRangeValue = getDateRangeValue(control);
-
-        if (dateRangeValue.startDate || dateRangeValue.endDate) {
-          // Auto-set endDate = startDate if only startDate is provided
-          if (dateRangeValue.startDate && !dateRangeValue.endDate) {
-            dateRangeValue.endDate = dateRangeValue.startDate;
+      switch (result.kind) {
+        case 'depot':
+        case 'formArray':
+          if (result.ids && result.ids.length > 0) {
+            batchedFilterValues[controlName] = result.ids;
           }
-          // Auto-set startDate = endDate if only endDate is provided
-          if (!dateRangeValue.startDate && dateRangeValue.endDate) {
-            dateRangeValue.startDate = dateRangeValue.endDate;
-          }
-          dateRangeFilters.push({ controlName, dateRange: dateRangeValue });
-        }
-      } else if (configType === 'radio') {
-        const radioValue = getSelectedValuesFromRadioGroup(
-          this.filterForm,
-          controlName,
-          configOptions
-        );
-        batchedFilterValues[controlName] = [radioValue.selectedId];
-      } else {
-        const controlValue = control.value || null;
-
-        if (controlValue) {
-          batchedFilterValues[controlName] = [controlValue];
-        }
+          break;
+        case 'dateRange':
+          dateRangeFilters.push({ controlName, dateRange: result.dateRange });
+          break;
+        case 'radio':
+          batchedFilterValues[controlName] = [result.radioId];
+          break;
+        case 'default':
+          batchedFilterValues[controlName] = [result.controlValue];
+          break;
+        default:
+          break;
       }
     });
 
@@ -300,11 +220,88 @@ export class FilterComponent implements OnInit, OnChanges, OnDestroy {
     });
   }
 
+  /**
+   * Classifies a filter control and computes its resolved value(s) once, so
+   * both the display (getAppliedFilters) and batched-id (updateFilterServices)
+   * paths can reuse the same branching logic without duplicating it.
+   */
+  private resolveFilterBranch(controlName: string): {
+    kind: 'depot' | 'formArray' | 'dateRange' | 'radio' | 'default' | 'skip';
+    displayValue?: string;
+    ids?: string[];
+    dateRange?: any;
+    radioId?: string;
+    controlValue?: any;
+  } {
+    const control = this.filterForm.get(controlName);
+    if (!control?.value) {
+      return { kind: 'skip' };
+    }
+
+    const configType = this.getConfigType(controlName);
+    const configOptions = this.getConfigOptions(controlName);
+
+    if (controlName.toLowerCase().includes('depot') && configType !== 'select') {
+      const depotData = getSelectedDepotValues(
+        this.filterForm,
+        controlName,
+        'depot_name',
+        configOptions
+      );
+      return { kind: 'depot', displayValue: depotData.selectedValues, ids: depotData.selectedIds };
+    }
+
+    if (control instanceof FormArray && !controlName.toLowerCase().includes('depot')) {
+      const formArrayValue = getSelectedValuesFromFormArray(
+        this.filterForm,
+        controlName,
+        configOptions
+      );
+      return { kind: 'formArray', displayValue: formArrayValue.selectedValues, ids: formArrayValue.selectedIds };
+    }
+
+    if (isDateRangeControl(control)) {
+      return this.resolveDateRangeBranch(control);
+    }
+
+    if (configType === 'radio') {
+      const radioValue = getSelectedValuesFromRadioGroup(
+        this.filterForm,
+        controlName,
+        configOptions
+      );
+      return { kind: 'radio', displayValue: radioValue.selectedValue, radioId: radioValue.selectedId };
+    }
+
+    const controlValue = control.value || null;
+    return controlValue ? { kind: 'default', controlValue } : { kind: 'skip' };
+  }
+
+  private resolveDateRangeBranch(control: AbstractControl): {
+    kind: 'dateRange' | 'skip';
+    dateRange?: any;
+  } {
+    const dateRangeValue = getDateRangeValue(control);
+
+    if (!dateRangeValue.startDate && !dateRangeValue.endDate) {
+      return { kind: 'skip' };
+    }
+    // Auto-set endDate = startDate if only startDate is provided
+    if (dateRangeValue.startDate && !dateRangeValue.endDate) {
+      dateRangeValue.endDate = dateRangeValue.startDate;
+    }
+    // Auto-set startDate = endDate if only endDate is provided
+    if (!dateRangeValue.startDate && dateRangeValue.endDate) {
+      dateRangeValue.startDate = dateRangeValue.endDate;
+    }
+    return { kind: 'dateRange', dateRange: dateRangeValue };
+  }
+
   private getConfigOptions(controlKey: string): any[] {
     const control = this.filterConfigs.find(
       config => config.controlName === controlKey
     );
-    return control && control.options ? control.options : [];
+    return control?.options ?? [];
   }
 
   private getConfigType(controlKey: string): string {
@@ -312,7 +309,7 @@ export class FilterComponent implements OnInit, OnChanges, OnDestroy {
       config => config.controlName === controlKey
     );
 
-    return control && control.type ? control.type : '';
+    return control?.type ?? '';
   }
 
   clearFilter() {

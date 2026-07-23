@@ -24,14 +24,14 @@ import { IDepoList } from '@app/models/depo';
   providedIn: 'root',
 })
 export class ParameterViewerService {
-  private uri = environment.gateway + 'parameter/view/';
+  private readonly uri = environment.gateway + 'parameter/view/';
   depots: IDepoList[] = [];
   constructor(
-    private http: HttpClient,
+    private readonly http: HttpClient,
     public dialog: MatDialog,
-    private message: MessageService,
-    private dynamic: DynamicEndpoint,
-    private depoService: DepoService
+    private readonly message: MessageService,
+    private readonly dynamic: DynamicEndpoint,
+    private readonly depoService: DepoService
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('param', this.uri);
     this.depoService.depoList$.subscribe((value: IDepoList[]) => {

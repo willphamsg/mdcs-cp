@@ -25,13 +25,11 @@
       </mat-form-field>
 
       @if (depotSelected) {
-        <!-- <mat-form-field>
-        <input matInput placeholder="Search by keyword" type="search" />
-        <mat-icon matPrefix>search</mat-icon>
-      </mat-form-field> -->
         <mat-form-field appearance="outline">
           <input
+            id="card-key-version-search-input"
             matInput
+            aria-label="Search by keyword"
             placeholder="Search by keyword"
             type="search"
             [formControl]="searchControl" />

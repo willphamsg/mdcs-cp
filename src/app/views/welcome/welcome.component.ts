@@ -27,7 +27,7 @@ import { PayloadResponse } from '@app/models/common';
   styleUrls: ['./welcome.component.scss'],
 })
 export class WelComeComponent implements OnInit {
-  private ssoSignIn = environment.enableSSO;
+  private readonly ssoSignIn = environment.enableSSO;
   dagw = environment.dagw;
   route = this.dagw ? '/dagw/bus-operation' : '/mdcs/dashboard';
   useDevSign = (environment as any).useDevSign;
@@ -37,10 +37,10 @@ export class WelComeComponent implements OnInit {
   hidePassword: boolean = true;
   constructor(
     // private userService: UserService,
-    private fb: FormBuilder,
-    private router: Router,
-    private authService: AuthService,
-    private userService: UserService
+    private readonly fb: FormBuilder,
+    private readonly router: Router,
+    private readonly authService: AuthService,
+    private readonly userService: UserService
   ) {}
 
   ngOnInit() {

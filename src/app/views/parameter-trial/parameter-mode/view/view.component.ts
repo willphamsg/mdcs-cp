@@ -108,11 +108,11 @@ export class ViewComponent implements OnInit {
   readonly decisionColumn = 'decision';
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     public dialog: MatDialog,
-    private parameterService: ParameterService,
-    private depoService: DepoService,
-    private message: MessageService,
+    private readonly parameterService: ParameterService,
+    private readonly depoService: DepoService,
+    private readonly message: MessageService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ViewComponent>
   ) {
@@ -324,19 +324,17 @@ export class ViewComponent implements OnInit {
   private resolveAcknowledgement(
     decision?: string,
     ackOverride?: boolean,
-    userActionType?: TUserActionType
+    userActionType: TUserActionType = 'NONE'
   ): boolean {
     if (typeof ackOverride === 'boolean') {
       return ackOverride;
     }
 
-    const actionType = userActionType ?? 'NONE';
-
-    if (actionType === 'YES_NO') {
+    if (userActionType === 'YES_NO') {
       return (decision || 'YES').toUpperCase() === 'YES';
     }
 
-    if (actionType === 'OK') {
+    if (userActionType === 'OK') {
       return false;
     }
 

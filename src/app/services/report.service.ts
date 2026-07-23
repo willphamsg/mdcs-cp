@@ -17,11 +17,11 @@ import {
   providedIn: 'root',
 })
 export class ReportService {
-  private uri = environment.gateway + 'ssrs-report/';
+  private readonly uri = environment.gateway + 'ssrs-report/';
   constructor(
-    private http: HttpClient,
-    private dynamic: DynamicEndpoint,
-    private message: MessageService
+    private readonly http: HttpClient,
+    private readonly dynamic: DynamicEndpoint,
+    private readonly message: MessageService
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('report', this.uri);
   }

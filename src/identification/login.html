@@ -13,7 +13,7 @@
 
         <div class="container-fluid p-5">
             <div class="container-fluid text-center p-3">
-                <img src="./images/sign-logo.png" alt="image" />
+                <img src="./images/sign-logo.png" alt="Sign-in logo" />
             </div>
             <h1 class="title container-fluid text-center">
                 Welcome to DAGW
@@ -22,9 +22,11 @@
                 <input type="hidden" id="returnUrl-fld" name="returnUrl" value=""/>
                 <div class="container border-1 p-3 text-black-50" style="max-width: 400px">
                     <div class="mb-3">
+                        <label for="username-fld" class="visually-hidden">Username</label>
                         <input placeholder="Username" id="username-fld" name="username" class="form-control transparent form-input"/>
                     </div>
                     <div class="mb-3">
+                        <label for="password-fld" class="visually-hidden">Password</label>
                         <input placeholder="Password" id="password-fld" type="password" name="password" class="form-control transparent form-input"/>
                     </div>
                     <div class="mb-3 text-end">
@@ -34,7 +36,7 @@
             </form>
             
             <div class="container">
-                <h3 class="bg-danger text-white" id="message-fld"></h3>
+                <div class="bg-danger text-white" id="message-fld" role="alert"></div>
             </div>
         </div>
     </div>

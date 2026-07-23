@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Validators } from '@angular/forms';
 
 export interface IVehicleList {
@@ -35,7 +34,7 @@ export class VehicleList {
       Validators.required,
       Validators.minLength(5),
       Validators.maxLength(8),
-      Validators.pattern(/^[a-zA-Z]{2,3}[0-9]{4}[a-zA-Z]?$/),
+      Validators.pattern(/^[a-zA-Z]{2,3}\d{4}[a-zA-Z]?$/),
     ],
   ];
   // svc_prov_id = [sessionStorage.getItem('svdProvId'), Validators.required];

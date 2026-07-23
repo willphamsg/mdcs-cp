@@ -2,11 +2,9 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { RouterOutlet, Router } from '@angular/router';
-import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { SnackbarComponent } from '@components/snackbar/snackbar.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppStore } from '@store/app.state';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { showSnackbar } from '@store/snackbar/snackbar.actions';
 import { InactivityTimeoutService } from '@app/services/inactivity-timeout.service';
@@ -26,12 +24,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
   @ViewChild('container') container: ElementRef;
 
   constructor(
-    private snackBar: MatSnackBar,
-    private store: Store<AppStore>,
-    private router: Router,
-    private inactivityTimeoutService: InactivityTimeoutService
+    private readonly snackBar: MatSnackBar,
+    private readonly store: Store<AppStore>,
+    private readonly router: Router,
+    private readonly inactivityTimeoutService: InactivityTimeoutService
   ) {
-    this.store.select('snackbar').subscribe((state: any) => {
+    this.store.select(state => state.snackbar).subscribe((state: any) => {
       // console.log('state', state);
       if (state?.show) {
         this.snackBar.openFromComponent(SnackbarComponent, {

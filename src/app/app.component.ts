@@ -19,10 +19,10 @@ import { filter, map, mergeMap } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   constructor(
-    private titleService: Title,
-    private configService: AppConfigService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private readonly titleService: Title,
+    private readonly configService: AppConfigService,
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {

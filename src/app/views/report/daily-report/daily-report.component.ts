@@ -37,7 +37,7 @@ import { BreadcrumbsComponent } from '@app/components/layout/breadcrumbs/breadcr
   encapsulation: ViewEncapsulation.None,
 })
 export class DailyReportComponent {
-  constructor(private route: ActivatedRoute) {}
+  constructor(private readonly route: ActivatedRoute) {}
 
   getReportType(): string {
     const reportType = this.route.snapshot?.firstChild?.routeConfig?.path;

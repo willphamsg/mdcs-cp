@@ -17,7 +17,7 @@ export class MonthFilterComponent implements OnInit {
   currentDate: Date = new Date();
   monthChange = output<MonthRange>();
 
-  private datePipe = new DatePipe('en-US');
+  private readonly datePipe = new DatePipe('en-US');
   private readonly dateFormat = 'yyyy-MM-dd HH:mm:ss';
 
   get currentMonthYear(): string {
