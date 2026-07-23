@@ -22,6 +22,13 @@ module.exports = function karmaConfig(config) {
     },
     reporters: ['progress', 'kjhtml', 'coverage'],
     browsers: ['ChromeHeadless'],
+    customLaunchers: {
+      // GitHub Actions / Docker: Chromium needs --no-sandbox
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage'],
+      },
+    },
     restartOnFileChange: false,
   });
 };

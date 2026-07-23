@@ -11,7 +11,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "CHROME_BIN=$(which chromium-browser || which chromium || which google-chrome || echo chrome) ng test",
     "test:coverage": "CHROME_BIN=$(which chromium-browser || which chromium || which google-chrome || echo chrome) ng test --watch=false --code-coverage",
-    "test:coverage:ci": "CHROME_BIN=$(which chromium-browser || which chromium || which google-chrome || echo chrome) ng test --watch=false --code-coverage --progress=false --browsers=ChromeHeadless",
+    "test:coverage:ci": "CHROME_BIN=$(which google-chrome || which google-chrome-stable || which chromium-browser || which chromium || echo chrome) ng test --watch=false --code-coverage --progress=false --browsers=ChromeHeadlessCI",
     "serve:ssr:lta-btds-gui": "node dist/lta-btds-gui/server/server.mjs",
     "lint": "ng lint",
     "server:mdcs": "nodemon node/mdcs/index.js",
