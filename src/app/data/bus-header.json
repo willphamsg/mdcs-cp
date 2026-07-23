@@ -1,0 +1,62 @@
+[
+  {
+    "chk": true,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "depot_id",
+    "name": "Depo Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "bus_num",
+    "name": "Bus Num",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "svc_prov_id",
+    "name": "Service Provider Id",
+    "hidden": true
+  },
+  {
+    "chk": false,
+    "field": "service_num",
+    "name": "Service Num",
+    "hidden": true
+  },
+  {
+    "chk": true,
+    "field": "day_type",
+    "name": "Day Type",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "est_arrival_time",
+    "name": "Expected Arrival Time",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "est_arrival_count",
+    "name": "Arrival Count",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "last_update",
+    "name": "Last Update",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "chk",
+    "name": "Check",
+    "hidden": true
+  }
+]

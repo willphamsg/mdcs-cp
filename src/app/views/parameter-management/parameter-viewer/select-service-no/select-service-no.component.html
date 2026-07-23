@@ -1,0 +1,14 @@
+<div class="custom-select-service-no">
+  <mat-form-field style="width: 280px">
+    <mat-label>Service Number</mat-label>
+    <mat-select
+      [(ngModel)]="serviceNoSelected"
+      (ngModelChange)="emitSelectedServiceNo()">
+      @for (serviceNo of serviceNoList; track serviceNo) {
+        <mat-option [value]="serviceNo">
+          {{ serviceNo }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>

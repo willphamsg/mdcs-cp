@@ -1,0 +1,30 @@
+<div class="custom-pagination">
+  <div class="pagination-info">
+    Showing {{ getStartIndex() }} to {{ getEndIndex() }} of
+    {{ totalItems }} entries
+  </div>
+
+  <div class="pagination-controls">
+    <button
+      (click)="prevPage()"
+      class="prev-arrow"
+      [disabled]="currentPage === 1"></button>
+
+    <div class="page-number-box">{{ currentPage }}</div>
+
+    <button
+      (click)="nextPage()"
+      class="next-arrow"
+      [disabled]="currentPage === totalPages"></button>
+  </div>
+
+  <div class="page-size-selector">
+    <select [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange()">
+      @for (size of pageSizeOptions; track size) {
+        <option [value]="size">
+          {{ size }}
+        </option>
+      }
+    </select>
+  </div>
+</div>

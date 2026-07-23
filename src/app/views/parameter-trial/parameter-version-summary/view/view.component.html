@@ -1,0 +1,161 @@
+<div class="mat-header">
+  <div>
+    <p
+      style="font-size: 24px; font-weight: 600; margin: 0"
+      class="flex-item-left">
+      {{ title }}
+    </p>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+  <!-- <p *ngIf="mode === 'approve'" style="color: #000">
+    The selected records will be
+    <span style="color: #009e73">Approved</span> once confirmed. Please
+    carefully review this update,<br />
+    as the decision becomes irreversible afterward. You can proceed to Select
+    mode for the approved <br />parameters
+  </p>
+  <p *ngIf="mode === 'reject'" style="color: #000">
+    The selected parameters will be
+    <span style="color: #9f0f0f">Rejected</span> once confirmed. Please
+    carefully review this update,<br />as the decision becomes irreversible
+    afterward.
+  </p> -->
+  <form [formGroup]="myForm">
+    <ng-container formArrayName="items">
+      <mat-table #table [dataSource]="items.controls" class="stripped">
+        <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Depot Column -->
+        <ng-container matColumnDef="depot">
+          <mat-header-cell *matHeaderCellDef class="headerCol"
+            >Depots</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol align-center">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('depot')?.value }}
+              </div>
+            } @else {
+              {{ element.get('depot')?.value }}
+            }
+            <!-- <mat-form-field appearance="outline">
+              <input matInput formControlName="current_depot" />
+              <mat-select
+                formControlName="current_depot"
+                style="font-style: normal; width: 100%"
+                placeholder="Depot"
+                [(value)]="element.current_depot">
+                <mat-option value="">All</mat-option>
+                <mat-option
+                  *ngFor="let option of depots"
+                  [value]="option.depot_id">
+                  {{ option.depot_name }}
+                </mat-option>
+              </mat-select>
+              @if (element.get('current_depot')?.hasError('required')) {
+                <mat-error>
+                  <strong>Required</strong>
+                </mat-error>
+              }
+            </mat-form-field> -->
+          </mat-cell>
+        </ng-container>
+
+        <!-- Parameter Name Column -->
+        <ng-container matColumnDef="parameter_name">
+          <mat-header-cell *matHeaderCellDef class="headerCol"
+            >Parameter Name</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol align-center">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('parameter_name')?.value }}
+              </div>
+            } @else {
+              {{ element.get('parameter_name')?.value }}
+            }
+            <!-- <mat-form-field class="custom-input" appearance="outline">
+              <input matInput formControlName="current_operator" />
+            </mat-form-field> -->
+          </mat-cell>
+        </ng-container>
+
+        <!-- Parameter Version Column -->
+        <ng-container matColumnDef="parameter_version">
+          <mat-header-cell *matHeaderCellDef class="headerCol"
+            >Parameter Version</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol align-center">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('parameter_version')?.value }}
+              </div>
+            } @else {
+              {{ element.get('parameter_version')?.value }}
+            }
+            <!-- <mat-form-field class="custom-input" appearance="outline">
+              <input matInput formControlName="current_operator" />
+            </mat-form-field> -->
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+          style="
+            background-color: #4a5964;
+            font-weight: 600;
+            color: white;
+          "></mat-header-row>
+        <mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          style="min-height: auto"></mat-row>
+      </mat-table>
+    </ng-container>
+  </form>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
+  <div class="mat-footer">
+    <div>
+      <p>
+        Total: {{ rowCount }}
+        <strong>Record(s)</strong>
+      </p>
+    </div>
+    <div>
+      <div class="btn-container">
+        <div>
+          <button
+            class="h-40"
+            [mat-dialog-close]="'cancel'"
+            mat-stroked-button
+            mat-dialog-close>
+            Cancel
+          </button>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="btn local-primary"
+            mat-button
+            cdkFocusInitial
+            (click)="onSubmit()">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-actions>

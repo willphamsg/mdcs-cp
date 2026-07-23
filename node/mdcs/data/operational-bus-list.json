@@ -1,0 +1,242 @@
+[
+  {
+    "chk": false,
+    "id": 1,
+    "version": 1,
+    "depot_id": "2",
+    "depot": {
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "Ang Mo Kio Depot",
+      "depot_code": "AMKD"
+    },
+    "bus_num": "SBS0226",
+    "service_num": "30",
+    "download_status": "success",
+    "upload_status": "success",
+    "sam_status": "success",
+    "connect_time": "2024-07-01T00:00:00",
+    "disconnect_time": "",
+    "conn_status": true
+  },
+  {
+    "chk": false,
+    "id": 2,
+    "version": 1,
+    "depot_id": "1",
+    "depot": {
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HD"
+    },
+    "bus_num": "SBS0226",
+    "service_num": "25",
+    "download_status": "failed",
+    "upload_status": "-",
+    "sam_status": "success",
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "",
+    "conn_status": true
+  },
+  {
+    "chk": false,
+    "id": 3,
+    "version": 1,
+    "depot_id": "1",
+    "depot": {
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HD"
+    },
+    "bus_num": "SBS0227",
+    "service_num": "40",
+    "download_status": "-",
+    "upload_status": "in_progress",
+    "sam_status": "success",
+    "connect_time": "2024-07-02T00:00:00",
+    "disconnect_time": "",
+    "conn_status": true
+  },
+  {
+    "chk": false,
+    "id": 4,
+    "version": 1,
+    "depot_id": "2",
+    "depot": {
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "Ang Mo Kio Depot",
+      "depot_code": "AMKD"
+    },
+    "bus_num": "SBS0228",
+    "service_num": "25",
+    "download_status": "failed",
+    "upload_status": "success",
+    "sam_status": "success",
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": false
+  },
+  {
+    "chk": false,
+    "id": 5,
+    "version": 1,
+    "depot_id": "2",
+    "depot": {
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "Ang Mo Kio Depot",
+      "depot_code": "AMKD"
+    },
+    "bus_num": "SBS0229",
+    "service_num": "30",
+    "download_status": "in_progress",
+    "upload_status": "-",
+    "sam_status": "success",
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "",
+    "conn_status": true
+  },
+  {
+    "chk": false,
+    "id": 6,
+    "version": 1,
+    "depot_id": "6",
+    "depot": {
+      "depot_id": "6",
+      "version": 1,
+      "depot_name": "Bishan",
+      "depot_code": "BS"
+    },
+    "bus_num": "SBS0230",
+    "service_num": "30",
+    "download_status": "success",
+    "upload_status": "-",
+    "sam_status": "success",
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": false
+  },
+  {
+    "chk": false,
+    "id": 7,
+    "version": 1,
+    "depot_id": "2",
+    "depot": {
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "Ang Mo Kio Depot",
+      "depot_code": "AMKD"
+    },
+    "bus_num": "SBS0231",
+    "service_num": "30",
+    "download_status": "success",
+    "upload_status": "success",
+    "sam_status": "success",
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "",
+    "conn_status": true
+  },
+  {
+    "chk": false,
+    "id": 8,
+    "version": 1,
+    "depot_id": "6",
+    "depot": {
+      "depot_id": "6",
+      "version": 1,
+      "depot_name": "Bishan",
+      "depot_code": "BS"
+    },
+    "bus_num": "SBS0225",
+    "service_num": "30",
+    "download_status": "-",
+    "upload_status": "success",
+    "sam_status": "success",
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "",
+    "conn_status": true
+  },
+  {
+    "chk": false,
+    "id": 9,
+    "version": 1,
+    "depot_id": "2",
+    "depot": {
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "Ang Mo Kio Depot",
+      "depot_code": "AMKD"
+    },
+    "bus_num": "SBS0225",
+    "service_num": "30",
+    "download_status": "success",
+    "upload_status": "-",
+    "sam_status": "success",
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "",
+    "conn_status": true
+  },
+  {
+    "chk": false,
+    "id": 10,
+    "version": 1,
+    "depot_id": "7",
+    "depot": {
+      "depot_id": "7",
+      "version": 1,
+      "depot_name": "Ulu Pandan",
+      "depot_code": "ULU"
+    },
+    "bus_num": "SBS0225",
+    "service_num": "30",
+    "download_status": "success",
+    "upload_status": "success",
+    "sam_status": "success",
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": false
+  },
+  {
+    "chk": false,
+    "id": 11,
+    "version": 1,
+    "depot_id": "7",
+    "depot": {
+      "depot_id": "7",
+      "version": 1,
+      "depot_name": "Ulu Pandan",
+      "depot_code": "ULU"
+    },
+    "bus_num": "SBS0225",
+    "service_num": "30",
+    "download_status": "success",
+    "upload_status": "success",
+    "sam_status": "success",
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": false
+  },
+  {
+    "chk": false,
+    "id": 12,
+    "version": 1,
+    "depot_id": "7",
+    "depot": {
+      "depot_id": "7",
+      "version": 1,
+      "depot_name": "Ulu Pandan",
+      "depot_code": "ULU"
+    },
+    "bus_num": "SBS0225",
+    "service_num": "30",
+    "download_status": "success",
+    "upload_status": "success",
+    "sam_status": "success",
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": false
+  }
+]

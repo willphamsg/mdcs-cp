@@ -1,0 +1,50 @@
+[
+  {
+    "busNum": "MID0003",
+    "serviceNum": "963",
+    "estArrivalTime": "2023-09-25 00:30:00",
+    "estReturnNum": 2,
+    "actualReturnNum": 0,
+    "updateCount": 0,
+    "svcProvId": 16,
+    "busListEntry": 0,
+    "exceptionReason": "Not Arrived",
+    "businessDay": "2025-04-29"
+  },
+  {
+    "busNum": "PA0715",
+    "serviceNum": "531",
+    "estArrivalTime": "2023-09-25 00:30:00",
+    "estReturnNum": 2,
+    "actualReturnNum": 0,
+    "updateCount": 0,
+    "svcProvId": 16,
+    "busListEntry": 0,
+    "exceptionReason": "Not Arrived",
+    "businessDay": "2025-04-29"
+  },
+  {
+    "busNum": "PA0716",
+    "serviceNum": "531",
+    "estArrivalTime": "2023-09-25 00:30:00",
+    "estReturnNum": 2,
+    "actualReturnNum": 0,
+    "updateCount": 0,
+    "svcProvId": 16,
+    "busListEntry": 0,
+    "exceptionReason": "Not Arrived",
+    "businessDay": "2025-04-29"
+  },
+  {
+    "busNum": "SBS0268",
+    "serviceNum": "88",
+    "estArrivalTime": "2023-09-25 00:30:00",
+    "estReturnNum": 2,
+    "actualReturnNum": 0,
+    "updateCount": 0,
+    "svcProvId": 16,
+    "busListEntry": 0,
+    "exceptionReason": "Not Arrived",
+    "businessDay": "2025-04-29"
+  }
+]

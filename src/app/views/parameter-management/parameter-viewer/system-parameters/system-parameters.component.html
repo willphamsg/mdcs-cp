@@ -1,0 +1,143 @@
+@if (dataSource && dataSource.length > 0) {
+  <div class="table-container">
+    @switch (type) {
+      @case ('DAGW_UA') {
+        <!-- FILTER COMPONENT -->
+        <app-filter [filterConfigs]="filterConfigs"></app-filter>
+        <!-- Selected Filter Component -->
+        <app-selected-filter />
+        <ng-container *ngTemplateOutlet="DAGW_UA"></ng-container>
+      }
+      @case ('bus_cash_fare') {
+        <ng-container *ngTemplateOutlet="bus_cash_fare"></ng-container>
+      }
+    }
+  </div>
+  <app-pagination></app-pagination>
+}
+
+<ng-template #DAGW_UA>
+  <div class="user-access">
+    <table
+      mat-table
+      class="stripped"
+      [dataSource]="(paginatedData$ | async) ?? []"
+      matSort>
+      <ng-container matColumnDef="no">
+        <th mat-header-cell *matHeaderCellDef style="width: 120px">No.</th>
+        <td mat-cell *matCellDef="let element; let dataIndex = index">
+          {{ dataIndex + 1 }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="user_staff_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>User/Staff ID</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.user_staff_id }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="mdcs_access">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>MDCS Access</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.mdcs_access }}
+        </td>
+      </ng-container>
+      <tr class="header-row" mat-header-row *matHeaderRowDef="tab1Columns; sticky: true"></tr>
+      <tr
+        class="data-row"
+        mat-row
+        *matRowDef="let row; columns: tab1Columns"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell no-data" [attr.colspan]="tab1Columns.length">
+          No Records Found
+        </td>
+      </tr>
+    </table>
+  </div>
+</ng-template>
+
+<ng-template #bus_cash_fare>
+  <div class="bus-cash-fare-container">
+    <table
+      mat-table
+      [dataSource]="(paginatedData$ | async) ?? []"
+      class="stripped mat-elevation-z1">
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+      </ng-container>
+      <ng-container matColumnDef="subPosition">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">{{ element.no }}</td>
+      </ng-container>
+      <ng-container matColumnDef="serviceCategory">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          style="min-width: 80px; width: 45px">
+          Service Category
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.serviceCategory }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="subServiceCategory">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.service_category }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="adultGroup">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="8">
+          Adult IDFC Btn
+        </th>
+      </ng-container>
+      @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
+        <ng-container matColumnDef="adultNo{{ i }}">
+          <th mat-header-cell *matHeaderCellDef>No.{{ i }}</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.adult_idfc_btn['no_' + i] }}
+          </td>
+        </ng-container>
+      }
+      <ng-container matColumnDef="childGroup">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="2">
+          Child IDFC Btn
+        </th>
+      </ng-container>
+      @for (i of [1, 2]; track $index) {
+        <ng-container matColumnDef="childNo{{ i }}">
+          <th mat-header-cell *matHeaderCellDef>No.{{ i }}</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.child_idfc_btn['no_' + i] }}
+          </td>
+        </ng-container>
+      }
+      <ng-container matColumnDef="seniorGroup">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="2">
+          Senior IDFC Btn
+        </th>
+      </ng-container>
+      @for (i of [1, 2]; track $index) {
+        <ng-container matColumnDef="seniorNo{{ i }}">
+          <th mat-header-cell *matHeaderCellDef>No.{{ i }}</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.senior_idfc_btn['no_' + i] }}
+          </td>
+        </ng-container>
+      }
+      <tr
+        class="main-header"
+        mat-header-row
+        *matHeaderRowDef="busCashFareMainHeader; sticky: true"></tr>
+      <tr
+        class="sub-header"
+        mat-header-row
+        *matHeaderRowDef="busCashFareSubHeader; sticky: true"></tr>
+      <tr
+        class="data-row"
+        mat-row
+        *matRowDef="let row; columns: busCashFareSubHeader"></tr>
+    </table>
+  </div>
+</ng-template>

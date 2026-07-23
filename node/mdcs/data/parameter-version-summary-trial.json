@@ -1,0 +1,68 @@
+[
+  {
+    "depot_id": 976,
+    "depot": {
+      "depot_id": 976
+    },
+    "file_id": "0x7373",
+    "parameter_name": "SeP_ISS?.SYS",
+    "parameter_version": "43",
+    "effective_date": "2024-09-25T01:00",
+    "status": "active"
+  },
+  {
+    "depot_id": 976,
+    "depot": {
+      "depot_id": 976
+    },
+    "file_id": "0x7382",
+    "parameter_name": "IDFCVLM?.SYS",
+    "parameter_version": "96",
+    "effective_date": "2025-03-24T01:00",
+    "status": "active"
+  },
+  {
+    "depot_id": 976,
+    "depot": {
+      "depot_id": 976
+    },
+    "file_id": "0x7383",
+    "parameter_name": "IDFCBSD?.SYS",
+    "parameter_version": "145",
+    "effective_date": "2025-05-02T01:00",
+    "status": "active"
+  },
+  {
+    "depot_id": 976,
+    "depot": {
+      "depot_id": 976
+    },
+    "file_id": "0x7384",
+    "parameter_name": "IDFCCKA?.SYS",
+    "parameter_version": "65",
+    "effective_date": "2025-05-02T01:00",
+    "status": "active"
+  },
+  {
+    "depot_id": 973,
+    "depot": {
+      "depot_id": 973
+    },
+    "file_id": "0x73B6",
+    "parameter_name": "BLS1CFGA.SYS",
+    "parameter_version": "38",
+    "effective_date": "2025-05-02T01:00",
+    "status": "active"
+  },
+  {
+    "depot_id": 973,
+    "depot": {
+      "depot_id": 973
+    },
+    "file_id": "0x73CE",
+    "parameter_name": "BUS_DST?.SYS",
+    "parameter_version": "143",
+    "effective_date": "2025-05-05T01:45",
+    "status": "active"
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1",
+    "value": "Daily Bus List"
+  },
+  {
+    "id": "2", 
+    "value": "Vehicle Map"
+  },
+  {
+    "id": "3",
+    "value": "Trial Device List"
+  },
+  {
+    "id": "4",
+    "value": "Trial Parameters"
+  },
+  {
+    "id": "5",
+    "value": "User Management"
+  },
+  {
+    "id": "6",
+    "value": "User Login Activity"
+  },
+  {
+    "id": "7",
+    "value": "Bus Transfer"
+  }
+]

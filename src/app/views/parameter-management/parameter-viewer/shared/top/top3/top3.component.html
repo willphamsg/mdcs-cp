@@ -1,0 +1,6 @@
+<app-radio
+  [parameterList]="radioOptions"
+  (selectionChange)="onSelectionChange($event)"></app-radio>
+<app-depot-dropdown
+  [dropdownLabel]="'Depot Name'"
+  (depotChange)="onDepotChange($event)"></app-depot-dropdown>

@@ -1,0 +1,108 @@
+{
+  "mdcs": [
+    {
+      "label": "Connection and Services",
+      "details": [
+        {
+          "label": "Database Connection",
+          "value": { "id": "active", "label": "Up" }
+        },
+        {
+          "label": "MDCS Service",
+          "value": { "id": "active", "label": "Connected" }
+        }
+      ]
+    },
+    {
+      "label": "Storage and Memory Statistics",
+      "details": [
+        {
+          "label": "Memory Used",
+          "subDetails": [
+            {
+              "label": "Used",
+              "value": { "id": "", "label": "149 GB" }
+            },
+            {
+              "label": "Free",
+              "value": { "id": "", "label": "75 GB" }
+            }
+          ]
+        },
+        {
+          "label": "Hard Disk",
+          "subDetails": [
+            {
+              "label": "Used",
+              "value": { "id": "", "label": "149 GB" }
+            },
+            {
+              "label": "Free",
+              "value": { "id": "", "label": "75 GB" }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dagw": [
+    {
+      "label": "Connection and Services",
+      "details": [
+        {
+          "label": "DAGW Service",
+          "value": { "id": "active", "label": "Connected" }
+        }
+      ]
+    },
+    {
+      "label": "Device and Software Details",
+      "details": [
+        { "label": "Device Type", "value": { "id": "", "label": "149" } },
+        {
+          "label": "Device Sequence Number",
+          "value": { "id": "", "label": "1951" }
+        },
+        {
+          "label": "Software Version",
+          "value": { "id": "", "label": "DAGW.A.02.04.89" }
+        },
+        {
+          "label": "Status",
+          "value": { "id": "active", "label": "Active" }
+        }
+      ]
+    },
+    {
+      "label": "Storage and Memory Statistics",
+      "details": [
+        {
+          "label": "Memory",
+          "subDetails": [
+            {
+              "label": "Used",
+              "value": { "id": "", "label": "149 GB" }
+            },
+            {
+              "label": "Free",
+              "value": { "id": "", "label": "75 GB" }
+            }
+          ]
+        },
+        {
+          "label": "Hard Disk",
+          "subDetails": [
+            {
+              "label": "Used",
+              "value": { "id": "", "label": "149 GB" }
+            },
+            {
+              "label": "Free",
+              "value": { "id": "", "label": "75 GB" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

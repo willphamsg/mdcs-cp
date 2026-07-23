@@ -1,0 +1,74 @@
+{
+  "trial_device_summary_list": [
+    {
+      "chk": false,
+      "id": 1,
+      "depot_id": "3",
+      "bus_num": "SBS0225U",
+      "trial_group": false,
+      "parameter_group": false,
+      "service_group": false,
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "depot_id": "3",
+      "bus_num": "SBS0422U",
+      "trial_group": false,
+      "parameter_group": true,
+      "service_group": false,
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "depot_id": "3",
+      "bus_num": "SBS8765A",
+      "trial_group": false,
+      "parameter_group": true,
+      "service_group": false,
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "depot_id": "3",
+      "bus_num": "SBS0452D",
+      "trial_group": false,
+      "parameter_group": false,
+      "service_group": true,
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 5,
+      "depot_id": "3",
+      "bus_num": "SBS0478U",
+      "trial_group": false,
+      "parameter_group": true,
+      "service_group": false,
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 7,
+      "depot_id": "3",
+      "bus_num": "SBS0478U",
+      "trial_group": false,
+      "parameter_group": true,
+      "service_group": false,
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 6,
+      "depot_id": "3",
+      "bus_num": "SBS8765B",
+      "trial_group": false,
+      "parameter_group": false,
+      "service_group": true,
+      "last_update": "2024-07-01T00:00:00"
+    }
+  ]
+}

@@ -1,0 +1,309 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [menuItem]="'Monitoring'"
+    [headerTitle]="'Bus Operation Status'"></app-breadcrumbs>
+</div>
+
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">Bus Operation Status</h1>
+  </mat-card-header>
+
+  <mat-divider> </mat-divider>
+  <mat-card-content>
+    <div class="filter-wrapper">
+      <app-filter [filterConfigs]="filterConfigs"></app-filter>
+    </div>
+    <!-- Selected Filter Component -->
+    <app-selected-filter />
+
+    <div class="table-wrapper">
+      <table
+        mat-table
+        class="stripped"
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="sortHandler($event)">
+        <!-- No. Column -->
+        <ng-container matColumnDef="id">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [hidden]="!hiddenHandler('id')"
+            style="width: 120px">
+            No.
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element; let dataIndex = index"
+            [hidden]="!hiddenHandler('id')"
+            [class.conn-status]="element.conn_status">
+            {{
+              (paginationService.currentPage - 1) * paginationService.pageSize +
+                dataIndex +
+                1
+            }}
+          </td>
+        </ng-container>
+
+        <!-- Depot Column -->
+        <ng-container matColumnDef="depot_id">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [hidden]="!hiddenHandler('depot_id')">
+            Depots
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [hidden]="!hiddenHandler('depot_id')"
+            [class.conn-status]="element.conn_status">
+            {{ element?.depot?.depot_name }}
+          </td>
+        </ng-container>
+
+        <!-- Bus ID Column -->
+        <ng-container matColumnDef="bus_num">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            [hidden]="!hiddenHandler('bus_num')">
+            Bus ID <span class="custom-sort"> </span>
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [hidden]="!hiddenHandler('bus_num')"
+            [class.conn-status]="element.conn_status">
+            <span style="font-size: 16px">{{ element.bus_num }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Service Provider Id Column -->
+        <!-- <ng-container matColumnDef="service_num">
+        <th
+          [hidden]="!hiddenHandler('service_num')"
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>
+          Service No. <span class="custom-sort"> </span>
+        </th>
+        <td
+          [hidden]="!hiddenHandler('service_num')"
+          mat-cell
+          *matCellDef="let element"
+          [class.conn-status]="element.conn_status">
+          {{ element.service_num }}
+        </td>
+      </ng-container> -->
+
+        <!-- Effective Date Column -->
+        <ng-container matColumnDef="download_status">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            [hidden]="!hiddenHandler('download_status')">
+            <div class="flex-box">
+              <p>Parameter</p>
+              <p>Download Status</p>
+            </div>
+            <span class="custom-sort"> </span>
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [hidden]="!hiddenHandler('download_status')"
+            [class.conn-status]="element.conn_status">
+            <span class="status" [ngClass]="element.download_status">{{
+              element.download_status === 'success'
+                ? 'Success'
+                : element.download_status === 'failed'
+                  ? 'Failed'
+                  : element.download_status === 'in_progress'
+                    ? 'In Progress'
+                    : ' - '
+            }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Group Number Column -->
+        <ng-container matColumnDef="upload_status">
+          <th
+            [hidden]="!hiddenHandler('upload_status')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            <div class="flex-box">
+              <p>Transaction</p>
+              <p>Upload Status</p>
+            </div>
+            <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('upload_status')"
+            mat-cell
+            *matCellDef="let element"
+            [class.conn-status]="element.conn_status">
+            <span class="status" [ngClass]="element.upload_status">{{
+              element.upload_status === 'success'
+                ? 'Success'
+                : element.upload_status === 'failed'
+                  ? 'Failed'
+                  : element.upload_status === 'in_progress'
+                    ? 'In Progress'
+                    : ' - '
+            }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Effective Time Column -->
+        <ng-container matColumnDef="sam_status">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            [hidden]="!hiddenHandler('sam_status')">
+            SAM Auth Status <span class="custom-sort"> </span>
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [hidden]="!hiddenHandler('sam_status')"
+            [class.conn-status]="element.conn_status">
+            <span class="status" [ngClass]="element.sam_status">{{
+              element.sam_status === 'success'
+                ? 'Success'
+                : element.sam_status === 'failed'
+                  ? 'Failed'
+                  : element.sam_status === 'in_progress'
+                    ? 'In Progress'
+                    : ' - '
+            }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Connection Start Column -->
+        <ng-container matColumnDef="connect_time">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            [hidden]="!hiddenHandler('connect_time')">
+            Connection Start <span class="custom-sort"> </span>
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [hidden]="!hiddenHandler('connect_time')"
+            [class.conn-status]="element.conn_status">
+            <div class="flex-box" style="font-size: 16px">
+              <p style="color: #333">
+                {{ element.connect_time | date: 'dd/MM/yyyy' }}
+              </p>
+              <p>{{ element.connect_time | date: 'HH:mm:ss' }}</p>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Connection End Column -->
+        <ng-container matColumnDef="disconnect_time">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            [hidden]="!hiddenHandler('disconnect_time')">
+            Connection End <span class="custom-sort"> </span>
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [hidden]="!hiddenHandler('disconnect_time')"
+            [class.conn-status]="element.conn_status">
+            <div class="flex-box" style="font-size: 16px">
+              <p style="color: #333">
+                {{ element.disconnect_time | date: 'dd/MM/yyyy' }}
+              </p>
+              <p>{{ element.disconnect_time | date: 'HH:mm:ss' }}</p>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="conn_status">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            [hidden]="!hiddenHandler('conn_status')">
+            Connection Status <span class="custom-sort"> </span>
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [hidden]="!hiddenHandler('conn_status')"
+            style="text-align: center"
+            [class.conn-status]="element.conn_status">
+            @if (!element.conn_status) {
+              <span class="status" [ngClass]="element.conn_status">
+                <img
+                  src="/assets/icons/do-not-disturb-on.svg"
+                  alt="Selected Checkbox" />
+                <!-- <mat-icon style="color: #cdcdcd">do_not_disturb_on</mat-icon> -->
+              </span>
+            }
+            @if (element.conn_status) {
+              <span class="status" [ngClass]="element.conn_status">
+                <mat-icon style="color: #009e73">check_circle</mat-icon>
+              </span>
+            }
+          </td>
+        </ng-container>
+
+        <!-- Updated On -->
+        <ng-container matColumnDef="updated_on">
+          <th
+            [hidden]="!hiddenHandler('updated_on')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Updated On <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('updated_on')"
+            mat-cell
+            *matCellDef="let element"
+            [class.conn-status]="element.conn_status">
+            {{ element.updated_on }}
+          </td>
+        </ng-container>
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+          class="header-row"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="data-row"></tr>
+
+        <!-- <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
+        No Records Found
+      </td>
+    </tr> -->
+      </table>
+      @if (!dataSource.length) {
+        <div class="no-data">No Records Found</div>
+      }
+    </div>
+    <div class="flex-center-center">
+      <app-pagination
+        [totalItems]="rowCount"
+        [currentPageInput]="currentPage"
+        (pageChange)="onPageChange($event)"></app-pagination>
+    </div>
+  </mat-card-content>
+</mat-card>

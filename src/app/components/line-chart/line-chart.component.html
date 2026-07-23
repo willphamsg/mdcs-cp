@@ -1,0 +1,16 @@
+<div class="line-chart-container">
+  <div class="chart-title">
+    <strong>{{ chartOptions?.plugins?.title?.text || '' }}</strong>
+    <span>{{ chartOptions?.plugins?.subtitle?.text || '' }}</span>
+  </div>
+  <div class="chart" [style.height.px]="height">
+    <canvas
+      baseChart
+      [data]="chartData"
+      [options]="chartOptions"
+      [type]="chartType"
+      (chartHover)="chartHovered($event)"
+      (chartClick)="chartClicked($event)">
+    </canvas>
+  </div>
+</div>

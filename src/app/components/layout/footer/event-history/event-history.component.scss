@@ -1,0 +1,26 @@
+.data-row {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  color: #000000;
+  height: 40px !important;
+}
+
+.data-row:not(:last-child) > td {
+  border-bottom: unset;
+}
+
+.data-row:last-child > td {
+  border-bottom: 1px solid #dedede;
+}
+
+.header-row {
+  background-color: #4a5964;
+  font-weight: 600;
+  height: 40px !important;
+  color: #ffffff;
+}
+
+.mat-mdc-header-cell {
+  white-space: nowrap;
+}

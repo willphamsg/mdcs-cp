@@ -1,0 +1,157 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [menuItem]="'Report'"
+    [headerTitle]="'Ad-Hoc Report'"></app-breadcrumbs>
+</div>
+
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">Ad-Hoc Report</h1>
+  </mat-card-header>
+
+  <mat-divider> </mat-divider>
+  <mat-card-content>
+    <mat-tab-group
+      (selectedTabChange)="onTabChange($event)"
+      mat-stretch-tabs="false"
+      mat-align-tabs="start"
+      animationDuration="0ms">
+      @for (item of tabList; track item.key) {
+        <mat-tab [label]="item.key">
+          <ng-template mat-tab-label>
+            <div>{{ item?.title }}</div>
+          </ng-template>
+        </mat-tab>
+      }
+    </mat-tab-group>
+
+    <div class="entry-actions">
+      @if (reportName != 'BusTransferReport') {
+        <mat-form-field class="mat-custom hide">
+          <mat-label>Business Day</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [max]="todayJS"
+            [(ngModel)]="businessDaySelected" />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      }
+
+      @if (reportName === 'DAGWMontlyAvailability') {
+        <mat-form-field class="mat-custom">
+          <mat-label>Month</mat-label>
+          <mat-select [(ngModel)]="monthSelected">
+            @for (month of months; track month) {
+              <mat-option [value]="month.month_value">
+                {{ month.month_name }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+
+      <mat-form-field class="mat-custom" style="width: 320px">
+        <mat-label>
+          @if (reportName === 'BusTransferReport') {
+            Current
+          }
+          Depot</mat-label
+        >
+        <mat-select [(ngModel)]="depotSelected">
+          @for (depot of depots; track depot) {
+            <mat-option [value]="depot.depot_id">
+              {{ depot.depot_name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      @if (reportName === 'BusTransferReport') {
+        <mat-form-field class="mat-custom" style="width: 260px">
+          <mat-label>Current Operator</mat-label>
+          <mat-select [(ngModel)]="currentOperatorSelected">
+            @for (operator of operators; track operator) {
+              <mat-option [value]="operator.svc_prov_id">
+                {{ operator.svc_prov_name }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+
+      @if (reportName === 'BusTransferReport') {
+        <mat-form-field class="mat-custom" style="width: 260px">
+          <mat-label>Future Operator</mat-label>
+          <mat-select [(ngModel)]="futureOperatorSelected">
+            @for (operator of operators; track operator) {
+              <mat-option [value]="operator.svc_prov_id">
+                {{ operator.svc_prov_name }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+
+      @if (reportName === 'BusTransferReport') {
+        <mat-form-field class="mat-custom" style="width: 290px">
+          <mat-label>Future Effective Start Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [(ngModel)]="startDateSelected" />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      }
+
+      @if (reportName === 'BusTransferReport') {
+        <mat-form-field class="mat-custom" style="width: 290px">
+          <mat-label>Future Effective End Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [(ngModel)]="endDateSelected" />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      }
+
+      <div class="button-filter" style="text-align: right">
+        <div class="item">
+          <button
+            type="button"
+            (click)="onViewReport()"
+            mat-flat-button
+            id="btndescription"
+            [disabled]="isButtonClick"
+            class="btn description">
+            <mat-icon>description</mat-icon>
+            View Report
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Selected Filter Component -->
+    <app-selected-filter />
+
+    <div class="table-wrapper">
+      <app-ssrs-reportviewer
+        [reportname]="reportName"
+        [parameter]="parameterReportViewer"
+        [option]="optionReportViewer"
+        [reportType]="'adhoc-report'"
+        (isIframeLoadedEvent)="
+          isIframeLoadedEvent($event)
+        "></app-ssrs-reportviewer>
+    </div>
+    <div class="table-footer"></div>
+  </mat-card-content>
+</mat-card>

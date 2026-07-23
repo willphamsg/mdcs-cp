@@ -1,0 +1,175 @@
+.extra-format {
+  gap: 24px;
+  align-items: flex-end;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.approve {
+  background-color: #009e73 !important;
+}
+
+.edit {
+  background-color: #332288 !important;
+}
+
+.export {
+  background-color: #009e73 !important;
+}
+
+.reject {
+  background-color: #9f0f0f !important;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 16px;
+  color: white;
+
+  &.Approved,
+  &.approved {
+    background-color: #009e73;
+  }
+
+  &.Rejected,
+  &.rejected {
+    background-color: #9f0f0f;
+  }
+
+  &.Pending,
+  &.pending {
+    background-color: #0046ad;
+  }
+}
+
+.status-exported {
+  background-color: #22ab84;
+  color: white;
+  border-radius: 100px;
+  padding: 5px 10px;
+  display: inline-block;
+}
+
+.status-failed {
+  background-color: #c0342b;
+  color: white;
+  border-radius: 100px;
+  padding: 5px 10px;
+  display: inline-block;
+}
+
+.item {
+  display: flex;
+}
+
+.btn-export {
+  background-color: #009e73;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+  height: 40px;
+  &:disabled {
+    opacity: 0.5;
+    background-color: #828282;
+    cursor: not-allowed;
+  }
+}
+
+.btn-cancel {
+  background-color: #fff;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 1;
+  transition: all 0.2s ease;
+  height: 40px;
+  margin-right: 8px;
+  &:hover {
+    background: #eee;
+  }
+  &:disabled {
+    opacity: 0.5;
+    background-color: #828282;
+    cursor: not-allowed;
+  }
+}
+
+.download-icon {
+  margin-right: 8px;
+  width: 24px;
+  height: 24px;
+}
+
+::ng-deep .mdc-floating-label {
+  padding-bottom: 15px;
+}
+::ng-deep .mat-mdc-checkbox-disabled {
+  & > .mdc-form-field {
+    & > .mdc-checkbox {
+      & > .mdc-checkbox__background {
+        background-color: #ccc !important;
+        border: 2px solid #bbb !important;
+      }
+    }
+  }
+}
+
+// Zebra striping and remove border-bottom for table rows
+::ng-deep {
+  .mat-mdc-row:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+
+  .mat-mdc-row:nth-child(even) {
+    background-color: #ffffff;
+  }
+
+  .mat-mdc-row:hover {
+    background-color: #f0f0f0 !important;
+  }
+
+  .mat-mdc-row,
+  .mat-mdc-cell {
+    border-bottom: none !important;
+  }
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 16px;
+  display: inline-block;
+  font-weight: 400;
+  font-size: 16px;
+
+  &.exporting {
+    background-color: #ffb000;
+    color: black;
+  }
+
+  &.failed {
+    background-color: #9f0f0f;
+    color: white;
+  }
+
+  &.success {
+    background-color: #009e73;
+    color: white;
+  }
+}

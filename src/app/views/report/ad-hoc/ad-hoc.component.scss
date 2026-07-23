@@ -1,0 +1,26 @@
+.content-container {
+  height: calc(100vh - 64px - 32px);
+  display: flex;
+  flex-direction: column;
+
+  .empty-depot-display {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    flex-direction: column;
+    gap: 24px;
+
+    p:nth-child(2) {
+      font-size: 24px;
+      color: #000;
+    }
+    p:nth-child(3) {
+      font-size: 16px;
+      color: #828282;
+    }
+  }
+}
+
+.view-btn {
+  background-color: #0072b2;
+}

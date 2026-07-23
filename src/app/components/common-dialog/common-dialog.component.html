@@ -1,0 +1,33 @@
+<div style="padding: 36px 48px">
+  <p
+    style="
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 32px;
+      margin-bottom: 16px;
+      text-align: center;
+    "
+    matDialogTitle>
+    {{ title }}
+  </p>
+  <mat-dialog-content>
+    <p
+      style="
+        font-size: 20px;
+        line-height: 24px;
+        text-align: center;
+        overflow: none;
+      ">
+      {{ message }}
+    </p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    @if (!okOnly) {
+      <button mat-stroked-button (click)="onDismiss()">{{ cancelText }}</button>
+    }
+
+    <button mat-raised-button color="primary" (click)="onConfirm()">
+      {{ confirmText }}
+    </button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,43 @@
+.container {
+  margin: 10px auto;
+
+  .mat-grid-tile {
+    padding: 16px;
+    height: 550px;
+  }
+
+  .column {
+    background-color: #f7f7f7;
+    padding: 16px;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    height: inherit;
+    overflow: auto;
+  }
+
+  .key-value-pair {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+  }
+
+  .key {
+    font-weight: 500;
+    color: #555;
+  }
+
+  .value {
+    font-weight: bold;
+    color: #000;
+  }
+
+  .key-value-pair:last-child {
+    border-bottom: none;
+  }
+}
+
+::ng-deep .mat-grid-tile-content {
+  display: inline-block !important;
+  justify-content: unset !important;
+  align-items: unset !important;
+}

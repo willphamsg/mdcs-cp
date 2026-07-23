@@ -1,0 +1,112 @@
+.label {
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.filter-container {
+  .dropdown-filter {
+    display: flex;
+    gap: 12px;
+    flex: 1;
+
+    .btn-container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 20px;
+
+      .btn {
+        width: 140px;
+        font-weight: bold;
+      }
+    }
+
+    .search-text {
+      max-width: 440px;
+      width: 100%;
+      height: 40px;
+    }
+  }
+
+  .label-filter {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .mat-input-filter {
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .button-filter {
+    display: flex;
+    justify-content: flex-end;
+    width: 40%;
+    > div:not(:last-child) {
+      margin-inline-end: 10px;
+    }
+  }
+}
+
+.live {
+  background-color: #009e73 !important;
+}
+
+.continue {
+  background-color: #0072b2 !important;
+}
+
+.rejected {
+  background-color: #9f0f0f !important;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 16px;
+  color: white;
+
+  // Live status - green color
+  &.live,
+  &.Live,
+  &.LIVE {
+    background-color: #009e73 !important;
+  }
+
+  // Old status - grey color
+  &.old,
+  &.Old,
+  &.OLD {
+    background-color: #828282 !important;
+  }
+
+  // Trial status - blue color
+  &.trial,
+  &.Trial,
+  &.TRIAL {
+    background-color: #648fff !important;
+  }
+
+  // Accepted status - green color (same as live)
+  &.accepted,
+  &.Accepted,
+  &.ACCEPTED {
+    background-color: #009e73 !important;
+  }
+
+  // Rejected status - red color
+  &.rejected,
+  &.Rejected,
+  &.REJECTED {
+    background-color: #9f0f0f !important;
+  }
+
+  // In progress status - orange color
+  &.in-progress {
+    background-color: #ffb000;
+    color: #000;
+  }
+}
+
+.disabled {
+  background-color: #828282 !important;
+  opacity: 0.6 !important;
+}

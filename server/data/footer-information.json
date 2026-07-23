@@ -1,0 +1,48 @@
+{
+  "mdcs": {
+    "version": "MDCS.A.01.01.00.000AFHACNS",
+    "service_provider": "SBST",
+    "system_connection": [
+      {
+        "name": "BOCC",
+        "status": 1
+      },
+      {
+        "name": "PMDS",
+        "status": 1
+      },
+      {
+        "name": "ABCDE",
+        "status": 0
+      },
+      {
+        "name": "FGHIJ",
+        "status": 1
+      },
+      {
+        "name": "KLMNO",
+        "status": 0
+      }
+    ],
+    "pdt_status": 0
+  },
+  "dagw": {
+    "version": "DAGW12345.67",
+    "depot_abbreviation": "Hougang",
+    "system_connection": [
+      {
+        "name": "BOCC",
+        "status": 1
+      },
+      {
+        "name": "PMDS",
+        "status": 1
+      },
+      {
+        "name": "MDCS",
+        "status": 0
+      }
+    ],
+    "pdt_status": 1
+  }
+}

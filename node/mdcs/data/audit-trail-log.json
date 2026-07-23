@@ -1,0 +1,502 @@
+[
+  {
+    "id": 0,
+    "depot": "972",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T13:00:15.537289",
+    "startDate": "2025-10-03T13:00:15.537289",
+    "endDate": "2025-10-03T13:00:15.537289",
+    "update_type": "Trial Device List",
+    "description": "supervisor updates trial device 123456 1"
+  },
+  {
+    "id": 0,
+    "depot": "976",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T13:02:32.945375",
+    "startDate": "2025-10-03T13:02:32.945375",
+    "endDate": "2025-10-03T13:02:32.945375",
+    "update_type": "Trial Device List",
+    "description": "supervisor updates trial device AA00034 7"
+  },
+  {
+    "id": 0,
+    "depot": "972",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T13:02:38.656102",
+    "startDate": "2025-10-03T13:02:38.656102",
+    "endDate": "2025-10-03T13:02:38.656102",
+    "update_type": "Trial Device List",
+    "description": "supervisor updates trial device 123456 null"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T13:02:49.372515",
+    "startDate": "2025-10-03T13:02:49.372515",
+    "endDate": "2025-10-03T13:02:49.372515",
+    "update_type": "Trial Device List",
+    "description": "supervisor updates trial device I00000I 1"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T13:32:03.233254",
+    "startDate": "2025-10-03T13:32:03.233254",
+    "endDate": "2025-10-03T13:32:03.233254",
+    "update_type": "Vehicle Map",
+    "description": "supervisor adds bus AB1200"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T13:32:03.235990",
+    "startDate": "2025-10-03T13:32:03.235990",
+    "endDate": "2025-10-03T13:32:03.235990",
+    "update_type": "Vehicle Map",
+    "description": "supervisor saves bus IK0003"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T13:55:18.874040",
+    "startDate": "2025-10-03T13:55:18.874040",
+    "endDate": "2025-10-03T13:55:18.874040",
+    "update_type": "Vehicle Map",
+    "description": "supervisor adds bus SC3400"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T13:55:18.876015",
+    "startDate": "2025-10-03T13:55:18.876015",
+    "endDate": "2025-10-03T13:55:18.876015",
+    "update_type": "Vehicle Map",
+    "description": "supervisor saves bus RG4141"
+  },
+  {
+    "id": 0,
+    "depot": "971",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T13:55:18.878390",
+    "startDate": "2025-10-03T13:55:18.878390",
+    "endDate": "2025-10-03T13:55:18.878390",
+    "update_type": "Vehicle Map",
+    "description": "supervisor saves bus RG8756"
+  },
+  {
+    "id": 0,
+    "depot": "971",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T13:55:18.880343",
+    "startDate": "2025-10-03T13:55:18.880343",
+    "endDate": "2025-10-03T13:55:18.880343",
+    "update_type": "Vehicle Map",
+    "description": "supervisor saves bus RG6433"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T13:55:18.882475",
+    "startDate": "2025-10-03T13:55:18.882475",
+    "endDate": "2025-10-03T13:55:18.882475",
+    "update_type": "Vehicle Map",
+    "description": "supervisor saves bus RG5473"
+  },
+  {
+    "id": 0,
+    "depot": "973",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T13:55:18.884352",
+    "startDate": "2025-10-03T13:55:18.884352",
+    "endDate": "2025-10-03T13:55:18.884352",
+    "update_type": "Vehicle Map",
+    "description": "supervisor saves bus RG8657"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T14:12:37.669120",
+    "startDate": "2025-10-03T14:12:37.669120",
+    "endDate": "2025-10-03T14:12:37.669120",
+    "update_type": "Bus Transfer",
+    "description": "supervisor imports bus RG4141 for 17 with effective date time 03-10-2025 14:50:00"
+  },
+  {
+    "id": 0,
+    "depot": "971",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T14:12:37.671205",
+    "startDate": "2025-10-03T14:12:37.671205",
+    "endDate": "2025-10-03T14:12:37.671205",
+    "update_type": "Bus Transfer",
+    "description": "supervisor imports bus RG8756 for 17 with effective date time 03-10-2025 14:50:00"
+  },
+  {
+    "id": 0,
+    "depot": "971",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T14:12:37.673344",
+    "startDate": "2025-10-03T14:12:37.673344",
+    "endDate": "2025-10-03T14:12:37.673344",
+    "update_type": "Bus Transfer",
+    "description": "supervisor imports bus RG6433 for 17 with effective date time 03-10-2025 14:50:00"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T14:12:37.675163",
+    "startDate": "2025-10-03T14:12:37.675163",
+    "endDate": "2025-10-03T14:12:37.675163",
+    "update_type": "Bus Transfer",
+    "description": "supervisor imports bus RG5473 for 17 with effective date time 03-10-2025 14:50:00"
+  },
+  {
+    "id": 0,
+    "depot": "973",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T14:12:37.677021",
+    "startDate": "2025-10-03T14:12:37.677021",
+    "endDate": "2025-10-03T14:12:37.677021",
+    "update_type": "Bus Transfer",
+    "description": "supervisor imports bus RG8657 for 17 with effective date time 03-10-2025 14:50:00"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T14:30:16.418682",
+    "startDate": "2025-10-03T14:30:16.418682",
+    "endDate": "2025-10-03T14:30:16.418682",
+    "update_type": "Trial Device List",
+    "description": "supervisor updates trial device I00000I null"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T14:30:32.421119",
+    "startDate": "2025-10-03T14:30:32.421119",
+    "endDate": "2025-10-03T14:30:32.421119",
+    "update_type": "Trial Device List",
+    "description": "supervisor updates trial device I00000I 7"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T14:30:44.432649",
+    "startDate": "2025-10-03T14:30:44.432649",
+    "endDate": "2025-10-03T14:30:44.432649",
+    "update_type": "Trial Device List",
+    "description": "supervisor updates trial device OO00OO 1"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T14:30:52.461717",
+    "startDate": "2025-10-03T14:30:52.461717",
+    "endDate": "2025-10-03T14:30:52.461717",
+    "update_type": "Trial Device List",
+    "description": "supervisor updates trial device SB9999 4"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T14:32:24.165017",
+    "startDate": "2025-10-03T14:32:24.165017",
+    "endDate": "2025-10-03T14:32:24.165017",
+    "update_type": "Trial Device List",
+    "description": "supervisor updates trial device SL0000D 2"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T14:32:32.505740",
+    "startDate": "2025-10-03T14:32:32.505740",
+    "endDate": "2025-10-03T14:32:32.505740",
+    "update_type": "Trial Device List",
+    "description": "supervisor updates trial device SL0002D 1"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T14:32:32.508527",
+    "startDate": "2025-10-03T14:32:32.508527",
+    "endDate": "2025-10-03T14:32:32.508527",
+    "update_type": "Trial Device List",
+    "description": "supervisor updates trial device SL0003D 1"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-03T14:32:32.511773",
+    "startDate": "2025-10-03T14:32:32.511773",
+    "endDate": "2025-10-03T14:32:32.511773",
+    "update_type": "Trial Device List",
+    "description": "supervisor updates trial device SL0009D 1"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-06T15:47:25.918706",
+    "startDate": "2025-10-06T15:47:25.918706",
+    "endDate": "2025-10-06T15:47:25.918706",
+    "update_type": "Vehicle Map",
+    "description": "supervisor saves bus RG5211"
+  },
+  {
+    "id": 0,
+    "depot": "973",
+    "userId": "ltasupervisor",
+    "dateTime": "2025-10-06T15:50:54.060880",
+    "startDate": "2025-10-06T15:50:54.060880",
+    "endDate": "2025-10-06T15:50:54.060880",
+    "update_type": "Bus Transfer",
+    "description": "ltasupervisor approves bus RG8657 for SMRB with effective date time 03-10-2025 14:50:00"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "ltasupervisor",
+    "dateTime": "2025-10-06T15:50:59.138823",
+    "startDate": "2025-10-06T15:50:59.138823",
+    "endDate": "2025-10-06T15:50:59.138823",
+    "update_type": "Bus Transfer",
+    "description": "ltasupervisor approves bus RG5473 for SMRB with effective date time 03-10-2025 14:50:00"
+  },
+  {
+    "id": 0,
+    "depot": "971",
+    "userId": "ltasupervisor",
+    "dateTime": "2025-10-06T15:51:39.798612",
+    "startDate": "2025-10-06T15:51:39.798612",
+    "endDate": "2025-10-06T15:51:39.798612",
+    "update_type": "Bus Transfer",
+    "description": "ltasupervisor approves bus RG8756 for SMRB with effective date time 03-10-2025 14:50:00"
+  },
+  {
+    "id": 0,
+    "depot": "971",
+    "userId": "ltasupervisor",
+    "dateTime": "2025-10-06T15:51:43.242036",
+    "startDate": "2025-10-06T15:51:43.242036",
+    "endDate": "2025-10-06T15:51:43.242036",
+    "update_type": "Bus Transfer",
+    "description": "ltasupervisor approves bus RG6433 for SMRB with effective date time 03-10-2025 14:50:00"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-06T17:30:12.150209",
+    "startDate": "2025-10-06T17:30:12.150209",
+    "endDate": "2025-10-06T17:30:12.150209",
+    "update_type": "Vehicle Map",
+    "description": "supervisor adds bus AB1200"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-06T17:30:12.153939",
+    "startDate": "2025-10-06T17:30:12.153939",
+    "endDate": "2025-10-06T17:30:12.153939",
+    "update_type": "Vehicle Map",
+    "description": "supervisor adds bus SC3400"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-06T17:30:12.157122",
+    "startDate": "2025-10-06T17:30:12.157122",
+    "endDate": "2025-10-06T17:30:12.157122",
+    "update_type": "Vehicle Map",
+    "description": "supervisor adds bus IK0001"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-06T17:30:12.159468",
+    "startDate": "2025-10-06T17:30:12.159468",
+    "endDate": "2025-10-06T17:30:12.159468",
+    "update_type": "Vehicle Map",
+    "description": "supervisor saves bus AX1234"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "supervisor",
+    "dateTime": "2025-10-06T17:30:25.605946",
+    "startDate": "2025-10-06T17:30:25.605946",
+    "endDate": "2025-10-06T17:30:25.605946",
+    "update_type": "Bus Transfer",
+    "description": "supervisor imports bus AX1234 for 17 with effective date time 06-10-2025 13:01:00"
+  },
+  {
+    "id": 0,
+    "depot": "970",
+    "userId": "ltasupervisor",
+    "dateTime": "2025-10-06T17:30:52.137987",
+    "startDate": "2025-10-06T17:30:52.137987",
+    "endDate": "2025-10-06T17:30:52.137987",
+    "update_type": "Bus Transfer",
+    "description": "ltasupervisor approves bus AX1234 for SMRB with effective date time 06-10-2025 13:01:00"
+  },
+  {
+    "id": 0,
+    "depot": "973",
+    "userId": "supervisor",
+    "dateTime": "2025-10-07T16:02:35.706293",
+    "startDate": "2025-10-07T16:02:35.706293",
+    "endDate": "2025-10-07T16:02:35.706293",
+    "update_type": "Trial Parameters",
+    "description": "supervisor updates SeP_SGP?.SYS: '4'"
+  },
+  {
+    "id": 0,
+    "depot": "973",
+    "userId": "supervisor",
+    "dateTime": "2025-10-07T16:03:09.799556",
+    "startDate": "2025-10-07T16:03:09.799556",
+    "endDate": "2025-10-07T16:03:09.799556",
+    "update_type": "Trial Parameters",
+    "description": "supervisor updates SeP_SGP?.SYS: '4'"
+  },
+  {
+    "id": 0,
+    "depot": "973",
+    "userId": "supervisor",
+    "dateTime": "2025-10-07T16:03:15.704248",
+    "startDate": "2025-10-07T16:03:15.704248",
+    "endDate": "2025-10-07T16:03:15.704248",
+    "update_type": "Trial Parameters",
+    "description": "supervisor updates SeP_SGP?.SYS: '4'"
+  },
+  {
+    "id": 0,
+    "depot": "973",
+    "userId": "supervisor",
+    "dateTime": "2025-10-07T16:05:43.060565",
+    "startDate": "2025-10-07T16:05:43.060565",
+    "endDate": "2025-10-07T16:05:43.060565",
+    "update_type": "Trial Parameters",
+    "description": "supervisor updates BUS_UATA.SYS: '4'"
+  },
+  {
+    "id": 0,
+    "depot": "973",
+    "userId": "supervisor",
+    "dateTime": "2025-10-07T16:05:47.639355",
+    "startDate": "2025-10-07T16:05:47.639355",
+    "endDate": "2025-10-07T16:05:47.639355",
+    "update_type": "Trial Parameters",
+    "description": "supervisor updates BUS_UATA.SYS: '4'"
+  },
+  {
+    "id": 0,
+    "depot": "973",
+    "userId": "supervisor",
+    "dateTime": "2025-10-07T16:14:43.192698",
+    "startDate": "2025-10-07T16:14:43.192698",
+    "endDate": "2025-10-07T16:14:43.192698",
+    "update_type": "Trial Parameters",
+    "description": "supervisor updates SeP_SGP?.SYS: '4'"
+  },
+  {
+    "id": 0,
+    "depot": "976",
+    "userId": "supervisor",
+    "dateTime": "2025-10-07T16:14:59.404716",
+    "startDate": "2025-10-07T16:14:59.404716",
+    "endDate": "2025-10-07T16:14:59.404716",
+    "update_type": "Trial Parameters",
+    "description": "supervisor updates SeP_SGP?.SYS: '4'"
+  },
+  {
+    "id": 0,
+    "depot": "973",
+    "userId": "supervisor",
+    "dateTime": "2025-10-07T16:15:09.335972",
+    "startDate": "2025-10-07T16:15:09.335972",
+    "endDate": "2025-10-07T16:15:09.335972",
+    "update_type": "Trial Parameters",
+    "description": "supervisor updates BFC_CBT?.SYS: '9'"
+  },
+  {
+    "id": 0,
+    "depot": "973",
+    "userId": "supervisor",
+    "dateTime": "2025-10-07T17:20:14.310568",
+    "startDate": "2025-10-07T17:20:14.310568",
+    "endDate": "2025-10-07T17:20:14.310568",
+    "update_type": "Trial Parameters",
+    "description": "supervisor updates BLS2CBT?.SYS: '7'"
+  },
+  {
+    "id": 0,
+    "depot": "973",
+    "userId": "supervisor",
+    "dateTime": "2025-10-08T09:42:40.884653",
+    "startDate": "2025-10-08T09:42:40.884653",
+    "endDate": "2025-10-08T09:42:40.884653",
+    "update_type": "Trial Parameters",
+    "description": "supervisor updates SeP_SGP?.SYS: '4'"
+  },
+  {
+    "id": 0,
+    "depot": "976",
+    "userId": "supervisor",
+    "dateTime": "2025-10-08T10:05:23.512726",
+    "startDate": "2025-10-08T10:05:23.512726",
+    "endDate": "2025-10-08T10:05:23.512726",
+    "update_type": "Trial Parameters",
+    "description": "supervisor updates SeP_SGP?.SYS: '4'"
+  },
+  {
+    "id": 0,
+    "depot": "973",
+    "userId": "supervisor",
+    "dateTime": "2025-10-08T10:05:40.172705",
+    "startDate": "2025-10-08T10:05:40.172705",
+    "endDate": "2025-10-08T10:05:40.172705",
+    "update_type": "Trial Parameters",
+    "description": "supervisor updates SeP_SGP?.SYS: '4'"
+  },
+  {
+    "id": 0,
+    "depot": "973",
+    "userId": "supervisor",
+    "dateTime": "2025-10-08T10:09:39.146711",
+    "startDate": "2025-10-08T10:09:39.146711",
+    "endDate": "2025-10-08T10:09:39.146711",
+    "update_type": "Trial Parameters",
+    "description": "supervisor updates SeP_SGP?.SYS: '4'"
+  },
+  {
+    "id": 0,
+    "depot": "976",
+    "userId": "supervisor",
+    "dateTime": "2025-10-08T10:12:33.926868",
+    "startDate": "2025-10-08T10:12:33.926868",
+    "endDate": "2025-10-08T10:12:33.926868",
+    "update_type": "Trial Parameters",
+    "description": "supervisor updates SeP_SGP?.SYS: '13'"
+  }
+]

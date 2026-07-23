@@ -1,0 +1,6 @@
+{
+    "change_password_url": "https://adfs-mdcs.useritech.com/adfs/portal/updatepassword",
+    "logout_url": "/logout",
+    "adfs_logout_url": "https://adfs-server-host/adfs/ls/?wa=wsignout1.0",
+    "authenticate_adfs_url": "/saml2/authenticate/adfs"
+}

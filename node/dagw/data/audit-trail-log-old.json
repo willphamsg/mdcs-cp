@@ -1,0 +1,189 @@
+[
+  {
+    "id": "1",
+    "depot_id": "2",
+    "depot": {
+      "id": 2,
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "Ang Mo Kio Depot",
+      "depot_code": "AMKD"
+    },
+    "userId": "LTA\\supervisor12345",
+    "dateTime": "2024-09-09T11:11:00",
+    "startDate": "2024-09-09T11:11:00",
+    "endDate": "2024-07-03T23:59:59",
+    "updateType": "Trial Parameters",
+    "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+  },
+  {
+    "id": "2",
+    "depot_id": "3",
+    "depot": {
+      "id": 3,
+      "depot_id": "3",
+      "version": 1,
+      "depot_name": "Aver Raja Depot Depot",
+      "depot_code": "ARDD"
+    },
+    "userId": "LTA\\supervisor12345",
+    "dateTime": "2024-09-09T11:11:00",
+    "startDate": "2024-09-09T11:11:00",
+    "endDate": "2024-07-03T23:59:59",
+    "updateType": "Trial Parameters",
+    "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+  },
+  {
+    "id": "3",
+    "depot_id": "1",
+    "depot": {
+      "id": 1,
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HD"
+    },
+    "userId": "LTA\\supervisor12345",
+    "dateTime": "2024-09-09T11:11:00",
+    "startDate": "2024-09-09T11:11:00",
+    "endDate": "2024-07-03T23:59:59",
+    "updateType": "Trial Parameters",
+    "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+  },
+  {
+    "id": "4",
+    "depot_id": "1",
+    "depot": {
+      "id": 1,
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HD"
+    },
+    "userId": "LTA\\supervisor12345",
+    "dateTime": "2024-09-09T11:11:00",
+    "startDate": "2024-09-09T11:11:00",
+    "endDate": "2024-07-03T23:59:59",
+    "updateType": "Trial Parameters",
+    "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+  },
+  {
+    "id": "5",
+    "depot_id": "3",
+    "depot": {
+      "id": 3,
+      "depot_id": "3",
+      "version": 1,
+      "depot_name": "Aver Raja Depot Depot",
+      "depot_code": "ARDD"
+    },
+    "userId": "LTA\\supervisor12345",
+    "dateTime": "2024-07-03T00:00:00",
+    "startDate": "2024-07-03T00:00:00",
+    "endDate": "2024-07-03T23:59:59",
+    "updateType": "Trial Parameters",
+    "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+  },
+  {
+    "id": "6",
+    "depot_id": "2",
+    "depot": {
+      "id": 2,
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "Ang Mo Kio Depot",
+      "depot_code": "AMKD"
+    },
+    "userId": "LTA\\supervisor12345",
+    "dateTime": "2024-07-03T00:00:00",
+    "startDate": "2024-07-03T00:00:00",
+    "endDate": "2024-07-03T23:59:59",
+    "updateType": "Trial Parameters",
+    "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+  },
+  {
+    "id": "7",
+    "depot_id": "2",
+    "depot": {
+      "id": 2,
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "Ang Mo Kio Depot",
+      "depot_code": "AMKD"
+    },
+    "userId": "LTA\\supervisor12345",
+    "dateTime": "2024-07-03T00:00:00",
+    "startDate": "2024-07-03T00:00:00",
+    "endDate": "2024-07-03T23:59:59",
+    "updateType": "Trial Parameters",
+    "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+  },
+  {
+    "id": "8",
+    "depot_id": "1",
+    "depot": {
+      "id": 1,
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HD"
+    },
+    "userId": "LTA\\supervisor12345",
+    "dateTime": "2024-07-03T00:00:00",
+    "startDate": "2024-07-03T00:00:00",
+    "endDate": "2024-07-03T23:59:59",
+    "updateType": "Trial Parameters",
+    "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+  },
+  {
+    "id": "9",
+    "depot_id": "1",
+    "depot": {
+      "id": 1,
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HD"
+    },
+    "userId": "LTA\\supervisor12345",
+    "dateTime": "2024-07-03T00:00:00",
+    "startDate": "2024-07-03T00:00:00",
+    "endDate": "2024-07-03T23:59:59",
+    "updateType": "Trial Parameters",
+    "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+  },
+  {
+    "id": "10",
+    "depot_id": "1",
+    "depot": {
+      "id": 1,
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HD"
+    },
+    "userId": "LTA\\supervisor12345",
+    "dateTime": "2024-07-03T00:00:00",
+    "startDate": "2024-07-03T00:00:00",
+    "endDate": "2024-07-03T23:59:59",
+    "updateType": "Trial Parameters",
+    "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+  },
+  {
+    "id": "11",
+    "depot_id": "1",
+    "depot": {
+      "id": 1,
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HD"
+    },
+    "userId": "LTA\\supervisor12345",
+    "dateTime": "2024-09-09T11:11:00",
+    "startDate": "2024-09-09T11:11:00",
+    "endDate": "2024-07-03T23:59:59",
+    "updateType": "Trial Parameters",
+    "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+  }
+]

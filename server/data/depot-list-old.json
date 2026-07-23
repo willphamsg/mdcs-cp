@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "depot_id": "1",
+    "version": 1,
+    "depot_name": "Hougang Depot",
+    "depot_code": "HD"
+  },
+  {
+    "id": 2,
+    "depot_id": "2",
+    "version": 1,
+    "depot_name": "Ang Mo Kio Depot",
+    "depot_code": "AMKD"
+  },
+  {
+    "id": 3,
+    "depot_id": "3",
+    "version": 1,
+    "depot_name": "Aver Raja Depot Depot",
+    "depot_code": "ARDD"
+  }
+]

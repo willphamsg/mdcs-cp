@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "version": 1,
+    "svc_prov_id": 16,
+    "svc_prov_code": "SBST",
+    "svc_prov_name": "SBST Bus Service Provider"
+  },
+  {
+    "id": 2,
+    "version": 1,
+    "svc_prov_id": 17,
+    "svc_prov_code": "SMRB",
+    "svc_prov_name": "SMRT Bus Service Provider"
+  },
+  {
+    "id": 3,
+    "version": 1,
+    "svc_prov_id": 26,
+    "svc_prov_code": "TTBO",
+    "svc_prov_name": "Tower Transit Bus Operator"
+  },
+  {
+    "id": 4,
+    "version": 1,
+    "svc_prov_id": 27,
+    "svc_prov_code": "GABO",
+    "svc_prov_name": "Go-ahead Bus Operator"
+  }
+]

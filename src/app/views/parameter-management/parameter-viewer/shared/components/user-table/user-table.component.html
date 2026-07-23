@@ -1,0 +1,35 @@
+<div class="info-table">
+  <table>
+    <thead>
+      <tr>
+        <th>File ID</th>
+        <th>Parameter Name</th>
+        <th>Parameter Version</th>
+        <th>Format Version</th>
+        <th>Effective Date Time</th>
+      </tr>
+    </thead>
+
+    @if (dataSource) {
+      <tbody>
+        <tr>
+          <td>{{ dataSource.fileId }}</td>
+          <td>{{ dataSource.parameter_name }}</td>
+          <td>{{ dataSource.parameter_version }}</td>
+          <td>{{ dataSource.format_version }}</td>
+          <td>
+            {{ dataSource.effective_date_time | date: 'dd/MM/yyyy HH:mm' }}
+          </td>
+        </tr>
+      </tbody>
+    } @else {
+      <tbody>
+        <tr>
+          <td colspan="5" style="text-align: center; color: #000000">
+            Choose Parameter Type to show info
+          </td>
+        </tr>
+      </tbody>
+    }
+  </table>
+</div>

@@ -1,0 +1,42 @@
+[
+  {
+    "field": "busNum",
+    "name": "Bus ID"
+  },
+  {
+    "field": "serviceNum",
+    "name": "Service No."
+  },
+  {
+    "field": "estArrivalTime",
+    "name": "Est. Arrival Time"
+  },
+  {
+    "field": "estReturnNum",
+    "name": "Est. Return No."
+  },
+  {
+    "field": "actualReturnNum",
+    "name": "Actual Return No."
+  },
+  {
+    "field": "updateCount",
+    "name": "Update Count."
+  },
+  {
+    "field": "svcProvId",
+    "name": "Service Provider"
+  },
+  {
+    "field": "busListEntry",
+    "name": "Bus List Entry."
+  },
+  {
+    "field": "exceptionReason",
+    "name": "Exception Reason"
+  },
+  {
+    "field": "businessDay",
+    "name": "Business Day"
+  }
+]

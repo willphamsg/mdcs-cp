@@ -1,0 +1,284 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [menuItem]="'Bus Management'"
+    [headerTitle]="'Daily Bus List'"></app-breadcrumbs>
+</div>
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">Daily Bus List</h1>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <div class="entry-actions">
+      @if (authService.hasAccess(['bus', 'busList', 'manage'], 'mdcs')) {
+        <button
+          type="button"
+          mat-flat-button
+          (click)="openView()"
+          class="btn add">
+          <mat-icon>add_circle</mat-icon>
+          Add Bus Entry
+        </button>
+      }
+
+      <app-filter
+        [filterConfigs]="filterConfigs"
+        [placeholder]="'Search by Bus ID'"></app-filter>
+
+      <div class="button-filter">
+        @if (authService.hasAccess(['bus', 'busList', 'manage'], 'mdcs')) {
+          <button
+            type="button"
+            class="search-button btn edit"
+            mat-flat-button
+            [disabled]="selection.length === 0"
+            (click)="updateView('update')">
+            <mat-icon>edit</mat-icon>
+            Edit
+          </button>
+        }
+
+        @if (authService.hasAccess(['bus', 'busList', 'manage'], 'mdcs')) {
+          <button
+            type="button"
+            class="search-button btn delete"
+            mat-flat-button
+            [disabled]="selection.length === 0"
+            (click)="updateView('delete')"
+            id="btnedit">
+            <mat-icon>delete</mat-icon>
+            Delete
+          </button>
+        }
+      </div>
+    </div>
+    <!-- Selected Filter Component -->
+    <app-selected-filter />
+
+    <div class="table-wrapper">
+      <table
+        class="stripped"
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="sortHandler($event)">
+        <!-- Check Column -->
+        <ng-container matColumnDef="chk">
+          <th mat-header-cell *matHeaderCellDef>
+            @if (authService.hasAccess(['bus', 'busList', 'manage'], 'mdcs')) {
+              <mat-checkbox
+                onkeypress=""
+                [(ngModel)]="chkAll"
+                id="chkAll"
+                (change)="checkAllHandler($event)"
+                class="header-checkbox"></mat-checkbox>
+            }
+          </th>
+          <td mat-cell *matCellDef="let element">
+            @if (authService.hasAccess(['bus', 'busList', 'manage'], 'mdcs')) {
+              <mat-checkbox
+                onkeypress=""
+                [(ngModel)]="element.chk"
+                (change)="checkHandler($event, element)"
+                color="primary"></mat-checkbox>
+            }
+          </td>
+        </ng-container>
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th
+            [hidden]="!hiddenHandler('id')"
+            mat-header-cell
+            *matHeaderCellDef
+            style="width: 120px">
+            No.
+          </th>
+          <td
+            [hidden]="!hiddenHandler('id')"
+            mat-cell
+            *matCellDef="let element; let dataIndex = index">
+            {{
+              (paginationService.currentPage - 1) * paginationService.pageSize +
+                dataIndex +
+                1
+            }}
+          </td>
+        </ng-container>
+
+        <!-- Depot Column -->
+        <ng-container matColumnDef="depot_id">
+          <th
+            [hidden]="!hiddenHandler('depot_id')"
+            mat-header-cell
+            *matHeaderCellDef>
+            Depots
+          </th>
+          <td
+            [hidden]="!hiddenHandler('depot_id')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.depot_name }}
+          </td>
+        </ng-container>
+
+        <!-- Bus Num Column -->
+        <ng-container matColumnDef="bus_num">
+          <th
+            [hidden]="!hiddenHandler('bus_num')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Bus ID <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('bus_num')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.bus_num }}
+          </td>
+        </ng-container>
+
+        <!-- Service Provider Id Column -->
+        <ng-container matColumnDef="svc_prov_id">
+          <th
+            [hidden]="!hiddenHandler('svc_prov_id')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Service Provider Code
+          </th>
+          <td
+            [hidden]="!hiddenHandler('svc_prov_id')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.svc_prov_id }}
+          </td>
+        </ng-container>
+
+        <!-- Service No Column -->
+        <ng-container matColumnDef="service_num">
+          <th
+            [hidden]="!hiddenHandler('service_num')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Service No. <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('service_num')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.service_num }}
+          </td>
+        </ng-container>
+
+        <!-- Day Type Column -->
+        <ng-container matColumnDef="day_type">
+          <th
+            [hidden]="!hiddenHandler('day_type')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Day Type <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('day_type')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.day }}
+          </td>
+        </ng-container>
+
+        <!-- Arrival Time Column -->
+        <ng-container matColumnDef="est_arrival_time">
+          <th
+            [hidden]="!hiddenHandler('est_arrival_time')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            <div class="flex-box">
+              <p>Expected Last</p>
+              <p>Arrival Time</p>
+            </div>
+            <span class="custom-sort"></span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('est_arrival_time')"
+            mat-cell
+            *matCellDef="let element">
+            <!-- {{ element.est_arrival_time | date: 'HH:mm' }} -->
+            {{ element.est_arrival_time }}
+          </td>
+        </ng-container>
+
+        <!-- Arrival Count Column -->
+        <ng-container matColumnDef="est_arrival_count">
+          <th
+            [hidden]="!hiddenHandler('est_arrival_count')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            <div class="flex-box">
+              <p>Expected Number</p>
+              <p>of Arrival</p>
+            </div>
+            <span class="custom-sort"></span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('est_arrival_count')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.est_arrival_count }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="last_update">
+          <th
+            [hidden]="!hiddenHandler('last_update')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            <div class="flex-box">
+              <p>Last Update</p>
+            </div>
+            <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('last_update')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.last_update | date: 'dd/MM/yyyy HH:mm' }}
+          </td>
+        </ng-container>
+
+        <tr
+          style="background-color: #4a5964; font-weight: 600; color: white"
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="data-row"
+          [class.selected]="row.chk"></tr>
+
+        <!-- <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
+          No Records Found
+        </td>
+      </tr> -->
+      </table>
+      @if (!dataSource.length) {
+        <div class="no-data">No Records Found</div>
+      }
+    </div>
+
+    <div class="table-footer">
+      <app-pagination
+        [totalItems]="rowCount"
+        [currentPageInput]="currentPage"
+        (pageChange)="onPageChange($event)"></app-pagination>
+      <div class="selected-item">Selected: {{ selection.length }}</div>
+    </div>
+  </mat-card-content>
+</mat-card>

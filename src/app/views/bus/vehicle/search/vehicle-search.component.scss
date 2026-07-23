@@ -1,0 +1,38 @@
+.label {
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 16px;
+
+  &.Active,
+  &.active {
+    background-color: #009e73;
+    color: white;
+  }
+
+  &.Inactive,
+  &.inactive,
+  &.Future,
+  &.future {
+    background-color: #ffb000;
+    color: #000;
+  }
+
+  &.Obsolete,
+  &.obsolete {
+    background-color: #898f99;
+    color: white;
+  }
+}
+
+// // Template layout: mat-card 90% width with 5% left/right margins
+// :host {
+//   ::ng-deep mat-card {
+//     width: 90%;
+//     margin-left: 5%;
+//     margin-right: 5%;
+//   }
+// }

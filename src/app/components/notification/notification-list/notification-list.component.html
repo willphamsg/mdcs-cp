@@ -1,0 +1,76 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [showHome]="false"
+    [headerTitle]="'Notification Centre'"></app-breadcrumbs>
+</div>
+
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">Notification Centre</h1>
+  </mat-card-header>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    <!-- FILTER COMPONENT -->
+    <div class="filter-wrapper">
+      <mat-form-field style="width: 420px" appearance="outline">
+        <input matInput [placeholder]="'Search by keyword'" type="search" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <!-- Selected Filter Component -->
+    <app-selected-filter />
+
+    <div class="table-wrapper">
+      <table mat-table class="stripped" [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+          <td mat-cell *matCellDef="let element; let dataIndex = index">
+            {{ dataIndex + 1 || '-' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expectedDateTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Expected Date Time
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.expectedDateTime || '-' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.description || '-' }}
+          </td>
+        </ng-container>
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="tab1Columns"
+          class="header-row"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: tab1Columns"
+          class="data-row"></tr>
+
+        <!-- <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell no-data" [attr.colspan]="tab1Columns.length">
+            No Records Found
+          </td>
+        </tr> -->
+      </table>
+
+      @if (!dataSource.length) {
+        <div class="no-data">
+          No Records Found
+        </div>
+      }
+
+      <!-- PAGINATION COMPONENT -->
+      <app-pagination></app-pagination>
+    </div>
+  </mat-card-content>
+</mat-card>

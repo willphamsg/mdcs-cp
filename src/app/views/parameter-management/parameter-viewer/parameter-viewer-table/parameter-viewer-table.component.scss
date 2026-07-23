@@ -1,0 +1,89 @@
+::ng-deep .custom-tab {
+    .mat-mdc-tab-group {
+        background-color: #F3F7FF;
+    }
+    .mdc-tab--active {
+        background-color: #0072B2;
+        .mdc-tab__text-label {
+            color: #FFF !important;
+        }
+        &:focus {
+            .mdc-tab__text-label {
+                color: #F0F0F0 !important;
+            }
+        }
+    }
+    .mat-mdc-tab-labels {
+        gap: 0;
+    }
+}
+::ng-deep .table-wrapper {
+    margin-top: 12px;
+    table.custom-table {
+        thead {
+            tr {
+                background-color: #4a5964;
+                font-weight: 600;
+                color: white;
+                height: 56px;
+            }
+        }
+    }
+}
+.mat-custom {
+    margin-right: 16px;
+}
+.parameter-info {
+    display: inline-flex;
+    margin-bottom: 12px;
+    .description-section {
+        display: inline-flex;
+        margin-right: 48px;
+        .name {
+            margin-right: 8px;
+            font-weight: 600;
+        }
+    }
+}
+.info-wrapper-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding-top: 24px;
+}
+.info-wrapper-1 {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0;
+    padding-top: 24px;
+}
+.info-section {
+    padding: 16px;
+    box-shadow: none !important;
+    border: 1px solid #DEDEDE;
+    background-color: #F7F7F7;
+}
+.info-content {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    font-size: 14px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    align-items: center;
+    span:nth-child(2) {
+        text-align: right;
+        font-weight: bold;
+    }
+}
+.for-dropdown-base-variant {
+    padding-top: 24px;
+}
+.tab-content {
+    background-color: #F7F7F7;
+}
+.table-wrapper-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding-top: 8px;
+}

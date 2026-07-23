@@ -1,0 +1,106 @@
+stages:   
+  # List of stages for jobs, and their order of execution
+  - build
+  - test
+  - deploy
+
+## Based Job Template for Build-Image and Container Scanning
+.base-job-template:
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+  image: ubuntu:22.04 
+  services:
+    - docker:dind
+  id_tokens:
+    OIDC:
+      aud: sts.amazonaws.com
+  before_script:
+
+      ## Required Packages by AWS CLI, Trivy
+      - apt-get update || echo 'Failed to run apt-get update'
+      - apt-get install -y unzip
+      - apt-get install -y wget
+      - apt-get install -y curl
+      - apt-get install -y git
+
+      ## Install docker and buildx
+      - apt-get install -y docker.io
+      - apt-get install -y docker-buildx
+
+      ## Install AWS CLI - vversion 2.15.41
+      - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      - unzip -tq awscliv2.zip
+      - unzip -q awscliv2.zip && rm -rf awscliv2.zip
+      - ./aws/install
+
+      ## Check the major version installed
+      - aws --version
+      - docker --version
+
+      ## Setting Environment Variable
+      - export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+
+
+# build_image:
+#   extends: .base-job-template 
+#   stage: build
+#   script:
+#     - docker buildx build --no-cache -t $ECR_REGISTRY/lta-btds-gui-${CI_COMMIT_BRANCH}-registry:$CI_COMMIT_SHA .
+#     - docker image ls
+#     - aws ecr get-login-password | docker login --username AWS --password-stdin $ECR_REGISTRY
+#     - docker push $ECR_REGISTRY/lta-btds-gui-${CI_COMMIT_BRANCH}-registry:$CI_COMMIT_SHA
+
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == "dev"
+#       when: on_success
+#     - if: $CI_COMMIT_BRANCH == "sit"
+#       when: on_success
+#     - if: $CI_COMMIT_BRANCH == "uat"
+#       when: on_success
+
+
+# container_scanning:
+#   extends: .base-job-template   
+#   stage: test
+#   allow_failure: true
+#   script:
+#     ## Trivy Installation
+#     - export TRIVY_VERSION=$(wget -qO - "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
+#     - echo $TRIVY_VERSION
+#     - wget --no-verbose https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz -O - | tar -zxvf -
+    
+#     ## Pulling Image
+#     - aws ecr get-login-password | docker login --username AWS --password-stdin $ECR_REGISTRY
+#     - docker pull $ECR_REGISTRY/lta-btds-gui-${CI_COMMIT_BRANCH}-registry:$CI_COMMIT_SHA
+#     - docker image ls
+
+#     ## Build report
+#     - ./trivy image --exit-code 0 --format template --template "@contrib/gitlab.tpl" -o gl-container-scanning-report.json $ECR_REGISTRY/lta-btds-gui-${CI_COMMIT_BRANCH}-registry:$CI_COMMIT_SHA
+
+#     # ## Print report
+#     # - ./trivy image --exit-code 0 --severity HIGH $ECR_REGISTRY/lta-btds-gui-${CI_COMMIT_BRANCH}-registry:$CI_COMMIT_SHA
+    
+#     # ## Fail on severe vulnerabilities
+#     # - ./trivy image --exit-code 1 --severity CRITICAL $ECR_REGISTRY/lta-btds-gui-${CI_COMMIT_BRANCH}-registry:$CI_COMMIT_SHA
+
+#   cache:
+#     paths:
+#       - .trivycache/
+#   artifacts:
+#       reports:
+#         container_scanning: gl-container-scanning-report.json
+
+#   rules:
+#   - if: $CI_COMMIT_BRANCH == "dev"
+#     when: on_success
+#   - if: $CI_COMMIT_BRANCH == "sit"
+#     when: on_success
+#   - if: $CI_COMMIT_BRANCH == "uat"
+#     when: on_success
+
+
+include:
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Jobs/Code-Quality.gitlab-ci.yml

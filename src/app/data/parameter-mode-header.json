@@ -1,0 +1,50 @@
+[
+  {
+    "chk": true,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "depot_id",
+    "name": "Depots",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "parameter_name",
+    "name": "Parameter Name",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "parameter_version",
+    "name": "Parameter Version",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "effective_date_time",
+    "name": "Effective Date Time",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "status",
+    "name": "Status",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "last_update",
+    "name": "Last Update",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "chk",
+    "name": "chk",
+    "hidden": false
+  }
+]

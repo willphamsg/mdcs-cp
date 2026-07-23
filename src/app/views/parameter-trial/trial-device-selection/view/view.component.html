@@ -1,0 +1,152 @@
+<div class="mat-header">
+  <div>
+    <p
+      style="font-size: 24px; font-weight: 600; margin: 0"
+      class="flex-item-left">
+      {{ title }}
+    </p>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+  <form [formGroup]="myForm">
+    <ng-container formArrayName="items">
+      <mat-table #table [dataSource]="items.controls" class="stripped">
+        <!-- Depot Column -->
+        <ng-container matColumnDef="depot">
+          <mat-header-cell *matHeaderCellDef class="headerCol"
+            >Depots</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol align-center">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('depot')?.value }}
+              </div>
+            } @else {
+              {{ element.get('depot')?.value }}
+            }
+          </mat-cell>
+        </ng-container>
+
+        <!-- Bus ID Column -->
+        <ng-container matColumnDef="bus_num">
+          <mat-header-cell *matHeaderCellDef class="headerCol"
+            >Bus ID</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol align-center">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('bus_num')?.value }}
+              </div>
+            } @else {
+              {{ element.get('bus_num')?.value }}
+            }
+          </mat-cell>
+        </ng-container>
+
+        <!-- Application Trial Group -->
+        <ng-container matColumnDef="trial_group">
+          <mat-header-cell *matHeaderCellDef class="headerCol">
+            <mat-checkbox
+              (change)="checkAllHandler($event, 'trial_group')"
+              class="header-checkbox">Application Trial Group</mat-checkbox>
+          </mat-header-cell>
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol align-center">
+              <mat-checkbox
+                formControlName="trial_group">
+              </mat-checkbox>
+            <!-- </div> -->
+          </mat-cell>
+        </ng-container>
+
+        <!-- Bus Service Group -->
+        <ng-container matColumnDef="service_group">
+          <mat-header-cell *matHeaderCellDef class="headerCol">
+             <mat-checkbox
+              (change)="checkAllHandler($event, 'service_group')"
+              class="header-checkbox">Bus Service Group</mat-checkbox>
+          </mat-header-cell>
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol align-center">
+            <mat-checkbox
+              formControlName="service_group">
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Fare Parameter Group -->
+        <ng-container matColumnDef="parameter_group">
+          <mat-header-cell *matHeaderCellDef class="headerCol">
+            <mat-checkbox
+              (change)="checkAllHandler($event, 'parameter_group')"
+              class="header-checkbox">Fare Parameter Group</mat-checkbox>
+          </mat-header-cell>
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol align-center">
+            <mat-checkbox
+              formControlName="parameter_group">
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+          style="
+            background-color: #4a5964;
+            font-weight: 600;
+            color: white;
+          "></mat-header-row>
+        <mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          style="min-height: auto"></mat-row>
+      </mat-table>
+    </ng-container>
+  </form>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
+  <div class="mat-footer">
+    <div>
+      <p>
+        Total: {{ rowCount }}
+        <strong>Record(s)</strong>
+      </p>
+    </div>
+    <div>
+      <div class="btn-container">
+        <div>
+          <button
+            class="h-40"
+            [mat-dialog-close]="'cancel'"
+            mat-stroked-button
+            mat-dialog-close>
+            Cancel
+          </button>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="btn local-primary"
+            mat-button
+            cdkFocusInitial
+            (click)="onSubmit()">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-actions>

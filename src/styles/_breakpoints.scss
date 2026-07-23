@@ -1,0 +1,51 @@
+
+@use "sass:map";
+
+// ==============================
+// Global Responsive Breakpoints
+// ==============================
+
+// Common breakpoint values (Bootstrap-like)
+$breakpoints: (
+  'xs': 0,
+  // phones
+  'sm': 576px,
+  // small devices
+  'md': 768px,
+  // tablets
+  'lg': 992px,
+  // desktops
+  'xl': 1200px,
+  // large desktops
+  'xxl': 1400px,
+  // very large screens,,
+  'xxxl': 1920px,
+);
+
+// Helper mixin to use breakpoints
+@mixin respond-to-min($breakpoint) {
+  $value: map.get($breakpoints, $breakpoint);
+  @if $value != null {
+    @media (min-width: #{$value - 1px}) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+// Helper mixin to use breakpoints
+@mixin respond-to-max($breakpoint) {
+  $value: map.get($breakpoints, $breakpoint);
+  @if $value != null {
+    @media (max-width: $value) {
+      @content;
+    }
+  } @else {
+    @media (max-width: $breakpoint) {
+      @content;
+    }
+  }
+}

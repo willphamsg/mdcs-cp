@@ -1,0 +1,181 @@
+@use '../../../../styles/breakpoints' as *;
+
+@mixin header-text {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+@mixin table-data-text {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+@mixin unset-table-bottom-border {
+  border-bottom: unset !important;
+}
+
+$font-color-white: #ffffff;
+$font-color-black: #000000;
+$table-header-color: #4a5964;
+$table-sub-header-color: #f3f7ff;
+$table-border-color: #dedede;
+
+.filter-wrapper {
+  display: flex;
+  width: auto;
+  max-width: 100%;
+  flex-wrap: wrap;
+
+  app-filter {
+    width: 560px;
+  }
+
+  .label {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+  }
+}
+
+.data-row {
+  @include table-data-text();
+  color: $font-color-black;
+  height: 56px !important;
+}
+
+.header-row {
+  background-color: $table-header-color;
+  font-weight: 600;
+  height: 40px !important;
+  color: $font-color-white;
+}
+
+.mat-mdc-header-cell,
+.mat-mdc-cell {
+  @include unset-table-bottom-border;
+  padding: 8px !important;
+}
+
+// Fix table layout to prevent column shifting when sorting
+::ng-deep .table-wrapper {
+  table.stripped {
+    table-layout: fixed;
+    width: 100%;
+
+    // Set fixed widths for columns to prevent shifting
+    th.mat-mdc-header-cell,
+    td.mat-mdc-cell {
+      // Reserve space for sort icons to prevent shifting
+      &.mat-column-id {
+        width: 60px;
+        min-width: 60px;
+        max-width: 60px;
+      }
+
+      &.mat-column-depot {
+        width: 160px;
+        min-width: 160px;
+        max-width: 160px;
+      }
+
+      &.mat-column-userId {
+        width: 200px;
+        min-width: 200px;
+        max-width: 200px;
+      }
+
+      &.mat-column-dateTime {
+        width: 200px;
+        min-width: 200px;
+        max-width: 200px;
+      }
+
+      &.mat-column-startDate {
+        width: 200px;
+        min-width: 200px;
+        max-width: 200px;
+      }
+
+      &.mat-column-endDate {
+        width: 200px;
+        min-width: 200px;
+        max-width: 200px;
+      }
+
+      &.mat-column-update_type {
+        width: 200px;
+        min-width: 200px;
+        max-width: 200px;
+      }
+
+      &.mat-column-description {
+        width: auto; // Flexible width for description
+        min-width: 375px;
+      }
+    }
+
+    // Ensure sort icons don't cause layout shift
+    th.mat-mdc-header-cell {
+      position: relative;
+      overflow: visible;
+      white-space: nowrap;
+
+      // Reserve space for sort icon on all sortable headers
+      &.mat-sort-header {
+        padding-right: 5px !important; // Reserve space for sort icon (16px icon + 8px margin + 4px buffer)
+
+        .custom-sort {
+          display: inline-block !important;
+          width: 16px;
+          height: 16px;
+          min-width: 16px;
+          min-height: 16px;
+          margin-left: 3px;
+          vertical-align: middle;
+          visibility: visible !important;
+          background-image: url('/assets/icons/sort.svg');
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-position: center;
+          opacity: 0.6;
+        }
+
+        // Show sort icon state when sorted
+        &.mat-sort-header-sorted {
+          .custom-sort {
+            opacity: 1;
+          }
+
+          &.mat-sort-header-sorted-asc .custom-sort {
+            transform: rotate(180deg);
+          }
+        }
+      }
+
+      // Hide default Material sort indicators
+      .mat-sort-header-arrow {
+        display: none !important;
+      }
+    }
+  }
+}
+
+::ng-deep .mdc-checkbox {
+  padding-right: unset !important;
+}
+
+.chkb-group {
+  display: flex;
+  gap: 10px 30px;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+
+  @include respond-to-max(lg) {
+    justify-content: start;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "Param1": [
+    {
+      "fieldLabel": "Revision ID",
+      "name": "iRevisionID",
+      "itemId": "iRevisionID"
+    },
+    {
+      "fieldLabel": "Communications timeout value",
+      "name": "iCommTimeout",
+      "itemId": "iCommTimeout"
+    },
+    {
+      "fieldLabel": "Odo in front error limit",
+      "name": "iODOInFrontErrLimit",
+      "itemId": "iODOInFrontErrLimit"
+    },
+    {
+      "fieldLabel": "Odo towards error limit",
+      "name": "iODOTowardsErrLimit",
+      "itemId": "iODOTowardsErrLimit"
+    },
+    {
+      "fieldLabel": "Location flags",
+      "name": "iLocationFlags",
+      "itemId": "iLocationFlags"
+    },
+    {
+      "fieldLabel": "GPS error timeout",
+      "name": "iGPSErrorTimeout",
+      "itemId": "iGPSErrorTimeout"
+    },
+    {
+      "fieldLabel": "GPS time difference to UTC",
+      "name": "iGPSTimeDiffToUTC",
+      "itemId": "iGPSTimeDiffToUTC"
+    },
+    {
+      "fieldLabel": "Hdop limit",
+      "name": "iHDOPLimit",
+      "itemId": "iHDOPLimit"
+    },
+    {
+      "fieldLabel": "Cosine phi",
+      "name": "iCosinePHI",
+      "itemId": "iCosinePHI"
+    },
+    {
+      "fieldLabel": "GPS flags",
+      "name": "iGPSFlags",
+      "itemId": "iGPSFlags"
+    },
+    {
+      "fieldLabel": "Expected Error of GPS",
+      "name": "iExpectedErrorOfGPS",
+      "itemId": "iExpectedErrorOfGPS"
+    },
+    {
+      "fieldLabel": "Age of DGPS data",
+      "name": "iAgeOfDGPSData",
+      "itemId": "iAgeOfDGPSData"
+    },
+    {
+      "fieldLabel": "Slow Speed trip at",
+      "name": "iSlowSpeedTripPt",
+      "itemId": "iSlowSpeedTripPt"
+    },
+    {
+      "fieldLabel": "Slow Speed hyst val",
+      "name": "iSlowSpeedHystValue",
+      "itemId": "iSlowSpeedHystValue"
+    },
+    {
+      "fieldLabel": "Location report cyc distance",
+      "name": "iLocReportCycDistance",
+      "itemId": "iLocReportCycDistance"
+    }
+  ],
+  "Param2": [
+    {
+      "fieldLabel": "Location report cyc time",
+      "name": "iLocReportCycTime",
+      "itemId": "iLocReportCycTime"
+    },
+    {
+      "fieldLabel": "Odometer fault limit",
+      "name": "iODOMeterFaultLimit",
+      "itemId": "iODOMeterFaultLimit"
+    },
+    {
+      "fieldLabel": "Gyrometer fault limit",
+      "name": "iGYROMeterFaultLimit",
+      "itemId": "iGYROMeterFaultLimit"
+    },
+    {
+      "fieldLabel": "Heartbeat time",
+      "name": "iHeartBeatTime",
+      "itemId": "iHeartBeatTime"
+    },
+    {
+      "fieldLabel": "Radius of certainty",
+      "name": "iRadiusOfCertainity",
+      "itemId": "iRadiusOfCertainity"
+    },
+    {
+      "fieldLabel": "Proximity distance",
+      "name": "iProximityDistance",
+      "itemId": "iProximityDistance"
+    },
+    {
+      "fieldLabel": "Speed Reporting Time",
+      "name": "iSpeedReportingTime",
+      "itemId": "iSpeedReportingTime"
+    },
+    {
+      "fieldLabel": "Speed Change Threshold",
+      "name": "iSpeedChangeTheshold",
+      "itemId": "iSpeedChangeTheshold"
+    },
+    {
+      "fieldLabel": "Marker Overshoot Threshold",
+      "name": "iMarkerOvershootTheshold",
+      "itemId": "iMarkerOvershootTheshold"
+    },
+    {
+      "fieldLabel": "Off-route Alarm Report Time",
+      "name": "iOffRouteAlarmReportTime",
+      "itemId": "iOffRouteAlarmReportTime"
+    },
+    {
+      "fieldLabel": "Temperature Threshold",
+      "name": "iTemperatureTheshold",
+      "itemId": "iTemperatureTheshold"
+    },
+    {
+      "fieldLabel": "Voltage Threshold",
+      "name": "iVoltageTheshold",
+      "itemId": "iVoltageTheshold"
+    },
+    {
+      "fieldLabel": "Current Threshold",
+      "name": "iCurrentTheshold",
+      "itemId": "iCurrentTheshold"
+    },
+    {
+      "fieldLabel": "Off-route Distance Threshold",
+      "name": "iOffRouteDistTheshold",
+      "itemId": "iOffRouteDistTheshold"
+    }
+  ]
+}

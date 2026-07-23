@@ -1,0 +1,50 @@
+[
+  {
+    "chk": false,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "message_data_filename",
+    "name": "Message Data Filename",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "bus_no",
+    "name": "Bus No",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "sequence_no",
+    "name": "Sequence No",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "creation_date_time",
+    "name": "Creation Date & Time",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "no_of_message_data",
+    "name": "No Of Message Data",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "status",
+    "name": "Import Status",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "description",
+    "name": "Description",
+    "hidden": false
+  }
+]

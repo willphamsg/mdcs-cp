@@ -1,0 +1,254 @@
+[
+  {
+    "chk": false,
+    "id": 1,
+    "version": 1,
+    "depot_id": 972,
+    "depot": {
+      "id": 4,
+      "version": 1,
+      "depot_id": 972,
+      "depot_code": "AMK",
+      "depot_name": "SBST Ang Mo Kio Depot"
+    },
+    "bus_num": "SBS0226",
+    "service_num": "30",
+    "download_status": 1,
+    "upload_status": 1,
+    "sam_status": 1,
+    "connect_time": "2024-07-01T00:00:00",
+    "disconnect_time": "2024-07-02T00:00:00",
+    "conn_status": 1
+  },
+  {
+    "chk": false,
+    "id": 2,
+    "version": 1,
+    "depot_id": 971,
+    "depot": {
+      "id": 3,
+      "version": 1,
+      "depot_id": 971,
+      "depot_code": "HGA",
+      "depot_name": "Hougang Depot"
+    },
+    "bus_num": "SBS0226",
+    "service_num": "25",
+    "download_status": 0,
+    "upload_status": 3,
+    "sam_status": 2,
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": 2
+  },
+  {
+    "chk": false,
+    "id": 3,
+    "version": 1,
+    "depot_id": 971,
+    "depot": {
+      "id": 3,
+      "version": 1,
+      "depot_id": 971,
+      "depot_code": "HGA",
+      "depot_name": "Hougang Depot"
+    },
+    "bus_num": "SBS0227",
+    "service_num": "40",
+    "download_status": 3,
+    "upload_status": 2,
+    "sam_status": 1,
+    "connect_time": "2024-07-02T00:00:00",
+    "disconnect_time": "2024-07-04T00:00:00",
+    "conn_status": 0
+  },
+  {
+    "chk": false,
+    "id": 4,
+    "version": 1,
+    "depot_id": 972,
+    "depot": {
+      "id": 4,
+      "version": 1,
+      "depot_id": 972,
+      "depot_code": "AMK",
+      "depot_name": "SBST Ang Mo Kio Depot"
+    },
+    "bus_num": "SBS0228",
+    "service_num": "25",
+    "download_status": 0,
+    "upload_status": 1,
+    "sam_status": 1,
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": 0
+  },
+  {
+    "chk": false,
+    "id": 5,
+    "version": 1,
+    "depot_id": 972,
+    "depot": {
+      "id": 4,
+      "version": 1,
+      "depot_id": 972,
+      "depot_code": "AMK",
+      "depot_name": "SBST Ang Mo Kio Depot"
+    },
+    "bus_num": "SBS0229",
+    "service_num": "30",
+    "download_status": 2,
+    "upload_status": 3,
+    "sam_status": 1,
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": 1
+  },
+  {
+    "chk": false,
+    "id": 6,
+    "version": 1,
+    "depot_id": 970,
+    "depot": {
+      "id": 2,
+      "version": 1,
+      "depot_id": 970,
+      "depot_code": "SLB",
+      "depot_name": "Soon Lee Depot"
+    },
+    "bus_num": "SBS0230",
+    "service_num": "30",
+    "download_status": 1,
+    "upload_status": 3,
+    "sam_status": 1,
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": 0
+  },
+  {
+    "chk": false,
+    "id": 7,
+    "version": 1,
+    "depot_id": 972,
+    "depot": {
+      "id": 4,
+      "version": 1,
+      "depot_id": 972,
+      "depot_code": "AMK",
+      "depot_name": "SBST Ang Mo Kio Depot"
+    },
+    "bus_num": "SBS0231",
+    "service_num": "30",
+    "download_status": 1,
+    "upload_status": 1,
+    "sam_status": 1,
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": 1
+  },
+  {
+    "chk": false,
+    "id": 8,
+    "version": 1,
+    "depot_id": 970,
+    "depot": {
+      "id": 2,
+      "version": 1,
+      "depot_id": 970,
+      "depot_code": "SLB",
+      "depot_name": "Soon Lee Depot"
+    },
+    "bus_num": "SBS0225",
+    "service_num": "30",
+    "download_status": 3,
+    "upload_status": 1,
+    "sam_status": 1,
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": 1
+  },
+  {
+    "chk": false,
+    "id": 9,
+    "version": 1,
+    "depot_id": 972,
+    "depot": {
+      "id": 4,
+      "version": 1,
+      "depot_id": 972,
+      "depot_code": "AMK",
+      "depot_name": "SBST Ang Mo Kio Depot"
+    },
+    "bus_num": "SBS0225",
+    "service_num": "30",
+    "download_status": 1,
+    "upload_status": 3,
+    "sam_status": 1,
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": 1
+  },
+  {
+    "chk": false,
+    "id": 10,
+    "version": 1,
+    "depot_id": 973,
+    "depot": {
+      "id": 5,
+      "version": 1,
+      "depot_id": 973,
+      "depot_code": "BDN",
+      "depot_name": "Bedok North Depot"
+    },
+    "bus_num": "SBS0225",
+    "service_num": "30",
+    "download_status": "success",
+    "upload_status": "success",
+    "sam_status": "success",
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": false
+  },
+  {
+    "chk": false,
+    "id": 11,
+    "version": 1,
+    "depot_id": 973,
+    "depot": {
+      "id": 5,
+      "version": 1,
+      "depot_id": 973,
+      "depot_code": "BDN",
+      "depot_name": "Bedok North Depot"
+    },
+    "bus_num": "SBS0225",
+    "service_num": "30",
+    "download_status": "success",
+    "upload_status": "success",
+    "sam_status": "success",
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": false
+  },
+  {
+    "chk": false,
+    "id": 12,
+    "version": 1,
+    "depot_id": 973,
+    "depot": {
+      "id": 5,
+      "version": 1,
+      "depot_id": 973,
+      "depot_code": "BDN",
+      "depot_name": "Bedok North Depot"
+    },
+    "bus_num": "SBS0225",
+    "service_num": "30",
+    "download_status": "success",
+    "upload_status": "success",
+    "sam_status": "success",
+    "connect_time": "2024-07-03T00:00:00",
+    "disconnect_time": "2024-07-05T00:00:00",
+    "conn_status": false
+  }
+]

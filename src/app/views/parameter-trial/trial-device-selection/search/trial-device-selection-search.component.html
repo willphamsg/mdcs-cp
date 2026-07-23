@@ -1,0 +1,198 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [menuItem]="'Parameter Trial'"
+    [headerTitle]="'Trial Device Selection'"></app-breadcrumbs>
+</div>
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">Trial Device Selection</h1>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <div class="entry-actions">
+      <app-filter [filterConfigs]="filterConfigs"></app-filter>
+      <div class="button-filter">
+        @if (
+          authService.hasAccess(
+            ['parameterTrial', 'trialDeviceSelection', 'manage'],
+            dagw ? 'dagw' : 'mdcs'
+          )
+        ) {
+          <div class="item">
+            <button
+              type="button"
+              [disabled]="selection.length === 0"
+              (click)="updateView()"
+              mat-flat-button
+              class="btn toggle"
+              [ngClass]="{ disabled: selection.length === 0 }">
+              <mat-icon>edit</mat-icon>
+              Edit
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+    <!-- Selected Filter Component -->
+    <app-selected-filter />
+
+    <div class="table-wrapper">
+      <table
+        mat-table
+        class="stripped"
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="sortHandler($event)">
+        <!-- Check Column -->
+        <ng-container matColumnDef="chk">
+          <th mat-header-cell *matHeaderCellDef>
+            @if (
+              authService.hasAccess(
+                ['parameterTrial', 'trialDeviceSelection', 'manage'],
+                dagw ? 'dagw' : 'mdcs'
+              )
+            ) {
+              <mat-checkbox
+                onkeypress=""
+                [(ngModel)]="chkAll"
+                id="chkAll"
+                (change)="checkAllHandler($event)"
+                class="header-checkbox"></mat-checkbox>
+            }
+          </th>
+          <td mat-cell *matCellDef="let element">
+            @if (
+              authService.hasAccess(
+                ['parameterTrial', 'trialDeviceSelection', 'manage'],
+                dagw ? 'dagw' : 'mdcs'
+              )
+            ) {
+              <mat-checkbox
+                onkeypress=""
+                [(ngModel)]="element.chk"
+                (change)="checkHandler($event, element)"
+                color="primary"></mat-checkbox>
+            }
+          </td>
+        </ng-container>
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            style="width: 120px">
+            No.
+          </th>
+          <td mat-cell *matCellDef="let element; let dataIndex = index">
+            {{ (currentPage - 1) * params.page_size + dataIndex + 1 }}
+          </td>
+        </ng-container>
+
+        <!-- Depots Column -->
+        <ng-container matColumnDef="depot">
+          <th mat-header-cell *matHeaderCellDef>Depots</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.depot }}
+          </td>
+        </ng-container>
+
+        <!-- Bus ID Column -->
+        <ng-container matColumnDef="bus_num">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Bus ID <span class="custom-sort"> </span>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.bus_num }}
+          </td>
+        </ng-container>
+
+        <!-- Application Trial Group -->
+        <ng-container matColumnDef="trial_group">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Application Trial Group <span class="custom-sort"> </span>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            @if (element.trial_group) {
+              <img src="/assets/icons/disabled_checkbox.svg" alt="" />
+            } @else {
+              <img src="/assets/icons/grayed_checkbox.svg" alt="" />
+            }
+          </td>
+        </ng-container>
+
+        <!-- Bus Service Group -->
+        <ng-container matColumnDef="service_group">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Bus Service Group <span class="custom-sort"> </span>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            @if (element.service_group) {
+              <img src="/assets/icons/disabled_checkbox.svg" alt="" />
+            } @else {
+              <img src="/assets/icons/grayed_checkbox.svg" alt="" />
+            }
+          </td>
+        </ng-container>
+
+        <!-- Fare Parameter Group -->
+        <ng-container matColumnDef="parameter_group">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Fare Parameter Group <span class="custom-sort"> </span>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            @if (element.parameter_group) {
+              <img src="/assets/icons/disabled_checkbox.svg" alt="" />
+            } @else {
+              <img src="/assets/icons/grayed_checkbox.svg" alt="" />
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="last_update">
+          <th
+            [hidden]="!hiddenHandler('last_update')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Last Update <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('last_update')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.last_update | date: 'dd/MM/yyy HH:mm' }}
+          </td>
+        </ng-container>
+
+        <tr
+          style="background-color: #4a5964; font-weight: 600; color: white"
+          mat-header-row
+          *matHeaderRowDef="tab1Columns; sticky: true"></tr>
+        <tr
+          class="data-row"
+          [class.selected]="row.chk"
+          mat-row
+          *matRowDef="let row; columns: tab1Columns"></tr>
+
+        <!-- <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell no-data" [attr.colspan]="tab1Columns.length">
+          No Records Found
+        </td>
+      </tr> -->
+      </table>
+      @if (!dataSource.length) {
+        <div class="no-data">No Records Found</div>
+      }
+    </div>
+
+    <div class="table-footer">
+      <app-pagination
+        [totalItems]="rowCount"
+        [currentPageInput]="currentPage"
+        (pageChange)="onPageChange($event)"></app-pagination>
+      <div class="selected-item">Selected: {{ selection.length }}</div>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,184 @@
+{
+  "mdcs-last-updated": "10/10/2024 14:00:36",
+  "dagw-last-updated": "8/10/2024 13:15:18",
+  "mdcs-information": [
+    {
+      "sectionName": "Connection and Services",
+      "details": [
+        {
+          "code": "ICS",
+          "label": "AWS IoT Status",
+          "value": "Running"
+        },
+        {
+          "code": "MCS",
+          "label": "MQ Connection Status",
+          "value": "Degraded"
+        },
+        {
+          "code": "FST",
+          "label": "FTP Service Status",
+          "value": "Running"
+        },
+        {
+          "code": "MSS",
+          "label": "MDCS Service Status",
+          "value": "Running"
+        }
+      ]
+    },
+    {
+      "sectionName": "Storage and Memory Statistics",
+      "details": [
+        {
+          "code": "WMU",
+          "label": "Web Tier Memory Used",
+          "value": "149 GB"
+        },
+        {
+          "code": "WMF",
+          "label": "Web Tier Memory Free",
+          "value": "149 GB"
+        },
+        {
+          "code": "AMU",
+          "label": "App Tier Memory Used",
+          "value": "75 GB"
+        },
+        {
+          "code": "AMF",
+          "label": "App Tier Memory Free",
+          "value": "75 GB"
+        },
+        {
+          "code": "IMU",
+          "label": "IT Tier Memory Used",
+          "value": "100 GB"
+        },
+        {
+          "code": "IMF",
+          "label": "IT Tier Memory Free",
+          "value": "100 GB"
+        }
+      ]
+    }
+  ],
+  "mdcs-service-details": {
+    "all": 1,
+    "pms": 1,
+    "sdrs": 1,
+    "schs": 1,
+    "jbs": 1,
+    "jcs": 1,
+    "jps": 1,
+    "jrs": 1
+  },
+  "dagw-information": [
+    {
+      "sectionName": "Connection and Services",
+      "details": [
+        {
+          "code": "ICS",
+          "label": "AWS IoT Status",
+          "value": "Running"
+        },
+        {
+          "code": "MCS",
+          "label": "MQ Connection Status",
+          "value": "Degraded"
+        },
+        {
+          "code": "FSS",
+          "label": "FTP Service Status",
+          "value": "Running"
+        },
+        {
+          "code": "WAS",
+          "label": "Web Application Status",
+          "value": "Down"
+        },
+        {
+          "code": "DSS",
+          "label": "DAGW Service Status",
+          "value": "Running"
+        }
+      ]
+    },
+    {
+      "sectionName": "Device and Software Details",
+      "details": [
+        {
+          "code": "DDT",
+          "label": "Device Type",
+          "value": "149"
+        },
+        {
+          "code": "DSN",
+          "label": "Device Sequence Number",
+          "value": "1951"
+        },
+        {
+          "code": "DSV",
+          "label": "Software Version",
+          "value": "DAGW.A.02.04.09"
+        }
+      ]
+    },
+    {
+      "sectionName": "Storage and Memory Statistics",
+      "details": [
+        {
+          "code": "HMU",
+          "label": "Memory Used",
+          "value": "149 GB"
+        },
+        {
+          "code": "HMF",
+          "label": "Memory Free",
+          "value": "75 GB"
+        },
+        {
+          "code": "HHU",
+          "label": "Host Hard Disk Used",
+          "value": "149 GB"
+        },
+        {
+          "code": "HHF",
+          "label": "Host Hard Disk Free",
+          "value": "75 GB"
+        },
+        {
+          "code": "NSU",
+          "label": "Network Attached Storage Used",
+          "value": "149 GB"
+        },
+        {
+          "code": "NSF",
+          "label": "Network Attached Storage Free",
+          "value": "75 GB"
+        }
+      ]
+    },
+    {
+      "sectionName": "System Details",
+      "details": [
+        {
+          "code": "IPA",
+          "label": "IP Address",
+          "value": "192.168.29.70"
+        }
+      ]
+    }
+  ],
+  "dagw-service-details": {
+    "all": 1,
+    "pms": 1,
+    "bms": 1,
+    "mdms": 1,
+    "schs": 1,
+    "jbs": 1,
+    "jcs": 1,
+    "jps": 1,
+    "jrs": 1
+  }
+}

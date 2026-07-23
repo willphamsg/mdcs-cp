@@ -1,0 +1,22 @@
+.label-container {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  background-color: #f7f7f7;
+
+  .items {
+    display: flex;
+    align-items: center;
+    margin: 16px 52px 12px 10px;
+
+    .label {
+      font-weight: 700;
+      line-height: 14px;
+      margin-right: 10px;
+    }
+  }
+}
+
+::ng-deep .info-table {
+  margin-bottom: unset !important;
+}

@@ -1,0 +1,55 @@
+@mixin header-text {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+@mixin table-data-text {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+@mixin unset-table-bottom-border {
+  border-bottom: unset !important;
+}
+
+$font-color-white: #ffffff;
+$font-color-black: #000000;
+$table-header-color: #4a5964;
+$table-sub-header-color: #f3f7ff;
+$table-border-color: #dedede;
+
+table {
+  width: 100%;
+  border-bottom: 1px solid $table-border-color;
+}
+
+.search-text {
+  max-width: 420px;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 12px;
+}
+
+.data-row {
+  @include table-data-text();
+  color: $font-color-black;
+  height: 32px !important;
+
+  > td:not(:last-child) {
+    border-right: 1px solid $table-border-color;
+  }
+}
+
+.header-row {
+  background-color: $table-header-color;
+  font-weight: 600;
+  height: 32px !important;
+  color: $font-color-white;
+
+  > th:not(:last-child) {
+    border-right: 1px solid $table-border-color;
+  }
+}

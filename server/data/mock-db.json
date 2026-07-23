@@ -1,0 +1,6359 @@
+{
+  "depot": {
+    "status": 200,
+    "status_code": "SUCCESS",
+    "timestamp": "2024-06-10T10:00:00Z",
+    "message": "Dummy data fetched successfully",
+    "payload": {
+      "depot_list": [
+        {
+          "id": 1,
+          "depot_id": "1",
+          "version": 1,
+          "depot_name": "Hougang Depot",
+          "depot_code": "HD"
+        },
+        {
+          "id": 2,
+          "depot_id": "2",
+          "version": 1,
+          "depot_name": "Ang Mo Kio Depot",
+          "depot_code": "AMKD"
+        },
+        {
+          "id": 3,
+          "depot_id": "3",
+          "version": 1,
+          "depot_name": "Aver Raja Depot Depot",
+          "depot_code": "ARDD"
+        }
+      ]
+    }
+  },
+  "depot_list": [
+    {
+      "id": 1,
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HD"
+    },
+    {
+      "id": 2,
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "Ang Mo Kio Depot",
+      "depot_code": "AMKD"
+    },
+    {
+      "id": 3,
+      "depot_id": "3",
+      "version": 1,
+      "depot_name": "Aver Raja Depot Depot",
+      "depot_code": "ARDD"
+    }
+  ],
+  "user_profiles": {
+    "depot_list": [
+      {
+        "id": 1,
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang Depot",
+        "depot_code": "HD",
+        "value": "Hougang Depot"
+      },
+      {
+        "id": 2,
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD",
+        "value": "Ang Mo Kio Depot"
+      },
+      {
+        "id": 3,
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD",
+        "value": "Aver Raja Depot Depot"
+      }
+    ]
+  },
+  "bus_exception_list": [
+    {
+      "chk": false,
+      "id": 1,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD"
+      },
+      "bus_num": "SBS0225U",
+      "service_num": "30",
+      "svc_prov_id": 100,
+      "exp_arrival_count": 4,
+      "act_arrival_time": "2024-07-01T00:00:00",
+      "act_arrival_count": 1,
+      "deficient_return": -2
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "bus_num": "SBS9025B",
+      "service_num": "40",
+      "svc_prov_id": 100,
+      "exp_arrival_count": 3,
+      "act_arrival_time": "2024-09-12T00:00:00",
+      "act_arrival_count": 7,
+      "deficient_return": -5
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "bus_num": "SBS9025A",
+      "service_num": "25",
+      "svc_prov_id": 100,
+      "exp_arrival_count": 6,
+      "act_arrival_time": "2024-04-17T00:00:00",
+      "act_arrival_count": 1,
+      "deficient_return": -3
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD"
+      },
+      "bus_num": "SBS9025A",
+      "service_num": "25",
+      "svc_prov_id": 24,
+      "exp_arrival_count": 3,
+      "act_arrival_time": "2024-03-17T00:00:00",
+      "act_arrival_count": 3,
+      "deficient_return": -2
+    },
+    {
+      "chk": false,
+      "id": 1,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD"
+      },
+      "bus_num": "SBS0225U",
+      "service_num": "30",
+      "svc_prov_id": 100,
+      "exp_arrival_count": 4,
+      "act_arrival_time": "2024-07-01T00:00:00",
+      "act_arrival_count": 1,
+      "deficient_return": -2
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "bus_num": "SBS9025B",
+      "service_num": "40",
+      "svc_prov_id": 100,
+      "exp_arrival_count": 3,
+      "act_arrival_time": "2024-09-12T00:00:00",
+      "act_arrival_count": 7,
+      "deficient_return": -5
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "bus_num": "SBS9025A",
+      "service_num": "25",
+      "svc_prov_id": 100,
+      "exp_arrival_count": 6,
+      "act_arrival_time": "2024-04-17T00:00:00",
+      "act_arrival_count": 1,
+      "deficient_return": -3
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD"
+      },
+      "bus_num": "SBS9025A",
+      "service_num": "25",
+      "svc_prov_id": 24,
+      "exp_arrival_count": 3,
+      "act_arrival_time": "2024-03-17T00:00:00",
+      "act_arrival_count": 3,
+      "deficient_return": -2
+    }
+  ],
+  "daily_bus": {
+    "status": 200,
+    "status_code": "SUCCESS",
+    "timestamp": "2024-06-10T10:00:00Z",
+    "message": "Dummy data fetched successfully",
+    "payload": {
+      "records_count": 50,
+      "daily_bus_list": [
+        {
+          "chk": false,
+          "id": 1,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang Depot",
+            "depot_code": "HD"
+          },
+          "day_type": "s",
+          "bus_num": "SBS0225U",
+          "service_num": "30",
+          "svc_prov_id": 100,
+          "est_arrival_time": "10:30",
+          "est_arrival_count": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "status": "active",
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 2,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang Depot",
+            "depot_code": "HD"
+          },
+          "day_type": "w",
+          "bus_num": "SBS9025B",
+          "service_num": "40",
+          "svc_prov_id": 100,
+          "est_arrival_time": "09:00",
+          "est_arrival_count": 3,
+          "updated_on": "2024-07-01T00:00:00",
+          "status": "active",
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 3,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "day_type": "p",
+          "bus_num": "SBS9025A",
+          "service_num": "25",
+          "svc_prov_id": 100,
+          "est_arrival_time": "11:45",
+          "est_arrival_count": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "status": "draft",
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 4,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Aver Raja Depot Depot",
+            "depot_code": "ARDD"
+          },
+          "day_type": "p",
+          "bus_num": "SBS9025A",
+          "service_num": "25",
+          "svc_prov_id": 100,
+          "est_arrival_time": "14:30",
+          "est_arrival_count": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "status": "draft",
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 1,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang Depot",
+            "depot_code": "HD"
+          },
+          "day_type": "s",
+          "bus_num": "SBS0225U",
+          "service_num": "30",
+          "svc_prov_id": 100,
+          "est_arrival_time": "12:00",
+          "est_arrival_count": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "status": "active",
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 2,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang Depot",
+            "depot_code": "HD"
+          },
+          "day_type": "w",
+          "bus_num": "SBS9025B",
+          "service_num": "40",
+          "svc_prov_id": 100,
+          "est_arrival_time": "15:00",
+          "est_arrival_count": 3,
+          "updated_on": "2024-07-01T00:00:00",
+          "status": "active",
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 3,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "day_type": "p",
+          "bus_num": "SBS9025A",
+          "service_num": "25",
+          "svc_prov_id": 100,
+          "est_arrival_time": "16:30",
+          "est_arrival_count": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "status": "draft",
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 4,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Aver Raja Depot Depot",
+            "depot_code": "ARDD"
+          },
+          "day_type": "p",
+          "bus_num": "SBS9025A",
+          "service_num": "25",
+          "svc_prov_id": 100,
+          "est_arrival_time": "10:15",
+          "est_arrival_count": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "status": "draft",
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 1,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang Depot",
+            "depot_code": "HD"
+          },
+          "day_type": "s",
+          "bus_num": "SBS0225U",
+          "service_num": "30",
+          "svc_prov_id": 100,
+          "est_arrival_time": "11:30",
+          "est_arrival_count": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "status": "active",
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 2,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang Depot",
+            "depot_code": "HD"
+          },
+          "day_type": "w",
+          "bus_num": "SBS9025B",
+          "service_num": "40",
+          "svc_prov_id": 100,
+          "est_arrival_time": "12:30",
+          "est_arrival_count": 3,
+          "updated_on": "2024-07-01T00:00:00",
+          "status": "active",
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 3,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "day_type": "p",
+          "bus_num": "SBS9025A",
+          "service_num": "25",
+          "svc_prov_id": 100,
+          "est_arrival_time": "13:30",
+          "est_arrival_count": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "status": "draft",
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 4,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Aver Raja Depot Depot",
+            "depot_code": "ARDD"
+          },
+          "day_type": "p",
+          "bus_num": "SBS9025A",
+          "service_num": "25",
+          "svc_prov_id": 100,
+          "est_arrival_time": "14:15",
+          "est_arrival_count": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "status": "draft",
+          "last_update": "2024-07-01T00:00:00"
+        }
+      ]
+    }
+  },
+  "daily_bus_list": [
+    {
+      "chk": false,
+      "id": 1,
+      "version": 1,
+      "depot_id": "1",
+      "depot": {
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang Depot",
+        "depot_code": "HD"
+      },
+      "day_type": "s",
+      "bus_num": "SBS0225U",
+      "service_num": "30",
+      "svc_prov_id": 100,
+      "est_arrival_time": "10:30",
+      "est_arrival_count": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "status": "active",
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "version": 1,
+      "depot_id": "1",
+      "depot": {
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang Depot",
+        "depot_code": "HD"
+      },
+      "day_type": "w",
+      "bus_num": "SBS9025B",
+      "service_num": "40",
+      "svc_prov_id": 100,
+      "est_arrival_time": "09:00",
+      "est_arrival_count": 3,
+      "updated_on": "2024-07-01T00:00:00",
+      "status": "active",
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "day_type": "p",
+      "bus_num": "SBS9025A",
+      "service_num": "25",
+      "svc_prov_id": 100,
+      "est_arrival_time": "11:45",
+      "est_arrival_count": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "status": "draft",
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD"
+      },
+      "day_type": "p",
+      "bus_num": "SBS9025A",
+      "service_num": "25",
+      "svc_prov_id": 100,
+      "est_arrival_time": "14:30",
+      "est_arrival_count": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "status": "draft",
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 1,
+      "version": 1,
+      "depot_id": "1",
+      "depot": {
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang Depot",
+        "depot_code": "HD"
+      },
+      "day_type": "s",
+      "bus_num": "SBS0225U",
+      "service_num": "30",
+      "svc_prov_id": 100,
+      "est_arrival_time": "12:00",
+      "est_arrival_count": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "status": "active",
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "version": 1,
+      "depot_id": "1",
+      "depot": {
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang Depot",
+        "depot_code": "HD"
+      },
+      "day_type": "w",
+      "bus_num": "SBS9025B",
+      "service_num": "40",
+      "svc_prov_id": 100,
+      "est_arrival_time": "15:00",
+      "est_arrival_count": 3,
+      "updated_on": "2024-07-01T00:00:00",
+      "status": "active",
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "day_type": "p",
+      "bus_num": "SBS9025A",
+      "service_num": "25",
+      "svc_prov_id": 100,
+      "est_arrival_time": "16:30",
+      "est_arrival_count": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "status": "draft",
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD"
+      },
+      "day_type": "p",
+      "bus_num": "SBS9025A",
+      "service_num": "25",
+      "svc_prov_id": 100,
+      "est_arrival_time": "10:15",
+      "est_arrival_count": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "status": "draft",
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 1,
+      "version": 1,
+      "depot_id": "1",
+      "depot": {
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang Depot",
+        "depot_code": "HD"
+      },
+      "day_type": "s",
+      "bus_num": "SBS0225U",
+      "service_num": "30",
+      "svc_prov_id": 100,
+      "est_arrival_time": "11:30",
+      "est_arrival_count": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "status": "active",
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "version": 1,
+      "depot_id": "1",
+      "depot": {
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang Depot",
+        "depot_code": "HD"
+      },
+      "day_type": "w",
+      "bus_num": "SBS9025B",
+      "service_num": "40",
+      "svc_prov_id": 100,
+      "est_arrival_time": "12:30",
+      "est_arrival_count": 3,
+      "updated_on": "2024-07-01T00:00:00",
+      "status": "active",
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "day_type": "p",
+      "bus_num": "SBS9025A",
+      "service_num": "25",
+      "svc_prov_id": 100,
+      "est_arrival_time": "13:30",
+      "est_arrival_count": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "status": "draft",
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD"
+      },
+      "day_type": "p",
+      "bus_num": "SBS9025A",
+      "service_num": "25",
+      "svc_prov_id": 100,
+      "est_arrival_time": "14:15",
+      "est_arrival_count": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "status": "draft",
+      "last_update": "2024-07-01T00:00:00"
+    }
+  ],
+  "master_bus": {
+    "status": 200,
+    "status_code": "SUCCESS",
+    "timestamp": "2024-06-10T10:00:00Z",
+    "message": "Dummy data fetched successfully",
+    "payload": {
+      "master_bus_list": [
+        {
+          "chk": false,
+          "id": 1,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Aver Raja Depot Depot",
+            "depot_code": "ARDD"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "bus_num": "SBS9025A",
+          "status": "5",
+          "svc_prov_id": 100,
+          "effective_time": "5:20 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "active"
+        },
+        {
+          "chk": false,
+          "id": 2,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang Depot",
+            "depot_code": "HD"
+          },
+          "effective_date": "2024-07-04T00:00:00",
+          "bus_num": "SBS9028U",
+          "status": "4",
+          "svc_prov_id": 100,
+          "effective_time": "7:40 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "draft"
+        },
+        {
+          "chk": false,
+          "id": 3,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "bus_num": "SBS9028C",
+          "status": "4",
+          "svc_prov_id": 100,
+          "effective_time": "4:30 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "active"
+        },
+        {
+          "chk": false,
+          "id": 4,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "bus_num": "SBS9028B",
+          "status": "5",
+          "svc_prov_id": 100,
+          "effective_time": "4:30 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "active"
+        },
+        {
+          "chk": false,
+          "id": 5,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "effective_date": "2024-07-02T00:00:00",
+          "bus_num": "SBS9028A",
+          "status": "4",
+          "svc_prov_id": 100,
+          "effective_time": "5:30 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "draft"
+        },
+        {
+          "chk": false,
+          "id": 6,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Aver Raja Depot Depot",
+            "depot_code": "ARDD"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "bus_num": "SBS9025A",
+          "status": "5",
+          "svc_prov_id": 100,
+          "effective_time": "5:20 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "active"
+        },
+        {
+          "chk": false,
+          "id": 7,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang Depot",
+            "depot_code": "HD"
+          },
+          "effective_date": "2024-07-04T00:00:00",
+          "bus_num": "SBS9028U",
+          "status": "5",
+          "svc_prov_id": 100,
+          "effective_time": "7:40 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "draft"
+        },
+        {
+          "chk": false,
+          "id": 8,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "bus_num": "SBS9028C",
+          "status": "4",
+          "svc_prov_id": 100,
+          "effective_time": "4:30 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "active"
+        },
+        {
+          "chk": false,
+          "id": 9,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "bus_num": "SBS9028B",
+          "status": "5",
+          "svc_prov_id": 100,
+          "effective_time": "4:30 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "active"
+        },
+        {
+          "chk": false,
+          "id": 10,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "effective_date": "2024-07-02T00:00:00",
+          "bus_num": "SBS9028A",
+          "status": "5",
+          "svc_prov_id": 100,
+          "effective_time": "5:30 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "draft"
+        },
+        {
+          "chk": false,
+          "id": 11,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Aver Raja Depot Depot",
+            "depot_code": "ARDD"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "bus_num": "SBS9025A",
+          "status": "5",
+          "svc_prov_id": 100,
+          "effective_time": "5:20 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "active"
+        },
+        {
+          "chk": false,
+          "id": 12,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang Depot",
+            "depot_code": "HD"
+          },
+          "effective_date": "2024-07-04T00:00:00",
+          "bus_num": "SBS9028U",
+          "status": "4",
+          "svc_prov_id": 100,
+          "effective_time": "7:40 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "draft"
+        },
+        {
+          "chk": false,
+          "id": 13,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "bus_num": "SBS9028C",
+          "status": "4",
+          "svc_prov_id": 100,
+          "effective_time": "4:30 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "active"
+        },
+        {
+          "chk": false,
+          "id": 14,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "bus_num": "SBS9028B",
+          "status": "5",
+          "svc_prov_id": 100,
+          "effective_time": "4:30 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "active"
+        },
+        {
+          "chk": false,
+          "id": 15,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "effective_date": "2024-07-02T00:00:00",
+          "bus_num": "SBS9028A",
+          "status": "5",
+          "svc_prov_id": 100,
+          "effective_time": "5:30 PM",
+          "group_num": 1,
+          "updated_on": "2024-07-01T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "hidden": false,
+          "status_type": "draft"
+        }
+      ],
+      "records_count": 36,
+      "bus_operation_list": [
+        {
+          "chk": false,
+          "id": 1,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "bus_num": "SBS0225",
+          "service_num": "30",
+          "download_status": "success",
+          "upload_status": "success",
+          "sam_status": "success",
+          "connect_time": "2024-07-01T00:00:00",
+          "disconnect_time": "2024-07-02T00:00:00",
+          "conn_status": true
+        },
+        {
+          "chk": false,
+          "id": 2,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang Depot",
+            "depot_code": "HD"
+          },
+          "bus_num": "SBS0225",
+          "service_num": "25",
+          "download_status": "failed",
+          "upload_status": "-",
+          "sam_status": "success",
+          "connect_time": "2024-07-03T00:00:00",
+          "disconnect_time": "2024-07-04T00:00:00",
+          "conn_status": true
+        },
+        {
+          "chk": false,
+          "id": 3,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang Depot",
+            "depot_code": "HD"
+          },
+          "bus_num": "SBS0225",
+          "service_num": "40",
+          "download_status": "-",
+          "upload_status": "in_progress",
+          "sam_status": "success",
+          "connect_time": "2024-07-02T00:00:00",
+          "disconnect_time": "2024-07-02T00:00:00",
+          "conn_status": true
+        },
+        {
+          "chk": false,
+          "id": 4,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "bus_num": "SBS0225",
+          "service_num": "25",
+          "download_status": "failed",
+          "upload_status": "success",
+          "sam_status": "success",
+          "connect_time": "2024-07-03T00:00:00",
+          "disconnect_time": "2024-07-05T00:00:00",
+          "conn_status": false
+        },
+        {
+          "chk": false,
+          "id": 5,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "bus_num": "SBS0225",
+          "service_num": "30",
+          "download_status": "in_progress",
+          "upload_status": "-",
+          "sam_status": "success",
+          "connect_time": "2024-07-03T00:00:00",
+          "disconnect_time": "2024-07-05T00:00:00",
+          "conn_status": true
+        },
+        {
+          "chk": false,
+          "id": 6,
+          "version": 1,
+          "depot_id": "6",
+          "depot": {
+            "depot_id": "6",
+            "version": 1,
+            "depot_name": "Bishan",
+            "depot_code": "BS"
+          },
+          "bus_num": "SBS0225",
+          "service_num": "30",
+          "download_status": "success",
+          "upload_status": "-",
+          "sam_status": "success",
+          "connect_time": "2024-07-03T00:00:00",
+          "disconnect_time": "2024-07-05T00:00:00",
+          "conn_status": false
+        },
+        {
+          "chk": false,
+          "id": 7,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "bus_num": "SBS0225",
+          "service_num": "30",
+          "download_status": "success",
+          "upload_status": "success",
+          "sam_status": "success",
+          "connect_time": "2024-07-03T00:00:00",
+          "disconnect_time": "2024-07-05T00:00:00",
+          "conn_status": true
+        },
+        {
+          "chk": false,
+          "id": 8,
+          "version": 1,
+          "depot_id": "6",
+          "depot": {
+            "depot_id": "6",
+            "version": 1,
+            "depot_name": "Bishan",
+            "depot_code": "BS"
+          },
+          "bus_num": "SBS0225",
+          "service_num": "30",
+          "download_status": "-",
+          "upload_status": "success",
+          "sam_status": "success",
+          "connect_time": "2024-07-03T00:00:00",
+          "disconnect_time": "2024-07-05T00:00:00",
+          "conn_status": true
+        },
+        {
+          "chk": false,
+          "id": 9,
+          "version": 1,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio Depot",
+            "depot_code": "AMKD"
+          },
+          "bus_num": "SBS0225",
+          "service_num": "30",
+          "download_status": "success",
+          "upload_status": "-",
+          "sam_status": "success",
+          "connect_time": "2024-07-03T00:00:00",
+          "disconnect_time": "2024-07-05T00:00:00",
+          "conn_status": true
+        },
+        {
+          "chk": false,
+          "id": 10,
+          "version": 1,
+          "depot_id": "7",
+          "depot": {
+            "depot_id": "7",
+            "version": 1,
+            "depot_name": "Ulu Pandan",
+            "depot_code": "ULU"
+          },
+          "bus_num": "SBS0225",
+          "service_num": "30",
+          "download_status": "success",
+          "upload_status": "success",
+          "sam_status": "success",
+          "connect_time": "2024-07-03T00:00:00",
+          "disconnect_time": "2024-07-05T00:00:00",
+          "conn_status": false
+        }
+      ]
+    }
+  },
+  "master_bus_list": [
+    {
+      "chk": false,
+      "id": 1,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "bus_num": "SBS9025A",
+      "status": "5",
+      "svc_prov_id": 100,
+      "effective_time": "5:20 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "active"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "version": 1,
+      "depot_id": "1",
+      "depot": {
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang Depot",
+        "depot_code": "HD"
+      },
+      "effective_date": "2024-07-04T00:00:00",
+      "bus_num": "SBS9028U",
+      "status": "4",
+      "svc_prov_id": 100,
+      "effective_time": "7:40 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "draft"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "bus_num": "SBS9028C",
+      "status": "4",
+      "svc_prov_id": 100,
+      "effective_time": "4:30 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "active"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "bus_num": "SBS9028B",
+      "status": "5",
+      "svc_prov_id": 100,
+      "effective_time": "4:30 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "active"
+    },
+    {
+      "chk": false,
+      "id": 5,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "effective_date": "2024-07-02T00:00:00",
+      "bus_num": "SBS9028A",
+      "status": "4",
+      "svc_prov_id": 100,
+      "effective_time": "5:30 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "draft"
+    },
+    {
+      "chk": false,
+      "id": 6,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "bus_num": "SBS9025A",
+      "status": "5",
+      "svc_prov_id": 100,
+      "effective_time": "5:20 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "active"
+    },
+    {
+      "chk": false,
+      "id": 7,
+      "version": 1,
+      "depot_id": "1",
+      "depot": {
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang Depot",
+        "depot_code": "HD"
+      },
+      "effective_date": "2024-07-04T00:00:00",
+      "bus_num": "SBS9028U",
+      "status": "5",
+      "svc_prov_id": 100,
+      "effective_time": "7:40 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "draft"
+    },
+    {
+      "chk": false,
+      "id": 8,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "bus_num": "SBS9028C",
+      "status": "4",
+      "svc_prov_id": 100,
+      "effective_time": "4:30 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "active"
+    },
+    {
+      "chk": false,
+      "id": 9,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "bus_num": "SBS9028B",
+      "status": "5",
+      "svc_prov_id": 100,
+      "effective_time": "4:30 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "active"
+    },
+    {
+      "chk": false,
+      "id": 10,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "effective_date": "2024-07-02T00:00:00",
+      "bus_num": "SBS9028A",
+      "status": "5",
+      "svc_prov_id": 100,
+      "effective_time": "5:30 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "draft"
+    },
+    {
+      "chk": false,
+      "id": 11,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "bus_num": "SBS9025A",
+      "status": "5",
+      "svc_prov_id": 100,
+      "effective_time": "5:20 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "active"
+    },
+    {
+      "chk": false,
+      "id": 12,
+      "version": 1,
+      "depot_id": "1",
+      "depot": {
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang Depot",
+        "depot_code": "HD"
+      },
+      "effective_date": "2024-07-04T00:00:00",
+      "bus_num": "SBS9028U",
+      "status": "4",
+      "svc_prov_id": 100,
+      "effective_time": "7:40 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "draft"
+    },
+    {
+      "chk": false,
+      "id": 13,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "bus_num": "SBS9028C",
+      "status": "4",
+      "svc_prov_id": 100,
+      "effective_time": "4:30 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "active"
+    },
+    {
+      "chk": false,
+      "id": 14,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "bus_num": "SBS9028B",
+      "status": "5",
+      "svc_prov_id": 100,
+      "effective_time": "4:30 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "active"
+    },
+    {
+      "chk": false,
+      "id": 15,
+      "version": 1,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio Depot",
+        "depot_code": "AMKD"
+      },
+      "effective_date": "2024-07-02T00:00:00",
+      "bus_num": "SBS9028A",
+      "status": "5",
+      "svc_prov_id": 100,
+      "effective_time": "5:30 PM",
+      "group_num": 1,
+      "updated_on": "2024-07-01T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "hidden": false,
+      "status_type": "draft"
+    }
+  ],
+  "bus_operation_list": [
+    {
+      "chk": false,
+      "id": 1,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD"
+      },
+      "bus_num": "SBS9025U",
+      "service_num": "30",
+      "download_status": "-",
+      "upload_status": "failed",
+      "sam_status": "failed",
+      "connect_time": "2024-07-01T00:00:00",
+      "disconnect_time": "2024-07-02T00:00:00",
+      "conn_status": false
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "version": 1,
+      "depot_id": "1",
+      "depot": {
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang Depot",
+        "depot_code": "HD"
+      },
+      "bus_num": "SBS9025A",
+      "service_num": "25",
+      "download_status": "failed",
+      "upload_status": "success",
+      "sam_status": "success",
+      "connect_time": "2024-07-03T00:00:00",
+      "disconnect_time": "2024-07-04T00:00:00",
+      "conn_status": true
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD"
+      },
+      "bus_num": "SBS9027U",
+      "service_num": "40",
+      "download_status": "success",
+      "upload_status": "-",
+      "sam_status": "failed",
+      "connect_time": "2024-07-02T00:00:00",
+      "disconnect_time": "2024-07-02T00:00:00",
+      "conn_status": true
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD"
+      },
+      "bus_num": "SBS9027C",
+      "service_num": "25",
+      "download_status": "success",
+      "upload_status": "success",
+      "sam_status": "success",
+      "connect_time": "2024-07-03T00:00:00",
+      "disconnect_time": "2024-07-05T00:00:00",
+      "conn_status": false
+    },
+    {
+      "chk": false,
+      "id": 5,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Aver Raja Depot Depot",
+        "depot_code": "ARDD"
+      },
+      "bus_num": "SBS9027C",
+      "service_num": "30",
+      "download_status": "success",
+      "upload_status": "failed",
+      "sam_status": "success",
+      "connect_time": "2024-07-03T00:00:00",
+      "disconnect_time": "2024-07-05T00:00:00",
+      "conn_status": true
+    }
+  ],
+  "transfer_bus": {
+    "status": 200,
+    "status_code": "SUCCESS",
+    "timestamp": "2024-06-10T10:00:00Z",
+    "message": "Dummy data fetched successfully",
+    "payload": {
+      "records_count": 99,
+      "bus_transfer_list": [
+        {
+          "id": 1,
+          "version": 2,
+          "bus_id": "ZQY0103",
+          "bus_num": "1234",
+          "current_operator": "105",
+          "current_depot": "1",
+          "current_effective_date": "2017-05-27 15:58:00",
+          "future_operator": "101",
+          "future_depot": "3",
+          "future_effective_date": "2024-10-11 16:38:00",
+          "status": "Rejected",
+          "updated_on": "2024-10-11 16:39:33"
+        },
+        {
+          "id": 2,
+          "version": 2,
+          "bus_id": "ZQY0104",
+          "bus_num": "1234",
+          "current_operator": "105",
+          "current_depot": "2",
+          "current_effective_date": "2017-05-27 15:58:00",
+          "future_operator": "101",
+          "future_depot": "3",
+          "future_effective_date": "2024-10-11 16:38:00",
+          "status": "Approved",
+          "updated_on": "2024-10-11 16:39:22"
+        },
+        {
+          "id": 3,
+          "version": 2,
+          "bus_id": "ZQY0105",
+          "bus_num": "1234",
+          "current_operator": "105",
+          "current_depot": "3",
+          "current_effective_date": "2017-05-27 15:58:00",
+          "future_operator": "101",
+          "future_depot": "3",
+          "future_effective_date": "2024-10-11 16:38:00",
+          "status": "Approved",
+          "updated_on": "2024-10-16 11:13:00"
+        },
+        {
+          "id": 4,
+          "version": 6,
+          "bus_id": "ZQY0106",
+          "bus_num": "1234",
+          "current_operator": "105",
+          "current_depot": "1",
+          "current_effective_date": "2017-05-27 15:58:00",
+          "future_operator": "101",
+          "future_depot": "3",
+          "future_effective_date": "2024-10-11 06:30:00",
+          "status": "Approved",
+          "updated_on": "2024-10-16 14:02:32"
+        },
+        {
+          "id": 5,
+          "version": 4,
+          "bus_id": "ZQY0107",
+          "bus_num": "1234",
+          "current_operator": "105",
+          "current_depot": "2",
+          "current_effective_date": "2017-05-27 15:58:00",
+          "future_operator": "101",
+          "future_depot": "3",
+          "future_effective_date": "2024-10-11 18:30:00",
+          "status": "Approved",
+          "updated_on": "2024-10-16 14:04:11"
+        },
+        {
+          "id": 6,
+          "version": 2,
+          "bus_id": "ZQY0108",
+          "bus_num": "1234",
+          "current_operator": "105",
+          "current_depot": "3",
+          "current_effective_date": "2017-05-27 15:58:00",
+          "future_operator": "101",
+          "future_depot": "3",
+          "future_effective_date": "2024-10-11 16:38:00",
+          "status": "Rejected",
+          "updated_on": "2024-10-16 14:04:31"
+        },
+        {
+          "id": 7,
+          "version": 2,
+          "bus_id": "ZQY0109",
+          "bus_num": "1234",
+          "current_operator": "105",
+          "current_depot": "1",
+          "current_effective_date": "2017-05-27 15:58:00",
+          "future_operator": "101",
+          "future_depot": "3",
+          "future_effective_date": "2024-10-11 16:38:00",
+          "status": "Rejected",
+          "updated_on": "2024-10-16 14:05:17"
+        },
+        {
+          "id": 8,
+          "version": 0,
+          "bus_id": "ZQY0110",
+          "bus_num": "1234",
+          "current_operator": "105",
+          "current_depot": "2",
+          "current_effective_date": "2017-05-27 15:58:00",
+          "future_operator": "101",
+          "future_depot": "3",
+          "future_effective_date": "2024-10-11 16:38:50",
+          "status": "Rejected",
+          "updated_on": "2024-10-11 16:38:50"
+        },
+        {
+          "id": 9,
+          "version": 0,
+          "bus_id": "ZQY0111",
+          "bus_num": "1234",
+          "current_operator": "105",
+          "current_depot": "3",
+          "current_effective_date": "2017-05-27 15:58:00",
+          "future_operator": "101",
+          "future_depot": "3",
+          "future_effective_date": "2024-10-11 16:38:50",
+          "status": "Rejected",
+          "updated_on": "2024-10-11 16:38:50"
+        },
+        {
+          "id": 10,
+          "version": 0,
+          "bus_id": "ZQY0112",
+          "bus_num": "1234",
+          "current_operator": "105",
+          "current_depot": "1",
+          "current_effective_date": "2017-05-27 15:58:00",
+          "future_operator": "101",
+          "future_depot": "3",
+          "future_effective_date": "2024-10-11 16:38:50",
+          "status": "Rejected",
+          "updated_on": "2024-10-11 16:38:50"
+        },
+        {
+          "id": 11,
+          "version": 0,
+          "bus_id": "ZQY0112",
+          "bus_num": "1234",
+          "current_operator": "105",
+          "current_depot": "2",
+          "current_effective_date": "2017-05-27 15:58:00",
+          "future_operator": "101",
+          "future_depot": "3",
+          "future_effective_date": "2024-10-11 16:38:50",
+          "status": "Rejected",
+          "updated_on": "2024-10-11 16:38:50"
+        },
+        {
+          "id": 12,
+          "version": 0,
+          "bus_id": "ZQY0112",
+          "bus_num": "1234",
+          "current_operator": "105",
+          "current_depot": "3",
+          "current_effective_date": "2017-05-27 15:58:00",
+          "future_operator": "101",
+          "future_depot": "3",
+          "future_effective_date": "2024-10-11 16:38:50",
+          "status": "Rejected",
+          "updated_on": "2024-10-11 16:38:50"
+        },
+        {
+          "id": 13,
+          "version": 0,
+          "bus_id": "ZQY0112",
+          "bus_num": "1234",
+          "current_operator": "105",
+          "current_depot": "1",
+          "current_effective_date": "2017-05-27 15:58:00",
+          "future_operator": "101",
+          "future_depot": "1",
+          "future_effective_date": "2024-10-11 16:38:50",
+          "status": "Rejected",
+          "updated_on": "2024-10-11 16:38:50"
+        }
+      ]
+    }
+  },
+  "bus_transfer_list": [
+    {
+      "id": 1,
+      "version": 2,
+      "bus_id": "ZQY0103",
+      "bus_num": "1234",
+      "current_operator": "105",
+      "current_depot": "1",
+      "current_effective_date": "2017-05-27 15:58:00",
+      "future_operator": "101",
+      "future_depot": "3",
+      "future_effective_date": "2024-10-11 16:38:00",
+      "status": "Rejected",
+      "updated_on": "2024-10-11 16:39:33"
+    },
+    {
+      "id": 2,
+      "version": 2,
+      "bus_id": "ZQY0104",
+      "bus_num": "1234",
+      "current_operator": "105",
+      "current_depot": "2",
+      "current_effective_date": "2017-05-27 15:58:00",
+      "future_operator": "101",
+      "future_depot": "3",
+      "future_effective_date": "2024-10-11 16:38:00",
+      "status": "Approved",
+      "updated_on": "2024-10-11 16:39:22"
+    },
+    {
+      "id": 3,
+      "version": 2,
+      "bus_id": "ZQY0105",
+      "bus_num": "1234",
+      "current_operator": "105",
+      "current_depot": "3",
+      "current_effective_date": "2017-05-27 15:58:00",
+      "future_operator": "101",
+      "future_depot": "3",
+      "future_effective_date": "2024-10-11 16:38:00",
+      "status": "Approved",
+      "updated_on": "2024-10-16 11:13:00"
+    },
+    {
+      "id": 4,
+      "version": 6,
+      "bus_id": "ZQY0106",
+      "bus_num": "1234",
+      "current_operator": "105",
+      "current_depot": "1",
+      "current_effective_date": "2017-05-27 15:58:00",
+      "future_operator": "101",
+      "future_depot": "3",
+      "future_effective_date": "2024-10-11 06:30:00",
+      "status": "Approved",
+      "updated_on": "2024-10-16 14:02:32"
+    },
+    {
+      "id": 5,
+      "version": 4,
+      "bus_id": "ZQY0107",
+      "bus_num": "1234",
+      "current_operator": "105",
+      "current_depot": "2",
+      "current_effective_date": "2017-05-27 15:58:00",
+      "future_operator": "101",
+      "future_depot": "3",
+      "future_effective_date": "2024-10-11 18:30:00",
+      "status": "Approved",
+      "updated_on": "2024-10-16 14:04:11"
+    },
+    {
+      "id": 6,
+      "version": 2,
+      "bus_id": "ZQY0108",
+      "bus_num": "1234",
+      "current_operator": "105",
+      "current_depot": "3",
+      "current_effective_date": "2017-05-27 15:58:00",
+      "future_operator": "101",
+      "future_depot": "3",
+      "future_effective_date": "2024-10-11 16:38:00",
+      "status": "Rejected",
+      "updated_on": "2024-10-16 14:04:31"
+    },
+    {
+      "id": 7,
+      "version": 2,
+      "bus_id": "ZQY0109",
+      "bus_num": "1234",
+      "current_operator": "105",
+      "current_depot": "1",
+      "current_effective_date": "2017-05-27 15:58:00",
+      "future_operator": "101",
+      "future_depot": "3",
+      "future_effective_date": "2024-10-11 16:38:00",
+      "status": "Rejected",
+      "updated_on": "2024-10-16 14:05:17"
+    },
+    {
+      "id": 8,
+      "version": 0,
+      "bus_id": "ZQY0110",
+      "bus_num": "1234",
+      "current_operator": "105",
+      "current_depot": "2",
+      "current_effective_date": "2017-05-27 15:58:00",
+      "future_operator": "101",
+      "future_depot": "3",
+      "future_effective_date": "2024-10-11 16:38:50",
+      "status": "Rejected",
+      "updated_on": "2024-10-11 16:38:50"
+    },
+    {
+      "id": 9,
+      "version": 0,
+      "bus_id": "ZQY0111",
+      "bus_num": "1234",
+      "current_operator": "105",
+      "current_depot": "3",
+      "current_effective_date": "2017-05-27 15:58:00",
+      "future_operator": "101",
+      "future_depot": "3",
+      "future_effective_date": "2024-10-11 16:38:50",
+      "status": "Rejected",
+      "updated_on": "2024-10-11 16:38:50"
+    },
+    {
+      "id": 10,
+      "version": 0,
+      "bus_id": "ZQY0112",
+      "bus_num": "1234",
+      "current_operator": "105",
+      "current_depot": "1",
+      "current_effective_date": "2017-05-27 15:58:00",
+      "future_operator": "101",
+      "future_depot": "3",
+      "future_effective_date": "2024-10-11 16:38:50",
+      "status": "Rejected",
+      "updated_on": "2024-10-11 16:38:50"
+    },
+    {
+      "id": 11,
+      "version": 0,
+      "bus_id": "ZQY0112",
+      "bus_num": "1234",
+      "current_operator": "105",
+      "current_depot": "2",
+      "current_effective_date": "2017-05-27 15:58:00",
+      "future_operator": "101",
+      "future_depot": "3",
+      "future_effective_date": "2024-10-11 16:38:50",
+      "status": "Rejected",
+      "updated_on": "2024-10-11 16:38:50"
+    },
+    {
+      "id": 12,
+      "version": 0,
+      "bus_id": "ZQY0112",
+      "bus_num": "1234",
+      "current_operator": "105",
+      "current_depot": "3",
+      "current_effective_date": "2017-05-27 15:58:00",
+      "future_operator": "101",
+      "future_depot": "3",
+      "future_effective_date": "2024-10-11 16:38:50",
+      "status": "Rejected",
+      "updated_on": "2024-10-11 16:38:50"
+    },
+    {
+      "id": 13,
+      "version": 0,
+      "bus_id": "ZQY0112",
+      "bus_num": "1234",
+      "current_operator": "105",
+      "current_depot": "1",
+      "current_effective_date": "2017-05-27 15:58:00",
+      "future_operator": "101",
+      "future_depot": "1",
+      "future_effective_date": "2024-10-11 16:38:50",
+      "status": "Rejected",
+      "updated_on": "2024-10-11 16:38:50"
+    }
+  ],
+  "new_parameter_approval_list": [
+    {
+      "chk": false,
+      "id": 1,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Hougang",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "parameter_version": "70",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "approved",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "parameter_version": "123",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "approved",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "parameter_version": "106",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "rejected",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BLS1APPA.SYS",
+      "parameter_version": "66",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "rejected",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 5,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BLS2CBTB.SYS",
+      "parameter_version": "115",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "approved",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 7,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BFC_CBTB.SYS",
+      "parameter_version": "41",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "rejected",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 6,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "parameter_version": "23",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "rejected",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    }
+  ],
+  "daily-report": [
+    {
+      "chk": false,
+      "id": 1,
+      "depot_name": "Mandal",
+      "report_type": "Bus Arrival Exception List",
+      "business_date": "2024-07-03"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "depot_name": "Kranji",
+      "report_type": "Bus Arrival Exception List",
+      "business_date": "2024-07-03"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "depot_name": "Blim",
+      "report_type": "Bus Partial Upload",
+      "business_date": "2024-07-03"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "depot_name": "Loyang",
+      "report_type": "Bus List Audit Trail",
+      "business_date": "2024-07-03"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "depot_name": "Blim",
+      "report_type": "Bus Transfer Report",
+      "business_date": "2024-07-03"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "depot_name": "Loyang",
+      "report_type": "Bus Transfer Report",
+      "business_date": "2024-07-03"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "depot_name": "Blim",
+      "report_type": "Bus partial upload Report",
+      "business_date": "2024-07-03"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "depot_name": "Loyang",
+      "report_type": "Daily Bus List Report",
+      "business_date": "2024-07-03"
+    }
+  ],
+  "parameter_trial": {
+    "status": 200,
+    "status_code": "SUCCESS",
+    "timestamp": "2024-06-10T10:00:00Z",
+    "message": "Dummy data fetched successfully",
+    "payload": {
+      "trial_device_summary_list": [
+        {
+          "chk": false,
+          "id": 1,
+          "depot_id": "3",
+          "bus_num": "SBS0225U",
+          "trial_group": false,
+          "parameter_group": false,
+          "service_group": false,
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 2,
+          "depot_id": "3",
+          "bus_num": "SBS0422U",
+          "trial_group": false,
+          "parameter_group": true,
+          "service_group": false,
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 3,
+          "depot_id": "3",
+          "bus_num": "SBS8765A",
+          "trial_group": false,
+          "parameter_group": true,
+          "service_group": false,
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 4,
+          "depot_id": "3",
+          "bus_num": "SBS0452D",
+          "trial_group": false,
+          "parameter_group": false,
+          "service_group": true,
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 5,
+          "depot_id": "3",
+          "bus_num": "SBS0478U",
+          "trial_group": false,
+          "parameter_group": true,
+          "service_group": false,
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 7,
+          "depot_id": "3",
+          "bus_num": "SBS0478U",
+          "trial_group": false,
+          "parameter_group": true,
+          "service_group": false,
+          "last_update": "2024-07-01T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 6,
+          "depot_id": "3",
+          "bus_num": "SBS8765B",
+          "trial_group": false,
+          "parameter_group": false,
+          "service_group": true,
+          "last_update": "2024-07-01T00:00:00"
+        }
+      ],
+      "new_parameter_approval_list": [
+        {
+          "chk": false,
+          "id": 1,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Hougang",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "parameter_version": "70",
+          "last_update": "2024-07-01T00:00:00",
+          "status": "approved",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 2,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "parameter_version": "123",
+          "last_update": "2024-07-01T00:00:00",
+          "status": "approved",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 3,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "parameter_version": "106",
+          "last_update": "2024-07-01T00:00:00",
+          "status": "rejected",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 4,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BLS1APPA.SYS",
+          "parameter_version": "66",
+          "last_update": "2024-07-01T00:00:00",
+          "status": "rejected",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 5,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BLS2CBTB.SYS",
+          "parameter_version": "115",
+          "last_update": "2024-07-01T00:00:00",
+          "status": "approved",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 7,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BFC_CBTB.SYS",
+          "parameter_version": "41",
+          "last_update": "2024-07-01T00:00:00",
+          "status": "rejected",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 6,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "parameter_version": "23",
+          "last_update": "2024-07-01T00:00:00",
+          "status": "rejected",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        }
+      ],
+      "parameter_mode_list": [
+        {
+          "chk": false,
+          "id": 1,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Hougang",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "last_update": "2024-07-01T00:00:00",
+          "parameter_version": "70",
+          "status": "live",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 2,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "last_update": "2024-07-01T00:00:00",
+          "parameter_version": "123",
+          "status": "live",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 3,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "last_update": "2024-07-01T00:00:00",
+          "parameter_version": "106",
+          "status": "trial",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 4,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BLS1APPA.SYS",
+          "last_update": "2024-07-01T00:00:00",
+          "parameter_version": "66",
+          "status": "live",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 5,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BLS2CBTB.SYS",
+          "last_update": "2024-07-01T00:00:00",
+          "parameter_version": "115",
+          "status": "trial",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 7,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BFC_CBTB.SYS",
+          "last_update": "2024-07-01T00:00:00",
+          "parameter_version": "41",
+          "status": "trial",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 6,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "last_update": "2024-07-01T00:00:00",
+          "parameter_version": "23",
+          "status": "trial",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        }
+      ],
+      "end_trial_list": [
+        {
+          "chk": false,
+          "id": 1,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Hougang",
+            "depot_code": "ARDD"
+          },
+          "file_id": "0x739A",
+          "parameter_name": "BCV1APPA.SYS",
+          "parameter_version": "70",
+          "effective_date": "2024-07-03T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "status": "live",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 2,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "file_id": "0x739A",
+          "parameter_name": "BCV1APPA.SYS",
+          "parameter_version": "123",
+          "effective_date": "2024-07-03T00:00:00",
+          "last_update": "2024-07-01T00:00:00",
+          "status": "rejected",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 3,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "file_id": "0x710A",
+          "parameter_name": "BCV1APPA.SYS",
+          "parameter_version": "106",
+          "effective_date": "2024-07-03T06:25:00",
+          "last_update": "2024-07-01T00:00:00",
+          "status": "live",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 4,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "file_id": "0x728B",
+          "parameter_name": "BLS1APPA.SYS",
+          "parameter_version": "66",
+          "effective_date": "2024-07-03T07:45:00",
+          "last_update": "2024-07-01T00:00:00",
+          "status": "live",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        },
+        {
+          "chk": false,
+          "id": 5,
+          "version": 1,
+          "depot_id": "3",
+          "depot": {
+            "depot_id": "3",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "ARDD"
+          },
+          "file_id": "0x73A1",
+          "parameter_name": "BLS2CBTB.SYS",
+          "parameter_version": "115",
+          "effective_date": "2024-07-03T08:3400:00",
+          "last_update": "2024-07-01T00:00:00",
+          "status": "rejected",
+          "effectiveDateTime": "2024-07-03T00:00:00"
+        }
+      ],
+      "parameter_version_summary_list": [
+        {
+          "chk": false,
+          "id": 1,
+          "version": 1,
+          "depot_id": "3",
+          "file_id": "0x739A",
+          "parameter_name": "BCV1APPA.SYS",
+          "parameter_version": "70",
+          "effective_date": "2024-07-03T00:00:00",
+          "status": "inactive"
+        },
+        {
+          "chk": false,
+          "id": 2,
+          "version": 1,
+          "depot_id": "3",
+          "file_id": "0x739A",
+          "parameter_name": "BCV1APPA.SYS",
+          "parameter_version": "123",
+          "effective_date": "2024-07-03T00:00:00",
+          "status": "active"
+        },
+        {
+          "chk": false,
+          "id": 3,
+          "version": 1,
+          "depot_id": "3",
+          "file_id": "0x710A",
+          "parameter_name": "BCV1APPA.SYS",
+          "parameter_version": "106",
+          "effective_date": "2024-07-03T06:25:00",
+          "status": "active"
+        },
+        {
+          "chk": false,
+          "id": 4,
+          "version": 1,
+          "depot_id": "3",
+          "file_id": "0x728B",
+          "parameter_name": "BLS1APPA.SYS",
+          "parameter_version": "66",
+          "effective_date": "2024-07-03T07:45:00",
+          "status": "inactive"
+        },
+        {
+          "chk": false,
+          "id": 5,
+          "version": 1,
+          "depot_id": "3",
+          "file_id": "0x73A1",
+          "parameter_name": "BLS2CBTB.SYS",
+          "parameter_version": "115",
+          "effective_date": "2024-07-03T07:45:00",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "parameter_mode_list": [
+    {
+      "chk": false,
+      "id": 1,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Hougang",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "last_update": "2024-07-01T00:00:00",
+      "parameter_version": "70",
+      "status": "live",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "last_update": "2024-07-01T00:00:00",
+      "parameter_version": "123",
+      "status": "live",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "last_update": "2024-07-01T00:00:00",
+      "parameter_version": "106",
+      "status": "trial",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BLS1APPA.SYS",
+      "last_update": "2024-07-01T00:00:00",
+      "parameter_version": "66",
+      "status": "live",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 5,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BLS2CBTB.SYS",
+      "last_update": "2024-07-01T00:00:00",
+      "parameter_version": "115",
+      "status": "trial",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 7,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BFC_CBTB.SYS",
+      "last_update": "2024-07-01T00:00:00",
+      "parameter_version": "41",
+      "status": "trial",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 6,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "last_update": "2024-07-01T00:00:00",
+      "parameter_version": "23",
+      "status": "trial",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    }
+  ],
+  "trial_device_summary_list": [
+    {
+      "chk": false,
+      "id": 1,
+      "depot_id": "3",
+      "bus_num": "SBS0225U",
+      "trial_group": false,
+      "parameter_group": false,
+      "service_group": false,
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "depot_id": "3",
+      "bus_num": "SBS0422U",
+      "trial_group": false,
+      "parameter_group": true,
+      "service_group": false,
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "depot_id": "3",
+      "bus_num": "SBS8765A",
+      "trial_group": false,
+      "parameter_group": true,
+      "service_group": false,
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "depot_id": "3",
+      "bus_num": "SBS0452D",
+      "trial_group": false,
+      "parameter_group": false,
+      "service_group": true,
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 5,
+      "depot_id": "3",
+      "bus_num": "SBS0478U",
+      "trial_group": false,
+      "parameter_group": true,
+      "service_group": false,
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 7,
+      "depot_id": "3",
+      "bus_num": "SBS0478U",
+      "trial_group": false,
+      "parameter_group": true,
+      "service_group": false,
+      "last_update": "2024-07-01T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 6,
+      "depot_id": "3",
+      "bus_num": "SBS8765B",
+      "trial_group": false,
+      "parameter_group": false,
+      "service_group": true,
+      "last_update": "2024-07-01T00:00:00"
+    }
+  ],
+  "parameter_version_summary_list": [
+    {
+      "chk": false,
+      "id": 1,
+      "version": 1,
+      "depot_id": "3",
+      "file_id": "0x739A",
+      "parameter_name": "BCV1APPA.SYS",
+      "parameter_version": "70",
+      "effective_date": "2024-07-03T00:00:00",
+      "status": "inactive"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "version": 1,
+      "depot_id": "3",
+      "file_id": "0x739A",
+      "parameter_name": "BCV1APPA.SYS",
+      "parameter_version": "123",
+      "effective_date": "2024-07-03T00:00:00",
+      "status": "active"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "version": 1,
+      "depot_id": "3",
+      "file_id": "0x710A",
+      "parameter_name": "BCV1APPA.SYS",
+      "parameter_version": "106",
+      "effective_date": "2024-07-03T06:25:00",
+      "status": "active"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "version": 1,
+      "depot_id": "3",
+      "file_id": "0x728B",
+      "parameter_name": "BLS1APPA.SYS",
+      "parameter_version": "66",
+      "effective_date": "2024-07-03T07:45:00",
+      "status": "inactive"
+    },
+    {
+      "chk": false,
+      "id": 5,
+      "version": 1,
+      "depot_id": "3",
+      "file_id": "0x73A1",
+      "parameter_name": "BLS2CBTB.SYS",
+      "parameter_version": "115",
+      "effective_date": "2024-07-03T07:45:00",
+      "status": "active"
+    }
+  ],
+  "end_trial_list": [
+    {
+      "chk": false,
+      "id": 1,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Hougang",
+        "depot_code": "ARDD"
+      },
+      "file_id": "0x739A",
+      "parameter_name": "BCV1APPA.SYS",
+      "parameter_version": "70",
+      "effective_date": "2024-07-03T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "live",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "file_id": "0x739A",
+      "parameter_name": "BCV1APPA.SYS",
+      "parameter_version": "123",
+      "effective_date": "2024-07-03T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "rejected",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "file_id": "0x710A",
+      "parameter_name": "BCV1APPA.SYS",
+      "parameter_version": "106",
+      "effective_date": "2024-07-03T06:25:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "live",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "file_id": "0x728B",
+      "parameter_name": "BLS1APPA.SYS",
+      "parameter_version": "66",
+      "effective_date": "2024-07-03T07:45:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "live",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    {
+      "chk": false,
+      "id": 5,
+      "version": 1,
+      "depot_id": "3",
+      "depot": {
+        "depot_id": "3",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "ARDD"
+      },
+      "file_id": "0x73A1",
+      "parameter_name": "BLS2CBTB.SYS",
+      "parameter_version": "115",
+      "effective_date": "2024-07-03T08:3400:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "rejected",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    }
+  ],
+  "adhoc-reports": [
+    {
+      "chk": false,
+      "id": 1,
+      "depot_name": "Bulim Depot",
+      "report_type": "Bus Arrival Exception",
+      "service_provider_name": "SBST Bus Service Provider",
+      "current_operator": "SBST",
+      "future_operator": "SMRT",
+      "start_date": "02/06/2023 12:00:00 AM",
+      "end_date": "02/06/2023 12:00:00 AM",
+      "month_type": "July 2024",
+      "tab_filter": "bus_arrival_exception_list"
+    },
+    {
+      "chk": false,
+      "id": 2,
+      "depot_name": "Loyang Depot",
+      "report_type": "Bus Arrival Exception",
+      "service_provider_name": "SBST Bus Service Provider",
+      "current_operator": "SBST",
+      "future_operator": "SMRT",
+      "start_date": "02/06/2023 12:00:00 AM",
+      "end_date": "02/06/2023 12:00:00 AM",
+      "month_type": "July 2024",
+      "tab_filter": "bus_arrival_exception_list"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "depot_name": "Ang Mo Kio Depot",
+      "report_type": "Bus List Audit Trail",
+      "service_provider_name": "SBST Bus Service Provider",
+      "current_operator": "SBST",
+      "future_operator": "SMRT",
+      "start_date": "02/06/2023 12:00:00 AM",
+      "end_date": "02/06/2023 12:00:00 AM",
+      "month_type": "December 2024",
+      "tab_filter": "bus_list_audit_trail"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "depot_name": "Bulim Depot",
+      "report_type": "Bus List Audit Trail",
+      "service_provider_name": "SBST Bus Service Provider",
+      "current_operator": "SBST",
+      "future_operator": "SMRT",
+      "start_date": "02/06/2023 12:00:00 AM",
+      "end_date": "02/06/2023 12:00:00 AM",
+      "month_type": "December 2024",
+      "tab_filter": "bus_list_audit_trail"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "depot_name": "Kranji Depot",
+      "report_type": "Bus Partial Upload",
+      "service_provider_name": "SBST Bus Service Provider",
+      "current_operator": "SBST",
+      "future_operator": "SMRT",
+      "start_date": "02/06/2023 12:00:00 AM",
+      "end_date": "02/06/2023 12:00:00 AM",
+      "month_type": "December 2024",
+      "tab_filter": "bus_partial_upload"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "depot_name": "Kranji Depot",
+      "report_type": "Bus Partial Upload",
+      "service_provider_name": "SBST Bus Service Provider",
+      "current_operator": "SBST",
+      "future_operator": "SMRT",
+      "start_date": "02/06/2023 12:00:00 AM",
+      "end_date": "02/06/2023 12:00:00 AM",
+      "month_type": "December 2024",
+      "tab_filter": "bus_partial_upload"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "depot_name": "Loyang Depot",
+      "report_type": "Daily Bus List",
+      "service_provider_name": "SBST Bus Service Provider",
+      "current_operator": "SBST",
+      "future_operator": "SMRT",
+      "start_date": "02/06/2023 12:00:00 AM",
+      "end_date": "02/06/2023 12:00:00 AM",
+      "month_type": "December 2024",
+      "tab_filter": "bus_partial_upload"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "depot_name": "Ang Mo Kio Depot",
+      "report_type": "Daily Bus List",
+      "service_provider_name": "SBST Bus Service Provider",
+      "current_operator": "SBST",
+      "future_operator": "SMRT",
+      "start_date": "02/06/2023 12:00:00 AM",
+      "end_date": "02/06/2023 12:00:00 AM",
+      "month_type": "December 2024",
+      "tab_filter": "daily_bus_list"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "depot_name": "Seletar Depot",
+      "report_type": "Bus Transfer",
+      "service_provider_name": "SBST Bus Service Provider",
+      "current_operator": "SBST",
+      "future_operator": "SMRT",
+      "start_date": "02/06/2023 12:00:00 AM",
+      "end_date": "02/06/2023 12:00:00 AM",
+      "month_type": "June 2024",
+      "tab_filter": "bus_transfer"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "depot_name": "Seletar Depot",
+      "report_type": "Bus Transfer",
+      "service_provider_name": "SBST Bus Service Provider",
+      "current_operator": "SBST",
+      "future_operator": "SMRT",
+      "start_date": "02/06/2023 12:00:00 AM",
+      "end_date": "02/06/2023 12:00:00 AM",
+      "month_type": "June 2024",
+      "tab_filter": "bus_transfer"
+    },
+    {
+      "chk": false,
+      "id": 3,
+      "depot_name": "Seletar Depot",
+      "report_type": "DAGW Monthly Availability",
+      "service_provider_name": "SBST Bus Service Provider",
+      "current_operator": "SBST",
+      "future_operator": "SMRT",
+      "start_date": "02/06/2023 12:00:00 AM",
+      "end_date": "02/06/2023 12:00:00 AM",
+      "month_type": "November 2024",
+      "tab_filter": "DAGW_monthly_availability"
+    },
+    {
+      "chk": false,
+      "id": 4,
+      "depot_name": "Loyang Depot",
+      "report_type": "DAGW Monthly Availability",
+      "service_provider_name": "SBST Bus Service Provider",
+      "current_operator": "SBST",
+      "future_operator": "SMRT",
+      "start_date": "02/06/2023 12:00:00 AM",
+      "end_date": "02/06/2023 12:00:00 AM",
+      "month_type": "November 2024",
+      "tab_filter": "DAGW_monthly_availability"
+    }
+  ],
+  "service_provider": [
+    {
+      "id": "1",
+      "value": "SBST Bus Service Privider"
+    },
+    {
+      "id": "2",
+      "value": "SMRT Bus Service Privider"
+    }
+  ],
+  "parameter_management": {
+    "status": 200,
+    "status_code": "SUCCESS",
+    "timestamp": "2024-06-10T10:00:00Z",
+    "message": "Dummy data fetched successfully",
+    "payload": {
+      "records_count": 50,
+      "dagw_parameter_summary": [
+        {
+          "id": 1,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "mdcs_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "dagw_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "effective_date_live": {
+            "isActive": false,
+            "value": "02/06/2023"
+          },
+          "mdcs_trial": {
+            "isActive": false,
+            "value": "47"
+          },
+          "dagw_trial": {
+            "isActive": true,
+            "value": "47"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "consistency": "active"
+        },
+        {
+          "id": 2,
+          "version": 2,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "AMKD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "mdcs_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "dagw_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "effective_date_live": {
+            "isActive": false,
+            "value": "02/06/2023"
+          },
+          "mdcs_trial": {
+            "isActive": false,
+            "value": ""
+          },
+          "dagw_trial": {
+            "isActive": false,
+            "value": "47"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "consistency": "active"
+        },
+        {
+          "id": 1,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "mdcs_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "effective_date_live": {
+            "isActive": false,
+            "value": "02/06/2023"
+          },
+          "dagw_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "mdcs_trial": {
+            "isActive": false,
+            "value": "47"
+          },
+          "dagw_trial": {
+            "isActive": true,
+            "value": "47"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "consistency": "active"
+        },
+        {
+          "id": 2,
+          "version": 2,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "AMKD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "mdcs_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "dagw_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "effective_date_live": {
+            "isActive": false,
+            "value": "02/06/2023"
+          },
+          "mdcs_trial": {
+            "isActive": false,
+            "value": ""
+          },
+          "dagw_trial": {
+            "isActive": false,
+            "value": "47"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "consistency": "inactive"
+        },
+        {
+          "id": 1,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "mdcs_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "effective_date_live": {
+            "isActive": false,
+            "value": "02/06/2023"
+          },
+          "dagw_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "mdcs_trial": {
+            "isActive": false,
+            "value": "47"
+          },
+          "dagw_trial": {
+            "isActive": true,
+            "value": "47"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "consistency": "active"
+        },
+        {
+          "id": 2,
+          "version": 2,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "AMKD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "mdcs_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "dagw_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "effective_date_live": {
+            "isActive": false,
+            "value": "02/06/2023"
+          },
+          "mdcs_trial": {
+            "isActive": false,
+            "value": ""
+          },
+          "dagw_trial": {
+            "isActive": false,
+            "value": "47"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "consistency": "inactive"
+        },
+        {
+          "id": 1,
+          "version": 1,
+          "depot_id": "1",
+          "depot": {
+            "depot_id": "1",
+            "version": 1,
+            "depot_name": "Hougang",
+            "depot_code": "ARDD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "mdcs_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "effective_date_live": {
+            "isActive": false,
+            "value": "02/06/2023"
+          },
+          "dagw_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "mdcs_trial": {
+            "isActive": false,
+            "value": "47"
+          },
+          "dagw_trial": {
+            "isActive": true,
+            "value": "47"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "consistency": "active"
+        },
+        {
+          "id": 2,
+          "version": 2,
+          "depot_id": "2",
+          "depot": {
+            "depot_id": "2",
+            "version": 1,
+            "depot_name": "Ang Mo Kio",
+            "depot_code": "AMKD"
+          },
+          "parameter_name": "BCV1APPA.SYS",
+          "mdcs_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "effective_date_live": {
+            "isActive": false,
+            "value": "02/06/2023"
+          },
+          "dagw_live": {
+            "isActive": true,
+            "value": "47"
+          },
+          "mdcs_trial": {
+            "isActive": false,
+            "value": ""
+          },
+          "dagw_trial": {
+            "isActive": false,
+            "value": "47"
+          },
+          "effective_date": "2024-07-03T00:00:00",
+          "consistency": "inactive"
+        }
+      ]
+    }
+  },
+  "dagw_parameter_summary": [
+    {
+      "id": 1,
+      "version": 1,
+      "depot_id": "1",
+      "depot": {
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "mdcs_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "dagw_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "effective_date_live": {
+        "isActive": false,
+        "value": "02/06/2023"
+      },
+      "mdcs_trial": {
+        "isActive": false,
+        "value": "47"
+      },
+      "dagw_trial": {
+        "isActive": true,
+        "value": "47"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "consistency": "active"
+    },
+    {
+      "id": 2,
+      "version": 2,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "AMKD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "mdcs_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "dagw_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "effective_date_live": {
+        "isActive": false,
+        "value": "02/06/2023"
+      },
+      "mdcs_trial": {
+        "isActive": false,
+        "value": ""
+      },
+      "dagw_trial": {
+        "isActive": false,
+        "value": "47"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "consistency": "inactive"
+    },
+    {
+      "id": 1,
+      "version": 1,
+      "depot_id": "1",
+      "depot": {
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "mdcs_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "effective_date_live": {
+        "isActive": false,
+        "value": "02/06/2023"
+      },
+      "dagw_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "mdcs_trial": {
+        "isActive": false,
+        "value": "47"
+      },
+      "dagw_trial": {
+        "isActive": true,
+        "value": "47"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "consistency": "active"
+    },
+    {
+      "id": 2,
+      "version": 2,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "AMKD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "mdcs_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "dagw_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "effective_date_live": {
+        "isActive": false,
+        "value": "02/06/2023"
+      },
+      "mdcs_trial": {
+        "isActive": false,
+        "value": ""
+      },
+      "dagw_trial": {
+        "isActive": false,
+        "value": "47"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "consistency": "inactive"
+    },
+    {
+      "id": 1,
+      "version": 1,
+      "depot_id": "1",
+      "depot": {
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "mdcs_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "effective_date_live": {
+        "isActive": false,
+        "value": "02/06/2023"
+      },
+      "dagw_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "mdcs_trial": {
+        "isActive": false,
+        "value": "47"
+      },
+      "dagw_trial": {
+        "isActive": true,
+        "value": "47"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "consistency": "active"
+    },
+    {
+      "id": 2,
+      "version": 2,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "AMKD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "mdcs_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "dagw_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "effective_date_live": {
+        "isActive": false,
+        "value": "02/06/2023"
+      },
+      "mdcs_trial": {
+        "isActive": false,
+        "value": ""
+      },
+      "dagw_trial": {
+        "isActive": false,
+        "value": "47"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "consistency": "inactive"
+    },
+    {
+      "id": 1,
+      "version": 1,
+      "depot_id": "1",
+      "depot": {
+        "depot_id": "1",
+        "version": 1,
+        "depot_name": "Hougang",
+        "depot_code": "ARDD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "mdcs_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "effective_date_live": {
+        "isActive": false,
+        "value": "02/06/2023"
+      },
+      "dagw_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "mdcs_trial": {
+        "isActive": false,
+        "value": "47"
+      },
+      "dagw_trial": {
+        "isActive": true,
+        "value": "47"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "consistency": "active"
+    },
+    {
+      "id": 2,
+      "version": 2,
+      "depot_id": "2",
+      "depot": {
+        "depot_id": "2",
+        "version": 1,
+        "depot_name": "Ang Mo Kio",
+        "depot_code": "AMKD"
+      },
+      "parameter_name": "BCV1APPA.SYS",
+      "mdcs_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "effective_date_live": {
+        "isActive": false,
+        "value": "02/06/2023"
+      },
+      "dagw_live": {
+        "isActive": true,
+        "value": "47"
+      },
+      "mdcs_trial": {
+        "isActive": false,
+        "value": ""
+      },
+      "dagw_trial": {
+        "isActive": false,
+        "value": "47"
+      },
+      "effective_date": "2024-07-03T00:00:00",
+      "consistency": "inactive"
+    }
+  ],
+  "parameter_device_type": [
+    {
+      "id": 1,
+      "device_name": "MDCS",
+      "device_details": [
+        {
+          "device_type": "system_parameters",
+          "device_label": "System Parameters",
+          "device_items": [
+            {
+              "id": 1,
+              "label": "User Access",
+              "item_code": "DAGW_UA"
+            },
+            {
+              "id": 2,
+              "label": "Bus Service Table",
+              "item_code": "DAGW_BST"
+            },
+            {
+              "id": 3,
+              "label": "Bus List-Sunday/PH",
+              "item_code": "DAGW_BLSPH"
+            },
+            {
+              "id": 4,
+              "label": "Bus List-Return to Depot",
+              "item_code": "DAGW_BLR"
+            },
+            {
+              "id": 5,
+              "label": "Bus List-Saturday",
+              "item_code": "DAGW_BLS"
+            },
+            {
+              "id": 6,
+              "label": "Bus List-Weekday",
+              "item_code": "DAGW_BLW"
+            },
+            {
+              "id": 7,
+              "label": "Bus Fleet Table",
+              "item_code": "DAGW_BFT"
+            },
+            {
+              "id": 8,
+              "label": "GCM Parameter Description Table",
+              "item_code": "DAGW_GCM"
+            },
+            {
+              "id": 9,
+              "label": "Vehicle Map",
+              "item_code": "DAGW_VM"
+            },
+            {
+              "id": 10,
+              "label": "Trial Device List",
+              "item_code": "DAGW_TDL"
+            },
+            {
+              "id": 11,
+              "label": "MDCS User Access",
+              "item_code": "DAGW_MDCSUA"
+            },
+            {
+              "id": 12,
+              "label": "SeP Parameter Definition",
+              "item_code": "DAGW_SPD"
+            }
+          ]
+        },
+        {
+          "device_type": "device_config",
+          "device_label": "Device Configuration Paramters",
+          "device_items": [
+            {
+              "id": 1,
+              "label": "BFC Specific Configuration By Bus TypeId",
+              "item_code": "DAGW_BFCID"
+            },
+            {
+              "id": 2,
+              "label": "BLS Specific Configuration By Bus TypeId",
+              "item_code": "DAGW_BLSID"
+            },
+            {
+              "id": 3,
+              "label": "DAGW Configuration",
+              "item_code": "DAGW_CONFIG"
+            }
+          ]
+        },
+        {
+          "device_type": "application_parameters",
+          "device_label": "Application Parameters",
+          "device_items": [
+            {
+              "id": 1,
+              "label": "DAGW Application",
+              "item_code": "DAGW_APP"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "device_name": "DAGW"
+    },
+    {
+      "id": 3,
+      "device_name": "BUS DEVICE"
+    },
+    {
+      "id": 4,
+      "device_name": "Inspection Device"
+    }
+  ],
+  "parameter_device_dagw_items": [
+    {
+      "device_type": "system_parameters",
+      "device_label": "System Parameters",
+      "device_items": [
+        {
+          "id": 1,
+          "label": "User Access",
+          "item_code": "DAGW_UA"
+        },
+        {
+          "id": 2,
+          "label": "Bus Service Table",
+          "item_code": "DAGW_BST"
+        },
+        {
+          "id": 3,
+          "label": "Bus List-Sunday/PH",
+          "item_code": "DAGW_BLSPH"
+        },
+        {
+          "id": 4,
+          "label": "Bus List-Return to Depot",
+          "item_code": "DAGW_BLR"
+        },
+        {
+          "id": 5,
+          "label": "Bus List-Saturday",
+          "item_code": "DAGW_BLS"
+        },
+        {
+          "id": 6,
+          "label": "Bus List-Weekday",
+          "item_code": "DAGW_BLW"
+        },
+        {
+          "id": 7,
+          "label": "Bus Fleet Table",
+          "item_code": "DAGW_BFT"
+        },
+        {
+          "id": 8,
+          "label": "GCM Parameter Description Table",
+          "item_code": "DAGW_GCM"
+        },
+        {
+          "id": 9,
+          "label": "Vehicle Map",
+          "item_code": "DAGW_VM"
+        },
+        {
+          "id": 10,
+          "label": "Trial Device List",
+          "item_code": "DAGW_TDL"
+        },
+        {
+          "id": 11,
+          "label": "MDCS User Access",
+          "item_code": "DAGW_MDCSUA"
+        },
+        {
+          "id": 12,
+          "label": "SeP Parameter Definition",
+          "item_code": "DAGW_SPD"
+        }
+      ]
+    },
+    {
+      "device_type": "device_config",
+      "device_label": "Device Configuration Paramters",
+      "device_items": [
+        {
+          "id": 1,
+          "label": "BFC Specific Configuration By Bus TypeId",
+          "item_code": "DAGW_BFCID"
+        },
+        {
+          "id": 2,
+          "label": "BLS Specific Configuration By Bus TypeId",
+          "item_code": "DAGW_BLSID"
+        },
+        {
+          "id": 3,
+          "label": "DAGW Configuration",
+          "item_code": "DAGW_CONFIG"
+        }
+      ]
+    },
+    {
+      "device_type": "application_parameters",
+      "device_label": "Application Parameters",
+      "device_items": [
+        {
+          "id": 1,
+          "label": "DAGW Application",
+          "item_code": "DAGW_APP"
+        }
+      ]
+    }
+  ],
+  "parameter_device_mdcs_items": [
+    {
+      "device_type": "system_parameters",
+      "device_label": "System Parameters",
+      "device_items": [
+        {
+          "id": 1,
+          "label": "Approval DistrIbution PDT",
+          "item_code": "MDCS_ADPDT"
+        },
+        {
+          "id": 2,
+          "label": "Direct Distribution PDT",
+          "item_code": "MDCS_DDPT"
+        }
+      ]
+    }
+  ],
+  "parameter_device_bd_items": [
+    {
+      "device_type": "system_parameters",
+      "device_label": "System Parameters",
+      "device_items": [
+        {
+          "id": 1,
+          "label": "Bank Card BIN Range Block List Parameters",
+          "item_code": "item_01"
+        },
+        {
+          "id": 2,
+          "label": "Bank Card Delta Block List Parameter",
+          "item_code": "item_02"
+        },
+        {
+          "id": 3,
+          "label": "Bank Card Full Block List Parameter",
+          "item_code": "item_03"
+        },
+        {
+          "id": 4,
+          "label": "Bank Card Whitelist Parameter 2",
+          "item_code": "item_04"
+        },
+        {
+          "id": 5,
+          "label": "Blacklist Action",
+          "item_code": "item_05"
+        },
+        {
+          "id": 6,
+          "label": "Blacklist Usage Table",
+          "item_code": "item_06"
+        },
+        {
+          "id": 7,
+          "label": "Bus Cash Fare",
+          "item_code": "item_07"
+        },
+        {
+          "id": 8,
+          "label": "Bus Discount",
+          "item_code": "item_08"
+        },
+        {
+          "id": 9,
+          "label": "Bus Fare Band to Cash Fare Map",
+          "item_code": "item_09"
+        },
+        {
+          "id": 10,
+          "label": "Bus Fare Parameter",
+          "item_code": "item_10"
+        },
+        {
+          "id": 11,
+          "label": "Bus Premium Service Fare",
+          "item_code": "item_11"
+        },
+        {
+          "id": 12,
+          "label": "Bus Stop Table",
+          "item_code": "item_12"
+        },
+        {
+          "id": 13,
+          "label": "CEPAS Token Blacklist Action and Message for Usage Devices",
+          "item_code": "item_13"
+        },
+        {
+          "id": 14,
+          "label": "CEPAS Token Cumulative Delta Differentiated Blacklist",
+          "item_code": "item_14"
+        },
+        {
+          "id": 15,
+          "label": "CEPAS Token Full Delta BinaryDiff Differentiated Blacklist#1",
+          "item_code": "item_15"
+        },
+        {
+          "id": 16,
+          "label": "CEPAS Token Full Delta BinaryDiff Differentiated Blacklist#2",
+          "item_code": "item_16"
+        },
+        {
+          "id": 17,
+          "label": "CEPAS Token Full Delta BinaryDiff Differentiated Blacklist#3",
+          "item_code": "item_17"
+        },
+        {
+          "id": 18,
+          "label": "CEPAS Token Full Delta BinaryDiff Differentiated Blacklist#4",
+          "item_code": "item_18"
+        },
+        {
+          "id": 19,
+          "label": "CEPAS Token Full Delta BinaryDiff Differentiated Blacklist#5",
+          "item_code": "item_19"
+        },
+        {
+          "id": 20,
+          "label": "CEPAS Token Full Delta BinaryDiff Differentiated Blacklist#6",
+          "item_code": "item_20"
+        },
+        {
+          "id": 21,
+          "label": "CEPAS Token Full Delta BinaryDiff Differentiated Blacklist#7",
+          "item_code": "item_21"
+        },
+        {
+          "id": 22,
+          "label": "CEPAS Token Merged Full Differentiated Blacklist",
+          "item_code": "item_22"
+        },
+        {
+          "id": 23,
+          "label": "Issuer Definition",
+          "item_code": "item_23"
+        },
+        {
+          "id": 24,
+          "label": "Public Holiday Table",
+          "item_code": "item_24"
+        },
+        {
+          "id": 25,
+          "label": "System General Parameter",
+          "item_code": "item_25"
+        },
+        {
+          "id": 26,
+          "label": "VLS Marker Table",
+          "item_code": "item_26"
+        },
+        {
+          "id": 27,
+          "label": "Whitelist Table for Usage",
+          "item_code": "item_27"
+        },
+        {
+          "id": 28,
+          "label": "BCV Configuration",
+          "item_code": "item_28"
+        },
+        {
+          "id": 29,
+          "label": "BLS1 Configuration",
+          "item_code": "item_29"
+        },
+        {
+          "id": 30,
+          "label": "BCV1 Application",
+          "item_code": "item_30"
+        },
+        {
+          "id": 31,
+          "label": "BFC1 Application",
+          "item_code": "item_31"
+        },
+        {
+          "id": 32,
+          "label": "BLS1 Application",
+          "item_code": "item_32"
+        },
+        {
+          "id": 33,
+          "label": "CTRU Application",
+          "item_code": "item_33"
+        }
+      ]
+    },
+    {
+      "device_type": "device_config",
+      "device_label": "Device Configuration Paramters",
+      "device_items": [
+        {
+          "id": 1,
+          "label": "BCV Configuration",
+          "item_code": "item_1"
+        },
+        {
+          "id": 2,
+          "label": "BLS1 Configuration",
+          "item_code": "item_2"
+        }
+      ]
+    },
+    {
+      "device_type": "application_parameters",
+      "device_label": "Application Parameters",
+      "device_items": [
+        {
+          "id": 1,
+          "label": "CTRU Application",
+          "item_code": "item_1"
+        }
+      ]
+    }
+  ],
+  "parameter_device_id_items": [
+    {
+      "device_type": "system_parameters",
+      "device_label": "System Parameters",
+      "device_items": [
+        {
+          "id": 1,
+          "label": "Blacklist Action",
+          "item_code": "BLKA"
+        },
+        {
+          "id": 2,
+          "label": "Blacklist Usage",
+          "item_code": "BLKU"
+        },
+        {
+          "id": 3,
+          "label": "Issuer Definition",
+          "item_code": "ISS"
+        },
+        {
+          "id": 4,
+          "label": "System General Parameter",
+          "item_code": "SGP"
+        },
+        {
+          "id": 5,
+          "label": "Bus Cash Fare",
+          "item_code": "BCF"
+        },
+        {
+          "id": 6,
+          "label": "Bus Discount",
+          "item_code": "BDSC"
+        },
+        {
+          "id": 7,
+          "label": "Bus Fare Band to Cash Fare Map",
+          "item_code": "BFBCFM"
+        },
+        {
+          "id": 8,
+          "label": "Bus Fare Parameter",
+          "item_code": "BFP"
+        },
+        {
+          "id": 9,
+          "label": "Bus Premium Service Fare",
+          "item_code": "BPSF"
+        },
+        {
+          "id": 10,
+          "label": "Public Holiday Table",
+          "item_code": "PHT"
+        },
+        {
+          "id": 11,
+          "label": "Bus Stop Table",
+          "item_code": "BST"
+        },
+        {
+          "id": 12,
+          "label": "Cash Key Assignment",
+          "item_code": "CKA"
+        },
+        {
+          "id": 13,
+          "label": "VLS Marker Table",
+          "item_code": "VLSMT"
+        },
+        {
+          "id": 14,
+          "label": "Whitelist Table for Usage",
+          "item_code": "WLTU"
+        }
+      ]
+    },
+    {
+      "device_type": "device_config",
+      "device_label": "Device Configuration Paramters",
+      "device_items": [
+        {
+          "id": 1,
+          "label": "QTA Configuration",
+          "item_code": "QTA"
+        },
+        {
+          "id": 2,
+          "label": "IPD Configuration",
+          "item_code": "IPD"
+        }
+      ]
+    },
+    {
+      "device_type": "application_parameters",
+      "device_label": "Application Parameters",
+      "device_items": [
+        {
+          "id": 1,
+          "label": "QTA Application",
+          "item_code": "QTA"
+        }
+      ]
+    }
+  ],
+  "bank_card_bin": {
+    "parameter_details": {
+      "fileId": "0x7368",
+      "parameterName": "BUS_UATA.SYS",
+      "parameterVersion": "34",
+      "formatVersion": "2",
+      "effectiveDateTime": "2024-07-03T00:00:00"
+    },
+    "tabs": [
+      {
+        "id": "label_0",
+        "name": "Label 0"
+      },
+      {
+        "id": "label_1",
+        "name": "Label 1"
+      }
+    ],
+    "tableDetails": {
+      "header": [
+        {
+          "id": "h_0",
+          "name": "Header 0"
+        },
+        {
+          "id": "h_1",
+          "name": "Header 1"
+        },
+        {
+          "id": "h_2",
+          "name": "Header 2"
+        },
+        {
+          "id": "h_3",
+          "name": "Header 3"
+        }
+      ],
+      "values": [
+        {
+          "h_0": "Value 1",
+          "h_1": "Value 2",
+          "h_2": "Value 3",
+          "h_3": "Value 4"
+        },
+        {
+          "h_0": "Value 1",
+          "h_1": "Value 2",
+          "h_2": "Value 3",
+          "h_3": "Value 4"
+        },
+        {
+          "h_0": "Value 1",
+          "h_1": "Value 2",
+          "h_2": "Value 3",
+          "h_3": "Value 4"
+        }
+      ]
+    }
+  },
+  "parameter_viewer_depot_data": {
+    "fileId": "0x7368",
+    "parameter_name": "BUS_UATA.SYS",
+    "parameter_version": "34",
+    "format_version": "2",
+    "effective_date_time": "2024-07-03T00:00:00"
+  },
+  "parameter_viewer_depot_item": [
+    {
+      "item_code": "DAGW_UA",
+      "items": [
+        {
+          "id": 1,
+          "depot_id": "1",
+          "version": 1,
+          "depot_name": "Hougang Depot",
+          "depot_code": "HD"
+        },
+        {
+          "id": 2,
+          "depot_id": "2",
+          "version": 1,
+          "depot_name": "Ang Mo Kio Depot",
+          "depot_code": "AMKD"
+        },
+        {
+          "id": 3,
+          "depot_id": "3",
+          "version": 1,
+          "depot_name": "Aver Raja Depot Depot",
+          "depot_code": "ARDD"
+        }
+      ]
+    },
+    {
+      "item_code": "DAGW_BFCID",
+      "items": [
+        {
+          "id": 1,
+          "depot_id": "1",
+          "version": 1,
+          "depot_name": "Hougang Depot",
+          "depot_code": "HD"
+        },
+        {
+          "id": 2,
+          "depot_id": "2",
+          "version": 1,
+          "depot_name": "Ang Mo Kio Depot",
+          "depot_code": "AMKD"
+        },
+        {
+          "id": 3,
+          "depot_id": "3",
+          "version": 1,
+          "depot_name": "Aver Raja Depot Depot",
+          "depot_code": "ARDD"
+        }
+      ]
+    },
+    {
+      "item_code": "bus_cash_fare",
+      "items": [
+        {
+          "id": 1,
+          "depot_id": "1",
+          "version": 1,
+          "depot_name": "Hougang Depot",
+          "depot_code": "HD"
+        },
+        {
+          "id": 2,
+          "depot_id": "2",
+          "version": 1,
+          "depot_name": "Ang Mo Kio Depot",
+          "depot_code": "AMKD"
+        },
+        {
+          "id": 3,
+          "depot_id": "3",
+          "version": 1,
+          "depot_name": "Aver Raja Depot Depot",
+          "depot_code": "ARDD"
+        }
+      ]
+    }
+  ],
+  "parameter_bfc_config": [
+    {
+      "key": "System Owner ID",
+      "value": "16"
+    },
+    {
+      "key": "Start of Operation Day",
+      "value": "240"
+    },
+    {
+      "key": "Memory Profile - Parameter Full Limit",
+      "value": "95"
+    },
+    {
+      "key": "Memory Profile - Message Full Limit",
+      "value": "95"
+    },
+    {
+      "key": "Default Kbd Backlight",
+      "value": "50"
+    },
+    {
+      "key": "Default Aircon Status",
+      "value": "1"
+    },
+    {
+      "key": "Power Off Time",
+      "value": "1800"
+    },
+    {
+      "key": "Short Inactivity Time Limits",
+      "value": "30000"
+    },
+    {
+      "key": "Long Inactivity Time Limits",
+      "value": "2500000"
+    },
+    {
+      "key": "Message Display Time",
+      "value": "10000"
+    },
+    {
+      "key": "Message Display Time",
+      "value": "10000"
+    },
+    {
+      "key": "Message Display Time",
+      "value": "10000"
+    },
+    {
+      "key": "Message Display Time",
+      "value": "10000"
+    },
+    {
+      "key": "PIN Entry Limit",
+      "value": "3"
+    },
+    {
+      "key": "PIN Lockout Time",
+      "value": "10"
+    },
+    {
+      "key": "Supervisor Modes",
+      "value": "7"
+    },
+    {
+      "key": "Maintainer Modes",
+      "value": "0"
+    },
+    {
+      "key": "Inspector Modes",
+      "value": "12"
+    },
+    {
+      "key": "Master CSC Modes",
+      "value": "4"
+    },
+    {
+      "key": "Driver Modes",
+      "value": "12"
+    },
+    {
+      "key": "Driver Odometer Update Enable",
+      "value": "0"
+    },
+    {
+      "key": "Driver Service Select Enabled",
+      "value": "1"
+    },
+    {
+      "key": "On-Trip Audit Register Periodic Upload Interval (minutes)",
+      "value": "60"
+    },
+    {
+      "key": "Driver Service Select Enabled",
+      "value": "1"
+    },
+    {
+      "key": "Driver Modes",
+      "value": "12"
+    },
+    {
+      "key": "Inspector Modes",
+      "value": "12"
+    },
+    {
+      "key": "System Owner ID",
+      "value": "16"
+    },
+    {
+      "key": "Start of Operation Day",
+      "value": "240"
+    },
+    {
+      "key": "Memory Profile - Parameter Full Limit",
+      "value": "95"
+    },
+    {
+      "key": "Memory Profile - Message Full Limit",
+      "value": "95"
+    },
+    {
+      "key": "Default Kbd Backlight",
+      "value": "50"
+    },
+    {
+      "key": "Default Aircon Status",
+      "value": "1"
+    },
+    {
+      "key": "Power Off Time",
+      "value": "1800"
+    },
+    {
+      "key": "Short Inactivity Time Limits",
+      "value": "30000"
+    },
+    {
+      "key": "Long Inactivity Time Limits",
+      "value": "2500000"
+    },
+    {
+      "key": "Message Display Time",
+      "value": "10000"
+    },
+    {
+      "key": "Message Display Time",
+      "value": "10000"
+    },
+    {
+      "key": "Message Display Time",
+      "value": "10000"
+    },
+    {
+      "key": "Message Display Time",
+      "value": "10000"
+    },
+    {
+      "key": "PIN Entry Limit",
+      "value": "3"
+    },
+    {
+      "key": "PIN Lockout Time",
+      "value": "10"
+    },
+    {
+      "key": "Supervisor Modes",
+      "value": "7"
+    },
+    {
+      "key": "Maintainer Modes",
+      "value": "0"
+    },
+    {
+      "key": "Inspector Modes",
+      "value": "12"
+    },
+    {
+      "key": "Master CSC Modes",
+      "value": "4"
+    },
+    {
+      "key": "Driver Modes",
+      "value": "12"
+    },
+    {
+      "key": "Driver Odometer Update Enable",
+      "value": "0"
+    },
+    {
+      "key": "Driver Service Select Enabled",
+      "value": "1"
+    },
+    {
+      "key": "On-Trip Audit Register Periodic Upload Interval (minutes)",
+      "value": "60"
+    },
+    {
+      "key": "Driver Service Select Enabled",
+      "value": "1"
+    },
+    {
+      "key": "Driver Modes",
+      "value": "12"
+    },
+    {
+      "key": "Inspector Modes",
+      "value": "12"
+    }
+  ],
+  "parameter_list": [
+    {
+      "id": 1,
+      "value": "BFC_CBTA.SYS"
+    },
+    {
+      "id": 2,
+      "value": "BFC_CBTB.SYS"
+    },
+    {
+      "id": 3,
+      "value": "TRIAL"
+    }
+  ],
+  "parameter_bus_cash_fare": [
+    {
+      "no": 0,
+      "service_category": 3,
+      "adult_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 1.6,
+        "no_3": 1.8,
+        "no_4": 2,
+        "no_5": 2.2,
+        "no_6": 2.3,
+        "no_7": 2.4,
+        "no_8": 2.5
+      },
+      "child_idfc_btn": {
+        "no_1": 0.65,
+        "no_2": 0.85,
+        "no_3": 0
+      },
+      "senior_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 1.6,
+        "no_3": 1.8
+      }
+    },
+    {
+      "no": 1,
+      "service_category": 4,
+      "adult_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 0,
+        "no_3": 0,
+        "no_4": 0,
+        "no_5": 0,
+        "no_6": 0,
+        "no_7": 0,
+        "no_8": 0
+      },
+      "child_idfc_btn": {
+        "no_1": 0.65,
+        "no_2": 0,
+        "no_3": 0
+      },
+      "senior_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 0,
+        "no_3": 0
+      }
+    },
+    {
+      "no": 2,
+      "service_category": 5,
+      "adult_idfc_btn": {
+        "no_1": 2.2,
+        "no_2": 2.35,
+        "no_3": 2.5,
+        "no_4": 2.65,
+        "no_5": 2.8,
+        "no_6": 3,
+        "no_7": 0,
+        "no_8": 0
+      },
+      "child_idfc_btn": {
+        "no_1": 0.65,
+        "no_2": 0.85,
+        "no_3": 0
+      },
+      "senior_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 1.6,
+        "no_3": 1.8
+      }
+    },
+    {
+      "no": 3,
+      "service_category": 10,
+      "adult_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 0,
+        "no_3": 0,
+        "no_4": 0,
+        "no_5": 0,
+        "no_6": 0,
+        "no_7": 0,
+        "no_8": 0
+      },
+      "child_idfc_btn": {
+        "no_1": 0.65,
+        "no_2": 0,
+        "no_3": 0
+      },
+      "senior_idfc_btn": {
+        "no_1": 2.2,
+        "no_2": 2.35,
+        "no_3": 2.5
+      }
+    },
+    {
+      "no": 4,
+      "service_category": 5,
+      "adult_idfc_btn": {
+        "no_1": 2.2,
+        "no_2": 2.35,
+        "no_3": 2.5,
+        "no_4": 2.65,
+        "no_5": 2.8,
+        "no_6": 3,
+        "no_7": 0,
+        "no_8": 0
+      },
+      "child_idfc_btn": {
+        "no_1": 0.65,
+        "no_2": 0.85,
+        "no_3": 0
+      },
+      "senior_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 1.6,
+        "no_3": 1.8
+      }
+    },
+    {
+      "no": 5,
+      "service_category": 10,
+      "adult_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 0,
+        "no_3": 0,
+        "no_4": 0,
+        "no_5": 0,
+        "no_6": 0,
+        "no_7": 0,
+        "no_8": 0
+      },
+      "child_idfc_btn": {
+        "no_1": 0.65,
+        "no_2": 0,
+        "no_3": 0
+      },
+      "senior_idfc_btn": {
+        "no_1": 2.2,
+        "no_2": 2.35,
+        "no_3": 2.5
+      }
+    },
+    {
+      "no": 6,
+      "service_category": 5,
+      "adult_idfc_btn": {
+        "no_1": 2.2,
+        "no_2": 2.35,
+        "no_3": 2.5,
+        "no_4": 2.65,
+        "no_5": 2.8,
+        "no_6": 3,
+        "no_7": 0,
+        "no_8": 0
+      },
+      "child_idfc_btn": {
+        "no_1": 0.65,
+        "no_2": 0.85,
+        "no_3": 0
+      },
+      "senior_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 1.6,
+        "no_3": 1.8
+      }
+    },
+    {
+      "no": 7,
+      "service_category": 10,
+      "adult_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 0,
+        "no_3": 0,
+        "no_4": 0,
+        "no_5": 0,
+        "no_6": 0,
+        "no_7": 0,
+        "no_8": 0
+      },
+      "child_idfc_btn": {
+        "no_1": 0.65,
+        "no_2": 0,
+        "no_3": 0
+      },
+      "senior_idfc_btn": {
+        "no_1": 2.2,
+        "no_2": 2.35,
+        "no_3": 2.5
+      }
+    },
+    {
+      "no": 8,
+      "service_category": 5,
+      "adult_idfc_btn": {
+        "no_1": 2.2,
+        "no_2": 2.35,
+        "no_3": 2.5,
+        "no_4": 2.65,
+        "no_5": 2.8,
+        "no_6": 3,
+        "no_7": 0,
+        "no_8": 0
+      },
+      "child_idfc_btn": {
+        "no_1": 0.65,
+        "no_2": 0.85,
+        "no_3": 0
+      },
+      "senior_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 1.6,
+        "no_3": 1.8
+      }
+    },
+    {
+      "no": 9,
+      "service_category": 5,
+      "adult_idfc_btn": {
+        "no_1": 2.2,
+        "no_2": 2.35,
+        "no_3": 2.5,
+        "no_4": 2.65,
+        "no_5": 2.8,
+        "no_6": 3,
+        "no_7": 0,
+        "no_8": 0
+      },
+      "child_idfc_btn": {
+        "no_1": 0.65,
+        "no_2": 0.85,
+        "no_3": 0
+      },
+      "senior_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 1.6,
+        "no_3": 1.8
+      }
+    },
+    {
+      "no": 10,
+      "service_category": 5,
+      "adult_idfc_btn": {
+        "no_1": 2.2,
+        "no_2": 2.35,
+        "no_3": 2.5,
+        "no_4": 2.65,
+        "no_5": 2.8,
+        "no_6": 3,
+        "no_7": 0,
+        "no_8": 0
+      },
+      "child_idfc_btn": {
+        "no_1": 0.65,
+        "no_2": 0.85,
+        "no_3": 0
+      },
+      "senior_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 1.6,
+        "no_3": 1.8
+      }
+    },
+    {
+      "no": 11,
+      "service_category": 5,
+      "adult_idfc_btn": {
+        "no_1": 2.2,
+        "no_2": 2.35,
+        "no_3": 2.5,
+        "no_4": 2.65,
+        "no_5": 2.8,
+        "no_6": 3,
+        "no_7": 0,
+        "no_8": 0
+      },
+      "child_idfc_btn": {
+        "no_1": 0.65,
+        "no_2": 0.85,
+        "no_3": 0
+      },
+      "senior_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 1.6,
+        "no_3": 1.8
+      }
+    },
+    {
+      "no": 12,
+      "service_category": 5,
+      "adult_idfc_btn": {
+        "no_1": 2.2,
+        "no_2": 2.35,
+        "no_3": 2.5,
+        "no_4": 2.65,
+        "no_5": 2.8,
+        "no_6": 3,
+        "no_7": 0,
+        "no_8": 0
+      },
+      "child_idfc_btn": {
+        "no_1": 0.65,
+        "no_2": 0.85,
+        "no_3": 0
+      },
+      "senior_idfc_btn": {
+        "no_1": 1.4,
+        "no_2": 1.6,
+        "no_3": 1.8
+      }
+    }
+  ],
+  "parameter_user_access_details": [
+    {
+      "no": 1,
+      "user_staff_id": "0000",
+      "mdcs_access": "Not Authorized"
+    },
+    {
+      "no": 2,
+      "user_staff_id": "1234",
+      "mdcs_access": "Administrator"
+    },
+    {
+      "no": 3,
+      "user_staff_id": "admin",
+      "mdcs_access": "Not Authorized"
+    },
+    {
+      "no": 4,
+      "user_staff_id": "admin01",
+      "mdcs_access": "Administrator"
+    },
+    {
+      "no": 5,
+      "user_staff_id": "admin04",
+      "mdcs_access": "Not Authorized"
+    },
+    {
+      "no": 6,
+      "user_staff_id": "admin05",
+      "mdcs_access": "Administrator"
+    },
+    {
+      "no": 7,
+      "user_staff_id": "4321",
+      "mdcs_access": "Operator"
+    },
+    {
+      "no": 8,
+      "user_staff_id": "admin07",
+      "mdcs_access": "Administrator"
+    },
+    {
+      "no": 9,
+      "user_staff_id": "2804",
+      "mdcs_access": "Station Supervisor"
+    },
+    {
+      "no": 10,
+      "user_staff_id": "89824",
+      "mdcs_access": "Administrator"
+    },
+    {
+      "no": 11,
+      "user_staff_id": "892n4l",
+      "mdcs_access": "Not Authorized"
+    },
+    {
+      "no": 12,
+      "user_staff_id": "admin09",
+      "mdcs_access": "Maintenance Staff"
+    },
+    {
+      "no": 13,
+      "user_staff_id": "678p3",
+      "mdcs_access": "Not Authorized"
+    },
+    {
+      "no": 14,
+      "user_staff_id": "admin21",
+      "mdcs_access": "Administrator"
+    }
+  ],
+  "parameter_file_data": [
+    {
+      "id": 1,
+      "depot": "Hougang",
+      "fileId": "0×739A",
+      "parameterName": "BUS_CSFA.SYS",
+      "version": "88",
+      "effectiveDateTime": "2024-07-03T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "Success"
+    },
+    {
+      "id": 2,
+      "depot": "Hougang",
+      "fileId": "0×73A1",
+      "parameterName": "DCS_FLTA.SYS",
+      "version": "67",
+      "effectiveDateTime": "2024-07-03T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "Success"
+    },
+    {
+      "id": 3,
+      "depot": "Hougang",
+      "fileId": "0×73B6",
+      "parameterName": "SeP_PDTA.DSL",
+      "version": "5920",
+      "effectiveDateTime": "2024-07-03T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "Success"
+    },
+    {
+      "id": 4,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×739A",
+      "parameterName": "BUS_CSFB.SYS",
+      "version": "116",
+      "effectiveDateTime": "2024-07-03T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "Failed"
+    },
+    {
+      "id": 5,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×710A",
+      "parameterName": "DCS_FLTB.SYS",
+      "version": "67",
+      "effectiveDateTime": "2024-07-03T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "Success"
+    },
+    {
+      "id": 6,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×728B",
+      "parameterName": "SeP_PDTB.DSL",
+      "version": "15",
+      "effectiveDateTime": "2024-07-03T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "Failed"
+    },
+    {
+      "id": 7,
+      "depot": "Hougang",
+      "fileId": "0×739A",
+      "parameterName": "BUS_CSFA.SYS",
+      "version": "88",
+      "effectiveDateTime": "2024-07-03T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "Success"
+    },
+    {
+      "id": 8,
+      "depot": "Hougang",
+      "fileId": "0×73A1",
+      "parameterName": "DCS_FLTA.SYS",
+      "version": "67",
+      "effectiveDateTime": "2024-07-03T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "Success"
+    },
+    {
+      "id": 9,
+      "depot": "Hougang",
+      "fileId": "0×73B6",
+      "parameterName": "SeP_PDTA.DSL",
+      "version": "5920",
+      "effectiveDateTime": "2024-07-03T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "Success"
+    },
+    {
+      "id": 10,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×739A",
+      "parameterName": "BUS_CSFB.SYS",
+      "version": "116",
+      "effectiveDateTime": "2024-07-03T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "Failed"
+    },
+    {
+      "id": 11,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×710A",
+      "parameterName": "DCS_FLTB.SYS",
+      "version": "67",
+      "effectiveDateTime": "2024-07-03T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "Success"
+    },
+    {
+      "id": 12,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×728B",
+      "parameterName": "SeP_PDTB.DSL",
+      "version": "15",
+      "effectiveDateTime": "2024-07-03T00:00:00",
+      "last_update": "2024-07-01T00:00:00",
+      "status": "Failed"
+    }
+  ],
+  "parameter_file_export_data": [
+    {
+      "id": 1,
+      "depot": "Hougang",
+      "fileId": "0×739A",
+      "parameterName": "BUS_CSFA.SYS",
+      "version": "88",
+      "type": "Live",
+      "status": "Exported"
+    },
+    {
+      "id": 2,
+      "depot": "Hougang",
+      "fileId": "0×73A1",
+      "parameterName": "DCS_FLTA.SYS",
+      "version": "67",
+      "type": "Live",
+      "status": ""
+    },
+    {
+      "id": 3,
+      "depot": "Hougang",
+      "fileId": "0×73B6",
+      "parameterName": "SeP_PDTA.DSL",
+      "version": "5920",
+      "type": "Live",
+      "status": ""
+    },
+    {
+      "id": 4,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×739A",
+      "parameterName": "BUS_CSFB.SYS",
+      "version": "116",
+      "type": "Live",
+      "status": "Fail"
+    },
+    {
+      "id": 5,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×710A",
+      "parameterName": "DCS_FLTB.SYS",
+      "version": "67",
+      "type": "Trial",
+      "status": ""
+    },
+    {
+      "id": 6,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×728B",
+      "parameterName": "SeP_PDTB.DSL",
+      "version": "15",
+      "type": "Live",
+      "status": ""
+    },
+    {
+      "id": 7,
+      "depot": "Hougang",
+      "fileId": "0×739A",
+      "parameterName": "BUS_CSFA.SYS",
+      "version": "88",
+      "type": "Trial",
+      "status": "Exported"
+    },
+    {
+      "id": 8,
+      "depot": "Hougang",
+      "fileId": "0×73A1",
+      "parameterName": "DCS_FLTA.SYS",
+      "version": "67",
+      "type": "Live",
+      "status": ""
+    },
+    {
+      "id": 9,
+      "depot": "Hougang",
+      "fileId": "0×73B6",
+      "parameterName": "SeP_PDTA.DSL",
+      "version": "5920",
+      "type": "Live",
+      "status": ""
+    },
+    {
+      "id": 10,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×739A",
+      "parameterName": "BUS_CSFB.SYS",
+      "version": "116",
+      "type": "Trial",
+      "status": "Fail"
+    },
+    {
+      "id": 11,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×710A",
+      "parameterName": "DCS_FLTB.SYS",
+      "version": "67",
+      "type": "Trial",
+      "status": ""
+    },
+    {
+      "id": 12,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×728B",
+      "parameterName": "SeP_PDTB.DSL",
+      "version": "15",
+      "type": "Live",
+      "status": ""
+    },
+    {
+      "id": 13,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×728B",
+      "parameterName": "SeP_PDTB.DSL",
+      "version": "15",
+      "type": "Live",
+      "status": ""
+    },
+    {
+      "id": 14,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×728B",
+      "parameterName": "SeP_PDTB.DSL",
+      "version": "15",
+      "type": "Live",
+      "status": ""
+    },
+    {
+      "id": 15,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×728B",
+      "parameterName": "SeP_PDTB.DSL",
+      "version": "15",
+      "type": "Trial",
+      "status": ""
+    },
+    {
+      "id": 16,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×728B",
+      "parameterName": "SeP_PDTB.DSL",
+      "version": "15",
+      "type": "Live",
+      "status": ""
+    },
+    {
+      "id": 17,
+      "depot": "Ang Mo Kio",
+      "fileId": "0×728B",
+      "parameterName": "SeP_PDTB.DSL",
+      "version": "15",
+      "type": "Live",
+      "status": ""
+    }
+  ],
+  "message_file_data": [
+    {
+      "id": 1,
+      "messageDataFileName": "BUS_CSFA.SYS",
+      "busNo": "SBS0225",
+      "sequenceNo": 0,
+      "creationDateTime": "2025-08-23T00:00:00",
+      "messageData": 88,
+      "status": "Success",
+      "description": "Import Successfully"
+    },
+    {
+      "id": 2,
+      "messageDataFileName": "DCS_FLTA.SYS",
+      "busNo": "SBS0225",
+      "sequenceNo": 0,
+      "creationDateTime": "2025-08-23T00:00:00",
+      "messageData": 67,
+      "status": "Success",
+      "description": "Import Successfully"
+    },
+    {
+      "id": 3,
+      "messageDataFileName": "BUS_CSFA.SYS",
+      "busNo": "SBS0225",
+      "sequenceNo": 0,
+      "creationDateTime": "2025-08-23T00:00:00",
+      "messageData": 32,
+      "status": "Failed",
+      "description": "Import Failed"
+    }
+  ],
+  "message_file_export_data": [
+    {
+      "id": 1,
+      "messageFileId": "0×7257A",
+      "messageFileName": "BUS_CSFA.SYS",
+      "messageFileVersion": 88,
+      "type": "Live",
+      "status": "",
+      "description": ""
+    },
+    {
+      "id": 2,
+      "messageFileId": "0×7461",
+      "messageFileName": "DCS_FLTA.SYS",
+      "messageFileVersion": 67,
+      "type": "Trial",
+      "status": "",
+      "description": ""
+    },
+    {
+      "id": 3,
+      "messageFileId": "0×7H76",
+      "messageFileName": "SeP_PDTA.DSL",
+      "messageFileVersion": 5920,
+      "type": "Live",
+      "status": "",
+      "description": ""
+    }
+  ],
+  "dagw_depot_list": [
+    {
+      "id": 0,
+      "depot_id": "0",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HD"
+    },
+    {
+      "id": 1,
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Ang Mo Kio Depot",
+      "depot_code": "AMKD"
+    }
+  ],
+  "card_key_version": {
+    "status": 200,
+    "status_code": "SUCCESS",
+    "timestamp": "2024-06-10T10:00:00Z",
+    "message": "Dummy data fetched successfully",
+    "payload": {
+      "card_key_version_list": [
+        {
+          "id": 0,
+          "bus_num": "SBS9559",
+          "report_time": "2024-07-03T00:00:00",
+          "bcv1": "0",
+          "ver1": "-",
+          "bcv2": "0",
+          "ver2": "-",
+          "bcv3": "0",
+          "ver3": "-",
+          "bcv4": "0",
+          "ver4": "-",
+          "bcv5": "0",
+          "ver5": "-",
+          "bcv6": "0",
+          "ver6": "-",
+          "status": "inconsistent"
+        },
+        {
+          "id": 1,
+          "bus_num": "SBS0009",
+          "report_time": "2024-09-20T12:45:00",
+          "bcv1": "591184...",
+          "ver1": "55,56",
+          "bcv2": "0",
+          "ver2": "-",
+          "bcv3": "591184...",
+          "ver3": "55,56",
+          "bcv4": "0",
+          "ver4": "-",
+          "bcv5": "0",
+          "ver5": "-",
+          "bcv6": "0",
+          "ver6": "-"
+        },
+        {
+          "id": 2,
+          "bus_num": "SBS0022",
+          "report_time": "2024-09-21T14:30:00",
+          "bcv1": "2380118",
+          "ver1": "55,56,57",
+          "bcv2": "0",
+          "ver2": "-",
+          "bcv3": "591184...",
+          "ver3": "55,56",
+          "bcv4": "0",
+          "ver4": "-",
+          "bcv5": "591184...",
+          "ver5": "55,56",
+          "bcv6": "0",
+          "ver6": "-",
+          "status": "failed"
+        },
+        {
+          "id": 3,
+          "bus_num": "SBS1112",
+          "report_time": "2024-09-25T17:30:00",
+          "bcv1": "2380118",
+          "ver1": "57",
+          "bcv2": "760162...",
+          "ver2": "55,56",
+          "bcv3": "591184...",
+          "ver3": "55,56",
+          "bcv4": "0",
+          "ver4": "-",
+          "bcv5": "591184...",
+          "ver5": "55,56",
+          "bcv6": "0",
+          "ver6": "-",
+          "status": "failed"
+        }
+      ]
+    }
+  },
+  "card_key_version_list": [
+    {
+      "id": 0,
+      "bus_num": "SBS9559",
+      "report_time": "2024-07-03T00:00:00",
+      "bcv1": "0",
+      "ver1": "-",
+      "bcv2": "0",
+      "ver2": "-",
+      "bcv3": "0",
+      "ver3": "-",
+      "bcv4": "0",
+      "ver4": "-",
+      "bcv5": "0",
+      "ver5": "-",
+      "bcv6": "0",
+      "ver6": "-",
+      "status": "inconsistent"
+    },
+    {
+      "id": 1,
+      "bus_num": "SBS0009",
+      "report_time": "2024-09-20T12:45:00",
+      "bcv1": "591184...",
+      "ver1": "55,56",
+      "bcv2": "0",
+      "ver2": "-",
+      "bcv3": "591184...",
+      "ver3": "55,56",
+      "bcv4": "0",
+      "ver4": "-",
+      "bcv5": "0",
+      "ver5": "-",
+      "bcv6": "0",
+      "ver6": "-"
+    },
+    {
+      "id": 2,
+      "bus_num": "SBS0022",
+      "report_time": "2024-09-21T14:30:00",
+      "bcv1": "2380118",
+      "ver1": "55,56,57",
+      "bcv2": "0",
+      "ver2": "-",
+      "bcv3": "591184...",
+      "ver3": "55,56",
+      "bcv4": "0",
+      "ver4": "-",
+      "bcv5": "591184...",
+      "ver5": "55,56",
+      "bcv6": "0",
+      "ver6": "-",
+      "status": "failed"
+    },
+    {
+      "id": 3,
+      "bus_num": "SBS1112",
+      "report_time": "2024-09-25T17:30:00",
+      "bcv1": "2380118",
+      "ver1": "57",
+      "bcv2": "760162...",
+      "ver2": "55,56",
+      "bcv3": "591184...",
+      "ver3": "55,56",
+      "bcv4": "0",
+      "ver4": "-",
+      "bcv5": "591184...",
+      "ver5": "55,56",
+      "bcv6": "0",
+      "ver6": "-",
+      "status": "failed"
+    }
+  ],
+  "diagnostics_item": [
+    {
+      "category": "MDCS to BOCC Status",
+      "item": {
+        "name": "SBST",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "MDCS to PG Status",
+      "item": {
+        "name": "SBST",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to MDCS Status",
+      "item": {
+        "name": "GW1",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to BOCC Status",
+      "item": {
+        "name": "GW1",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to PG Status",
+      "item": {
+        "name": "GW1",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to SAM Dongle Status",
+      "item": {
+        "name": "GW1",
+        "status": "failure",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to SAM Key Manager Status",
+      "item": {
+        "name": "GW1",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    }
+  ],
+  "eod_process_tasks": [
+    {
+      "taskName": "Generate Report",
+      "description": "Generate EOD Report",
+      "startTime": "02/08/2024 11:24:11",
+      "endTime": "02/08/2024 11:24:12",
+      "status": "Completed"
+    },
+    {
+      "taskName": "Update Date",
+      "description": "Update Business Date",
+      "startTime": "02/08/2024 11:24:11",
+      "endTime": "02/08/2024 11:24:12",
+      "status": "Completed"
+    },
+    {
+      "taskName": "Clean Up",
+      "description": "Generate EOD Report",
+      "startTime": "02/08/2024 11:24:11",
+      "endTime": "02/08/2024 11:24:12",
+      "status": "Completed"
+    },
+    {
+      "taskName": "Generate Report",
+      "description": "MDCS Logs",
+      "startTime": "02/08/2024 11:24:11",
+      "endTime": "02/08/2024 11:24:12",
+      "status": "Completed"
+    },
+    {
+      "taskName": "Generate Report",
+      "description": "MDCS Logs",
+      "startTime": "02/08/2024 11:24:11",
+      "endTime": "02/08/2024 11:24:12",
+      "status": "Completed"
+    },
+    {
+      "taskName": "Generate Report",
+      "description": "MDCS Logs",
+      "startTime": "02/08/2024 11:24:11",
+      "endTime": "02/08/2024 11:24:12",
+      "status": "Completed"
+    },
+    {
+      "taskName": "Generate Report",
+      "description": "MDCS Logs",
+      "startTime": "02/08/2024 11:24:11",
+      "endTime": "02/08/2024 11:24:12",
+      "status": "Completed"
+    },
+    {
+      "taskName": "Generate Report",
+      "description": "MDCS Logs",
+      "startTime": "02/08/2024 11:24:11",
+      "endTime": "02/08/2024 11:24:12",
+      "status": "Processing"
+    },
+    {
+      "taskName": "Generate Report",
+      "description": "MDCS Logs",
+      "startTime": "02/08/2024 11:24:11",
+      "endTime": "02/08/2024 11:24:12",
+      "status": "Completed"
+    },
+    {
+      "taskName": "Generate Report",
+      "description": "Generate EOD Report",
+      "startTime": "02/08/2024 11:24:11",
+      "endTime": "02/08/2024 11:24:12",
+      "status": "Processing"
+    },
+    {
+      "taskName": "Generate Report",
+      "description": "Generate EOD Report",
+      "startTime": "02/08/2024 11:24:11",
+      "endTime": "02/08/2024 11:24:12",
+      "status": "Failed"
+    },
+    {
+      "taskName": "Generate Report",
+      "description": "Generate EOD Report",
+      "startTime": "02/08/2024 11:24:11",
+      "endTime": "02/08/2024 11:24:12",
+      "status": "Failed"
+    }
+  ],
+  "audit_log_items": [
+    {
+      "id": "1",
+      "depot_id": "2",
+      "userId": "LTA\\supervisor12345",
+      "dateTime": "2024-07-03T00:00:00",
+      "startDate": "2024-07-03T00:00:00",
+      "endDate": "2024-07-03T23:59:59",
+      "updateType": "Trial Parameters",
+      "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+    },
+    {
+      "id": "2",
+      "depot_id": "3",
+      "userId": "LTA\\supervisor12345",
+      "dateTime": "2024-07-03T00:00:00",
+      "startDate": "2024-07-03T00:00:00",
+      "endDate": "2024-07-03T23:59:59",
+      "updateType": "Trial Parameters",
+      "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+    },
+    {
+      "id": "3",
+      "depot_id": "1",
+      "userId": "LTA\\supervisor12345",
+      "dateTime": "2024-07-03T00:00:00",
+      "startDate": "2024-07-03T00:00:00",
+      "endDate": "2024-07-03T23:59:59",
+      "updateType": "Trial Parameters",
+      "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+    },
+    {
+      "id": "4",
+      "depot_id": "1",
+      "userId": "LTA\\supervisor12345",
+      "dateTime": "2024-07-03T00:00:00",
+      "startDate": "2024-07-03T00:00:00",
+      "endDate": "2024-07-03T23:59:59",
+      "updateType": "Trial Parameters",
+      "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+    },
+    {
+      "id": "5",
+      "depot_id": "3",
+      "userId": "LTA\\supervisor12345",
+      "dateTime": "2024-07-03T00:00:00",
+      "startDate": "2024-07-03T00:00:00",
+      "endDate": "2024-07-03T23:59:59",
+      "updateType": "Trial Parameters",
+      "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+    },
+    {
+      "id": "6",
+      "depot_id": "2",
+      "userId": "LTA\\supervisor12345",
+      "dateTime": "2024-07-03T00:00:00",
+      "startDate": "2024-07-03T00:00:00",
+      "endDate": "2024-07-03T23:59:59",
+      "updateType": "Trial Parameters",
+      "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+    },
+    {
+      "id": "7",
+      "depot_id": "2",
+      "userId": "LTA\\supervisor12345",
+      "dateTime": "2024-07-03T00:00:00",
+      "startDate": "2024-07-03T00:00:00",
+      "endDate": "2024-07-03T23:59:59",
+      "updateType": "Trial Parameters",
+      "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+    },
+    {
+      "id": "8",
+      "depot_id": "1",
+      "userId": "LTA\\supervisor12345",
+      "dateTime": "2024-07-03T00:00:00",
+      "startDate": "2024-07-03T00:00:00",
+      "endDate": "2024-07-03T23:59:59",
+      "updateType": "Trial Parameters",
+      "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+    },
+    {
+      "id": "9",
+      "depot_id": "1",
+      "userId": "LTA\\supervisor12345",
+      "dateTime": "2024-07-03T00:00:00",
+      "startDate": "2024-07-03T00:00:00",
+      "endDate": "2024-07-03T23:59:59",
+      "updateType": "Trial Parameters",
+      "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+    },
+    {
+      "id": "10",
+      "depot_id": "1",
+      "userId": "LTA\\supervisor12345",
+      "dateTime": "2024-07-03T00:00:00",
+      "startDate": "2024-07-03T00:00:00",
+      "endDate": "2024-07-03T23:59:59",
+      "updateType": "Trial Parameters",
+      "description": "LTA\\supervise updates SeP_SGPB.SYS: \"Approved to Live\""
+    }
+  ],
+  "update-type": [
+    {
+      "id": "vehicleMap",
+      "value": "Vehicle Map"
+    },
+    {
+      "id": "trialDeviceList",
+      "value": "Trial Device List"
+    },
+    {
+      "id": "trialParameters",
+      "value": "Trial Parameters"
+    },
+    {
+      "id": "busTransfer",
+      "value": "Bus Transfer"
+    }
+  ],
+  "mdcs-information": [
+    {
+      "label": "Connection and Services",
+      "details": [
+        {
+          "label": "AWS IoT Status",
+          "value": {
+            "id": "active",
+            "label": "Running"
+          }
+        },
+        {
+          "label": "MQ Connection Status",
+          "value": {
+            "id": "degraded",
+            "label": "Degraded"
+          }
+        },
+        {
+          "label": "FTP Service Status",
+          "value": {
+            "id": "active",
+            "label": "Running"
+          }
+        },
+        {
+          "label": "Web Application Status",
+          "value": {
+            "id": "critical",
+            "label": "Down"
+          }
+        }
+      ],
+      "children": [
+        {
+          "label": "MDCS Service Status",
+          "value": {
+            "id": "active",
+            "label": "Running"
+          },
+          "details": [
+            {
+              "label": "Parameter Management Service (PMS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            },
+            {
+              "label": "Summary Data Receiver Service (SDRS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            },
+            {
+              "label": "Scheduler Service (SCHS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            },
+            {
+              "label": "Java Bus Service (JBS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            },
+            {
+              "label": "Java Common Service (JCS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            },
+            {
+              "label": "Java Parameter Service (JPS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            },
+            {
+              "label": "Java Report Service (JRS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Storage and Memory Statistics",
+      "details": [
+        {
+          "label": "Memory Used",
+          "subDetails": [
+            {
+              "label": "Web Tier",
+              "value": {
+                "id": "",
+                "label": "149 GB"
+              }
+            },
+            {
+              "label": "App Tier",
+              "value": {
+                "id": "",
+                "label": "75 GB"
+              }
+            },
+            {
+              "label": "IT Tier",
+              "value": {
+                "id": "",
+                "label": "100 GB"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Memory Free",
+          "subDetails": [
+            {
+              "label": "Web Tier",
+              "value": {
+                "id": "",
+                "label": "149 GB"
+              }
+            },
+            {
+              "label": "App Tier",
+              "value": {
+                "id": "",
+                "label": "75 GB"
+              }
+            },
+            {
+              "label": "IT Tier",
+              "value": {
+                "id": "",
+                "label": "100 GB"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dagw-information": [
+    {
+      "label": "Connection and Services",
+      "details": [
+        {
+          "label": "AWS IoT Status",
+          "value": {
+            "id": "active",
+            "label": "Running"
+          }
+        },
+        {
+          "label": "MQ Connection Status",
+          "value": {
+            "id": "degraded",
+            "label": "Degraded"
+          }
+        },
+        {
+          "label": "FTP Service Status",
+          "value": {
+            "id": "active",
+            "label": "Running"
+          }
+        },
+        {
+          "label": "Web Application Status",
+          "value": {
+            "id": "critical",
+            "label": "Down"
+          }
+        }
+      ],
+      "children": [
+        {
+          "label": "DAGW Service Status",
+          "value": {
+            "id": "active",
+            "label": "Running"
+          },
+          "details": [
+            {
+              "label": "Parameter Management Service (PMS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            },
+            {
+              "label": "Bus Management Service (BMS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            },
+            {
+              "label": "Message Data Management Service (MDMS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            },
+            {
+              "label": "Scheduler Service (SCHS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            },
+            {
+              "label": "Java Bus Service (JBS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            },
+            {
+              "label": "Java Common Service (JCS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            },
+            {
+              "label": "Java Parameter Service (JPS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            },
+            {
+              "label": "Java Report Service (JRS)",
+              "value": {
+                "id": "active",
+                "label": "Running"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Device and Software Details",
+      "details": [
+        {
+          "label": "Device Type",
+          "value": {
+            "id": "",
+            "label": "149"
+          }
+        },
+        {
+          "label": "Device Sequence Number",
+          "value": {
+            "id": "",
+            "label": "1951"
+          }
+        },
+        {
+          "label": "Software Version",
+          "value": {
+            "id": "",
+            "label": "DAGW.A.02.04.89"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Storage and Memory Statistics",
+      "details": [
+        {
+          "label": "Memory",
+          "subDetails": [
+            {
+              "label": "Used",
+              "value": {
+                "id": "",
+                "label": "149 GB"
+              }
+            },
+            {
+              "label": "Free",
+              "value": {
+                "id": "",
+                "label": "75 GB"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Host Hard Disk",
+          "subDetails": [
+            {
+              "label": "Used",
+              "value": {
+                "id": "",
+                "label": "149 GB"
+              }
+            },
+            {
+              "label": "Free",
+              "value": {
+                "id": "",
+                "label": "75 GB"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Network Attached Storage Used",
+          "subDetails": [
+            {
+              "label": "Used",
+              "value": {
+                "id": "",
+                "label": "149 GB"
+              }
+            },
+            {
+              "label": "Free",
+              "value": {
+                "id": "",
+                "label": "75 GB"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "System Details",
+      "details": [
+        {
+          "label": "IP Address",
+          "value": {
+            "id": "",
+            "label": "192.168.29.70"
+          }
+        }
+      ]
+    }
+  ],
+  "svc_prov_list": [
+    {
+      "id": 1,
+      "version": 1,
+      "svc_prov_id": "101",
+      "svc_prov_code": "CODE101",
+      "svc_prov_name": "Provider A",
+      "search_text": "Provider A Information",
+      "search_select_filter": {}
+    },
+    {
+      "id": 2,
+      "version": 1,
+      "svc_prov_id": "102",
+      "svc_prov_code": "CODE102",
+      "svc_prov_name": "Provider B",
+      "search_text": "Provider B Services",
+      "search_select_filter": {}
+    },
+    {
+      "id": 3,
+      "version": 2,
+      "svc_prov_id": "103",
+      "svc_prov_code": "CODE103",
+      "svc_prov_name": "Provider C",
+      "search_text": "Provider C Overview",
+      "search_select_filter": {}
+    },
+    {
+      "id": 4,
+      "version": 1,
+      "svc_prov_id": "104",
+      "svc_prov_code": "CODE104",
+      "svc_prov_name": "Provider D",
+      "search_text": "Provider D Details",
+      "search_select_filter": {}
+    },
+    {
+      "id": 5,
+      "version": 1,
+      "svc_prov_id": "105",
+      "svc_prov_code": "CODE105",
+      "svc_prov_name": "Provider E",
+      "search_text": "Provider E Services",
+      "search_select_filter": {}
+    },
+    {
+      "id": 6,
+      "version": 2,
+      "svc_prov_id": "106",
+      "svc_prov_code": "CODE106",
+      "svc_prov_name": "Provider F",
+      "search_text": "Provider F Details",
+      "search_select_filter": {}
+    },
+    {
+      "id": 7,
+      "version": 3,
+      "svc_prov_id": "107",
+      "svc_prov_code": "CODE107",
+      "svc_prov_name": "Provider G",
+      "search_text": "Provider G Overview",
+      "search_select_filter": {}
+    }
+  ],
+  "general": {
+    "status": 200,
+    "status_code": "SUCCESS",
+    "timestamp": "2024-06-10T10:00:00Z",
+    "message": "Dummy data fetched successfully",
+    "payload": {
+      "general_information": {
+        "version": "MDCS.A.01.01.00.000AFHACNS",
+        "service_provider": "SBST",
+        "system_connection": [
+          {
+            "name": "BOCC",
+            "status": 1
+          },
+          {
+            "name": "PMDS",
+            "status": 1
+          },
+          {
+            "name": "ABCDE",
+            "status": 0
+          },
+          {
+            "name": "FGHIJ",
+            "status": 1
+          },
+          {
+            "name": "KLMNO",
+            "status": 0
+          }
+        ],
+        "pdt_status": 1
+      }
+    }
+  }
+}

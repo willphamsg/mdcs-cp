@@ -1,0 +1,62 @@
+[
+  {
+    "chk": true,
+    "field": "depot_id",
+    "name": "Depo Id",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "service_provider_name",
+    "name": "Service Provider Name",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "report_type",
+    "name": "Report Type",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "current_operator",
+    "name": "Current Operator",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "future_operator",
+    "name": "Future Operator",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "start_date",
+    "name": "Start Date",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "end_date",
+    "name": "End Date",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "month_type",
+    "name": "Month Type",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "action",
+    "name": "Action",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "chk",
+    "name": "Check",
+    "hidden": false
+  }
+]

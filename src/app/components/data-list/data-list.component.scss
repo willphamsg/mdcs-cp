@@ -1,0 +1,58 @@
+@mixin notification-typo {
+  font-size: 14px;
+  line-height: 16px;
+  color: #3e515b;
+}
+
+@mixin center {
+  display: flex;
+  align-items: center;
+}
+
+$link-color: #0072b2;
+
+.list {
+  min-height: 500px;
+  max-height: 826px;
+  overflow: auto;
+
+  &__items {
+    @include center;
+
+    justify-content: space-between;
+    width: inherit;
+    flex-wrap: wrap;
+    padding: 5px 20px;
+    cursor: pointer;
+  }
+  &__icon {
+    @include center;
+
+    mat-icon {
+      @include center;
+
+      font-size: 15px;
+      color: $link-color;
+    }
+  }
+
+  &__content {
+    display: flex;
+    gap: 5px;
+
+    &__details {
+      display: flex;
+      flex-direction: column;
+
+      &__title {
+        font-size: 16px;
+        line-height: 20px;
+      }
+
+      &__message,
+      &__time {
+        @include notification-typo();
+      }
+    }
+  }
+}

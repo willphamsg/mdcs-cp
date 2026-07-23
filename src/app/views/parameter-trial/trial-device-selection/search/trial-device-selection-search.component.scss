@@ -1,0 +1,78 @@
+.filter-container {
+  .dropdown-filter {
+    display: flex;
+    gap: 12px;
+    flex: 1;
+
+    .btn-container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 20px;
+
+      .btn {
+        width: 140px;
+        font-weight: bold;
+      }
+    }
+
+    .search-text {
+      max-width: 440px;
+      width: 100%;
+      height: 40px;
+    }
+  }
+
+  .label-filter {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .mat-input-filter {
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .button-filter {
+    display: flex;
+    justify-content: flex-end;
+    width: 40%;
+    > div:not(:last-child) {
+      margin-inline-end: 10px;
+    }
+  }
+}
+
+.toggle {
+  background-color: #0072b2 !important;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 16px;
+  color: black;
+
+  &.trial {
+    background-color: #648fff;
+  }
+
+  &.non_trial {
+    background-color: #ffb000;
+  }
+}
+
+.custom-checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+.custom-checkbox img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

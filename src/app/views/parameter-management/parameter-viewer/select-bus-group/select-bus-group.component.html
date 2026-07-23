@@ -1,0 +1,14 @@
+<div class="custom-select-bus-group-no">
+  <mat-form-field style="width: 280px">
+    <mat-label>Bus Group No</mat-label>
+    <mat-select
+      [(ngModel)]="busGroupNoSelected"
+      (ngModelChange)="emitSelectedBusGroup()">
+      @for (busGroupNo of busGroupNoList; track busGroupNo) {
+        <mat-option [value]="busGroupNo">
+          {{ busGroupNo }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>

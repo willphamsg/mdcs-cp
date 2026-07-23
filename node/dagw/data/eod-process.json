@@ -1,0 +1,51 @@
+[
+  {
+    "task": "Generate reporting data",
+    "description": "Generate reporting data for DAGW Availability Report",
+    "status": 1,
+    "start_time": "15/10/2025 09:00:00",
+    "end_time": "15/10/2025 18:00:00"
+  },
+  {
+    "task": "Update Business Date",
+    "description": "Update Business Date",
+    "status": 1,
+    "start_time": "15/10/2025 09:00:00",
+    "end_time": "15/10/2025 18:00:00"
+  },
+  {
+    "task": "Populate Default Bus List",
+    "description": "Populate Default Bus List for the next business day",
+    "status": 1,
+    "start_time": "15/10/2025 09:00:00",
+    "end_time": "15/10/2025 18:00:00"
+  },
+  {
+    "task": "Generate reporting data",
+    "description": "Generate reporting data for Bus File Transfer Report",
+    "status": 1,
+    "start_time": "15/10/2025 09:00:00",
+    "end_time": "15/10/2025 18:00:00"
+  },
+  {
+    "task": "Purge Log files",
+    "description": "Purge Outdated MDCS Log files",
+    "status": 1,
+    "start_time": "15/10/2025 09:00:00",
+    "end_time": "15/10/2025 18:00:00"
+  },
+  {
+    "task": "Purge database data",
+    "description": "Purge Outdated Data in MDCS database",
+    "status": 0,
+    "start_time": "15/10/2025 09:00:00",
+    "end_time": "15/10/2025 18:00:00"
+  },
+  {
+    "task": "SAM Server Authentication",
+    "description": "DAGW to SAM key manager status",
+    "status": null,
+    "start_time": null,
+    "end_time": null
+  }
+]

@@ -1,0 +1,15 @@
+<div class="custom-select-depot">
+  <mat-form-field style="width: 280px">
+    <mat-label>Depot</mat-label>
+    <mat-select
+      [(ngModel)]="depotSelected"
+      (ngModelChange)="emitSelectedDepot()"
+      placeholder="Select Depot">
+      @for (depot of depots; track depot) {
+        <mat-option [value]="depot.depot_id">
+          {{ depot.depot_name }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>

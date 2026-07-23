@@ -1,0 +1,133 @@
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.content-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .empty-depot-display {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    flex-direction: column;
+    gap: 24px;
+
+    p:nth-child(2) {
+      font-size: 24px;
+      color: #000;
+    }
+    p:nth-child(3) {
+      font-size: 16px;
+      color: #828282;
+    }
+  }
+}
+
+.table-column {
+  background-color: #4a5964;
+  font-weight: 600;
+  color: white;
+  height: 40px;
+}
+
+// Table row styling - remove borders between rows and set proper height
+::ng-deep .table-wrapper {
+  table.stripped {
+    border-collapse: separate;
+    border-spacing: 0;
+
+    // Remove all borders from table
+    border: none !important;
+
+    // Remove borders between rows
+    tr.mat-row {
+      border-bottom: none !important;
+      border-top: none !important;
+      height: 40px !important;
+
+      td,
+      .mat-cell {
+        border-bottom: none !important;
+        border-top: none !important;
+        border-right: none !important;
+        border-left: none !important;
+      }
+    }
+
+    // Keep header styling
+    tr.mat-header-row {
+      border-bottom: none !important;
+      border-top: none !important;
+      height: 40px !important;
+
+      th,
+      .mat-header-cell {
+        border-bottom: none !important;
+        border-top: none !important;
+        border-right: none !important;
+        border-left: none !important;
+      }
+    }
+
+    // Remove borders between cells
+    td,
+    th,
+    .mat-cell,
+    .mat-header-cell {
+      border-right: none !important;
+      border-left: none !important;
+      border-bottom: none !important;
+      border-top: none !important;
+    }
+  }
+}
+
+::ng-deep .force-eod-dialog {
+  align-self: start !important;
+  margin-top: 5%;
+
+  .mdc-dialog__surface {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+  }
+}
+
+.status-success {
+  background-color: #22ab84;
+  color: white;
+  border-radius: 100px;
+  padding: 5px 10px;
+  display: inline-block;
+}
+
+.status-red {
+  background-color: #c0342b;
+  color: white;
+  border-radius: 100px;
+  padding: 5px 10px;
+  display: inline-block;
+}
+
+.status-gray {
+  background-color: #5b5958;
+  color: white;
+  border-radius: 100px;
+  padding: 5px 10px;
+  display: inline-block;
+}
+
+.status-orange {
+  background-color: #ffb000;
+  color: white;
+  border-radius: 100px;
+  padding: 5px 10px;
+  display: inline-block;
+}

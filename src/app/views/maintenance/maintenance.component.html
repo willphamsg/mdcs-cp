@@ -1,0 +1,49 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [menuItem]="'Maintenance'"
+    [headerTitle]="getPageTitle()"></app-breadcrumbs>
+</div>
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">{{ getPageTitle() }}</h1>
+  </mat-card-header>
+  <mat-divider> </mat-divider>
+  <mat-card-content>
+    <div class="content-container">
+      <form [formGroup]="depotForm">
+        <div
+          class="entry-actions"
+          style="margin-bottom: 20px; display: flex; align-items: center">
+          <div style="display: flex; flex-direction: column">
+            <label style="font-weight: 700">Depot Name</label>
+            <mat-form-field style="width: 300px">
+              <mat-select formControlName="depots" placeholder="Select Depot">
+                @for (depot of depots; track $index) {
+                  <mat-option [value]="depot.depot_id">
+                    {{ depot.depot_name }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Selected Filter Component -->
+        <!-- <app-selected-filter /> -->
+      </form>
+      @if (getPageTitle() === 'EOD Process') {}
+      <mat-divider></mat-divider>
+
+
+      @if (!depotValue) {
+        <div class="empty-depot-display">
+          <img src="/assets/icons/camera.svg" alt="empty files" />
+          <p>Select a depot to show results.</p>
+          <p>No data to display.</p>
+        </div>
+      }
+
+      <router-outlet></router-outlet>
+
+    </div>
+  </mat-card-content>
+</mat-card>

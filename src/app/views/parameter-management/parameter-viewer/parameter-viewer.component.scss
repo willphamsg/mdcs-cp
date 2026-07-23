@@ -1,0 +1,215 @@
+$radio-color: #0046ad;
+$font-white: #ffffff;
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.sidenav-container {
+  height: calc(100vh - 64px);
+  z-index: 0 !important;
+}
+
+.sidenav-header {
+  background: #0072b2;
+
+  .sidenav-title-with-icon {
+    position: relative;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    color: $font-white;
+    line-height: 20px;
+    margin: 0 0 15px 20px;
+    padding-left: 5px;
+  }
+
+  .sidenav-title-with-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    margin-right: 10px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('../../../../assets/icons/folder-white.svg');
+  }
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+  line-height: 20px;
+  margin: 0 0 10px 10px;
+  width: 230px;
+  padding-left: 20px;
+  padding-top: 10px;
+  cursor: pointer;
+}
+
+.item::before {
+  content: '';
+  display: inline-block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url('../../../../assets/icons/folder-item.svg');
+}
+
+.header-with-icon {
+  position: relative;
+  padding-left: 28px;
+}
+
+.header-with-icon::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url('../../../../assets/icons/folder-close.svg');
+}
+
+.header-with-icon-empty {
+  position: relative;
+  padding-left: 28px;
+}
+
+.header-with-icon-empty::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url('../../../../assets/icons/folder.svg');
+}
+
+.selected-item {
+  background-color: #f3f7ff;
+}
+
+.select-container {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 10px;
+
+  .bus-container {
+    ::ng-deep .mat-mdc-text-field-wrapper {
+      width: 240px !important;
+    }
+  }
+}
+
+.radio-container {
+  display: flex;
+  height: 40px;
+  width: 161px;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.custom-radio {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid $radio-color;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.custom-radio input[type='radio'] {
+  margin: 0 5px 0 0 !important;
+  background-color: $radio-color;
+}
+
+.radio-label {
+  color: $radio-color;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+::ng-deep .filter-accordion-wrapper .device-items {
+  &.mat-expanded {
+    margin-bottom: 8px !important;
+  }
+  .mat-expansion-panel-body {
+    padding: 0px 10px 0 0 !important;
+
+    > div {
+      background-color: unset !important;
+      width: 400px;
+      margin: unset !important;
+      padding: unset !important;
+    }
+  }
+  .mat-expansion-panel-header.mat-expanded {
+    height: var(--mat-expansion-header-collapsed-state-height);
+  }
+}
+
+.mat-mdc-text-field-wrapper {
+  width: 400px !important;
+}
+
+mat-sidenav {
+  width: 300px;
+}
+
+mat-sidenav-content {
+  padding: 20px;
+}
+
+mat-expansion-panel-header {
+  padding-left: 15px;
+}
+
+.info-table {
+  width: 100%;
+  margin-bottom: 12px;
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #DEDEDE;
+    background-color: #FFF;
+    thead {
+      th {
+        color: #4A5964;
+        padding: 8px;
+        border: 1px solid #DEDEDE;
+        text-align: left;
+      }
+    }
+    tbody {
+      td {
+        color: #000;
+        padding: 8px;
+        border: 1px solid #DEDEDE;
+      }
+    }
+  }
+}
+
+::ng-deep .mdc-floating-label {
+  padding-bottom: 15px;
+}

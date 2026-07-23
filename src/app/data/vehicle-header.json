@@ -1,0 +1,62 @@
+[
+  {
+    "chk": true,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "depot_id",
+    "name": "Depo Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "bus_num",
+    "name": "Bus Num",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "svc_prov_id",
+    "name": "Service Provider Id",
+    "hidden": true
+  },
+  {
+    "chk": false,
+    "field": "group_num",
+    "name": "Group No.",
+    "hidden": true
+  },
+  {
+    "chk": true,
+    "field": "effective_date",
+    "name": "Effective Date",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "status",
+    "name": "Status",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "updated_on",
+    "name": "Updated On",
+    "hidden": true
+  },
+  {
+    "chk": false,
+    "field": "last_update",
+    "name": "Last Update",
+    "hidden": true
+  },
+  {
+    "chk": true,
+    "field": "chk",
+    "name": "Check",
+    "hidden": true
+  }
+]

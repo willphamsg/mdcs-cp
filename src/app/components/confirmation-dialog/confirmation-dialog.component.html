@@ -1,0 +1,33 @@
+<!-- <h1 mat-dialog-title></h1>
+
+<div mat-dialog-content>
+  <p>{{ message }}</p>
+</div>
+
+<div mat-dialog-actions>
+  @if (!okOnly) {
+    <button mat-button (click)="onDismiss()">No</button>
+  }
+
+  <button mat-raised-button color="primary" (click)="onConfirm()">Ok</button>
+</div> -->
+
+<h2 matDialogTitle>{{ title }}</h2>
+<mat-dialog-content>
+  <span>{{ message }}</span>
+  <div>
+    @for (message of multiMessage; track message) {
+      <ul>
+        <li>{{ message }}</li>
+      </ul>
+    }
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  @if (!okOnly) {
+    <button mat-button color="warn" (click)="onDismiss()">No</button>
+  }
+  <button mat-raised-button color="primary" (click)="onConfirm()">
+    Confirm
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,26 @@
+<div class="chip-container">
+  <mat-chip-set>
+    @for (config of filterConfigs | async; track $index) { @if
+    (isFilterNotEmpty(config.controlName) | async) {
+    <mat-chip
+      class="filter-chip"
+      removable
+      disableRipple
+      (removed)="removeFilter(config.controlName)">
+      <span class="name">{{ FILTER_NAMES[config.controlName] }}:</span>
+      <span class="value">
+        @if (isDateRangeFilter(config.controlName) | async) { {{
+        (selectedFilters | async)?.[config.controlName]?.startDate | date:
+        'dd/MM/yyyy' }} - {{ (selectedFilters |
+        async)?.[config.controlName]?.endDate | date: 'dd/MM/yyyy' }} } @else if
+        ( config.type === 'date-picker' || config.type === 'date-field' ) { {{
+        (selectedFilters | async)?.[config.controlName] | date: 'dd/MM/yyyy' }}
+        } @else { {{ (selectedFilters | async)?.[config.controlName] }} }
+      </span>
+      <button matChipRemove>
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-chip>
+    } }
+  </mat-chip-set>
+</div>

@@ -1,0 +1,161 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [menuItem]="'Parameter Management'"
+    [headerTitle]="'Parameter Viewer'"></app-breadcrumbs>
+</div>
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">Parameter Viewer</h1>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <mat-tab-group
+      (selectedTabChange)="onTabChange($event)"
+      mat-stretch-tabs="false"
+      mat-align-tabs="start"
+      [(selectedIndex)]="tabIdx">
+      @for (item of tabList; track item.id) {
+        <mat-tab [label]="item.label">
+          <ng-template mat-tab-label>
+            <div>{{ item?.label }}</div>
+          </ng-template>
+        </mat-tab>
+      }
+    </mat-tab-group>
+
+    <mat-sidenav-container class="sidenav-container">
+      <mat-sidenav mode="side" opened>
+        <div style="padding: 10px">
+          <mat-card-header class="sidenav-header">
+            <span class="sidenav-title-with-icon">{{ menuHeader }}</span>
+          </mat-card-header>
+          <mat-nav-list>
+            <mat-accordion multi class="filter-accordion-wrapper">
+              @for (parameterSubType of parameterSubTypeAndFile; track $index) {
+                <mat-expansion-panel hideToggle class="device-items">
+                  <mat-expansion-panel-header appClickStopPropagation>
+                    <mat-panel-title
+                      [ngClass]="
+                        parameterSubType.device_items &&
+                        parameterSubType.device_items.length > 0
+                          ? 'header-with-icon'
+                          : 'header-with-icon-empty'
+                      ">
+                      {{ parameterSubType.device_label }}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div>
+                    @for (
+                      parameterFile of parameterSubType.device_items;
+                      track $index
+                    ) {
+                      <div
+                        [ngClass]="{
+                          'selected-item':
+                            selectedItem === parameterFile.item_code
+                        }"
+                        style="width: inherit">
+                        <a
+                          (click)="
+                            onSelectParameterFile(
+                              parameterFile,
+                              parameterFile.item_code
+                            )
+                          ">
+                          <span class="item">{{ parameterFile.label }}</span>
+                        </a>
+                      </div>
+                    }
+                  </div>
+                </mat-expansion-panel>
+              }
+            </mat-accordion>
+          </mat-nav-list>
+        </div>
+      </mat-sidenav>
+
+      <!-- Main Content -->
+      <mat-sidenav-content>
+        <!-- Not yet final implementation for this. need to wait what template will be used for each category -->
+
+        @if (parameterVersionSelected) {
+          <app-select-parameter-version
+            [parameterVersionSelected]="parameterVersionSelected"
+            [parameterMultipleVersion]="parameterMultipleVersion"
+            [depotSelected]="depotSelected"
+            [isMultipleVersion]="isMultipleVersion"
+            (versionEmitted)="handleSelectMultipleVersion($event)">
+          </app-select-parameter-version>
+        }
+
+        @if (isDepotSelected) {
+          <app-select-depot
+            [depotSelected]="depotSelected"
+            (depotEmitted)="handleSelectDepot($event)">
+          </app-select-depot>
+        }
+
+        @if (isSVT) {
+          <app-select-bus-group
+            [busGroupNoSelected]="busGroupNoSelected"
+            [busGroupNoList]="busGroupNoList"
+            (busGroupNoEmit)="handleSelectBusGroup($event)">
+          </app-select-bus-group>
+        }
+
+        @if (busGroupNoSelected) {
+          <app-select-service-no
+            [serviceNoSelected]="serviceNoSelected"
+            [serviceNoList]="serviceNoList"
+            (serviceNoEmit)="handleSelectServiceNo($event)">
+          </app-select-service-no>
+        }
+
+        <div class="info-table">
+          <table>
+            <thead>
+              <tr>
+                <th>File ID</th>
+                <th>Parameter Name</th>
+                <th>Parameter Version</th>
+                <th>Format Version</th>
+                <th>Effective Date Time</th>
+              </tr>
+            </thead>
+
+            @if (dataSource) {
+              <tbody>
+                <tr>
+                  <td>{{ dataSource.fileId }}</td>
+                  <td>{{ dataSource.parameter_name }}</td>
+                  <td>{{ dataSource.parameter_version }}</td>
+                  <td>{{ dataSource.format_version }}</td>
+                  <td>
+                    {{
+                      dataSource.effective_date_time | date: 'dd/MM/yyyy HH:mm'
+                    }}
+                  </td>
+                </tr>
+              </tbody>
+            } @else {
+              <tbody>
+                <tr>
+                  <td colspan="5" style="text-align: center; color: #000000">
+                    {{
+                      selectedItem
+                        ? 'No Data Found on this Depot'
+                        : 'Choose Parameter Type to show info'
+                    }}
+                  </td>
+                </tr>
+              </tbody>
+            }
+          </table>
+        </div>
+
+        <app-parameter-viewer-table
+          [payload]="payload"></app-parameter-viewer-table>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </mat-card-content>
+</mat-card>

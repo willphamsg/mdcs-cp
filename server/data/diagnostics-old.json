@@ -1,0 +1,126 @@
+{
+  "mdcs": [
+    {
+      "category": "MDCS to BOCC Status",
+      "item": {
+        "name": "SBST",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "MDCS to PG Status",
+      "item": {
+        "name": "SBST",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to MDCS Status",
+      "item": {
+        "name": "GW1",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to BOCC Status",
+      "item": {
+        "name": "GW1",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to PG Status",
+      "item": {
+        "name": "GW1",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to SAM Dongle Status",
+      "item": {
+        "name": "GW1",
+        "status": "failure",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to SAM Key Manager Status",
+      "item": {
+        "name": "GW1",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to PG Status",
+      "item": {
+        "name": "GW1",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to SAM Dongle Status",
+      "item": {
+        "name": "GW1",
+        "status": "failure",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to SAM Key Manager Status",
+      "item": {
+        "name": "GW1",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    }
+  ],
+  "dagw": [
+    {
+      "category": "DAGW to BOCC Status",
+      "item": {
+        "name": "SBST",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to PG Status",
+      "item": {
+        "name": "SBST",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to MDCS Status",
+      "item": {
+        "name": "GW1",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to SAM Dongle Status",
+      "item": {
+        "name": "GW1",
+        "status": "failure",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    },
+    {
+      "category": "DAGW to SAM Key Manager Status",
+      "item": {
+        "name": "GW1",
+        "status": "success",
+        "lastUpdate": "16/9/2024 10:40 AM"
+      }
+    }
+  ]
+}

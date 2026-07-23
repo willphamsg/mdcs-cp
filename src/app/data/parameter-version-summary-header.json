@@ -1,0 +1,44 @@
+[
+  {
+    "chk": true,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "depot_id",
+    "name": "Depots",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "file_id",
+    "name": "File ID",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "parameter_name",
+    "name": "Parameter Name",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "parameter_version",
+    "name": "Parameter Version",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "effective_date",
+    "name": "Effective Date",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "status",
+    "name": "Status",
+    "hidden": false
+  }
+]

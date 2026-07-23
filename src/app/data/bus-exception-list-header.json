@@ -1,0 +1,50 @@
+[
+  {
+    "chk": true,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "depot_id",
+    "name": "Depo Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "bus_num",
+    "name": "Bus Num",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "service_num",
+    "name": "Service Num",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "est_return_num",
+    "name": "Expected No of Arrival",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "act_arrival_time",
+    "name": "Actual Last Arrival Time",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "act_return_num",
+    "name": "Actual No of Arrival",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "deficit_return_num",
+    "name": "Deficient return",
+    "hidden": true
+  }
+]

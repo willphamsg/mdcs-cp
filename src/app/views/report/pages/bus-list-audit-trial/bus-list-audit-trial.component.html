@@ -1,0 +1,133 @@
+<div class="content-container">
+  <div
+    class="entry-actions"
+    style="margin-bottom: 20px; display: flex; align-items: flex-end">
+    @if (!isAdhocReport) {
+      <div style="display: flex; flex-direction: column">
+        <label style="font-weight: 700">Business Date</label>
+        <mat-form-field style="width: 320px">
+          <input
+            matInput
+            placeholder="Select Date"
+            [matDatepicker]="picker"
+            [max]="todayJS"
+            [(ngModel)]="businessDaySelected" />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <button
+            style="padding: unset !important"
+            mat-icon-button
+            matSuffix
+            (click)="picker.open()">
+            <img
+              src="assets/icons/calendar_small.svg"
+              style="padding: unset !important; width: 16px; height: 16px" />
+          </button>
+        </mat-form-field>
+      </div>
+    }
+
+    <div style="display: flex; flex-direction: column">
+      <label style="font-weight: 700">Depot Name</label>
+      <mat-form-field class="mat-custom" style="width: 360px">
+        <mat-select
+          [(ngModel)]="depotSelected"
+          placeholder="Select Depot"
+          [multiple]="isAdhocReport">
+          @for (depot of depots; track depot) {
+            <mat-option [value]="depot.depot_id">
+              {{ depot.depot_name }}
+            </mat-option>
+          }
+        </mat-select>
+        <mat-icon style="padding: unset !important" matSuffix
+          >keyboard_arrow_down</mat-icon
+        >
+      </mat-form-field>
+    </div>
+
+    @if (isAdhocReport) {
+      <div style="display: flex; flex-direction: column">
+        <label style="font-weight: 700">SP Name</label>
+        <mat-form-field class="mat-custom" style="width: 360px">
+          <mat-select [(ngModel)]="spNameSelected" placeholder="Select SP Name">
+            @for (operator of operators; track operator) {
+              <mat-option [value]="operator.svc_prov_id">
+                {{ operator.svc_prov_name }}
+              </mat-option>
+            }
+          </mat-select>
+          <mat-icon style="padding: unset !important" matSuffix
+            >keyboard_arrow_down</mat-icon
+          >
+        </mat-form-field>
+      </div>
+    }
+
+    <div class="button-filter" style="text-align: right">
+      <!-- <div class="item download-item" *ngIf="!isAdhocReport">
+          <button
+            type="button"
+            class="btn btn-download"
+            style="font-size: 16px"
+            [matMenuTriggerFor]="downloadMenu"
+          [disabled]="
+            !depotSelected || (!isAdhocReport && !businessDaySelected)
+          "
+            (menuOpened)="menuHandler(true)"
+            (menuClosed)="menuHandler(false)">
+            <img
+              src="/assets/icons/download-icon.svg"
+              class="download-icon"
+              alt="" />
+            Download as
+            <div class="expand-icon">
+              <mat-icon [ngClass]="{ 'rotated-reverse': expandedMenu }"
+                >expand_less</mat-icon
+                >
+              </div>
+            </button>
+            <mat-menu #downloadMenu="matMenu">
+              <button (click)="exportExcel()" mat-menu-item>Excel</button>
+              <button (click)="exportCSV()" mat-menu-item>CSV</button>
+              <button (click)="print()" mat-menu-item class="menu-download">
+                PDF
+              </button>
+            </mat-menu>
+          </div> -->
+      <div class="item">
+        <button
+          type="button"
+          (click)="onViewReport()"
+          mat-flat-button
+          id="btndescription"
+          [disabled]="
+            isButtonClick ||
+            !depotSelected ||
+            (!isAdhocReport && !businessDaySelected) ||
+            (isAdhocReport && !spNameSelected)
+          "
+          class="btn description">
+          <mat-icon>visibility</mat-icon>
+          View Report
+        </button>
+      </div>
+    </div>
+    <!-- Selected Filter Component -->
+    <app-selected-filter />
+  </div>
+
+  <div class="table-wrapper">
+    <app-ssrs-reportviewer
+      [reportname]="reportName"
+      [parameter]="parameterReportViewer"
+      [option]="optionReportViewer"
+      [reportType]="isAdhocReport ? 'adhoc-report' : 'daily-report'"
+      (isIframeLoadedEvent)="
+        isIframeLoadedEvent($event)
+      "></app-ssrs-reportviewer>
+  </div>
+  <div class="table-footer"></div>
+</div>

@@ -1,0 +1,14 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [menuItem]="['Report', 'Daily Report']"
+    [headerTitle]="getPageTitle()"></app-breadcrumbs>
+</div>
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">{{ getPageTitle() }}</h1>
+  </mat-card-header>
+  <mat-divider> </mat-divider>
+  <mat-card-content>
+    <router-outlet></router-outlet>
+  </mat-card-content>
+</mat-card>

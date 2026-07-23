@@ -1,0 +1,258 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [menuItem]="'Report'"
+    [headerTitle]="'Bus Arrival Exception List'"></app-breadcrumbs>
+</div>
+
+<mat-card #printSection id="print-section">
+  <mat-card-header>
+    <h1 class="page-title">Bus Arrival Exception List</h1>
+  </mat-card-header>
+
+  <mat-divider> </mat-divider>
+  <mat-card-content>
+    <!-- <mat-tab-group
+    (selectedTabChange)="onTabChange($event)"
+    mat-stretch-tabs="false"
+    mat-align-tabs="start"
+    animationDuration="0ms">
+    @for (item of tabList; track item.key) {
+      <mat-tab [label]="item.title">
+        <ng-template mat-tab-label>
+          <div class="label">{{ item?.title }}</div>
+        </ng-template>
+      </mat-tab>
+    }
+  </mat-tab-group> -->
+    <!--
+  <div class="entry-actions">
+    <div class="button-filter">
+      <div class="item">
+        <mat-form-field class="mat-custom hide">
+          <mat-label>Business Day</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [max]="today"
+            [(ngModel)]="selectedDate"
+            (dateChange)="changeBusinessDay('change', $event)" />
+          <mat-datepicker-toggle
+            matIconSuffix
+          [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="item download-item">
+      <button
+        type="button"
+        class="btn-download"
+        [matMenuTriggerFor]="downloadMenu"
+        (menuOpened)="menuHandler(true)"
+        (menuClosed)="menuHandler(false)">
+        <img
+          src="/assets/icons/download-icon.svg"
+          class="download-icon"
+          alt="" />
+        Download as
+        <div class="expand-icon">
+          <mat-icon [ngClass]="{ 'rotated-reverse': expandedMenu }"
+            >expand_less</mat-icon
+            >
+          </div>
+        </button>
+        <mat-menu #downloadMenu="matMenu">
+          <button (click)="print()" mat-menu-item class="menu-download">
+            PDF
+          </button>
+          <button (click)="exportCSV()" mat-menu-item>CSV</button>
+        </mat-menu>
+      </div>
+    </div> -->
+
+    <div
+      class="entry-actions"
+      style="margin-bottom: 20px; display: flex; align-items: flex-end">
+      <div style="display: flex; flex-direction: column">
+        <label style="font-weight: 700">Business Date</label>
+        <mat-form-field style="width: 320px">
+          <!-- <mat-label>Business Day</mat-label> -->
+          <input
+            matInput
+            placeholder="Select Date"
+            [matDatepicker]="picker"
+            [max]="today"
+            [(ngModel)]="selectedDate"
+            (dateChange)="changeBusinessDay('change', $event)" />
+          <!-- <mat-datepicker-toggle
+          matIconSuffix
+        [for]="picker"></mat-datepicker-toggle> -->
+          <mat-datepicker #picker></mat-datepicker>
+          <button
+            style="padding: unset !important"
+            mat-icon-button
+            matSuffix
+            (click)="picker.open()">
+            <img
+              src="assets/icons/calendar_small.svg"
+              style="padding: unset !important; width: 16px; height: 16px" />
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div style="display: flex; flex-direction: column">
+        <label style="font-weight: 700">Depot Name</label>
+        <mat-form-field class="mat-custom" style="width: 360px">
+          <mat-select [(ngModel)]="depotSelected" placeholder="Select Depot">
+            @for (depot of depots; track depot) {
+              <mat-option [value]="depot.depot_id">
+                {{ depot.depot_name }}
+              </mat-option>
+            }
+          </mat-select>
+          <!-- <mat-icon style="padding: unset !important" matSuffix
+        >keyboard_arrow_down</mat-icon
+        > -->
+        </mat-form-field>
+      </div>
+
+      <div class="button-filter" style="flex: 1; justify-content: flex-end">
+        <div class="item">
+          <button
+            type="button"
+            (click)="fetchReportData()"
+            mat-flat-button
+            id="btndescription"
+            [disabled]="isButtonClick || !depotSelected || !selectedDate"
+            class="btn description">
+            <mat-icon>visibility</mat-icon>
+            View Report
+          </button>
+        </div>
+        <div class="item download-item">
+          <button
+            type="button"
+            class="btn-download"
+            [matMenuTriggerFor]="downloadMenu"
+            (menuOpened)="menuHandler(true)"
+            (menuClosed)="menuHandler(false)"
+            [disabled]="this.dataSource.length === 0">
+            <img
+              src="/assets/icons/download-icon.svg"
+              class="download-icon"
+              alt="" />
+            Download as
+            <div class="expand-icon">
+              <mat-icon [ngClass]="{ 'rotated-reverse': expandedMenu }"
+                >expand_less</mat-icon
+              >
+            </div>
+          </button>
+          <mat-menu #downloadMenu="matMenu">
+            <button (click)="print()" mat-menu-item class="menu-download">
+              PDF
+            </button>
+            <button (click)="exportCSV()" mat-menu-item>CSV</button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table mat-table [dataSource]="dataSource">
+        <!-- Bus ID Column -->
+        <ng-container matColumnDef="busNum">
+          <th mat-header-cell *matHeaderCellDef>Bus ID</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.busNum }}
+          </td>
+        </ng-container>
+
+        <!-- Service Number Column -->
+        <ng-container matColumnDef="serviceNum">
+          <th mat-header-cell *matHeaderCellDef>Service No.</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.serviceNum }}
+          </td>
+        </ng-container>
+
+        <!-- Estimated Arrival Time Column -->
+        <ng-container matColumnDef="estArrivalTime">
+          <th mat-header-cell *matHeaderCellDef>Est. Arrival Time</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.estArrivalTime }}
+          </td>
+        </ng-container>
+
+        <!-- Estimated Return Number Column -->
+        <ng-container matColumnDef="estReturnNum">
+          <th mat-header-cell *matHeaderCellDef>Est. Return No.</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.estReturnNum }}
+          </td>
+        </ng-container>
+
+        <!-- Actual Return Number Column -->
+        <ng-container matColumnDef="actualReturnNum">
+          <th mat-header-cell *matHeaderCellDef>Actual Return No.</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.actualReturnNum }}
+          </td>
+        </ng-container>
+
+        <!-- Update Count Column -->
+        <ng-container matColumnDef="updateCount">
+          <th mat-header-cell *matHeaderCellDef>Update Count</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.updateCount }}
+          </td>
+        </ng-container>
+
+        <!-- Service Provider Column -->
+        <ng-container matColumnDef="svcProvId">
+          <th mat-header-cell *matHeaderCellDef>Service Provider</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.svcProvId }}
+          </td>
+        </ng-container>
+
+        <!-- Bus List Entry Column -->
+        <ng-container matColumnDef="busListEntry">
+          <th mat-header-cell *matHeaderCellDef>Bus List Entry</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.busListEntry }}
+          </td>
+        </ng-container>
+
+        <!-- Exception Reason Column -->
+        <ng-container matColumnDef="exceptionReason">
+          <th mat-header-cell *matHeaderCellDef>Exception Reason</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.exceptionReason }}
+          </td>
+        </ng-container>
+
+        <!-- Business Day Column -->
+        <ng-container matColumnDef="businessDay">
+          <th mat-header-cell *matHeaderCellDef>Business Day</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.businessDay | date: 'dd/MM/yyyy' }}
+          </td>
+        </ng-container>
+        <tr
+          style="background-color: #4a5964; font-weight: 600; color: white"
+          mat-header-row
+          *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
+            No Records Found
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="table-footer"></div>
+  </mat-card-content>
+</mat-card>

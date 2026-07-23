@@ -1,0 +1,36 @@
+<ul class="breadcrumb">
+  @if (showHome) {
+    <li>Home</li>
+  }
+  <!-- @if (showHome) {
+    @if (isMenuArray) {
+      @for (item of menuItem; track item) {
+        <li>
+          <a> {{ item }}</a>
+        </li>
+      }
+    } @else {
+      <li>
+        <a>{{ menuItem }}</a>
+      </li>
+    }
+  } -->
+
+  @if (isMenuArray) {
+    @for (item of menuItem; track item) {
+      <li>
+        <a> {{ item }}</a>
+      </li>
+    }
+  } @else if (!!menuItem) {
+    <li>
+      <a>{{ menuItem }}</a>
+    </li>
+  }
+
+  <li>
+    <span>{{ headerTitle }}</span>
+  </li>
+</ul>
+
+<!-- <h1>{{ headerTitle }}</h1> -->

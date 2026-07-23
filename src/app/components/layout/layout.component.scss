@@ -1,0 +1,46 @@
+@use '../../../styles/breakpoints' as *;
+
+.main-background {
+  background-image: url('/assets/images/Background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .main-container {
+    width: 80%;
+    justify-content: center;
+    margin: auto;
+    flex-grow: 1;
+    // height: calc(100vh - 64px - 40px); //100vh - header - footer
+    overflow-y: hidden;
+    // height: 90%;
+
+    @include respond-to-min(sm) {
+      padding: 0 20px;
+      width: 100%;
+    }
+
+    @include respond-to-min(xl) {
+      padding: 0;
+      width: 90%;
+    }
+
+    @include respond-to-min(xxxl) {
+      width: 80%;
+    }
+  }
+
+  .breadcrumbs {
+    margin-top: 10px;
+  }
+
+  .main-content {
+    // margin-top: 10px;
+    // margin-bottom: 10px;
+    height: 100%;
+    overflow: hidden;
+  }
+}

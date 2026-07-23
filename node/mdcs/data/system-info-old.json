@@ -1,0 +1,342 @@
+{
+  "mdcs": {
+    "mdcs": [
+      {
+        "label": "Connection and Services",
+        "details": [
+          {
+            "label": "AWS IoT Status",
+            "value": { "id": "active", "label": "Running" }
+          },
+          {
+            "label": "MQ Connection Status",
+            "value": { "id": "degraded", "label": "Degraded" }
+          },
+          {
+            "label": "FTP Service Status",
+            "value": { "id": "active", "label": "Running" }
+          },
+          {
+            "label": "Web Application Status",
+            "value": { "id": "critical", "label": "Down" }
+          }
+        ],
+        "children": [
+          {
+            "label": "MDCS Service Status",
+            "value": { "id": "active", "label": "Running" },
+            "details": [
+              {
+                "label": "Parameter Management Service (PMS)",
+                "value": { "id": "active", "label": "Running" }
+              },
+              {
+                "label": "Summary Data Receiver Service (SDRS)",
+                "value": { "id": "active", "label": "Running" }
+              },
+              {
+                "label": "Scheduler Service (SCHS)",
+                "value": { "id": "active", "label": "Running" }
+              },
+              {
+                "label": "Java Bus Service (JBS)",
+                "value": { "id": "active", "label": "Running" }
+              },
+              {
+                "label": "Java Common Service (JCS)",
+                "value": { "id": "active", "label": "Running" }
+              },
+              {
+                "label": "Java Parameter Service (JPS)",
+                "value": { "id": "active", "label": "Running" }
+              },
+              {
+                "label": "Java Report Service (JRS)",
+                "value": { "id": "active", "label": "Running" }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Storage and Memory Statistics",
+        "details": [
+          {
+            "label": "Memory Used",
+
+            "subDetails": [
+              {
+                "label": "Web Tier",
+                "value": { "id": "", "label": "149 GB" }
+              },
+              {
+                "label": "App Tier",
+                "value": { "id": "", "label": "75 GB" }
+              },
+              {
+                "label": "IT Tier",
+                "value": { "id": "", "label": "100 GB" }
+              }
+            ]
+          },
+          {
+            "label": "Memory Free",
+
+            "subDetails": [
+              {
+                "label": "Web Tier",
+                "value": { "id": "", "label": "149 GB" }
+              },
+              {
+                "label": "App Tier",
+                "value": { "id": "", "label": "75 GB" }
+              },
+              {
+                "label": "IT Tier",
+                "value": { "id": "", "label": "100 GB" }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "dagw": [
+      {
+        "label": "Connection and Services",
+        "details": [
+          {
+            "label": "AWS IoT Status",
+            "value": { "id": "active", "label": "Running" }
+          },
+          {
+            "label": "MQ Connection Status",
+            "value": { "id": "degraded", "label": "Degraded" }
+          },
+          {
+            "label": "FTP Service Status",
+            "value": { "id": "active", "label": "Running" }
+          },
+          {
+            "label": "Web Application Status",
+            "value": { "id": "critical", "label": "Down" }
+          }
+        ],
+        "children": [
+          {
+            "label": "DAGW Service Status",
+            "value": { "id": "active", "label": "Running" },
+            "details": [
+              {
+                "label": "Parameter Management Service (PMS)",
+                "value": { "id": "active", "label": "Running" }
+              },
+              {
+                "label": "Bus Management Service (BMS)",
+                "value": { "id": "active", "label": "Running" }
+              },
+              {
+                "label": "Message Data Management Service (MDMS)",
+                "value": { "id": "active", "label": "Running" }
+              },
+              {
+                "label": "Scheduler Service (SCHS)",
+                "value": { "id": "active", "label": "Running" }
+              },
+              {
+                "label": "Java Bus Service (JBS)",
+                "value": { "id": "active", "label": "Running" }
+              },
+              {
+                "label": "Java Common Service (JCS)",
+                "value": { "id": "active", "label": "Running" }
+              },
+              {
+                "label": "Java Parameter Service (JPS)",
+                "value": { "id": "active", "label": "Running" }
+              },
+              {
+                "label": "Java Report Service (JRS)",
+                "value": { "id": "active", "label": "Running" }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Device and Software Details",
+        "details": [
+          { "label": "Device Type", "value": { "id": "", "label": "149" } },
+          {
+            "label": "Device Sequence Number",
+            "value": { "id": "", "label": "1951" }
+          },
+          {
+            "label": "Software Version",
+            "value": { "id": "", "label": "DAGW.A.02.04.89" }
+          }
+        ]
+      },
+      {
+        "label": "Storage and Memory Statistics",
+        "details": [
+          {
+            "label": "Memory",
+            "subDetails": [
+              {
+                "label": "Used",
+                "value": { "id": "", "label": "149 GB" }
+              },
+              {
+                "label": "Free",
+                "value": { "id": "", "label": "75 GB" }
+              }
+            ]
+          },
+          {
+            "label": "Host Hard Disk",
+            "subDetails": [
+              {
+                "label": "Used",
+                "value": { "id": "", "label": "149 GB" }
+              },
+              {
+                "label": "Free",
+                "value": { "id": "", "label": "75 GB" }
+              }
+            ]
+          },
+          {
+            "label": "Network Attached Storage Used",
+            "subDetails": [
+              {
+                "label": "Used",
+                "value": { "id": "", "label": "149 GB" }
+              },
+              {
+                "label": "Free",
+                "value": { "id": "", "label": "75 GB" }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "System Details",
+        "details": [
+          {
+            "label": "IP Address",
+            "value": { "id": "", "label": "192.168.29.70" }
+          }
+        ]
+      }
+    ]
+  },
+  "dagw": {
+    "mdcs": [
+      {
+        "label": "Connection and Services",
+        "details": [
+          {
+            "label": "Database Connection",
+            "value": { "id": "active", "label": "Up" }
+          },
+          {
+            "label": "MDCS Service",
+            "value": { "id": "active", "label": "Connected" }
+          }
+        ]
+      },
+      {
+        "label": "Storage and Memory Statistics",
+        "details": [
+          {
+            "label": "Memory Used",
+            "subDetails": [
+              {
+                "label": "Used",
+                "value": { "id": "", "label": "149 GB" }
+              },
+              {
+                "label": "Free",
+                "value": { "id": "", "label": "75 GB" }
+              }
+            ]
+          },
+          {
+            "label": "Hard Disk",
+            "subDetails": [
+              {
+                "label": "Used",
+                "value": { "id": "", "label": "149 GB" }
+              },
+              {
+                "label": "Free",
+                "value": { "id": "", "label": "75 GB" }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "dagw": [
+      {
+        "label": "Connection and Services",
+        "details": [
+          {
+            "label": "DAGW Service",
+            "value": { "id": "active", "label": "Connected" }
+          }
+        ]
+      },
+      {
+        "label": "Device and Software Details",
+        "details": [
+          { "label": "Device Type", "value": { "id": "", "label": "149" } },
+          {
+            "label": "Device Sequence Number",
+            "value": { "id": "", "label": "1951" }
+          },
+          {
+            "label": "Software Version",
+            "value": { "id": "", "label": "DAGW.A.02.04.89" }
+          },
+          {
+            "label": "Status",
+            "value": { "id": "active", "label": "Active" }
+          }
+        ]
+      },
+      {
+        "label": "Storage and Memory Statistics",
+        "details": [
+          {
+            "label": "Memory",
+            "subDetails": [
+              {
+                "label": "Used",
+                "value": { "id": "", "label": "149 GB" }
+              },
+              {
+                "label": "Free",
+                "value": { "id": "", "label": "75 GB" }
+              }
+            ]
+          },
+          {
+            "label": "Hard Disk",
+            "subDetails": [
+              {
+                "label": "Used",
+                "value": { "id": "", "label": "149 GB" }
+              },
+              {
+                "label": "Free",
+                "value": { "id": "", "label": "75 GB" }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

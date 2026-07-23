@@ -1,0 +1,92 @@
+[
+  {
+    "chk": true,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "bus_num",
+    "name": "Bus ID",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "report_time",
+    "name": "Time of Reporting",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "bcv1",
+    "name": "BCV1",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "ver1",
+    "name": "Ver",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "bcv2",
+    "name": "BCV2",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "ver2",
+    "name": "Ver",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "bcv3",
+    "name": "BCV3",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "ver3",
+    "name": "Ver",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "bcv4",
+    "name": "BCV4",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "ver4",
+    "name": "Ver",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "bcv5",
+    "name": "BCV5",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "ver5",
+    "name": "Ver",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "bcv6",
+    "name": "BCV6",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "ver6",
+    "name": "Ver",
+    "hidden": false
+  }
+]

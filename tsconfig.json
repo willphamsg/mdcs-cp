@@ -1,0 +1,46 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "baseUrl": "./src",
+    "paths": {
+      "@env/*": ["environments/*"],
+      "@app/*": ["app/*"],
+      "@data/*": ["app/data/*"],
+      "@models/*": ["app/models/*"],
+      "@components/*": ["app/components/*"],
+      "@views/*": ["app/views/*"],
+      "@dacs/*": ["app/views/dacs/*"],
+      "@services/*": ["app/services/*"],
+      "@store/*": ["app/store/*"],
+      "@assets/*": ["assets/*"],
+      "@directives/*": ["app/directives/*"],
+      "@shared/": ["app/shared/*"]
+    },
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "strictPropertyInitialization": false,
+    "resolveJsonModule": true
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

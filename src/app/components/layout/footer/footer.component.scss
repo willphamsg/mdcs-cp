@@ -1,0 +1,112 @@
+@mixin footer-typo {
+  padding: 5px 0;
+  width: 100%;
+  color: white;
+  font-weight: bolder;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer {
+  // position: fixed;
+  // bottom: 0px;
+  background-color: black;
+  width: 100%;
+  min-height: 40px;
+
+  .container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 24px;
+
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    list-style: none;
+
+    .footer-items {
+      display: flex;
+      flex-flow: row wrap;
+      column-gap: 16px;
+      font-size: 14px;
+
+      &.right {
+        gap: 16px;
+        flex-wrap: nowrap;
+      }
+
+      .item {
+        @include footer-typo;
+        width: auto;
+        .label,
+        .value {
+          white-space: nowrap;
+        }
+        .value {
+          font-weight: lighter;
+          margin-left: 5px;
+        }
+      }
+    }
+
+    .btn-system {
+      height: 30px;
+      border-radius: 25px;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    .pdt-file {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      border-radius: 25px;
+      color: #fff;
+      background-color: #9f0f0f;
+      font-weight: 400;
+      padding: 2px 10px;
+
+      &.active {
+        background-color: #009e73 !important;
+      }
+    }
+
+    .event {
+      @include footer-typo;
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      gap: 6px;
+      margin-left: auto;
+      align-items: center;
+      background-color: #0072b2;
+      width: 147px !important;
+      cursor: pointer;
+      border-radius: 4px;
+      height: 32px;
+
+      &:hover {
+        background-color: #005f8a;
+      }
+
+      span {
+        font-size: 14px !important;
+      }
+    }
+  }
+
+  .system-info {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    color: #000;
+    cursor: pointer;
+    font-size: 14px !important;
+    gap: 3px;
+  }
+}

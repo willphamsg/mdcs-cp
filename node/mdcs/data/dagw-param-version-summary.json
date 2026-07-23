@@ -1,0 +1,366 @@
+[
+  {
+    "depot_id": 970,
+    "depot": {
+      "depot_id": 970
+    },
+    "parameter_name": "ABT_EWLA.SYS",
+    "mdcs_live": {
+      "isActive": false,
+      "value": "172"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "172"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "effective_date_live": "2025-10-15T00:00",
+    "effective_date_trial": "-",
+    "consistency": "1"
+  },
+  {
+    "depot_id": 973,
+    "depot": {
+      "depot_id": 973
+    },
+    "parameter_name": "BLS1APPA.SYS",
+    "mdcs_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "64"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "effective_date_live": "2025-10-16T00:00",
+    "effective_date_trial": "-",
+    "consistency": "0"
+  },
+  {
+    "depot_id": 973,
+    "depot": {
+      "depot_id": 973
+    },
+    "parameter_name": "BUS_DST?.SYS",
+    "mdcs_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "143"
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "438"
+    },
+    "effective_date_live": "-",
+    "effective_date_trial": "2025-10-16T00:00",
+    "consistency": "0"
+  },
+  {
+    "depot_id": 970,
+    "depot": {
+      "depot_id": 970
+    },
+    "parameter_name": "file1",
+    "mdcs_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "2"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "effective_date_live": "2026-11-23T13:33:20",
+    "effective_date_trial": "-",
+    "consistency": "0"
+  },
+  {
+    "depot_id": 970,
+    "depot": {
+      "depot_id": 970
+    },
+    "parameter_name": "file11",
+    "mdcs_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "2"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "effective_date_live": "2023-09-23T03:46:40",
+    "effective_date_trial": "-",
+    "consistency": "0"
+  },
+  {
+    "depot_id": 970,
+    "depot": {
+      "depot_id": 970
+    },
+    "parameter_name": "file12",
+    "mdcs_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "3"
+    },
+    "effective_date_live": "-",
+    "effective_date_trial": "2023-09-23T04:03:20",
+    "consistency": "0"
+  },
+  {
+    "depot_id": 970,
+    "depot": {
+      "depot_id": 970
+    },
+    "parameter_name": "file2",
+    "mdcs_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "3"
+    },
+    "effective_date_live": "-",
+    "effective_date_trial": "2026-11-23T13:50",
+    "consistency": "0"
+  },
+  {
+    "depot_id": 970,
+    "depot": {
+      "depot_id": 970
+    },
+    "parameter_name": "GCM_PDTA.SYS",
+    "mdcs_live": {
+      "isActive": false,
+      "value": "60"
+    },
+    "dagw_live": {
+      "isActive": false,
+      "value": "12"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "effective_date_live": "2024-11-11T11:05:37",
+    "effective_date_trial": "-",
+    "consistency": "0"
+  },
+  {
+    "depot_id": 971,
+    "depot": {
+      "depot_id": 971
+    },
+    "parameter_name": "QA File 1",
+    "mdcs_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "2"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "effective_date_live": "2023-09-23T03:46:40",
+    "effective_date_trial": "-",
+    "consistency": "0"
+  },
+  {
+    "depot_id": 971,
+    "depot": {
+      "depot_id": 971
+    },
+    "parameter_name": "QA File 2",
+    "mdcs_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "3"
+    },
+    "effective_date_live": "-",
+    "effective_date_trial": "2023-09-23T04:03:20",
+    "consistency": "0"
+  },
+  {
+    "depot_id": 970,
+    "depot": {
+      "depot_id": 970
+    },
+    "parameter_name": "SeP_BUTA.SYS",
+    "mdcs_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "3"
+    },
+    "effective_date_live": "-",
+    "effective_date_trial": "2023-09-23T04:03:20",
+    "consistency": "0"
+  },
+  {
+    "depot_id": 973,
+    "depot": {
+      "depot_id": 973
+    },
+    "parameter_name": "SeP_BUTA.SYS",
+    "mdcs_live": {
+      "isActive": false,
+      "value": "297"
+    },
+    "dagw_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "3"
+    },
+    "effective_date_live": "-",
+    "effective_date_trial": "2023-09-23T04:03:20",
+    "consistency": "0"
+  },
+  {
+    "depot_id": 970,
+    "depot": {
+      "depot_id": 970
+    },
+    "parameter_name": "SeP_SGPA.SYS",
+    "mdcs_live": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "210"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "effective_date_live": "2023-09-23T03:46:40",
+    "effective_date_trial": "-",
+    "consistency": "0"
+  },
+  {
+    "depot_id": 973,
+    "depot": {
+      "depot_id": 973
+    },
+    "parameter_name": "SeP_SGPA.SYS",
+    "mdcs_live": {
+      "isActive": false,
+      "value": "210"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "210"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "-"
+    },
+    "effective_date_live": "2023-09-23T03:46:40",
+    "effective_date_trial": "-",
+    "consistency": "1"
+  }
+]

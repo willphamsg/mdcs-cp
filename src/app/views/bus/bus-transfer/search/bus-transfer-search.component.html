@@ -1,0 +1,398 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [menuItem]="'Bus Management'"
+    [headerTitle]="'Bus Transfer'"></app-breadcrumbs>
+</div>
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">Bus Transfer</h1>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <mat-tab-group
+      mat-stretch-tabs="false"
+      mat-align-tabs="start"
+      [(selectedIndex)]="tabIdx"
+      (selectedTabChange)="onTabChange()">
+      >
+      <mat-tab label="action">
+        <ng-template mat-tab-label>
+          <div class="label">Action Required</div>
+        </ng-template>
+      </mat-tab>
+      @if (
+        authService.hasAccess(['bus', 'busTransfer', 'manage'], 'mdcs') &&
+        authService.isLTA()
+      ) {
+        <mat-tab label="managed">
+          <ng-template mat-tab-label>
+            <div class="label">Action History</div>
+          </ng-template>
+        </mat-tab>
+      }
+    </mat-tab-group>
+
+    <div class="entry-actions">
+      @if (tabIdx === 0) {
+        @if (authService.hasAccess(['bus', 'busTransfer', 'manage'], 'mdcs')) {
+          <div class="import-wrapper">
+            <button class="import-button" mat-flat-button>
+              <mat-icon>
+                <img src="/assets/icons/import.png" alt="image"
+              /></mat-icon>
+              Import
+            </button>
+            <input
+              #fileInput
+              placeholder="Import"
+              type="file"
+              id="fileUpload"
+              accept=".zip,application/zip,application/x-zip-compressed"
+              class="input-file"
+              (change)="importHandler($event)" />
+          </div>
+        }
+      }
+
+      <app-filter [filterConfigs]="filterConfigs"></app-filter>
+
+      <div class="button-filter">
+        @if (tabIdx === 0) {
+          @if (
+            authService.hasAccess(['bus', 'busTransfer', 'manage'], 'mdcs')
+          ) {
+            <div class="item">
+              <button
+                type="button"
+                [disabled]="selection.length === 0"
+                (click)="updateView('update')"
+                mat-flat-button
+                id="btnedit"
+                class="btn edit edit-custom"
+                [ngClass]="{ disabled: selection.length === 0 }">
+                <mat-icon>edit</mat-icon>
+                Edit
+              </button>
+            </div>
+          }
+          @if (
+            authService.hasAccess(['bus', 'busTransfer', 'manage'], 'mdcs') &&
+            authService.isLTA()
+          ) {
+            <div class="item">
+              <button
+                type="button"
+                [disabled]="selection.length === 0"
+                (click)="updateView('approve')"
+                mat-flat-button
+                class="btn approve"
+                [ngClass]="{ disabled: selection.length === 0 }">
+                <mat-icon>checked</mat-icon>
+                Approve
+              </button>
+            </div>
+          }
+          @if (
+            authService.hasAccess(['bus', 'busTransfer', 'manage'], 'mdcs') &&
+            authService.isLTA()
+          ) {
+            <div class="item">
+              <button
+                type="button"
+                [disabled]="selection.length === 0"
+                (click)="updateView('reject')"
+                mat-flat-button
+                class="btn reject search-button"
+                [ngClass]="{ disabled: selection.length === 0 }">
+                <mat-icon>close</mat-icon>
+                Reject
+              </button>
+            </div>
+          }
+        } @else {
+          <app-month-filter (monthChange)="onMonthFilterChange($event)" />
+        }
+      </div>
+    </div>
+    <!-- Selected Filter Component -->
+    <app-selected-filter />
+
+    <div class="table-wrapper">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="stripped"
+        matSort
+        (matSortChange)="sortHandler($event)">
+        <!-- Check Column -->
+        <ng-container matColumnDef="chk">
+          <th mat-header-cell *matHeaderCellDef [hidden]="tabIdx !== 0">
+            <!-- <div class="custom-checkbox" (click)="onCheckAllToggle()">
+              @if (chkAll) {
+                <img
+                  src="/assets/icons/selected_checkbox.svg"
+                  alt="Selected Checkbox" />
+              } @else {
+                <img
+                  src="/assets/icons/white_checkbox.svg"
+                  alt="Unselected Checkbox" />
+              }
+            </div> -->
+            @if (
+              authService.hasAccess(['bus', 'busTransfer', 'manage'], 'mdcs')
+            ) {
+              <mat-checkbox
+                onkeypress=""
+                [(ngModel)]="chkAll"
+                id="chkAll"
+                (change)="checkAllHandler($event)"
+                class="header-checkbox"></mat-checkbox>
+            }
+          </th>
+          <td mat-cell *matCellDef="let element" [hidden]="tabIdx !== 0">
+            <!-- <div class="custom-checkbox" (click)="checkboxToggle(element)">
+            @if (element.chk) {
+              <img
+                src="/assets/icons/selected_checkbox.svg"
+                alt="Selected Checkbox" />
+            } @else {
+              <img
+                src="/assets/icons/white_checkbox.svg"
+                alt="Unselected Checkbox" />
+            }
+          </div> -->
+            @if (
+              authService.hasAccess(['bus', 'busTransfer', 'manage'], 'mdcs')
+            ) {
+              <mat-checkbox
+                onkeypress=""
+                [(ngModel)]="element.chk"
+                (change)="checkHandler($event, element)"
+                color="primary"></mat-checkbox>
+            }
+          </td>
+        </ng-container>
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th
+            [hidden]="!hiddenHandler('id')"
+            mat-header-cell
+            *matHeaderCellDef
+            style="width: 120px">
+            No.
+          </th>
+          <td
+            [hidden]="!hiddenHandler('id')"
+            mat-cell
+            *matCellDef="let element; let dataIndex = index">
+            {{
+              (paginationService.currentPage - 1) * paginationService.pageSize +
+                dataIndex +
+                1
+            }}
+          </td>
+        </ng-container>
+
+        <!-- Bus ID Column -->
+        <ng-container matColumnDef="bus_id">
+          <th
+            [hidden]="!hiddenHandler('bus_id')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Bus ID <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('bus_id')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.bus_num }}
+          </td>
+        </ng-container>
+
+        <!-- Current Depots Column -->
+        <ng-container matColumnDef="current_depot">
+          <th
+            [hidden]="!hiddenHandler('current_depot')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Current Depots <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('current_depot')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.current_depot_name[0] || '' }}
+          </td>
+        </ng-container>
+
+        <!-- Current Operator Column -->
+        <ng-container matColumnDef="current_operator">
+          <th
+            [hidden]="!hiddenHandler('current_operator')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Current Operator <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('current_operator')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.current_operator_name }}
+          </td>
+        </ng-container>
+
+        <!-- Effective Date and Time Column -->
+        <ng-container matColumnDef="current_effective_date">
+          <th
+            [hidden]="!hiddenHandler('current_effective_date')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            <div class="flex-box">
+              <p>Current Effective</p>
+              <p>Date and Time</p>
+            </div>
+            <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('current_effective_date')"
+            mat-cell
+            *matCellDef="let element">
+            <div class="flex-box">
+              <p>
+                {{ element.current_effective_date | date: 'dd/MM/yyyy' }}
+              </p>
+              <p>{{ element.current_effective_date | date: 'HH:mm:ss' }}</p>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Future Depots Column -->
+        <ng-container matColumnDef="future_depot">
+          <th
+            [hidden]="!hiddenHandler('future_depot')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Future Depots <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('future_depot')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.future_depot_name[0] || '' }}
+          </td>
+        </ng-container>
+
+        <!-- Future Operator Column -->
+        <ng-container matColumnDef="future_operator">
+          <th
+            [hidden]="!hiddenHandler('future_operator')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Future Operator <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('future_operator')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.future_operator_name }}
+          </td>
+        </ng-container>
+
+        <!-- Target Date and Time Column -->
+        <ng-container matColumnDef="target_effective_date">
+          <th
+            [hidden]="!hiddenHandler('target_effective_date')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            <div class="flex-box">
+              <p>Target Effective</p>
+              <p>Date and Time</p>
+            </div>
+            <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('target_effective_date')"
+            mat-cell
+            *matCellDef="let element">
+            <div class="flex-box">
+              <p>
+                {{ element.target_effective_date | date: 'dd/MM/yyyy' }}
+              </p>
+              <p>{{ element.target_effective_date | date: 'HH:mm:ss' }}</p>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            [hidden]="tabIdx === 0">
+            Status <span class="custom-sort"> </span>
+          </th>
+          <td mat-cell *matCellDef="let element" [hidden]="tabIdx === 0">
+            <span class="status" [ngClass]="element.status_value">
+              {{ element.status_value }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="last_update">
+          <th
+            [hidden]="tabIdx === 0"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Last Update <span class="custom-sort"> </span>
+          </th>
+          <td [hidden]="tabIdx === 0" mat-cell *matCellDef="let element">
+            <div class="flex-box">
+              <p>
+                {{ element.last_update | date: 'dd/MM/yyy' }}
+              </p>
+              <p>{{ element.last_update | date: 'HH:mm' }}</p>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr
+          style="background-color: #4a5964; font-weight: 600; color: white"
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="data-row"
+          [class.selected]="row.chk"></tr>
+
+        <!-- <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
+        No Records Found
+      </td>
+    </tr> -->
+      </table>
+      @if (!dataSource.length) {
+        <div class="no-data">No Records Found</div>
+      }
+    </div>
+    <div class="table-footer">
+      <app-pagination
+        [totalItems]="rowCount"
+        [currentPageInput]="paginationService.currentPage"
+        [itemsPerPageInput]="paginationService.pageSize"
+        (pageChange)="onPageChange($event)"></app-pagination>
+      @if (tabIdx === 0) {
+        <div class="selected-item">Selected: {{ selection.length }}</div>
+      }
+    </div>
+  </mat-card-content>
+</mat-card>

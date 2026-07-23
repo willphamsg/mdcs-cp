@@ -1,0 +1,416 @@
+@use '../../../../styles/breakpoints' as *;
+
+.dashboard-container {
+  margin: 0 auto;
+  width: 100%;
+  padding: 20px;
+  height: 100%;
+
+  .dashboard-main {
+    width: 100%;
+    overflow: auto;
+    height: calc(100% - 50px);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .col-6 {
+    width: 50%;
+  }
+
+  h1 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .bg-white {
+    background-color: #fff;
+  }
+
+  .dropdown-wrapper {
+    height: fit-content;
+    border-radius: 4px;
+  }
+
+  .mat-mdc-card-title {
+    padding-bottom: 12px !important;
+    font-weight: 700 !important;
+  }
+
+  .dashboard-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    grid-auto-rows: minmax(100px, auto);
+
+    // Only split into two columns when the second card is present;
+    // otherwise the first card fills the full width.
+    &:has(.second-card) {
+      grid-template-columns: 4fr 1fr;
+
+      @include respond-to-max('xxl') {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  .first-card {
+    padding-bottom: 24px;
+    .depot-block {
+      padding: 0 8px;
+    }
+
+    .depot-status {
+      display: flex;
+      align-items: center;
+      padding: 1px 8px;
+      background-color: #f7f7f7;
+      border-radius: 4px;
+      margin: 8px;
+    }
+
+    .depot-name {
+      flex-basis: 60%;
+    }
+    .depot-status {
+      flex-basis: 40%;
+
+      .status {
+        padding: 4px 20px;
+        border-radius: 20px;
+        color: white;
+
+        &.down {
+          background-color: #9f0f0f;
+        }
+        &.up,
+        &.running {
+          background-color: #009e73;
+        }
+        &.degraded {
+          background-color: #ffb000;
+          color: #000;
+        }
+      }
+    }
+  }
+
+  .chart-card {
+    margin-top: 20px;
+    .mat-mdc-card-header {
+      justify-content: space-between;
+    }
+    .extra-header {
+      padding: 0 0 12px;
+    }
+
+    h2 {
+      padding: 16px;
+      margin-bottom: 0;
+    }
+
+    .content-header {
+      padding: 0 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+
+      .button-filter {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 20px;
+
+        @include respond-to-max('lg') {
+          justify-content: flex-start;
+        }
+
+        button {
+          min-width: 100px;
+          padding: 8px 15px;
+          border: 1px solid #648fff;
+          font-weight: bold;
+          font-size: 20px;
+          border-radius: 30px;
+          background-color: #f3f7ff;
+          color: #648fff;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          white-space: nowrap;
+
+          &:hover,
+          &.selected {
+            background-color: #648fff !important;
+            color: #fff !important;
+          }
+        }
+      }
+    }
+
+    .chart-wrapper {
+      padding: 16px;
+      padding-top: 24px;
+      border-radius: 4px;
+    }
+
+    .chart-container {
+      display: grid;
+      gap: 24px;
+      // grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr;
+      width: 100%;
+
+      &.hour-selected-1 {
+        grid-template-columns: repeat(4, 1fr) !important;
+
+        @include respond-to-max(1600px) {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+
+        @include respond-to-max('lg') {
+          grid-template-columns: repeat(1, 1fr) !important;
+        }
+      }
+
+      &.hour-selected-2 {
+        grid-template-columns: repeat(2, 1fr) !important;
+
+        @include respond-to-max('lg') {
+          grid-template-columns: repeat(1, 1fr) !important;
+        }
+      }
+
+      &.full {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      margin-left: 10px;
+      margin-right: 20px;
+      padding-bottom: 20px;
+
+      li {
+        padding: 16px 12px;
+        background-color: #f7f7f7;
+        border-radius: 4px;
+        color: #333;
+        font-size: 14px;
+
+        &:not(:first-child) {
+          margin-top: 16px;
+        }
+      }
+    }
+  }
+
+  .depot-card {
+    margin-top: 20px;
+    color: #333;
+    width: 100%;
+    overflow: hidden;
+
+    .depot-column {
+      padding: 16px;
+    }
+
+    .depot-wrapper {
+      flex-wrap: wrap;
+      gap: 0;
+    }
+
+    .depot-block {
+      // margin: 16px;
+      padding: 16px;
+      width: 100%;
+      border-radius: 4px;
+      border: 1px solid #dedede;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .depot-name {
+      font-size: 14px;
+    }
+
+    .progress {
+      position: relative;
+      margin: 4px;
+      float: left;
+      text-align: center;
+
+      .barOverflow {
+        /* Wraps the rotating .bar */
+        position: relative;
+        overflow: hidden; /* Comment this line to understand the trick */
+        width: 90px;
+        height: 45px; /* Half circle (overflow) */
+        margin-bottom: -14px; /* bring the numbers up */
+      }
+
+      .bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 90px;
+        height: 90px; /* full circle! */
+        border-radius: 50%;
+        box-sizing: border-box;
+        border: 22px solid #009e73;
+        border-bottom-color: #9f0f0f;
+        border-right-color: #9f0f0f;
+      }
+
+      .percent {
+        display: none;
+      }
+
+      .tooltip {
+        width: 26px;
+        height: 22px;
+        font-size: 10px;
+        color: #fff;
+        background-color: #000;
+        display: block;
+        position: absolute;
+
+        &::before {
+          content: '';
+          width: 0;
+          height: 0;
+          border-left: 3px solid transparent;
+          border-right: 3px solid transparent;
+          border-top: 6px solid #000;
+          position: absolute;
+          left: 50%;
+          top: 100%;
+          transform: translateX(-50%);
+        }
+
+        &.arrived {
+          top: -15px;
+          left: 9px;
+        }
+        &.not-arrived {
+          top: 6px;
+          right: -8px;
+        }
+      }
+    }
+
+    .legend {
+      display: flex;
+      font-size: 12px;
+      align-items: center;
+
+      div {
+        position: relative;
+
+        &::before {
+          position: absolute;
+          content: '';
+          width: 10px;
+          height: 10px;
+          border-radius: 2px;
+          background-color: #009e73;
+          left: -16px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        &.not-arrived {
+          margin-left: 30px;
+
+          &::before {
+            background-color: #9f0f0f;
+          }
+        }
+      }
+    }
+  }
+
+  .second-card {
+    &.event-card {
+      background-color: #0072b2;
+    }
+
+    &.quick-link-card {
+      background-color: #fff;
+      color: #333;
+
+      a {
+        color: #333;
+        text-decoration: none;
+      }
+    }
+
+    .second-content {
+      text-decoration: none;
+      padding: 0 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 12px;
+      margin-bottom: 10px;
+      color: #000;
+    }
+
+    .second-num {
+      width: 40px;
+      height: 40px;
+      background-color: #ffb000;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .second-text {
+      padding-right: 12px;
+      flex: 1;
+
+      h2,
+      h3 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 0;
+        line-height: 20px;
+      }
+
+      h3 {
+        font-size: 14px;
+      }
+
+      p {
+        font-size: 12px;
+        margin-bottom: 0;
+      }
+    }
+
+    .second-action {
+      justify-content: center;
+      padding: 30px;
+
+      a {
+        text-decoration: underline;
+        font-size: 12px;
+        cursor: pointer;
+        display: block;
+      }
+    }
+  }
+}

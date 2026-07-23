@@ -1,0 +1,56 @@
+[
+  {
+    "chk": true,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "depot_id",
+    "name": "Depo Id",
+    "hidden": true
+  },
+  {
+    "chk": true,
+    "field": "param_file_id",
+    "name": "Parameter File ID",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "param_file_name",
+    "name": "Parameter File Name",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "param_payload_version",
+    "name": "Parameter File Version",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "param_type",
+    "name": "Type",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "status",
+    "name": "Export Status",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "description",
+    "name": "Description",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "chk",
+    "name": "Check",
+    "hidden": true
+  }
+]

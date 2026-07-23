@@ -1,0 +1,270 @@
+<div class="filter-container">
+  <form [formGroup]="filterForm" class="dropdown-filter">
+    @if (filterConfigs.length > 0) {
+      <button
+        type="button"
+        mat-flat-button
+        class="filter-btn"
+        [matMenuTriggerFor]="menu"
+        #menuTrigger="matMenuTrigger">
+        <mat-icon><img src="/assets/images/filter.svg" alt="" /></mat-icon>
+        Filter
+      </button>
+
+      <mat-menu #menu="matMenu" class="menu">
+        <h2 style="padding: 8px 0px 12px 20px; margin: 0">Filters</h2>
+
+        <mat-accordion multi class="filter-accordion-wrapper">
+          <!-- Add more cases if needed, apply it dynamically to ensure reusability -->
+          @for (config of filterConfigs; track config.controlName) {
+            @switch (config.type) {
+              @case ('select') {
+                <div
+                  class="input-filter-wrapper"
+                  (click)="$event.stopPropagation()">
+                  <span>{{ FILTER_NAMES[config.controlName] }}</span>
+                  <mat-form-field style="width: 100%">
+                    <mat-select [formControlName]="config.controlName">
+                      @for (
+                        control of config.options;
+                        let index = $index;
+                        track index
+                      ) {
+                        <mat-option
+                          [value]="getOptionValue(config.controlName, control)">
+                          {{
+                            getOptionDisplayLabel(config.controlName, control)
+                          }}
+                        </mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              }
+              @case ('date-field') {
+                <div
+                  class="input-filter-wrapper"
+                  (click)="$event.stopPropagation()">
+                  <span>{{ FILTER_NAMES[config.controlName] }}</span>
+                  <div style="width: 400px" (click)="$event.stopPropagation()">
+                    <mat-form-field style="width: 100%">
+                      <input
+                        matInput
+                        [matDatepicker]="picker"
+                        placeholder="DD/MM/YYYY"
+                        [formControlName]="config.controlName"
+                        (keydown)="onDateInputKeydown($event)"
+                        (input)="onDateInput($event)"
+                        (click)="picker.open()"
+                        maxlength="10" />
+                      <mat-datepicker-toggle
+                        matIconSuffix
+                        [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+              }
+              @case ('control') {
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header
+                    (click)="$event.stopPropagation()">
+                    <mat-panel-title>{{
+                      FILTER_NAMES[config.controlName]
+                    }}</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div style="width: 400px" (click)="$event.stopPropagation()">
+                    <mat-form-field style="width: 100%">
+                      <!-- <mat-label>Search...</mat-label> -->
+                      <input
+                        matInput
+                        [formControlName]="config.controlName"
+                        placeholder="Enter value" />
+                      <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                  </div>
+                </mat-expansion-panel>
+              }
+              @case ('array') {
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header
+                    (click)="$event.stopPropagation()">
+                    <mat-panel-title>{{
+                      FILTER_NAMES[config.controlName]
+                    }}</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div [formArrayName]="config.controlName">
+                    @for (
+                      control of config.options;
+                      let index = $index;
+                      track control
+                    ) {
+                      <div
+                        style="width: 400px"
+                        (click)="$event.stopPropagation()">
+                        <mat-checkbox [formControlName]="index" color="primary">
+                          {{
+                            getOptionDisplayLabel(config.controlName, control)
+                          }}
+                        </mat-checkbox>
+                      </div>
+                    }
+                  </div>
+                </mat-expansion-panel>
+              }
+              @case ('radio') {
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header
+                    (click)="$event.stopPropagation()">
+                    <mat-panel-title>
+                      {{ FILTER_NAMES[config.controlName] }}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div style="width: 400px" (click)="$event.stopPropagation()">
+                    <mat-radio-group
+                      style="display: flex; flex-direction: column"
+                      [formControlName]="config.controlName">
+                      @for (
+                        control of config.options;
+                        let index = $index;
+                        track index
+                      ) {
+                        <mat-radio-button
+                          [value]="getOptionValue(config.controlName, control)">
+                          {{
+                            getOptionDisplayLabel(config.controlName, control)
+                          }}
+                        </mat-radio-button>
+                      }
+                    </mat-radio-group>
+                  </div>
+                </mat-expansion-panel>
+              }
+              @case ('date-picker') {
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header
+                    (click)="$event.stopPropagation()">
+                    <mat-panel-title>{{
+                      FILTER_NAMES[config.controlName]
+                    }}</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div style="width: 400px" (click)="$event.stopPropagation()">
+                    <mat-form-field style="width: 100%">
+                      <input
+                        matInput
+                        [matDatepicker]="picker"
+                        placeholder="DD/MM/YYYY"
+                        [formControlName]="config.controlName"
+                        (keydown)="onDateInputKeydown($event)"
+                        (input)="onDateInput($event)"
+                        (click)="picker.open()"
+                        maxlength="10" />
+                      <mat-datepicker-toggle
+                        matIconSuffix
+                        [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </mat-expansion-panel>
+              }
+              @case ('date-range') {
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header
+                    (click)="$event.stopPropagation()">
+                    <mat-panel-title>{{
+                      FILTER_NAMES[config.controlName]
+                    }}</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div
+                    [formGroupName]="config.controlName"
+                    style="width: 400px"
+                    (click)="$event.stopPropagation()">
+                    <mat-form-field style="width: 100%">
+                      <mat-date-range-input [rangePicker]="picker">
+                        <input
+                          matStartDate
+                          placeholder="Start date"
+                          formControlName="startDate"
+                          (keydown)="onDateInputKeydown($event)"
+                          (input)="onDateRangeInput($event)"
+                          (click)="picker.open()"
+                          maxlength="10" />
+                        <input
+                          matEndDate
+                          placeholder="End date"
+                          formControlName="endDate"
+                          (keydown)="onDateInputKeydown($event)"
+                          (input)="onDateRangeInput($event)"
+                          (click)="picker.open()"
+                          maxlength="10" />
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle
+                        matIconSuffix
+                        [for]="picker"></mat-datepicker-toggle>
+                      <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field>
+                  </div>
+                </mat-expansion-panel>
+              }
+            }
+          }
+
+          <mat-divider />
+
+          <div class="filter-buttons">
+            <div
+              style="
+                display: flex;
+                justify-content: flex-end;
+                gap: 20px;
+                padding: 12px;
+              "
+              (click)="$event.stopPropagation()">
+              <div>
+                <button
+                  (click)="clearFilter()"
+                  class="btn"
+                  mat-stroked-button
+                  style="
+                    border-color: #0046ad;
+                    color: #0046ad !important;
+                    background-color: transparent;
+                    font-weight: 700;
+                    width: 84px;
+                  ">
+                  Clear
+                </button>
+              </div>
+              <div>
+                <button
+                  (click)="applyFilter()"
+                  type="button"
+                  class="btn local-primary"
+                  mat-stroked-button
+                  style="
+                    background-color: #0046ad;
+                    color: #fff;
+                    font-weight: 700;
+                    width: 84px;
+                  ">
+                  Apply
+                </button>
+              </div>
+            </div>
+          </div>
+        </mat-accordion>
+      </mat-menu>
+    }
+    @if (enableSearch) {
+      <mat-form-field class="search-text" appearance="outline">
+        <!-- <mat-label>{{ placeholder }}</mat-label> -->
+        <input
+          matInput
+          [placeholder]="placeholder"
+          [formControl]="searchControl"
+          type="search" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    }
+  </form>
+</div>

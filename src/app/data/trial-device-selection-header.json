@@ -1,0 +1,44 @@
+[
+  {
+    "chk": true,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "depot",
+    "name": "Depots",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "bus_num",
+    "name": "Bus ID",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "trial_group",
+    "name": "Application Trial Group",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "service_group",
+    "name": "Bus Service Group",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "parameter_group",
+    "name": "Fare Parameter Group",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "last_update",
+    "name": "Last Update",
+    "hidden": false
+  }
+]

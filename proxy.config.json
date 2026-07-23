@@ -1,0 +1,194 @@
+{
+  "/api/depo": {
+    "target": "http://localhost:8040",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/svc-provider": {
+    "target": "http://localhost:8040",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/system-info": {
+    "target": "http://localhost:8040",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/common/api/mdcs-events/fetch-events-info-list": {
+    "target": "http://localhost:8060",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/daily-bus-list": {
+    "target": "http://localhost:8045",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/profile": {
+    "target": "http://localhost:8040",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/master-bus-list": {
+    "target": "http://localhost:8045",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/bus-transfer": {
+    "target": "http://localhost:8045",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/parameter/view/": {
+    "target": "http://localhost:8050",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/parameter-summary/": {
+    "target": "http://localhost:8050",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/parameter-version-summary/": {
+    "target": "http://localhost:8050",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/parameter/trial-device/": {
+    "target": "http://localhost:8050",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/parameter/scheduler/": {
+    "target": "http://localhost:8050",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/parameter/trial/": {
+    "target": "http://localhost:8050",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/parameter/trial-history/": {
+    "target": "http://localhost:8050",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/dagw-param-version-summary/": {
+    "target": "http://localhost:8050",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/bus-operation-status": {
+    "target": "http://localhost:8045",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/card-key-version-summary": {
+    "target": "http://localhost:8045",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/common/api/message-data/import": {
+    "target": "http://localhost:8040",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/common/api/message-data/export": {
+    "target": "http://localhost:8040",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/param/import": {
+    "target": "http://localhost:8050",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/param/export": {
+    "target": "http://localhost:8050",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/operational-bus-list": {
+    "target": "http://localhost:8045",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/diagnostics": {
+    "target": "http://localhost:8045",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/event-history": {
+    "target": "http://localhost:8040",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/audit-trail-log": {
+    "target": "http://localhost:8040",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/eod-process": {
+    "target": "http://localhost:8040",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/ssrs-report": {
+    "target": "http://localhost:8055",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/ReportServer": {
+    "target": "http://localhost:8055",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/dagw-report/get-report": {
+    "target": "http://localhost:8045",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/eod-process/check-eod-status": {
+    "target": "http://localhost:8040",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/settings/default": {
+    "target": "http://localhost:8060",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

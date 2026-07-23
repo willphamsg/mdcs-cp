@@ -1,0 +1,43 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [showHome]="false"
+    [headerTitle]="headerName"></app-breadcrumbs>
+</div>
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">{{ headerName }}</h1>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    <div class="list">
+      @for (notification of list; track notification) {
+        <div class="list__items">
+          <div class="list__content">
+            @if (!notification.read) {
+              <div class="list__icon">
+                <mat-icon color="primary">circle</mat-icon>
+              </div>
+            }
+            <div class="list__content__details">
+              <span class="list__content__details__title">{{
+                notification.title
+              }}</span>
+              <span class="list__content__details__message">{{
+                notification.message
+              }}</span>
+            </div>
+          </div>
+
+          <div class="list__content__details__time">
+            {{ notification.dateTime | date: 'dd/MM/yyyy HH:mm' }}
+          </div>
+        </div>
+
+        <mat-divider />
+      }
+    </div>
+    <mat-divider />
+    <app-pagination></app-pagination>
+  </mat-card-content>
+</mat-card>

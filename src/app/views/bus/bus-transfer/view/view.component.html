@@ -1,0 +1,314 @@
+<div class="mat-header">
+  <div>
+    <p
+      style="font-size: 24px; font-weight: 600; margin: 0"
+      class="flex-item-left">
+      {{ title }}
+    </p>
+  </div>
+</div>
+<div style="margin: 0 0 10px 15px">
+  @if (mode === 'approve') {
+    <p style="color: #000">
+      *Note: The action is irreversible. Please review carefully before
+      submitting.
+    </p>
+  } @else if (mode === 'reject') {
+    <p style="color: #000">
+      The selected parameters will be
+      <span style="color: #9f0f0f">Rejected</span> once confirmed. Please
+      carefully review this update,<br />as the decision becomes irreversible
+      afterward.
+    </p>
+  }
+</div>
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+  <form [formGroup]="myForm">
+    <ng-container formArrayName="items">
+      <mat-table
+        #table
+        [dataSource]="items.controls"
+        [class]="isEdit ? '' : 'stripped'">
+        <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Bus ID Column -->
+        <ng-container matColumnDef="bus_num">
+          <mat-header-cell *matHeaderCellDef class="headerCol">
+            Bus ID
+          </mat-header-cell>
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('bus_num')?.value }}
+              </div>
+            } @else {
+              {{ element.get('bus_num')?.value }}
+            }
+          </mat-cell>
+        </ng-container>
+
+        <!-- Current Depot Column -->
+        <ng-container matColumnDef="current_depot">
+          <mat-header-cell *matHeaderCellDef class="headerCol"
+            >Current Depots</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('current_depot_name')?.value?.join(', ') || '' }}
+              </div>
+            } @else {
+              {{ element.get('current_depot_name')?.value?.join(', ') || '' }}
+            }
+          </mat-cell>
+        </ng-container>
+
+        <!-- Current Operator Column -->
+        <ng-container matColumnDef="current_operator">
+          <mat-header-cell *matHeaderCellDef class="headerCol"
+            >Current Operator</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('current_operator_name')?.value }}
+              </div>
+            } @else {
+              {{ element.get('current_operator_name')?.value }}
+            }
+          </mat-cell>
+        </ng-container>
+
+        <!-- Effective Date and Time Column -->
+        <ng-container matColumnDef="current_effective_date">
+          <mat-header-cell *matHeaderCellDef class="headerCol">
+            <div class="flex-box">
+              <p>Current Effective</p>
+              <p>Date and Time</p>
+            </div>
+          </mat-header-cell>
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('current_effective_date')?.value }}
+              </div>
+            } @else {
+              {{ element.get('current_effective_date')?.value }}
+            }
+          </mat-cell>
+        </ng-container>
+
+        <!-- Future Depot Column -->
+        <ng-container matColumnDef="future_depot">
+          <mat-header-cell *matHeaderCellDef class="headerCol"
+            >Future Depots</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('future_depot_name')?.value?.join(', ') || '' }}
+              </div>
+            } @else {
+              {{ element.get('future_depot_name')?.value?.join(', ') || '' }}
+            }
+          </mat-cell>
+        </ng-container>
+
+        <!-- Future Operator Column -->
+        <ng-container matColumnDef="future_operator">
+          <mat-header-cell *matHeaderCellDef class="headerCol"
+            >Future Operator</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('future_operator_name')?.value }}
+              </div>
+            } @else {
+              {{ element.get('future_operator_name')?.value }}
+            }
+          </mat-cell>
+        </ng-container>
+
+        <!-- Target Date and Time Column -->
+        <ng-container matColumnDef="target_effective_date">
+          <mat-header-cell *matHeaderCellDef class="headerCol">{{
+            !isEdit ? 'Target Effective Date and Time' : 'Target Effective Date'
+          }}</mat-header-cell>
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            [formGroup]="element"
+            class="labelCol"
+            [ngStyle]="
+              isEdit ? { display: 'flex', 'align-items': 'center' } : null
+            ">
+            @if (isEdit) {
+              <mat-form-field [style.width.px]="140">
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  formControlName="target_effective_date"
+                  placeholder="Select Date" />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                @if (
+                  element.get('target_effective_date')?.hasError('required') &&
+                  element.get('target_effective_date')?.touched
+                ) {
+                  <mat-error>
+                    <strong>Required</strong>
+                  </mat-error>
+                }
+              </mat-form-field>
+            } @else {
+              {{
+                element.get('target_effective_date')?.value | date: 'dd/MM/yyyy'
+              }}
+            }
+          </mat-cell>
+        </ng-container>
+
+        <!-- Effective Time Column -->
+        <ng-container matColumnDef="target_effective_time">
+          <mat-header-cell *matHeaderCellDef class="headerCol"
+            >Target Effective Time</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            [formGroup]="element"
+            class="labelCol"
+            style="display: flex; align-items: center">
+            @if (isEdit) {
+              <!-- <mat-form-field appearance="outline" [style.width.px]="200">
+                        <input
+                          matInput
+                          name="selected_time_A"
+                          [format]="24"
+                          [ngxMatTimepicker]="pickerA"
+                          placeholder="Select"
+                          formControlName="target_effective_time"
+                          readonly />
+                        <mat-icon matSuffix (click)="pickerA.open()">
+                          watch_later
+                        </mat-icon>
+                        <mat-error
+                  *ngIf="
+                    element
+                      .get('target_effective_time')
+                      ?.hasError('required') &&
+                    element.get('target_effective_time')?.touched
+                  ">
+                          <strong>Required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                      <ngx-mat-timepicker
+                        #pickerA
+                        dottedMinutesInGap
+                        enableKeyboardInput>
+                      </ngx-mat-timepicker> -->
+
+              <mat-form-field appearance="outline" [style.width.px]="200">
+                <!-- <input
+                  matInput
+                  name="target_effective_time"
+                  formControlName="target_effective_time"
+                  placeholder="Select"
+                  type="time" /> -->
+                <input
+                  matInput
+                  appTimeInput24h
+                  name="target_effective_time"
+                  formControlName="target_effective_time"
+                  placeholder="HH:mm"
+                  maxlength="5"
+                  inputmode="numeric"
+                  autocomplete="off" />
+                <mat-icon matSuffix style="padding: 0"
+                  ><img style="height: 24px" src="/assets/icons/clock.svg"
+                /></mat-icon>
+                @if (
+                  element.get('target_effective_time')?.hasError('required') &&
+                  element.get('target_effective_time')?.touched
+                ) {
+                  <mat-error>
+                    <strong>Required</strong>
+                  </mat-error>
+                }
+              </mat-form-field>
+            } @else {
+              {{ element.get('target_effective_time')?.value }}
+            }
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+          style="
+            background-color: #4a5964;
+            font-weight: 600;
+            color: white;
+          "></mat-header-row>
+        <mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          style="min-height: auto"></mat-row>
+      </mat-table>
+    </ng-container>
+  </form>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
+  <div class="mat-footer">
+    <div>
+      <p>
+        Total: {{ rowCount }}
+        <strong>Record(s)</strong>
+      </p>
+    </div>
+    <div>
+      <div class="btn-container">
+        <div>
+          <button
+            class="h-40"
+            [mat-dialog-close]="'cancel'"
+            mat-stroked-button
+            mat-dialog-close>
+            Cancel
+          </button>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="btn local-primary"
+            mat-button
+            cdkFocusInitial
+            (click)="onSubmit()">
+            Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-actions>

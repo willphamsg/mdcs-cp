@@ -1,0 +1,90 @@
+@mixin notification-typo {
+  font-size: 14px;
+  line-height: 16px;
+  color: #3e515b;
+  width: 255px;
+}
+
+$link-color: #0072b2;
+
+.container {
+  padding: 20px;
+
+  .notification {
+    &__header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 20px 0 30px 0;
+    }
+
+    &__header-label {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 20px;
+    }
+
+    &__header-mark {
+      font-size: 16px;
+      line-height: 20px;
+      color: $link-color;
+      cursor: pointer;
+    }
+
+    .notification-item {
+      display: grid;
+      grid-auto-flow: column;
+      width: inherit;
+
+      .notification-icon {
+        display: flex;
+        align-items: center;
+
+        mat-icon {
+          font-size: 12px;
+          color: $link-color;
+        }
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 300px;
+
+        &__title {
+          font-size: 16px;
+          line-height: 20px;
+        }
+
+        &__message,
+        &__time {
+          @include notification-typo();
+        }
+      }
+    }
+  }
+
+  mat-divider {
+    margin: 10px 0;
+  }
+
+  .notification-centre-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: inherit;
+    font-size: 16px;
+    line-height: 20px;
+    color: $link-color;
+    text-decoration: underline;
+    text-decoration-color: $link-color;
+    cursor: pointer;
+  }
+}
+
+.notif-menu {
+  .mat-mdc-menu-content {
+    width: 348px;
+  }
+}

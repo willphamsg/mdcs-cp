@@ -1,0 +1,62 @@
+[
+  {
+    "category": "MDCS to BOCC status",
+    "items": [
+      {
+        "name": "SBST",
+        "status": "success",
+        "lastUpdate": "2025-11-19 12:57:47"
+      }
+    ]
+  },
+  {
+    "category": "MDCS to PDMS status",
+    "items": [
+      {
+        "name": "SBST",
+        "status": "success",
+        "lastUpdate": "2025-11-19 12:57:47"
+      }
+    ]
+  },
+  {
+    "category": "DAGW to BOCC status",
+    "items": [
+      {
+        "name": "GW",
+        "status": "success",
+        "lastUpdate": "2025-12-07 22:28:14"
+      }
+    ]
+  },
+  {
+    "category": "DAGW to PDMS status",
+    "items": [
+      {
+        "name": "GW",
+        "status": "success",
+        "lastUpdate": "2025-12-07 22:29:04"
+      }
+    ]
+  },
+  {
+    "category": "DAGW to SAM Dongle status",
+    "items": [
+      {
+        "name": "GW",
+        "status": "failure",
+        "lastUpdate": "2025-12-07 22:22:31"
+      }
+    ]
+  },
+  {
+    "category": "DAGW to SAM Key Manager status",
+    "items": [
+      {
+        "name": "GW",
+        "status": "success",
+        "lastUpdate": "2025-12-07 22:25:34"
+      }
+    ]
+  }
+]

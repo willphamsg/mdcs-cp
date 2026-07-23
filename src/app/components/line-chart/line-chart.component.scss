@@ -1,0 +1,36 @@
+:host {
+  background-color: #f3f7ff;
+  border-radius: 4px;
+}
+
+// .line-chart-container {
+//   background-color: #f3f7ff;
+//   border-radius: 4px;
+// }
+
+.chart {
+  width: 100%;
+  // A definite height is required: the canvas is height:100% and the chart
+  // uses maintainAspectRatio:false, so an indefinite-height parent makes
+  // Chart.js grow the canvas on every resize. Height comes from the `height`
+  // input (default 400) and 300px is a floor for very short viewports.
+  height: 400px;
+  min-height: 300px;
+  padding: 16px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+canvas {
+  border-radius: 4px;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px 10px 0 10px;
+}

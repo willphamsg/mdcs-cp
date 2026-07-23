@@ -1,0 +1,68 @@
+[
+  {
+    "chk": true,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "bus_id",
+    "name": "Bus No.",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "current_depot",
+    "name": "Current Depots",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "current_operator",
+    "name": "Current Operator",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "current_effective_date",
+    "name": "Current Effective Date",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "future_depot",
+    "name": "Future Depots",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "future_operator",
+    "name": "Future Operator",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "target_effective_date",
+    "name": "Target Effective Date",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "last_update",
+    "name": "Last Update",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "status",
+    "name": "Status",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "chk",
+    "name": "chk",
+    "hidden": false
+  }
+]

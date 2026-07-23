@@ -1,0 +1,158 @@
+.extra-format {
+  gap: 24px;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.import-wrapper {
+  position: relative;
+
+  &:hover {
+    .import-button:not(:disabled) {
+      opacity: 0.8;
+    }
+  }
+
+  .import-button {
+    height: 40px;
+    background-color: #0046ad;
+    color: white !important;
+    pointer-events: none;
+    transition: all 0.3s ease;
+
+    &:disabled {
+      opacity: 0.6;
+      background-color: #828282;
+      cursor: not-allowed;
+    }
+  }
+
+  .input-file {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+// .import-wrapper {
+//   position: relative;
+
+//   button {
+//     height: 40px;
+//     background-color: white;
+//     border: 1px solid var(--mdc-outlined-text-field-outline-color);
+//     color: #4a5964;
+//   }
+
+//   .import-button {
+//     height: 40px;
+//     background-color: #0046ad;
+//     color: white !important;
+//     cursor: pointer;
+//     transition: all 0.3s ease;
+//   }
+
+//   &:hover {
+//     .import-button {
+//       opacity: 0.8;
+//     }
+//   }
+// }
+
+.approve {
+  background-color: #009e73 !important;
+}
+
+.edit {
+  background-color: #332288 !important;
+}
+
+.import {
+  background-color: #009e73 !important;
+}
+
+.reject {
+  background-color: #9f0f0f !important;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 16px;
+  color: white;
+
+  &.Approved,
+  &.approved {
+    background-color: #009e73;
+  }
+
+  &.Rejected,
+  &.rejected {
+    background-color: #9f0f0f;
+  }
+
+  &.Pending,
+  &.pending {
+    background-color: #0046ad;
+  }
+}
+
+.status-importing {
+  background-color: #ffb000;
+  color: black;
+  border-radius: 100px;
+  padding: 5px 10px;
+  display: inline-block;
+}
+
+.status-failed {
+  background-color: #c0342b;
+  color: white;
+  border-radius: 100px;
+  padding: 5px 10px;
+  display: inline-block;
+}
+
+.status-pending {
+  background-color: #332288;
+  color: white;
+  border-radius: 100px;
+  padding: 5px 10px;
+  display: inline-block;
+}
+
+.status-success {
+  background-color: #009e73;
+  color: white;
+  border-radius: 100px;
+  padding: 5px 10px;
+  display: inline-block;
+}
+
+// Zebra striping and remove border-bottom for table rows
+::ng-deep {
+  .mat-mdc-row:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+
+  .mat-mdc-row:nth-child(even) {
+    background-color: #ffffff;
+  }
+
+  .mat-mdc-row:hover {
+    background-color: #f0f0f0 !important;
+  }
+
+  .mat-mdc-row,
+  .mat-mdc-cell {
+    border-bottom: none !important;
+  }
+}

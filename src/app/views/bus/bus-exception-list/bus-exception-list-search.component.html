@@ -1,0 +1,205 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [menuItem]="'Bus Management'"
+    [headerTitle]="'Bus Exception List'"></app-breadcrumbs>
+</div>
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">Bus Exception List</h1>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <!-- FILTER COMPONENT -->
+    <div class="filter-wrapper">
+      <app-filter
+        [filterConfigs]="filterConfigs"
+        [placeholder]="'Bus ID, Depots, Service No.'"></app-filter>
+    </div>
+    <!-- Selected Filter Component -->
+    <app-selected-filter />
+
+    <div class="table-wrapper">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="sortHandler($event)">
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th
+            [hidden]="!hiddenHandler('id')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            style="width: 120px">
+            No.
+          </th>
+          <td
+            [hidden]="!hiddenHandler('id')"
+            mat-cell
+            *matCellDef="let element; let dataIndex = index">
+            {{
+              (paginationService.currentPage - 1) * paginationService.pageSize +
+                dataIndex +
+                1
+            }}
+          </td>
+        </ng-container>
+
+        <!-- Depot Column -->
+        <ng-container matColumnDef="depot_id">
+          <th
+            [hidden]="!hiddenHandler('depot_id')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Depots
+          </th>
+          <td
+            [hidden]="!hiddenHandler('depot_id')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.depot.depot_name }}
+          </td>
+        </ng-container>
+
+        <!-- Bus Num Column -->
+        <ng-container matColumnDef="bus_num">
+          <th
+            [hidden]="!hiddenHandler('bus_num')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Bus ID
+          </th>
+          <td
+            [hidden]="!hiddenHandler('bus_num')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.bus_num }}
+          </td>
+        </ng-container>
+
+        <!-- Service Provider Id Column -->
+        <ng-container matColumnDef="svc_prov_id">
+          <th
+            [hidden]="!hiddenHandler('svc_prov_id')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Service Provider Code
+          </th>
+          <td
+            [hidden]="!hiddenHandler('svc_prov_id')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.svc_prov_id }}
+          </td>
+        </ng-container>
+
+        <!-- Service No Column -->
+        <ng-container matColumnDef="service_num">
+          <th
+            [hidden]="!hiddenHandler('service_num')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Service No.
+          </th>
+          <td
+            [hidden]="!hiddenHandler('service_num')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.service_num }}
+          </td>
+        </ng-container>
+
+        <!-- Expected No of Arrival -->
+        <ng-container matColumnDef="est_return_num">
+          <th
+            [hidden]="!hiddenHandler('est_return_num')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Expected No of Arrival
+          </th>
+          <td
+            [hidden]="!hiddenHandler('est_return_num')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.est_return_num }}
+          </td>
+        </ng-container>
+
+        <!-- Actual Last Arrival Time -->
+        <ng-container matColumnDef="act_arrival_time">
+          <th
+            [hidden]="!hiddenHandler('act_arrival_time')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Actual Last Arrival Time
+          </th>
+          <td
+            [hidden]="!hiddenHandler('act_arrival_time')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.act_arrival_time | date: 'dd/MM/yyyy hh:mm:ss' }}
+          </td>
+        </ng-container>
+
+        <!-- Actual No of Arrival -->
+        <ng-container matColumnDef="act_return_num">
+          <th
+            [hidden]="!hiddenHandler('act_return_num')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Actual No of Arrival
+          </th>
+          <td
+            [hidden]="!hiddenHandler('act_return_num')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.act_return_num }}
+          </td>
+        </ng-container>
+
+        <!-- Deficient return -->
+        <ng-container matColumnDef="deficit_return_num">
+          <th
+            [hidden]="!hiddenHandler('deficit_return_num')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Deficient return
+          </th>
+          <td
+            [hidden]="!hiddenHandler('deficit_return_num')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.deficit_return_num }}
+          </td>
+        </ng-container>
+
+        <tr
+          style="background-color: #4a5964; font-weight: 600; color: white"
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
+            No Records Found
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="table-footer">
+      <app-pagination
+        [totalItems]="rowCount"
+        [currentPageInput]="currentPage"
+        (pageChange)="onPageChange($event)"></app-pagination>
+    </div>
+  </mat-card-content>
+</mat-card>

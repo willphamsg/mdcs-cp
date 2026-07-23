@@ -1,0 +1,27 @@
+.label {
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.filter-container {
+  .dropdown-filter {
+    display: flex;
+    flex-grow: 1;
+    gap: 12px;
+
+    .search-text {
+      max-width: 440px;
+      width: 100%;
+      height: 40px;
+    }
+  }
+
+  .button-filter {
+    display: flex;
+    justify-content: flex-end;
+
+    > div:not(:last-child) {
+      margin-inline-end: 10px;
+    }
+  }
+}

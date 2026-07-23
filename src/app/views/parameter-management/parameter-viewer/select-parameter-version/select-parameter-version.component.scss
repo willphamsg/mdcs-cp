@@ -1,0 +1,23 @@
+::ng-deep .custom-radio-multiple-version {
+    margin-bottom: 12px;
+    .mdc-form-field {
+        border: 1px solid #4A5964;
+        border-radius: 4px;
+        padding-right: 8px;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .mat-mdc-radio-checked {
+        .mdc-form-field {
+            border: 1px solid #0046AD;
+            background-color: #F3F7FF;
+            color: #0046AD;
+        }
+        .mdc-radio__outer-circle {
+          border-color: #0046AD !important;
+        }
+        .mdc-radio__inner-circle {
+          border-color: #0046AD !important;
+        }
+    }
+}

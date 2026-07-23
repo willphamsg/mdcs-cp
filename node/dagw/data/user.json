@@ -1,0 +1,83 @@
+{
+  "profile": {
+    "isLTA ": false,
+    "svc_prov_list": {
+      "id": 1,
+      "version": 1,
+      "svc_prov_id": 16,
+      "svc_prov_code": "SBST",
+      "svc_prov_name": "SBST Bus Service Provider"
+    },
+    "business_day": {
+      "business_day": "2025-12-16",
+      "day_type": "w",
+      "eod_minutes": 240
+    },
+    "app_mode": "dagw",
+    "default_depot": 999,
+    "version": "0.0.25",
+    "cda_link_url": "about:blank",
+    "access_token_profile": {
+      "given_name": "Supervisor",
+      "user_name": "supervisor",
+      "trace_id": "4335895f-9ee1-494e-8f09-c12398d5143c",
+      "svc_prov": 16,
+      "depots": [976, 977, 978, 979, 970, 971, 972, 973, 974, 975],
+      "roles": ["sup"],
+      "is_lta": false,
+      "is_cda": true
+    },
+    "default_svc_prov_code": "SBST",
+    "depot_list": [
+      {
+        "id": 2,
+        "version": 1,
+        "depot_id": 970,
+        "depot_code": "SLB",
+        "depot_name": "Soon Lee Depot"
+      },
+      {
+        "id": 3,
+        "version": 1,
+        "depot_id": 971,
+        "depot_code": "HGA",
+        "depot_name": "Hougang Depot"
+      },
+      {
+        "id": 4,
+        "version": 1,
+        "depot_id": 972,
+        "depot_code": "AMK",
+        "depot_name": "SBST Ang Mo Kio Depot"
+      },
+      {
+        "id": 5,
+        "version": 1,
+        "depot_id": 973,
+        "depot_code": "BDN",
+        "depot_name": "Bedok North Depot"
+      },
+      {
+        "id": 6,
+        "version": 1,
+        "depot_id": 974,
+        "depot_code": "BRD",
+        "depot_name": "Braddell Depot"
+      },
+      {
+        "id": 7,
+        "version": 1,
+        "depot_id": 975,
+        "depot_code": "BBT",
+        "depot_name": "Bukit Batok Depot"
+      },
+      {
+        "id": 8,
+        "version": 1,
+        "depot_id": 976,
+        "depot_code": "UPD",
+        "depot_name": "Ulu Pandan Depot"
+      }
+    ]
+  }
+}

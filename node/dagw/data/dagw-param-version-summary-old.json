@@ -1,0 +1,274 @@
+[
+  {
+    "id": 1,
+    "version": 1,
+    "depot_id": "1",
+    "depot": {
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang",
+      "depot_code": "ARDD"
+    },
+    "parameter_name": "BCV1APPA.SYS",
+    "mdcs_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "effective_date_live": {
+      "isActive": false,
+      "value": "02/06/2023"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "47"
+    },
+    "dagw_trial": {
+      "isActive": true,
+      "value": "47"
+    },
+    "effective_date": "2024-07-03T00:00:00",
+    "consistency": "active"
+  },
+  {
+    "id": 2,
+    "version": 2,
+    "depot_id": "2",
+    "depot": {
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "Ang Mo Kio",
+      "depot_code": "AMKD"
+    },
+    "parameter_name": "BCV1APPA.SYS",
+    "mdcs_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "effective_date_live": {
+      "isActive": false,
+      "value": "02/06/2023"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": ""
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "47"
+    },
+    "effective_date": "2024-07-03T00:00:00",
+    "consistency": "inactive"
+  },
+  {
+    "id": 1,
+    "version": 1,
+    "depot_id": "1",
+    "depot": {
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang",
+      "depot_code": "ARDD"
+    },
+    "parameter_name": "BCV1APPA.SYS",
+    "mdcs_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "effective_date_live": {
+      "isActive": false,
+      "value": "02/06/2023"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "47"
+    },
+    "dagw_trial": {
+      "isActive": true,
+      "value": "47"
+    },
+    "effective_date": "2024-07-03T00:00:00",
+    "consistency": "active"
+  },
+  {
+    "id": 2,
+    "version": 2,
+    "depot_id": "2",
+    "depot": {
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "Ang Mo Kio",
+      "depot_code": "AMKD"
+    },
+    "parameter_name": "BCV1APPA.SYS",
+    "mdcs_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "effective_date_live": {
+      "isActive": false,
+      "value": "02/06/2023"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": ""
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "47"
+    },
+    "effective_date": "2024-07-03T00:00:00",
+    "consistency": "active"
+  },
+  {
+    "id": 1,
+    "version": 1,
+    "depot_id": "1",
+    "depot": {
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang",
+      "depot_code": "ARDD"
+    },
+    "parameter_name": "BCV1APPA.SYS",
+    "mdcs_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "effective_date_live": {
+      "isActive": false,
+      "value": "02/06/2023"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "47"
+    },
+    "dagw_trial": {
+      "isActive": true,
+      "value": "47"
+    },
+    "effective_date": "2024-07-03T00:00:00",
+    "consistency": "active"
+  },
+  {
+    "id": 2,
+    "version": 2,
+    "depot_id": "2",
+    "depot": {
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "Ang Mo Kio",
+      "depot_code": "AMKD"
+    },
+    "parameter_name": "BCV1APPA.SYS",
+    "mdcs_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "effective_date_live": {
+      "isActive": false,
+      "value": "02/06/2023"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": ""
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "47"
+    },
+    "effective_date": "2024-07-03T00:00:00",
+    "consistency": "inactive"
+  },
+  {
+    "id": 1,
+    "version": 1,
+    "depot_id": "1",
+    "depot": {
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang",
+      "depot_code": "ARDD"
+    },
+    "parameter_name": "BCV1APPA.SYS",
+    "mdcs_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "effective_date_live": {
+      "isActive": false,
+      "value": "02/06/2023"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": "47"
+    },
+    "dagw_trial": {
+      "isActive": true,
+      "value": "47"
+    },
+    "effective_date": "2024-07-03T00:00:00",
+    "consistency": "active"
+  },
+  {
+    "id": 2,
+    "version": 2,
+    "depot_id": "2",
+    "depot": {
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "Ang Mo Kio",
+      "depot_code": "AMKD"
+    },
+    "parameter_name": "BCV1APPA.SYS",
+    "mdcs_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "effective_date_live": {
+      "isActive": false,
+      "value": "02/06/2023"
+    },
+    "dagw_live": {
+      "isActive": true,
+      "value": "47"
+    },
+    "mdcs_trial": {
+      "isActive": false,
+      "value": ""
+    },
+    "dagw_trial": {
+      "isActive": false,
+      "value": "47"
+    },
+    "effective_date": "2024-07-03T00:00:00",
+    "consistency": "inactive"
+  }
+]

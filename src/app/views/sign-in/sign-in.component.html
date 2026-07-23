@@ -1,0 +1,178 @@
+<div class="background middle">
+  <div class="container">
+    <div class="logo">
+      <img src="/assets/images/sign-logo.png" alt="image" />
+    </div>
+    <h1 class="title container-fluid text-center">Welcome to DACS/DAGW</h1>
+    <form class="login-form" [formGroup]="form" (ngSubmit)="submit()">
+      @if (!useDevSign) {
+        <mat-label style="text-align: left; color: #4a5964; font-weight: 600"
+          >User Name</mat-label
+        >
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="username"
+            name="username"
+            required
+            placeholder="Email" />
+          <mat-error>Please provide a valid email address</mat-error>
+        </mat-form-field>
+        <mat-label style="text-align: left; color: #4a5964; font-weight: 600"
+          >Password</mat-label
+        >
+        <mat-form-field>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+            name="password"
+            required />
+          <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+            hidePassword ? 'visibility_off' : 'visibility'
+          }}</mat-icon>
+          <mat-error> Please provide a valid password </mat-error>
+        </mat-form-field>
+        <mat-label style="text-align: left; color: #4a5964; font-weight: 600"
+          >Service Provider</mat-label
+        >
+        <mat-form-field>
+          <!-- <input
+                matInput
+                type="text"
+                formControlName="svc_prov_id"
+                name="svc_prov_id" /> -->
+          <mat-select
+            formControlName="svc_prov_id"
+            placeholder="Service Provider"
+            style="font-style: normal; width: 100%">
+            @for (
+              option of ['SBST (16)', 'SMRB (17)', 'TTBO (26)', 'GABO (27)'];
+              track option
+            ) {
+              <mat-option [value]="option">{{ option }}</mat-option>
+            }
+          </mat-select>
+          <mat-error>Please select Service Provider</mat-error>
+        </mat-form-field>
+      } @else {
+        <mat-form-field>
+          <!-- <input
+                  matInput
+                  type="text"
+                  formControlName="svc_prov_id"
+                  name="svc_prov_id" /> -->
+          <mat-select
+            formControlName="roles"
+            style="font-style: normal; width: 100%"
+            placeholder="Roles"
+            required>
+            @for (
+              option of [
+                {
+                  role: 'Administrator',
+                  prefix: 'adm'
+                },
+                {
+                  role: 'Supervisor',
+                  prefix: 'sup'
+                },
+                {
+                  role: 'Operator',
+                  prefix: 'ope'
+                },
+                {
+                  role: 'Maintenance',
+                  prefix: 'mai'
+                }
+              ];
+              track option
+            ) {
+              <mat-option [value]="option.prefix">{{ option.role }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select
+            formControlName="is_lta"
+            style="font-style: normal; width: 100%"
+            placeholder="Is LTA Authority"
+            required>
+            @for (
+              option of [
+                {
+                  role: 'LTA Authority',
+                  prefix: true
+                },
+                {
+                  role: 'Others',
+                  prefix: false
+                }
+              ];
+              track option
+            ) {
+              <mat-option [value]="option.prefix">{{ option.role }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="svc_prov"
+            name="svc_prov"
+            placeholder="Service Provider"
+            required />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="depots"
+            name="depots"
+            placeholder="Depots(Comma Separated)"
+            required />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="given_name"
+            name="given_name"
+            placeholder="Given Name"
+            required />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="user_name"
+            name="user_name"
+            placeholder="User Name"
+            required />
+        </mat-form-field>
+      }
+      <button
+        style="width: 100%; margin-bottom: 20px"
+        mat-raised-button
+        color="primary">
+        Sign in
+        <mat-icon iconPositionEnd>east</mat-icon>
+      </button>
+      @if (useDevSign) {
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="token"
+            name="token"
+            placeholder="Token"
+            required />
+        </mat-form-field>
+        <button
+          type="button"
+          (click)="applyToken()"
+          mat-raised-button
+          color="primary">
+          Apply Token
+        </button>
+      }
+      <!-- <a href="#">Forgot your password?</a> -->
+    </form>
+  </div>
+</div>

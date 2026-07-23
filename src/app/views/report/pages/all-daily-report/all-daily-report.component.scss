@@ -1,0 +1,17 @@
+:host {
+  height: 100%;
+}
+
+.content-container {
+  height: 100%;
+}
+
+.entry-actions {
+  display: flex;
+  align-items: end;
+}
+
+::ng-deep .mat-mdc-select-arrow,
+.mat-datepicker-toggle {
+  display: none;
+}

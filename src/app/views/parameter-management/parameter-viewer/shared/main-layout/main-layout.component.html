@@ -1,0 +1,27 @@
+@if (layoutConfig !== null) {
+  <ng-container>
+    <ng-container #topContainer></ng-container>
+    <ng-container #userTableContainer></ng-container>
+    <ng-container #middleContainer></ng-container>
+    <ng-container #bottomContainer></ng-container>
+  </ng-container>
+} @else {
+  <table>
+    <thead>
+      <tr>
+        <th>File ID</th>
+        <th>Parameter Name</th>
+        <th>Parameter Version</th>
+        <th>Format Version</th>
+        <th>Effective Date Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="5" style="text-align: center; color: #000000">
+          Choose Parameter Type to show info
+        </td>
+      </tr>
+    </tbody>
+  </table>
+}

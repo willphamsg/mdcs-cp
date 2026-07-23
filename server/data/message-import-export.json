@@ -1,0 +1,84 @@
+{
+  "message_file_data": [
+    {
+      "id": 1,
+      "messageDataFileName": "BUS_CSFA.SYS",
+      "busNo": "SBS0225",
+      "sequenceNo": 0,
+      "creationDateTime": "2025-08-23T00:00:00",
+      "messageData": 88,
+      "status": "Success",
+      "description": "Import Successfully"
+    },
+    {
+      "id": 2,
+      "messageDataFileName": "DCS_FLTA.SYS",
+      "busNo": "SBS0225",
+      "sequenceNo": 0,
+      "creationDateTime": "2025-08-23T00:00:00",
+      "messageData": 67,
+      "status": "Success",
+      "description": "Import Successfully"
+    },
+    {
+      "id": 3,
+      "messageDataFileName": "BUS_CSFA.SYS",
+      "busNo": "SBS0225",
+      "sequenceNo": 0,
+      "creationDateTime": "2025-08-23T00:00:00",
+      "messageData": 32,
+      "status": "Failed",
+      "description": "Import Failed"
+    }
+  ],
+  "message_file_export_data": [
+    {
+      "id": 1,
+      "messageFileId": "0×7257A",
+      "messageFileName": "BUS_CSFA.SYS",
+      "messageFileVersion": 88,
+      "depotId": "950",
+      "sequenceNo": "0708",
+      "type": "Live",
+      "status": "",
+      "description": "",
+      "modifiedDateTime": "2024-08-01T10:15:30"
+    },
+    {
+      "id": 2,
+      "messageFileId": "0×7461",
+      "messageFileName": "DCS_FLTA.SYS",
+      "messageFileVersion": 67,
+      "depotId": "950",
+      "sequenceNo": "1581",
+      "type": "Trial",
+      "status": "",
+      "description": "",
+      "modifiedDateTime": "2024-08-01T10:15:30"
+    },
+    {
+      "id": 3,
+      "messageFileId": "0×7H76",
+      "messageFileName": "SeP_PDTA.DSL",
+      "messageFileVersion": 5920,
+      "depotId": "950",
+      "sequenceNo": "1582",
+      "type": "Live",
+      "status": "",
+      "description": "",
+      "modifiedDateTime": "2024-08-01T10:15:30"
+    },
+    {
+      "id": 3,
+      "messageFileId": "0×7H76",
+      "messageFileName": "SeP_PDTA.DSL",
+      "messageFileVersion": 5920,
+      "depotId": "950",
+      "sequenceNo": "1583",
+      "type": "Live",
+      "status": "",
+      "description": "",
+      "modifiedDateTime": "2024-08-01T10:15:30"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+.filter-container {
+  // margin: 20px 0 0 24px;
+  max-width: 678px;
+  width: 100%;
+
+  .dropdown-filter {
+    display: flex;
+    gap: 12px;
+    flex: 1;
+
+    .btn-container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 20px;
+
+      .btn {
+        width: 140px;
+        font-weight: bold;
+      }
+    }
+
+    .search-text {
+      max-width: 440px;
+      min-width: 400px;
+      height: 40px;
+    }
+
+    .filter-btn {
+      height: 40px;
+      background-color: white;
+      border: 1px solid var(--mat-form-field-outlined-outline-color);
+      color: #4a5964;
+    }
+  }
+
+  .label-filter {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .mat-input-filter {
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .button-filter {
+    display: flex;
+    justify-content: flex-end;
+    width: 40%;
+    > div:not(:last-child) {
+      margin-inline-end: 10px;
+    }
+  }
+}
+
+mat-divider {
+  margin: 20px 0 0 0;
+}
+
+::ng-deep .mdc-floating-label {
+  padding-bottom: 15px;
+}

@@ -1,0 +1,78 @@
+.btn-download {
+    height: 40px;
+}
+.entry-actions {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(min-content, 300px));
+    margin-bottom: 16px;
+}
+.download-item {
+    display: flex;
+    grid-column: 6;
+    justify-content: end;
+}
+.mat-mdc-header-row {
+    background-color: #4a5964;
+}
+
+@media print {
+  body {
+    font-size: 10px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page-title {
+    font-size: 16px !important;
+    font-weight: bold;
+  }
+
+  table {
+    font-size: 9px !important;
+  }
+
+  .mat-header-cell, .mat-cell {
+    font-size: 9px !important;
+    padding: 4px !important;
+  }
+
+  /* Hide non-essential UI */
+  .breadcrumbs,
+  .entry-actions,
+  .mat-tab-group,
+  .mat-form-field,
+  .download-item,
+  button,
+  .mat-menu-panel,
+  .mat-tab-label,
+  .table-footer {
+    display: none !important;
+  }
+
+  /* Remove mat-card padding/margin if needed */
+  mat-card {
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .label {
+    font-size: 12px !important;
+  }
+
+  /* Optional: Remove background color to save ink */
+  mat-card-header,
+  tr[mat-header-row] {
+    font-size: 10px !important;
+    background-color: white !important;
+    color: black !important;
+  }
+
+  @page {
+    margin: 10mm;
+  }
+}
+
+.description {
+  background-color: #0072b2 !important;
+}

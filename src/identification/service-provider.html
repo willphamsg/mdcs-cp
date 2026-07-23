@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MDCS-Service Provider</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <script src="js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+    <div class="background middle">
+        <div class="container-fluid p-5">
+            <div class="container-fluid text-center p-3">
+                <img src="./images/sign-logo.png" alt="image" />
+            </div>
+            <h1 class="title container-fluid text-center">
+                Select Service Provider
+            </h1>
+
+            <form id="submit-form" action="#">
+                <div class="container border-1 p-3 text-black-50" style="max-width: 400px">
+                    <div class="mb-3">
+                        <select id="svc-prov-select-fld" class="form-control transparent form-input"></select>
+                    </div>
+                    <div class="mb-3 text-end">
+                        <button class="btn btn-primary width100" id="submit-btn">Submit</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="container">
+                <h3 class="bg-danger text-white" id="message-fld"></h3>
+            </div>
+        </div>
+
+        <div class="container-fluid text-center p-3">
+        </div>
+    </div>
+
+<script>
+
+    function actionRedirectPage(evt) {
+        evt.preventDefault();
+        let infoUrlParam = new URL(window.location.href);
+        infoUrlParam = new URLSearchParams(infoUrlParam.search);
+        const info = infoUrlParam.get('info');
+        //
+        const msgFld = document.getElementById('message-fld');
+        if(typeof info !== 'string') {
+            msgFld.innerHTML = 'Invalid page parameter information; will not redirect to dashboard page.';
+            return;
+        }
+        const url = '../organization-control/service-provider-submit';
+        const selectSvcProvFld =  document.getElementById('svc-prov-select-fld');
+        //
+        if(0 > selectSvcProvFld.selectedIndex) {
+            msgFld.innerHTML = 'Choose the service provider to proceed to the dashboard page';
+            return;
+        }
+        const selectedSvcProv = selectSvcProvFld.options[selectSvcProvFld.selectedIndex].value;
+        let urlParam = new URLSearchParams();
+        urlParam.set('spid', selectedSvcProv);
+        urlParam.set('info', info);
+        window.location.href = url + "?" + urlParam.toString();
+    }
+
+    function getCookie(cookieName) {
+        let cookies = document.cookie;
+        let cookieArray = cookies.split("; ");
+        for (let i = 0; i < cookieArray.length; i++) {
+            let cookie = cookieArray[i];
+            let [name, value] = cookie.split("=");
+            if (name === cookieName) {
+                return decodeURIComponent(value);
+            }
+        }
+        return "";
+    }
+
+    function applySelectOptions(base64) {
+        const decodedString = atob(base64);
+        const svcProvSelectFld = document.getElementById('svc-prov-select-fld');
+        const jsonArray = JSON.parse(decodedString);
+        for(let idx = 0; idx < jsonArray.length; idx++) {
+            const itm = jsonArray[idx];
+            const newOption = document.createElement("option");
+            newOption.value = itm['spid'];
+            newOption.text = itm['tit'];
+            if(0 === idx) {
+                newOption.selected = true;
+            }
+            svcProvSelectFld.add(newOption);
+        }
+    }
+
+    function initPage() {
+        let svcProvBase64 = getCookie('MDCS_SVC_PROV_LIST');
+        if(svcProvBase64 === '') {
+            svcProvBase64 = 'Not found';
+        }
+        applySelectOptions(svcProvBase64);
+        const submitBtn = document.getElementById('submit-btn');
+        submitBtn.addEventListener('click', actionRedirectPage);
+        const svcProvSelectFld = document.getElementById('svc-prov-select-fld');
+        const messageFld = document.getElementById('message-fld');
+        svcProvSelectFld.addEventListener('change', function() {
+            messageFld.innerHTML = "";
+        });
+    }
+
+    window.addEventListener("load", () => {
+        initPage();
+    });
+</script>
+
+</body>
+</html>

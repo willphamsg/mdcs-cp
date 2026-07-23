@@ -1,0 +1,200 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [menuItem]="'Maintenance'"
+    [headerTitle]="'Audit Log'"></app-breadcrumbs>
+</div>
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">Audit Log</h1>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <!-- FILTER COMPONENT -->
+    <div class="filter-wrapper">
+      <app-filter [filterConfigs]="filterConfigs"></app-filter>
+      <div class="chkb-group">
+        <!-- <mat-checkbox
+          color="primary"
+          [(ngModel)]="params.is_regular_expression"
+          (change)="onCheckboxChange()">
+          <span class="label">Regular expression</span>
+        </mat-checkbox> -->
+        <mat-checkbox
+          color="primary"
+          [(ngModel)]="params.is_case_sensitive"
+          (change)="onCheckboxChange()">
+          <span class="label">Case sensitive</span>
+        </mat-checkbox>
+      </div>
+    </div>
+    <!-- Selected Filter Component -->
+    <app-selected-filter />
+    <div class="table-wrapper">
+      <table
+        mat-table
+        class="stripped"
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="sortHandler($event)">
+        <ng-container matColumnDef="id">
+          <th
+            [hidden]="!hiddenHandler('id')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            style="width: 120px">
+            No.
+          </th>
+          <td
+            [hidden]="!hiddenHandler('id')"
+            mat-cell
+            *matCellDef="let element; let dataIndex = index">
+            {{
+              (paginationService.currentPage - 1) * paginationService.pageSize +
+                dataIndex +
+                1
+            }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="depot">
+          <th
+            [hidden]="!hiddenHandler('depot')"
+            mat-header-cell
+            *matHeaderCellDef>
+            Depots
+          </th>
+          <td
+            [hidden]="!hiddenHandler('depot')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.depot }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="userId">
+          <th
+            [hidden]="!hiddenHandler('userId')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            User ID <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('userId')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.userId }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateTime">
+          <th
+            [hidden]="!hiddenHandler('dateTime')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Date Time <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('dateTime')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.dateTime | date: 'dd/MM/yyyy HH:mm' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="startDate">
+          <th
+            [hidden]="!hiddenHandler('startDate')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Start Date <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('startDate')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.startDate | date: 'dd/MM/yyyy HH:mm' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endDate">
+          <th
+            [hidden]="!hiddenHandler('endDate')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            End Date <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('endDate')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.endDate | date: 'dd/MM/yyyy HH:mm' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="update_type">
+          <th
+            [hidden]="!hiddenHandler('update_type')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Update Type <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('update_type')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.update_type }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th
+            [hidden]="!hiddenHandler('description')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Description <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('description')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.description }}
+          </td>
+        </ng-container>
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+          class="header-row"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="data-row"></tr>
+
+        <!-- <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
+            No Records Found
+          </td>
+        </tr> -->
+      </table>
+      @if (!dataSource.length) {
+        <div class="no-data">
+          No Records Found
+        </div>
+      }
+    </div>
+    <!-- PAGINATION COMPONENT -->
+    <div class="table-footer">
+      <app-pagination
+        [totalItems]="rowCount"
+        [currentPageInput]="currentPage"
+        (pageChange)="onPageChange($event)"></app-pagination>
+    </div>
+  </mat-card-content>
+</mat-card>

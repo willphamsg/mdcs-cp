@@ -1,0 +1,332 @@
+@use '../../../../styles/breakpoints' as *;
+
+.logo {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: #0046ad;
+  font-weight: 900;
+
+  span {
+    font-size: 32px;
+  }
+
+  .sv-provider {
+    font-size: 20px;
+    margin-left: 10px;
+    font-weight: 600;
+  }
+}
+
+.mobile-nav {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  width: 320px;
+  height: calc(100vh - 64px - 40px);
+  background-color: white;
+  z-index: 9999;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+
+  @include respond-to-min(xxl) {
+    display: none;
+  }
+
+  &.hide {
+    transform: translateX(-400px);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.menu-icon {
+  padding-right: 8px;
+  cursor: pointer;
+  @include respond-to-min(1280px) {
+    display: none;
+  }
+}
+
+.header-container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  gap: 16px;
+  margin: auto;
+  min-width: 1250px;
+
+  // &.dagw-header {
+  //   gap: 0;
+  //   @include respond-to-max(xxl) {
+  //     .item {
+  //       &:not(:first-child):not(:last-child) {
+  //         display: none;
+  //       }
+  //     }
+  //   }
+  //   @include respond-to-min(1280px) {
+  //     .menu-icon {
+  //       display: block;
+  //     }
+  //   }
+
+  //   @include respond-to-min(1401px) {
+  //     .menu-icon {
+  //       display: none;
+  //     }
+  //   }
+  // }
+
+  @include respond-to-max(xxl) {
+    justify-content: space-between;
+    width: 100%;
+    min-width: auto;
+  }
+
+  .nav-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    gap: 16px;
+    margin: 0 auto;
+    flex: 1;
+
+    @include respond-to-max(xxl) {
+      justify-content: space-between;
+    }
+
+    @include respond-to-max(1279px) {
+      display: none;
+    }
+  }
+
+  .item {
+    // width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+
+    &:not(:first-child):not(:last-child) {
+      // flex: 1;
+      // @include respond-to-max(xxl) {
+      //   flex: initial;
+      // }
+      @include respond-to-max(1279px) {
+        display: none;
+      }
+    }
+
+    .parent-menu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      color: #000000;
+      cursor: pointer;
+      flex-direction: row-reverse;
+      transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        font-weight 0.3s ease;
+
+      &.active {
+        background-color: #e6f1f7;
+        color: #0046ad;
+        font-weight: 600;
+      }
+    }
+
+    .menu {
+      width: 100%;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      color: #000000;
+      transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        font-weight 0.3s ease;
+
+      &:hover,
+      &.active {
+        background-color: #e6f1f7;
+        color: #0046ad;
+        font-weight: 500;
+      }
+    }
+
+    .mdc-line-ripple {
+      display: none;
+    }
+    // .mat-mdc-text-field-wrapper.mdc-text-field--outlined
+    //   .mat-mdc-form-field-infix {
+    //   background-color: #0046ad;
+    // }
+
+    .mat-mdc-form-field-flex {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__trailing {
+        border-width: 0 !important;
+      }
+    }
+
+    // /*you also have to adjust the label, after the above*/
+    // .mat-mdc-form-field:not(.mat-form-field-disabled)
+    //   .mat-mdc-floating-label.mdc-floating-label {
+    //   top: 50%;
+    // }
+    // .mdc-floating-label--float-above {
+    //   top: 50% !important;
+    // }
+
+    .mat-mdc-select-value-text {
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .mdc-button__label {
+      letter-spacing: 0 !important;
+    }
+  }
+}
+
+.menu-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+
+.notif-menu {
+  .mat-mdc-menu-content {
+    width: 348px;
+  }
+}
+
+.mat-mdc-menu-submenu-icon {
+  display: none !important;
+}
+
+.dagw-header-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+
+  a > span {
+    color: #0046ad;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+
+    .parent-menu {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      color: #000000;
+      cursor: pointer;
+      flex-direction: row-reverse;
+      transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        font-weight 0.3s ease;
+
+      &.active {
+        background-color: #e6f1f7;
+        color: #0046ad;
+        font-weight: 600;
+      }
+    }
+
+    .menu {
+      width: 100%;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      color: #000000;
+      transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        font-weight 0.3s ease;
+
+      &:hover,
+      &.active {
+        background-color: #e6f1f7;
+        color: #0046ad;
+        font-weight: 500;
+      }
+    }
+
+    .mdc-line-ripple {
+      display: none;
+    }
+
+    .mat-mdc-form-field-flex {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__trailing {
+        border-width: 0 !important;
+      }
+    }
+
+    .mat-mdc-select-value-text {
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+}
+
+.profile-btn {
+  position: relative;
+  background-color: #648fff !important;
+  margin-left: 20px;
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  p {
+    color: #fff;
+    font-size: 24px;
+    text-transform: capitalize;
+    font-weight: 600;
+  }
+}
+
+mat-expansion-panel {
+  box-shadow: none !important;
+}
+
+mat-expansion-panel-header {
+  height: 48px !important;
+  padding: 0 16px !important;
+}
+
+.nav-item {
+  padding: 0 24px !important;
+}
+
+.sub-panel-wrapper {
+  padding: 0 24px !important;
+}
+
+.nav-active {
+  color: #0046ad;
+  font-weight: 600;
+}

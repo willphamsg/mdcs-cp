@@ -1,0 +1,250 @@
+@if (isShowDescription) {
+  <div class="parameter-info">
+    @for (item of descriptionPayload; track item) {
+      <div class="description-section">
+        <span class="name">{{ FILTER_NAMES[item.name] || item.name }}: </span>
+        <span class="value">{{ item.value }}</span>
+      </div>
+    }
+  </div>
+}
+
+@if (isShowTab || isShowTabSVT) {
+  <div class="custom-tab">
+    <mat-tab-group
+      animationDuration="0ms"
+      (selectedTabChange)="onTabChange()"
+      mat-stretch-tabs="false"
+      mat-align-tabs="start"
+      [(selectedIndex)]="tabIdx">
+      @for (item of tabPayload; track item) {
+        <mat-tab [label]="item">
+          <ng-template mat-tab-label>
+            <div>{{ FILTER_NAMES[item] || item }}</div>
+          </ng-template>
+          @if (isSVT) {
+            <div class="tab-content">
+              @if (item === 'Bus Service Definitions') {
+                <div class="info-wrapper-2">
+                  <mat-card class="info-section">
+                    <mat-card-content>
+                      @for (item of dataInfo1; track item) {
+                        <div class="info-content">
+                          <span>{{
+                            FILTER_NAMES[item.name] || item.name
+                          }}</span>
+                          <span>{{ item.value }}</span>
+                        </div>
+                      }
+                    </mat-card-content>
+                  </mat-card>
+                  <mat-card class="info-section">
+                    <mat-card-content>
+                      @for (item of A; track item; let i = $index) {
+                        <div class="info-content">
+                          <span>ITS Variant {{ i }} Type Code</span>
+                          <span>{{ item.Type }}</span>
+                        </div>
+                        <div class="info-content">
+                          <span>ITS Variant {{ i }} Type Name</span>
+                          <span>{{ item.Name }}</span>
+                        </div>
+                      }
+                    </mat-card-content>
+                  </mat-card>
+                </div>
+              }
+              @if (
+                item === 'Base & Variant(Inbound)' ||
+                item === 'Base & Variant(Outbound)'
+              ) {
+                <div class="for-dropdown-base-variant">
+                  <mat-form-field class="mat-custom" style="width: 120px">
+                    <mat-label>Variant</mat-label>
+                    <mat-select
+                      [(ngModel)]="variantSelected"
+                      (selectionChange)="onVariantChange($event)">
+                      @for (vn of aVN; track vn) {
+                        <mat-option [value]="vn.VN">
+                          {{ vn.VN }}
+                        </mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
+                  <div class="parameter-info">
+                    @for (item of baseVariantDescriptions; track item) {
+                      <div class="description-section">
+                        <span class="name"
+                          >{{ FILTER_NAMES[item.name] || item.name }}:
+                        </span>
+                        <span class="value">{{ item.value }}</span>
+                      </div>
+                    }
+                  </div>
+                </div>
+                <div class="table-wrapper-2">
+                  <div class="info-section table-wrapper">
+                    <table
+                      mat-table
+                      [dataSource]="dataSourceBase"
+                      class="stripped custom-table"
+                      matSort>
+                      @for (column of displayedColumnsBase; track column) {
+                        <ng-container [matColumnDef]="column">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            {{ FILTER_NAMES[column] || column }}
+                          </th>
+                          <td mat-cell *matCellDef="let element; let i = index">
+                            @if (column === 'No.' && shouldShowNoColumn) {
+                              {{ getRowNumberForStaticTable(i) }}
+                            } @else if (column !== 'No.') {
+                              {{ tableObjectValueHandler(element[column]) }}
+                            }
+                          </td>
+                        </ng-container>
+                      }
+                      <tr
+                        mat-header-row
+                        *matHeaderRowDef="
+                          displayedColumnsBase;
+                          sticky: true
+                        "></tr>
+                      <tr
+                        mat-row
+                        *matRowDef="
+                          let row;
+                          columns: displayedColumnsBase
+                        "></tr>
+                    </table>
+                  </div>
+                  <div class="info-section table-wrapper">
+                    <table
+                      mat-table
+                      [dataSource]="dataSourceVariant"
+                      class="stripped custom-table"
+                      matSort>
+                      @for (column of displayedColumnsVariant; track column) {
+                        <ng-container [matColumnDef]="column">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            {{ FILTER_NAMES[column] || column }}
+                          </th>
+                          <td mat-cell *matCellDef="let element; let i = index">
+                            @if (column === 'No.' && shouldShowNoColumn) {
+                              {{ getRowNumberForStaticTable(i) }}
+                            } @else if (column !== 'No.') {
+                              {{ tableObjectValueHandler(element[column]) }}
+                            }
+                          </td>
+                        </ng-container>
+                      }
+                      <tr
+                        mat-header-row
+                        *matHeaderRowDef="
+                          displayedColumnsVariant;
+                          sticky: true
+                        "></tr>
+                      <tr
+                        mat-row
+                        *matRowDef="
+                          let row;
+                          columns: displayedColumnsVariant
+                        "></tr>
+                    </table>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </mat-tab>
+      }
+    </mat-tab-group>
+  </div>
+}
+
+@if (!isSVT) {
+  @if (isShowInfo) {
+    <div [ngClass]="isDevideInfo ? 'info-wrapper-2' : 'info-wrapper-1'">
+      <mat-card class="info-section">
+        <mat-card-content>
+          @for (item of dataInfo1; track item) {
+            <div class="info-content">
+              <span>{{ FILTER_NAMES[item.name] || item.name }}</span>
+              <span>{{ item.value }}</span>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+      @if (isDevideInfo) {
+        <mat-card class="info-section">
+          <mat-card-content>
+            @for (item of dataInfo2; track item) {
+              <div class="info-content">
+                <span>{{ FILTER_NAMES[item.name] || item.name }}</span>
+                <span>{{ item.value }}</span>
+              </div>
+            }
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  }
+
+  @if (isShowTable) {
+    <div class="table-wrapper">
+      @if (isPatronCatMap) {
+        <mat-form-field style="width: 300px; margin-bottom: 12px">
+          <mat-select
+            [(ngModel)]="categorySelected"
+            placeholder="Select Timetable"
+            (selectionChange)="handleSelectTimetable($event)">
+            @for (category of categorySelection; track category) {
+              <mat-option [value]="category">
+                {{ FILTER_NAMES[category] || category }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+      <mat-form-field style="width: 300px; margin-bottom: 12px">
+        <input
+          matInput
+          placeholder="Search..."
+          [value]="searchText"
+          (keyup)="applyFilter($event)" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="stripped custom-table"
+        matSort>
+        @for (column of displayedColumns; track column) {
+          <ng-container [matColumnDef]="column">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ FILTER_NAMES[column] || column }}
+            </th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              @if (column === 'No.' && shouldShowNoColumn) {
+                {{ getRowNumber(i) }}
+              } @else if (column !== 'No.') {
+                {{ tableObjectValueHandler(element[column]) }}
+              }
+            </td>
+          </ng-container>
+        }
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  }
+  @if (isShowTable) {
+    <div class="table-footer">
+      <app-pagination
+        [totalItems]="rowCount"
+        [currentPageInput]="currentPage + 1"
+        (pageChange)="onPageChange($event)"></app-pagination>
+    </div>
+  }
+}

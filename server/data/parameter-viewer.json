@@ -1,0 +1,102 @@
+{
+    "tabList": [
+        {
+            "id": 0,
+            "label": "MDCS",
+            "tab_code": "0"
+        },
+        {
+            "id": 1,
+            "label": "DAGW",
+            "tab_code": "1"
+        },
+        {
+            "id": 2,
+            "label": "Bus Device",
+            "tab_code": "2"
+        },
+        {
+            "id": 3,
+            "label": "Inspection Device",
+            "tab_code": "3"
+        }
+    ],
+    "types": [
+        {
+            "device_type": 0,
+            "device_label": "System Parameters",
+            "device_items": [
+                {
+                    "label": "Approval Distribution PDT",
+                    "item_code": "Approval Distribution PDT",
+                    "parameter_view_details": [
+                        {
+                            "id": 45,
+                            "isTriable": false,
+                            "parameter_name": "AD__PDTA.SL2",
+                            "is_location_specific": true,
+                            "is_multi_version": false,
+                            "svc_provider_id": 16,
+                            "depot_id": 970
+                        },
+                        {
+                            "id": 45,
+                            "isTriable": false,
+                            "parameter_name": "AD__PDTA.UP2",
+                            "is_location_specific": true,
+                            "is_multi_version": false,
+                            "svc_provider_id": 16,
+                            "depot_id": 976
+                        },
+                        {
+                            "id": 45,
+                            "isTriable": false,
+                            "parameter_name": "AD__PDTA.BN2",
+                            "is_location_specific": true,
+                            "is_multi_version": false,
+                            "svc_provider_id": 16,
+                            "depot_id": 973
+                        }
+                    ]
+                },
+                {
+                    "label": "Direct Distribution PDT",
+                    "item_code": "Direct Distribution PDT",
+                    "parameter_view_details": [
+                        {
+                            "id": 44,
+                            "isTriable": false,
+                            "parameter_name": "DD__PDTA.SYS",
+                            "is_location_specific": false,
+                            "is_multi_version": false,
+                            "svc_provider_id": 0,
+                            "depot_id": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "device_type": 1,
+            "device_label": "Device Configuration Parameters",
+            "device_items": []
+        },
+        {
+            "device_type": 2,
+            "device_label": "Application Parameters",
+            "device_items": []
+        }
+    ],
+    "files": [
+        {
+            "parameterPayloadDto": {
+                "jsondata": "\"{\\\"objPayloadData\\\":{\\\"iNumFiles\\\":12,\\\"aobjPDTDetails\\\":[{\\\"iFileID\\\":29701,\\\"strParameterMsgType\\\":\\\"Bank Card Full Blocklist\\\",\\\"strFileName\\\":\\\"SeP_FBBA.SYS\\\",\\\"iVersion\\\":15873},{\\\"iFileID\\\":29708,\\\"strParameterMsgType\\\":\\\"Bank Card Whitelist 2\\\",\\\"strFileName\\\":\\\"ABT_EWLA.SYS\\\",\\\"iVersion\\\":172},{\\\"iFileID\\\":29731,\\\"strParameterMsgType\\\":\\\"CEPAS Token Bypass Blacklist\\\",\\\"strFileName\\\":\\\"ABT_BYBA.SYS\\\",\\\"iVersion\\\":37},{\\\"iFileID\\\":29732,\\\"strParameterMsgType\\\":\\\"CEPAS Token Full Delta BinaryDiff Differentiated Blacklist 1\\\",\\\"strFileName\\\":\\\"ABT_FD1A.SYS\\\",\\\"iVersion\\\":7797},{\\\"iFileID\\\":29732,\\\"strParameterMsgType\\\":\\\"CEPAS Token Full Delta BinaryDiff Differentiated Blacklist 2\\\",\\\"strFileName\\\":\\\"ABT_FD2A.SYS\\\",\\\"iVersion\\\":0},{\\\"iFileID\\\":29732,\\\"strParameterMsgType\\\":\\\"CEPAS Token Full Delta BinaryDiff Differentiated Blacklist 3\\\",\\\"strFileName\\\":\\\"ABT_FD3A.SYS\\\",\\\"iVersion\\\":7798},{\\\"iFileID\\\":29732,\\\"strParameterMsgType\\\":\\\"CEPAS Token Full Delta BinaryDiff Differentiated Blacklist 4\\\",\\\"strFileName\\\":\\\"ABT_FD4A.SYS\\\",\\\"iVersion\\\":7799},{\\\"iFileID\\\":29732,\\\"strParameterMsgType\\\":\\\"CEPAS Token Full Delta BinaryDiff Differentiated Blacklist 5\\\",\\\"strFileName\\\":\\\"ABT_FD5A.SYS\\\",\\\"iVersion\\\":0},{\\\"iFileID\\\":29732,\\\"strParameterMsgType\\\":\\\"CEPAS Token Full Delta BinaryDiff Differentiated Blacklist 6\\\",\\\"strFileName\\\":\\\"ABT_FD6A.SYS\\\",\\\"iVersion\\\":7800},{\\\"iFileID\\\":29732,\\\"strParameterMsgType\\\":\\\"CEPAS Token Full Delta BinaryDiff Differentiated Blacklist 7\\\",\\\"strFileName\\\":\\\"ABT_FD7A.SYS\\\",\\\"iVersion\\\":7801},{\\\"iFileID\\\":29736,\\\"strParameterMsgType\\\":\\\"CEPAS Token Differentiated Cumulative Delta Blacklist\\\",\\\"strFileName\\\":\\\"ABT_TFDA.SYS\\\",\\\"iVersion\\\":19947},{\\\"iFileID\\\":29740,\\\"strParameterMsgType\\\":\\\"Bank Card BIN Range Blocklist\\\",\\\"strFileName\\\":\\\"ABT_BBRA.SYS\\\",\\\"iVersion\\\":139}]}}\""
+            },
+            "fileId": "0x742F",
+            "parameter_name": "DD__PDTA.SYS",
+            "parameter_version": 28421,
+            "format_version": 1,
+            "effective_date_time": "06/08/2025 03:03"
+        }
+    ]
+}

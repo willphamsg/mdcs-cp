@@ -1,0 +1,12 @@
+<div class="custom-radio-multiple-version">
+  <mat-radio-group
+    aria-label="Select an option"
+    [(ngModel)]="parameterVersionSelected"
+    (ngModelChange)="emitSelectedVersion()">
+    @for (parameter of parameterMultipleVersionRadio; track parameter) {
+      <mat-radio-button [value]="parameter">
+        {{ parameter.parameter_name }}
+      </mat-radio-button>
+    }
+  </mat-radio-group>
+</div>

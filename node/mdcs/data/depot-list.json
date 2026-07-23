@@ -1,0 +1,135 @@
+[
+  {
+    "id": 2,
+    "version": 1,
+    "depot_id": 970,
+    "depot_code": "SLB",
+    "depot_name": "Soon Lee Depot"
+  },
+  {
+    "id": 3,
+    "version": 1,
+    "depot_id": 971,
+    "depot_code": "HGA",
+    "depot_name": "Hougang Depot"
+  },
+  {
+    "id": 4,
+    "version": 1,
+    "depot_id": 972,
+    "depot_code": "AMK",
+    "depot_name": "SBST Ang Mo Kio Depot"
+  },
+  {
+    "id": 5,
+    "version": 1,
+    "depot_id": 973,
+    "depot_code": "BDN",
+    "depot_name": "Bedok North Depot"
+  },
+  {
+    "id": 6,
+    "version": 1,
+    "depot_id": 974,
+    "depot_code": "BRD",
+    "depot_name": "Braddell Depot"
+  },
+  {
+    "id": 7,
+    "version": 1,
+    "depot_id": 975,
+    "depot_code": "BBT",
+    "depot_name": "Bukit Batok Depot"
+  },
+  {
+    "id": 8,
+    "version": 1,
+    "depot_id": 976,
+    "depot_code": "UPD",
+    "depot_name": "Ulu Pandan Depot"
+  },
+  {
+    "id": 9,
+    "version": 1,
+    "depot_id": 977,
+    "depot_code": "WDL",
+    "depot_name": "Woodlands Depot"
+  },
+  {
+    "id": 10,
+    "version": 1,
+    "depot_id": 978,
+    "depot_code": "KRA",
+    "depot_name": "Kranji Depot"
+  },
+  {
+    "id": 11,
+    "version": 1,
+    "depot_id": 979,
+    "depot_code": "WBP",
+    "depot_name": "Woodlands Bus Park"
+  },
+  {
+    "id": 12,
+    "version": 1,
+    "depot_id": 980,
+    "depot_code": "MND",
+    "depot_name": "Mandai Depot"
+  },
+  {
+    "id": 13,
+    "version": 1,
+    "depot_id": 981,
+    "depot_code": "BUL",
+    "depot_name": "Bulim Depot"
+  },
+  {
+    "id": 14,
+    "version": 1,
+    "depot_id": 982,
+    "depot_code": "SLO",
+    "depot_name": "Loyang Depot"
+  },
+  {
+    "id": 15,
+    "version": 1,
+    "depot_id": 983,
+    "depot_code": "SGS",
+    "depot_name": "Seletar Depot"
+  },
+  {
+    "id": 16,
+    "version": 1,
+    "depot_id": 984,
+    "depot_code": "SKW",
+    "depot_name": "Sengkang West Depot"
+  },
+  {
+    "id": 17,
+    "version": 1,
+    "depot_id": 985,
+    "depot_code": "GBD",
+    "depot_name": "Gali Batu Depot"
+  },
+  {
+    "id": 18,
+    "version": 1,
+    "depot_id": 986,
+    "depot_code": "ECI",
+    "depot_name": "East Coast Integrated Bus Depot"
+  },
+  {
+    "id": 19,
+    "version": 1,
+    "depot_id": 987,
+    "depot_code": "TBD",
+    "depot_name": "Kim Chuan Extension Bus Depot"
+  },
+  {
+    "id": 20,
+    "version": 1,
+    "depot_id": 999,
+    "depot_code": "MDC",
+    "depot_name": "MDCS"
+  }
+]

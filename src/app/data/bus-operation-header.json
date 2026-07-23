@@ -1,0 +1,56 @@
+[
+  {
+    "chk": true,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "depot_id",
+    "name": "Depo Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "bus_num",
+    "name": "Bus No.",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "download_status",
+    "name": "Download Status",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "upload_status",
+    "name": "Upload Status",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "sam_status",
+    "name": "SAM Authentication Status",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "connect_time",
+    "name": "Connect Time",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "disconnect_time",
+    "name": "Disconnect Time",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "conn_status",
+    "name": "Connection Status",
+    "hidden": false
+  }
+]

@@ -1,0 +1,131 @@
+<div class="mat-header">
+  <div>
+    <p
+      style="font-size: 24px; font-weight: 600; margin: 0"
+      class="flex-item-left">
+      {{ title }}
+    </p>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+  <form [formGroup]="myForm">
+    <ng-container formArrayName="items">
+      <mat-table
+        #table
+        [dataSource]="items.controls"
+        [class]="isDelete ? 'stripped' : ''">
+        <ng-container matColumnDef="depot_id">
+          <mat-header-cell *matHeaderCellDef>Depot</mat-header-cell>
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            [formGroupName]="i">
+            <mat-form-field appearance="outline">
+              <mat-select formControlName="depot" placeholder="Select Depot">
+                @for (depot of depots; track $index) {
+                  <mat-option [value]="depot.depot_code">
+                    {{ depot.depot_name }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="browse_file">
+          <mat-header-cell *matHeaderCellDef>Browse File(s)</mat-header-cell>
+          <mat-cell
+            style="display: flex; gap: 10px"
+            *matCellDef="let element; let i = index"
+            [formGroupName]="i"
+            class="labelCol">
+            <mat-form-field
+              style="background-color: #f7f7f7; border: unset"
+              appearance="outline">
+              <input formControlName="fileName" matInput />
+            </mat-form-field>
+
+            <div class="import-wrapper">
+              <div class="import-wrapper">
+                <button class="import-button" mat-flat-button>Browse</button>
+                <input
+                  #fileInput
+                  placeholder="Import"
+                  type="file"
+                  id="fileUpload"
+                  accept=".zip,application/zip,application/x-zip-compressed"
+                  class="input-file"
+                  (change)="importHandler($event,  i)" />
+              </div>
+            </div>
+
+            <button
+              class="small-btn"
+              mat-icon-button
+              type="button"
+              (click)="removeItem(i)">
+              <img
+                src="/assets/icons/mdcs-icon-delete.svg"
+                alt="image"
+                class="icon-delete" />
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+          style="
+            background-color: #4a5964;
+            font-weight: 600;
+            color: white;
+            height: 40px;
+          "></mat-header-row>
+        <mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          style="min-height: auto"></mat-row>
+      </mat-table>
+    </ng-container>
+  </form>
+</mat-dialog-content>
+<button
+  *ngIf="!isDelete"
+  (click)="addItem()"
+  class="btn-add divider line razor">
+  <mat-icon>add_circle</mat-icon>
+  <div class="text-btn">Add new</div>
+</button>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
+  <div class="mat-footer">
+    <div>
+      <p>
+        Total: {{ rowCount }}
+        <strong>Record(s)</strong>
+      </p>
+    </div>
+    <div>
+      <div class="btn-container">
+        <div>
+          <button
+            class="h-40"
+            [mat-dialog-close]="'cancel'"
+            mat-stroked-button
+            mat-dialog-close>
+            Cancel
+          </button>
+        </div>
+
+        <div>
+          <button
+            type="button"
+            class="btn local-primary"
+            mat-button
+            cdkFocusInitial
+            (click)="onSubmit()">
+            Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-actions>

@@ -1,0 +1,18 @@
+[
+  {
+    "roles": "ope",
+    "access": [
+      {
+        "module": "vehicle-map",
+        "access": {
+          "add": false,
+          "delete": false,
+          "edit": false,
+          "search": true,
+          "print": true,
+          "export": true
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="tabs">
+    @for (item of items; track item) {
+      <button
+        class="tab"
+        tabindex="0"
+        [ngClass]="{ active: item === activeItem }"
+        (click)="selectTab(item)">
+        <span class="label">{{ item.label }}</span>
+      </button>
+    }
+  </div>
+</div>

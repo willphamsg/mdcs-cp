@@ -1,0 +1,11 @@
+.select-container {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 10px;
+}
+
+.dropdown-label > p {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: unset !important;
+}

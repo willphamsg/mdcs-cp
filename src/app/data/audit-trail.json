@@ -1,0 +1,50 @@
+[
+  {
+    "chk": true,
+    "field": "id",
+    "name": "No",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "depot",
+    "name": "Depots",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "userId",
+    "name": "User ID",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "dateTime",
+    "name": "Date & Time",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "startDate",
+    "name": "Start Date",
+    "hidden": true
+  },
+  {
+    "chk": false,
+    "field": "endDate",
+    "name": "End Date",
+    "hidden": true
+  },
+  {
+    "chk": true,
+    "field": "update_type",
+    "name": "Update Type",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "description",
+    "name": "Description",
+    "hidden": false
+  }
+]

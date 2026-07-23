@@ -1,0 +1,31 @@
+$radio-color: #0046ad;
+
+.radio-container {
+  display: flex;
+  height: 40px;
+  width: 100%;
+  gap: 16px;
+  margin-bottom: 10px;
+
+  .custom-radio {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid $radio-color;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  .custom-radio input {
+    margin: 0 5px 0 0 !important;
+    background-color: $radio-color;
+  }
+
+  .radio-label {
+    color: $radio-color;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "chk": false,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "message_data_filename",
+    "name": "Message Data Filename",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "sequence_no",
+    "name": "Sequence No",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "modified_date_time",
+    "name": "Modified Date & Time",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "status",
+    "name": "Export Status",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "description",
+    "name": "Description",
+    "hidden": false
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "chk": true,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "depot",
+    "name": "Depots",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "update_time",
+    "name": "Event Date & Time",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "description",
+    "name": "Description",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "depot_id",
+    "name": "Deport Id",
+    "hidden": true
+  },
+  {
+    "chk": false,
+    "field": "effectiveDate",
+    "name": "Effective Date",
+    "hidden": true
+  }
+]

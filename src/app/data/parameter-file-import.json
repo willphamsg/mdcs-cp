@@ -1,0 +1,38 @@
+[
+  {
+    "chk": true,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "file_id",
+    "name": "File ID",
+    "hidden": false
+  },
+  {
+    "chk": false,
+    "field": "param_filename",
+    "name": "Parameter Name",
+    "hidden": true
+  },
+  {
+    "chk": true,
+    "field": "param_version",
+    "name": "Version",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "status",
+    "name": "Status",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "description",
+    "name": "Description",
+    "hidden": false
+  }
+]

@@ -1,0 +1,142 @@
+<div class="mat-header">
+  <div>
+    <p
+      style="font-size: 24px; font-weight: 600; margin: 0"
+      class="flex-item-left">
+      {{ title }}
+    </p>
+  </div>
+</div>
+<div style="margin-left: 15px">
+  <p style="color: #000">
+    *Note: The action is irreversible. Please review carefully before submitting.
+  </p>
+</div>
+<mat-divider />
+<mat-dialog-content>
+  <form [formGroup]="myForm">
+    <ng-container formArrayName="items">
+      <mat-table #table [dataSource]="items.controls" class="stripped">
+        <!-- Depot Column -->
+        <ng-container matColumnDef="depot">
+          <mat-header-cell *matHeaderCellDef class="headerCol"
+            >Depots</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol align-center">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('depot')?.value }}
+              </div>
+            } @else {
+              {{ element.get('depot')?.value }}
+            }
+          </mat-cell>
+        </ng-container>
+
+        <!-- Parameter Name Column -->
+        <ng-container matColumnDef="parameter_name">
+          <mat-header-cell *matHeaderCellDef class="headerCol"
+            >Parameter File Name</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol align-center">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('parameter_name')?.value }}
+              </div>
+            } @else {
+              {{ element.get('parameter_name')?.value }}
+            }
+          </mat-cell>
+        </ng-container>
+
+        <!-- Parameter Version Column -->
+        <ng-container matColumnDef="parameter_version">
+          <mat-header-cell *matHeaderCellDef class="headerCol"
+            >Parameter File Version</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol align-center">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('parameter_version')?.value }}
+              </div>
+            } @else {
+              {{ element.get('parameter_version')?.value }}
+            }
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="effective_date_time">
+          <mat-header-cell *matHeaderCellDef class="headerCol"
+            >Effective Date & Time</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element"
+            [formGroup]="element"
+            class="labelCol align-center">
+            @if (isEdit) {
+              <div class="disabled-cont">
+                {{ element.get('effective_date_time')?.value | date: 'dd/MM/yyyy HH:mm' }}
+              </div>
+            } @else {
+              {{ element.get('effective_date_time')?.value | date: 'dd/MM/yyyy HH:mm' }}
+            }
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+          style="
+            background-color: #4a5964;
+            font-weight: 600;
+            color: white;
+          "></mat-header-row>
+        <mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          style="min-height: auto"></mat-row>
+      </mat-table>
+    </ng-container>
+  </form>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
+  <div class="mat-footer">
+    <div>
+      <p>
+        Total: {{ rowCount }}
+        <strong>Record(s)</strong>
+      </p>
+    </div>
+    <div>
+      <div class="btn-container">
+        <div>
+          <button
+            class="h-40"
+            [mat-dialog-close]="'cancel'"
+            mat-stroked-button
+            mat-dialog-close>
+            Cancel
+          </button>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="btn local-primary"
+            mat-button
+            cdkFocusInitial
+            (click)="onSubmit()">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-actions>

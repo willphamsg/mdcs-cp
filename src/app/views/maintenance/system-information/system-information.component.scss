@@ -1,0 +1,309 @@
+@mixin label-value-styles(
+  $font-size,
+  $font-weight,
+  $line-height,
+  $color: null
+) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+  @if $color {
+    color: $color;
+  }
+}
+
+@mixin info-row-styles(
+  $display,
+  $grid-template-column,
+  $align-items,
+  $gap,
+  $padding-left,
+  $background-color,
+  $font-weight,
+  $color,
+  $height
+) {
+  display: $display;
+  grid-template-columns: $grid-template-column;
+  align-items: $align-items;
+  gap: $gap;
+  padding-left: $padding-left;
+  background-color: $background-color;
+  color: $color;
+  font-weight: $font-weight;
+  height: $height;
+}
+
+@mixin items($display, $grid-template-column, $align-items, $gap) {
+  display: $display;
+  grid-template-columns: $grid-template-column;
+  align-items: $align-items;
+  gap: $gap;
+}
+
+:host {
+  flex: 1;
+  overflow-y: auto;
+}
+
+// Template layout: 90% width with 5% left/right margins
+:host {
+  ::ng-deep .information-grid {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+.information-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.info-section {
+  padding: 16px;
+  box-shadow: none !important;
+}
+
+.info-row-mdcs {
+  @include info-row-styles(
+    grid,
+    1fr 1fr,
+    center,
+    30px,
+    35px,
+    #4a5964,
+    600,
+    white,
+    40px
+  );
+}
+
+.info-row-dagw {
+  @include info-row-styles(
+    grid,
+    1fr 1fr,
+    center,
+    30px,
+    35px,
+    #4a5964,
+    600,
+    white,
+    40px
+  );
+}
+
+.info-label,
+.info-value {
+  padding: 8px;
+  @include label-value-styles(14px, 600, 16px);
+}
+
+.items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 0 0 20px 35px !important;
+  width: 100%;
+
+  &__label {
+    @include label-value-styles(14px, 400, 16px);
+    padding: 8px;
+  }
+
+  &__value {
+    @include label-value-styles(14px, 400, 16px, #000);
+    justify-self: start;
+    padding: 8px;
+
+    // Modifier for running status
+    &--running {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #009E73;
+      color: #fff;
+      width: 70px;
+      height: 24px;
+      padding: 0;
+    }
+
+    // Modifier for degraded status
+    &--degraded {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #828282;
+      color: #fff;
+      width: 82px;
+      height: 24px;
+      padding: 0;
+    }
+
+    // Modifier for down status
+    &--down {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #9F0F0F;
+      color: #fff;
+      width: 54px;
+      height: 24px;
+      padding: 0;
+    }
+  }
+}
+
+.sub-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 0 0 20px 35px !important;
+  width: 100%;
+
+  &__label {
+    @include label-value-styles(14px, 400, 16px);
+    padding: 8px;
+  }
+
+  &__value {
+    @include label-value-styles(14px, 400, 16px, #000);
+    justify-self: start;
+    padding: 8px;
+    margin-left: 20px;
+
+    // Modifier for running status
+    &--running {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #009E73;
+      color: #fff;
+      width: 70px;
+      height: 24px;
+      padding: 0;
+    }
+
+    // Modifier for degraded status
+    &--degraded {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #828282;
+      color: #fff;
+      width: 82px;
+      height: 24px;
+      padding: 0;
+    }
+
+    // Modifier for down status
+    &--down {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #9F0F0F;
+      color: #fff;
+      width: 54px;
+      height: 24px;
+      padding: 0;
+    }
+  }
+}
+
+mat-expansion-panel {
+  box-shadow: none !important;
+  border-radius: 4px !important;
+  border: 1px solid #828282;
+
+  &.service-status-panel {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 0 0 -35px !important;
+    background: transparent !important;
+
+    ::ng-deep {
+      .mat-expansion-panel-body {
+        padding: 0 !important;
+      }
+
+      .mat-expansion-panel-header {
+        padding-left: 35px !important;
+        padding-right: 35px !important;
+      }
+
+      .mat-expansion-panel-header-title {
+        flex: 1;
+      }
+
+      .mat-expansion-panel-header-description {
+        flex: 1;
+        justify-content: flex-start;
+        margin-right: 0;
+      }
+    }
+
+    .status-value-header {
+      position: absolute;
+      left: calc(50% + 50px);
+    }
+  }
+  mat-panel-title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+mat-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px;
+}
+
+.storage-stats {
+  padding: 16px;
+
+  .stats-section {
+    margin-bottom: 24px;
+
+    background-color: #FBFBFB;
+    border-radius: 4px;
+    padding: 12px;
+
+    .stats-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 12px;
+    }
+
+    .stats-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .stats-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 0;
+      }
+    }
+
+    .stats-item {
+      .label {
+        font-size: 14px;
+        font-weight: 400;
+        color: #000;
+      }
+
+      .value {
+        font-size: 14px;
+        font-weight: 400;
+        color: #000;
+      }
+    }
+  }
+}

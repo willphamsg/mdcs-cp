@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to DAGW</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <script src="js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="background middle">
+
+        <div class="container-fluid p-5">
+            <div class="container-fluid text-center p-3">
+                <img src="./images/sign-logo.png" alt="image" />
+            </div>
+            <h1 class="title container-fluid text-center">
+                Welcome to DAGW
+            </h1>
+            <form action="/identification/login-submit" method="post">
+                <input type="hidden" id="returnUrl-fld" name="returnUrl" value=""/>
+                <div class="container border-1 p-3 text-black-50" style="max-width: 400px">
+                    <div class="mb-3">
+                        <input placeholder="Username" id="username-fld" name="username" class="form-control transparent form-input"/>
+                    </div>
+                    <div class="mb-3">
+                        <input placeholder="Password" id="password-fld" type="password" name="password" class="form-control transparent form-input"/>
+                    </div>
+                    <div class="mb-3 text-end">
+                        <button type="submit" class="btn btn-primary width100" id="submit-btn">Sign In</button>
+                    </div>
+                </div>
+            </form>
+            
+            <div class="container">
+                <h3 class="bg-danger text-white" id="message-fld"></h3>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    function mdcsLoginFormValidation() {
+		const passwordFld = document.getElementById('password-fld');
+		const usernameFld = document.getElementById('username-fld');
+		const messageFld = document.getElementById('message-fld');
+		const returnUrlFld = document.getElementById('returnUrl-fld');
+		const urlParams = new URLSearchParams(window.location.search);
+		
+		// Get returnUrl from query params and set it in the hidden field
+		if (urlParams.has("returnUrl") && returnUrlFld) {
+			returnUrlFld.value = urlParams.get("returnUrl") || '';
+		}
+		
+		if(urlParams.has("error")) {
+			messageFld.innerText = 'Bad credentials, Invalid username or password';
+		} else {
+		    messageFld.innerText = '';
+		}
+		passwordFld.addEventListener('change', function() {
+			messageFld.innerText = '';
+		});
+		usernameFld.addEventListener('change', function() {
+			messageFld.innerText = '';
+		});
+	}
+	
+    window.addEventListener("load", () => {
+		mdcsLoginFormValidation();
+    });
+</script>
+
+</body>
+</html>

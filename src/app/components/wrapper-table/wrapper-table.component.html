@@ -1,0 +1,217 @@
+@if (hasSearch) {
+  <mat-form-field class="search-text" appearance="outline">
+    <input
+      matInput
+      placeholder="Search by keyword"
+      [formControl]="searchControl"
+      type="search" />
+    <mat-icon matPrefix>search</mat-icon>
+  </mat-form-field>
+}
+
+<!-- <table mat-table class="stripped" [dataSource]="dataSource">
+  <ng-content></ng-content>
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell no-data" [attr.colspan]="columns.length">
+      No Records Found
+    </td>
+  </tr>
+</table> -->
+
+@if (!!columns && !!columns.length && columns['length'] >= 7) {
+  <ag-grid-angular
+    style="width: max-content; min-width: 100%; height: 275px"
+    [gridOptions]="gridOptions"
+    class="ag-theme-quartz common-ag parameter-viewer" />
+} @else if (hasSubHeader) {
+  <table mat-table matSort [dataSource]="dataSource" class="stripped">
+    @for (header of columns; track header) {
+      @if (header.subHeader.length) {
+        <ng-container [matColumnDef]="header.columnDef">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [attr.colspan]="header.subHeader.length"
+            class="main-header">
+            {{ header.header }}
+          </th>
+        </ng-container>
+      } @else if (header.columnDef !== 'no') {
+        <ng-container [matColumnDef]="header.columnDef">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            [attr.colspan]="1"
+            class="main-header">
+            {{ header.header }}
+            <!-- <span class="custom-sort"> </span> -->
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element[header.columnDef] || '-' }}
+          </td>
+        </ng-container>
+      } @else {
+        <ng-container [matColumnDef]="header.columnDef">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [attr.colspan]="1"
+            class="main-header">
+            {{ header.header }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element[header.columnDef] || '-' }}
+          </td>
+        </ng-container>
+      }
+    }
+
+    @for (header of columns; track header) {
+      @if (header.subHeader.length) {
+        @for (subHeader of header.subHeader; track subHeader) {
+          <ng-container [matColumnDef]="header.columnDef + '_' + subHeader.id">
+            <th mat-header-cell *matHeaderCellDef class="sub-header">
+              {{ subHeader.name }}
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="[element[header.columnDef]?.status || '']">
+              {{ element[header.columnDef]?.[subHeader.id] || '-' }}
+            </td>
+          </ng-container>
+        }
+      } @else {
+        @if (header.columnDef === 'no') {
+          <ng-container [matColumnDef]="header.columnDef + '_placeholder'">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element; let dataIndex = index">
+              {{ dataIndex + 1 }}
+            </td>
+          </ng-container>
+        } @else {
+          <ng-container [matColumnDef]="header.columnDef + '_placeholder'">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [ngClass]="[element[header.columnDef]?.status || '']">
+              {{
+                element[header.columnDef]?.value ||
+                  element[header.columnDef] ||
+                  '-'
+              }}
+            </td>
+          </ng-container>
+        }
+      }
+    }
+
+    <tr mat-header-row *matHeaderRowDef="mainHeaderIds" class="header-row"></tr>
+    <tr
+      class="subheader-row"
+      mat-header-row
+      *matHeaderRowDef="subHeaderIds"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: subHeaderIds"
+      class="data-row"></tr>
+  </table>
+} @else {
+  <table mat-table class="stripped" [dataSource]="dataSource">
+    @for (column of columns; track column) {
+      @if (column.columnDef === 'id') {
+        <ng-container [matColumnDef]="column.columnDef">
+          <th mat-header-cell *matHeaderCellDef style="width: 120px">No.</th>
+          <td mat-cell *matCellDef="let element; let dataIndex = index">
+            {{ dataIndex + 1 }}
+          </td>
+        </ng-container>
+      } @else {
+        <ng-container [matColumnDef]="column.columnDef">
+          <th mat-header-cell *matHeaderCellDef>
+            {{ column.header }}
+            @if (column.sortable) {
+              <span class="custom-sort"></span>
+            }
+          </th>
+
+          @if (column.subHeader) {
+            @for (subHeader of column.subHeader; track subHeader) {
+              <ng-container>
+                <th mat-header-cell *matHeaderCellDef>
+                  {{ subHeader }}
+                </th>
+              </ng-container>
+            }
+          }
+
+          <td mat-cell *matCellDef="let element">
+            {{ element[column.columnDef] }}
+          </td>
+        </ng-container>
+      }
+    }
+
+    <tr class="header-row" mat-header-row *matHeaderRowDef="columnDefs"></tr>
+    <tr class="data-row" mat-row *matRowDef="let row; columns: columnDefs"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell no-data" [attr.colspan]="columns.length">
+        No Records Found
+      </td>
+    </tr>
+  </table>
+}
+
+<!-- <table mat-table class="stripped" [dataSource]="dataSource">
+  @for (column of columns; track column) {
+    @if (column.columnDef === 'id') {
+      <ng-container [matColumnDef]="column.columnDef">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let element; let dataIndex = index">
+          {{ dataIndex + 1 }}
+        </td>
+      </ng-container>
+    } @else {
+      <ng-container [matColumnDef]="column.columnDef">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ column.header }}
+          @if (column.sortable) {
+            <span class="custom-sort"></span>
+          }
+        </th>
+
+        @if (column.subHeader) {
+          @for (subHeader of column.subHeader; track subHeader) {
+            <ng-container>
+              <th mat-header-cell *matHeaderCellDef>
+                {{ subHeader }}
+              </th>
+            </ng-container>
+          }
+        }
+
+        <td mat-cell *matCellDef="let element">
+          {{ element[column.columnDef] }}
+        </td>
+      </ng-container>
+    }
+  }
+
+  <tr class="header-row" mat-header-row *matHeaderRowDef="columnDefs"></tr>
+  <tr class="data-row" mat-row *matRowDef="let row; columns: columnDefs"></tr>
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell no-data" [attr.colspan]="columns.length">
+      No Records Found
+    </td>
+  </tr>
+</table> -->
+
+<!-- <ag-grid-angular
+  style="width: max-content; min-width: 100%; height: 100%"
+  [gridOptions]="gridOptions"
+  class="ag-theme-quartz card-key-version" /> -->

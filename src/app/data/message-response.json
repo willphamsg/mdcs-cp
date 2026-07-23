@@ -1,0 +1,57 @@
+[
+  {
+    "status": 200,
+    "title": "Success",
+    "snackbar": "success"
+  },
+  {
+    "status": 201,
+    "title": "Success",
+    "snackbar": "success"
+  },
+  {
+    "status": 202,
+    "title": "Success",
+    "snackbar": "success"
+  },
+  {
+    "status": 203,
+    "title": "Success",
+    "snackbar": "success"
+  },
+  {
+    "status": 204,
+    "title": "Success",
+    "snackbar": "success"
+  },
+  {
+    "status": 400,
+    "title": "Bad Request",
+    "snackbar": "error"
+  },
+  {
+    "status": 401,
+    "title": "Unauthorized",
+    "snackbar": "error"
+  },
+  {
+    "status": 403,
+    "title": "Forbidden",
+    "snackbar": "error"
+  },
+  {
+    "status": 404,
+    "title": "Not Found",
+    "snackbar": "error"
+  },
+  {
+    "status": 405,
+    "title": "Method Not Allowed",
+    "snackbar": "error"
+  },
+  {
+    "status": 408,
+    "title": "Request Timeout",
+    "snackbar": "error"
+  }
+]

@@ -1,0 +1,16 @@
+<div class="dropdown-label">
+  <p>{{ dropdownLabel }}</p>
+</div>
+<div class="select-container">
+  <div class="depot-container">
+    <mat-form-field appearance="outline">
+      <mat-select [formControl]="depotControl" placeholder="Select Depot">
+        @for (depot of depots$ | async; track $index) {
+          <mat-option [value]="depot.depot_code">
+            {{ depot.depot_name }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

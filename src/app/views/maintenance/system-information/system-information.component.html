@@ -1,0 +1,310 @@
+@if (depot) {
+  <div class="information-grid">
+    @if (!dagw) {
+      <mat-card class="info-section">
+        <mat-card-header>
+          <mat-card-title>MDCS Information</mat-card-title>
+          <mat-card-subtitle>Last updated {{ mdcsLastUpdate }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-accordion multi>
+          <div class="info-row-mdcs">
+            <div class="info-label">System Information Name</div>
+            <div class="info-value">MDCS</div>
+          </div>
+
+          @for (info of mdcsInformation; track $index) {
+            <mat-expansion-panel [expanded]="getAutoExpandedValue($index, 'mdcs')" togglePosition="before">
+              <mat-expansion-panel-header collapsedHeight="44px">
+                <mat-panel-title>{{ info.sectionName }}</mat-panel-title>
+              </mat-expansion-panel-header>
+
+              @if (info.sectionName === 'Storage and Memory Statistics') {
+                <div class="storage-stats">
+                  <!-- Memory Used Section -->
+                  <div class="stats-section">
+                    <div class="stats-title">Memory Used</div>
+                    <div class="stats-col">
+                      @for (detail of info.details; track $index) {
+                        @if (detail.label.includes('Memory Used')) {
+                          <div class="stats-item">
+                            <div class="label">{{ detail.label.replace(' Memory Used', '') }}</div>
+                            <div class="value">{{ detail.value }}</div>
+                          </div>
+                        }
+                      }
+                    </div>
+                  </div>
+                  <!-- Memory Free Section -->
+                  <div class="stats-section">
+                    <div class="stats-title">Memory Free</div>
+                    <div class="stats-col">
+                      @for (detail of info.details; track $index) {
+                        @if (detail.label.includes('Memory Free')) {
+                          <div class="stats-item">
+                            <div class="label">{{ detail.label.replace(' Memory Free', '') }}</div>
+                            <div class="value">{{ detail.value }}</div>
+                          </div>
+                        }
+                      }
+                    </div>
+                  </div>
+                </div>
+              } @else {
+                @for (details of info.details; track $index) {
+                  <div
+                    [ngClass]="{
+                      'last-items': details.label === 'MDCS Service Status',
+                      items: details.label !== 'MDCS Service Status'
+                    }">
+                    @if (details.label === 'MDCS Service Status') {
+                      <mat-expansion-panel
+                        togglePosition="before"
+                        class="service-status-panel">
+                        <mat-expansion-panel-header collapsedHeight="30px">
+                          <mat-panel-title
+                            style="font-weight: 400; font-size: 16px">
+                            MDCS Service Status
+                          </mat-panel-title>
+
+                          <div
+                            class="items__value status-value-header"
+                            [ngClass]="{
+                              'items__value--running':
+                                mdcsServiceDetails['all'] === 1,
+                              'items__value--degraded':
+                                mdcsServiceDetails['all'] === 2,
+                              'items__value--down':
+                                mdcsServiceDetails['all'] === 3
+                            }">
+                            {{
+                              mdcsServiceDetails['all'] === 1
+                                ? 'Running'
+                                : mdcsServiceDetails['all'] === 2
+                                  ? 'Degraded'
+                                  : mdcsServiceDetails['all'] === 3
+                                    ? 'Down'
+                                    : ''
+                            }}
+                          </div>
+                        </mat-expansion-panel-header>
+
+                        @for (service of mdcsServiceNames; track $index) {
+                          <div class="sub-items">
+                            <div class="sub-items__label">
+                              {{ service | uppercase }}
+                            </div>
+                            <div
+                              class="sub-items__value"
+                              [ngClass]="{
+                                'sub-items__value--running':
+                                  mdcsServiceDetails[service] === 1,
+                                'sub-items__value--degraded':
+                                  mdcsServiceDetails[service] === 2,
+                                'sub-items__value--down':
+                                  mdcsServiceDetails[service] === 3
+                              }">
+                              {{
+                                mdcsServiceDetails[service] === 1
+                                  ? 'Running'
+                                  : mdcsServiceDetails[service] === 2
+                                    ? 'Degraded'
+                                    : mdcsServiceDetails[service] === 3
+                                      ? 'Down'
+                                      : ''
+                              }}
+                            </div>
+                          </div>
+                        }
+                      </mat-expansion-panel>
+                    } @else {
+                      <div class="items__label">{{ details.label }}</div>
+                      <div
+                        class="items__value"
+                        [ngClass]="{
+                          'items__value--running': details.value === 'Running',
+                          'items__value--degraded': details.value === 'Degraded',
+                          'items__value--down': details.value === 'Down'
+                        }">
+                        {{ details.value }}
+                      </div>
+                    }
+                  </div>
+                }
+              }
+            </mat-expansion-panel>
+          }
+        </mat-accordion>
+      </mat-card>
+    }
+
+    <mat-card class="info-section">
+      <mat-card-header>
+        <mat-card-title>DAGW Information</mat-card-title>
+        <mat-card-subtitle>Last updated {{ dagwLastUpdate }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-accordion multi>
+        <div class="info-row-dagw">
+          <div class="info-label">System Information Name</div>
+          <div class="info-value">DAGW</div>
+        </div>
+
+        @for (info of dagwInformation; track $index) {
+          <mat-expansion-panel [expanded]="getAutoExpandedValue($index, 'dagw')" togglePosition="before">
+            <mat-expansion-panel-header
+              collapsedHeight="44px"
+              style="background-color: #f7f7f7">
+              <mat-panel-title>{{ info.sectionName }}</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            @if (info.sectionName === 'Storage and Memory Statistics') {
+              <div class="storage-stats">
+                @for (detail of info.details; track $index) {
+                  @if (detail.label.includes('Memory')) {
+                    @if ($index % 2 === 0) {
+                      <div class="stats-section">
+                        <div class="stats-title">Memory</div>
+                        <div class="stats-col">
+                          <div class="stats-item">
+                            <div class="label">Used</div>
+                            <div class="value">{{ detail.value }}</div>
+                          </div>
+                          <div class="stats-item">
+                            <div class="label">Free</div>
+                            <div class="value">
+                              {{ info.details[$index + 1].value }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  }
+                  @if (detail.label.includes('Host Hard Disk')) {
+                    @if ($index % 2 === 0) {
+                      <div class="stats-section">
+                        <div class="stats-title">Host Hard Disk</div>
+                        <div class="stats-col">
+                          <div class="stats-item">
+                            <div class="label">Used</div>
+                            <div class="value">{{ detail.value }}</div>
+                          </div>
+                          <div class="stats-item">
+                            <div class="label">Free</div>
+                            <div class="value">
+                              {{ info.details[$index + 1].value }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  }
+                  @if (detail.label.includes('Network Attached Storage')) {
+                    @if ($index % 2 === 0) {
+                      <div class="stats-section">
+                        <div class="stats-title">Network Attached Storage</div>
+                        <div class="stats-col">
+                          <div class="stats-item">
+                            <div class="label">Used</div>
+                            <div class="value">{{ detail.value }}</div>
+                          </div>
+                          <div class="stats-item">
+                            <div class="label">Free</div>
+                            <div class="value">
+                              {{ info.details[$index + 1].value }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  }
+                }
+              </div>
+            } @else {
+              @for (details of info.details; track $index) {
+                <div
+                  [ngClass]="{
+                    'last-items': details.label === 'DAGW Service Status',
+                    items: details.label !== 'DAGW Service Status'
+                  }">
+                  @if (details.label === 'DAGW Service Status') {
+                    <mat-expansion-panel
+                      togglePosition="before"
+                      class="service-status-panel"
+                      [expanded]="dagwServiceDetails['all'] !== 1">
+                      <mat-expansion-panel-header collapsedHeight="30px">
+                        <mat-panel-title
+                          style="font-weight: 400; font-size: 16px">
+                          DAGW Service Status
+                        </mat-panel-title>
+
+                        <div
+                          class="items__value status-value-header"
+                          [ngClass]="{
+                            'items__value--running':
+                              dagwServiceDetails['all'] === 1,
+                            'items__value--degraded':
+                              dagwServiceDetails['all'] === 2,
+                            'items__value--down':
+                              dagwServiceDetails['all'] === 3
+                          }">
+                          {{
+                            dagwServiceDetails['all'] === 1
+                              ? 'Running'
+                              : dagwServiceDetails['all'] === 2
+                                ? 'Degraded'
+                                : dagwServiceDetails['all'] === 3
+                                  ? 'Down'
+                                  : ''
+                          }}
+                        </div>
+                      </mat-expansion-panel-header>
+                      @for (service of dagwServiceNames; track $index) {
+                        <div class="sub-items">
+                          <div class="sub-items__label">
+                            {{ service | uppercase }}
+                          </div>
+                          <div
+                            class="sub-items__value"
+                            [ngClass]="{
+                              'sub-items__value--running':
+                                dagwServiceDetails[service] === 1,
+                              'sub-items__value--degraded':
+                                dagwServiceDetails[service] === 2,
+                              'sub-items__value--down':
+                                dagwServiceDetails[service] === 3
+                            }">
+                            {{
+                              dagwServiceDetails[service] === 1
+                                ? 'Running'
+                                : dagwServiceDetails[service] === 2
+                                  ? 'Degraded'
+                                  : dagwServiceDetails[service] === 3
+                                    ? 'Down'
+                                    : ''
+                            }}
+                          </div>
+                        </div>
+                      }
+                    </mat-expansion-panel>
+                  } @else {
+                    <div class="items__label">{{ details.label }}</div>
+                    <div
+                      class="items__value"
+                      [ngClass]="{
+                        'items__value--running': details.value === 'Running',
+                        'items__value--degraded': details.value === 'Degraded',
+                        'items__value--down': details.value === 'Down'
+                      }">
+                      {{ details.value }}
+                    </div>
+                  }
+                </div>
+              }
+            }
+          </mat-expansion-panel>
+        }
+      </mat-accordion>
+    </mat-card>
+  </div>
+}

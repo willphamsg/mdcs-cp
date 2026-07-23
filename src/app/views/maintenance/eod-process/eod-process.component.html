@@ -1,0 +1,181 @@
+<!-- <div class="table-wrapper">
+<table
+  mat-table
+  [dataSource]="dataSource"
+  matSort
+  class="stripped"
+  (matSortChange)="sortHandler($event)">
+  <ng-container matColumnDef="taskName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Task</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.taskName }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.description }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="startTime">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Time</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.startTime }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="endTime">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>End Time</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.endTime }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+    <td mat-cell *matCellDef="let element">
+      <span
+          [ngClass]="{
+            'status-green': element.status === 'Completed',
+            'status-red': element.status === 'Failed'
+          }">
+        {{ element.status }}
+      </span>
+    </td>
+  </ng-container>
+
+  <tr
+    class="table-column"
+    mat-header-row
+  *matHeaderRowDef="displayedColumns"></tr>
+
+  @if (dataSource.length > 0) {
+    <tr
+      style="height: 40px"
+      mat-row
+    *matRowDef="let row; columns: displayedColumns"></tr>
+  }
+</table>
+</div>
+<div class="table-footer">
+  <app-pagination
+    [totalItems]="rowCount"
+  (pageChange)="onPageChange($event)"></app-pagination>
+</div> -->
+@if (depot) {
+  <div
+    class="entry-actions"
+    style="margin-bottom: 20px; display: flex; align-items: flex-end">
+    <div style="display: flex; flex-direction: column">
+      <label style="font-weight: 700">Current Business Day</label>
+      <mat-form-field style="width: 240px">
+        <input disabled [value]="eodDates?.current_business_day" matInput />
+      </mat-form-field>
+    </div>
+
+    <div style="display: flex; flex-direction: column">
+      <label style="font-weight: 700">Last EOD Executed</label>
+      <mat-form-field style="width: 240px">
+        <input
+          disabled
+          [value]="formatLastEodDate(eodDates?.last_eod)"
+          matInput />
+      </mat-form-field>
+    </div>
+    @if (
+      authService.hasAccess(['maintenance', 'eodProcess', 'manage'], 'mdcs')
+    ) {
+      <div class="button-filter">
+        <button
+          type="button"
+          class="search-button force-eod btn edit"
+          [disabled]="isDisabled || isForcingEOD"
+          (click)="clickForceEOD()"
+          mat-flat-button>
+          <img
+            src="assets/icons/shutdown.svg"
+            alt="Force EOD"
+            width="20"
+            height="20"
+            style="vertical-align: middle" />
+          Force EOD
+        </button>
+      </div>
+    }
+  </div>
+
+  <div class="table-wrapper">
+    <table mat-table class="stripped" [dataSource]="dataSource">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let element; let dataIndex = index">
+          {{ dataIndex + 1 }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="taskName">
+        <th mat-header-cell *matHeaderCellDef>Task</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.taskName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.description }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="startTime">
+        <th mat-header-cell *matHeaderCellDef>Start Time</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.startTime }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="endTime">
+        <th mat-header-cell *matHeaderCellDef>End Time</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.endTime }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element">
+          <span
+            [ngClass]="{
+              'status-success': element.status === 'Completed',
+              'status-red': element.status === 'Failed',
+              'status-gray': element.status === 'Not Started',
+              'status-orange': element.status === 'In Progress'
+            }">
+            {{ element.status }}
+          </span>
+        </td>
+      </ng-container>
+
+      <tr
+        style="background-color: #4a5964; font-weight: 600; color: white"
+        mat-header-row
+        *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+
+      <tr
+        style="height: 40px"
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <!-- <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
+        No Records Found
+      </td>
+    </tr> -->
+    </table>
+    @if (!dataSource.length) {
+      <div class="no-data">No Records Found</div>
+    }
+  </div>
+}

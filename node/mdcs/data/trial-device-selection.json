@@ -1,0 +1,402 @@
+[
+  {
+    "id": 1,
+    "depot_id": 972,
+    "bus_num": "123456",
+    "svc_provider_id": 16,
+    "trial_group": true,
+    "service_group": true,
+    "parameter_group": true,
+    "last_update": "2025-11-20 00:03:23"
+  },
+  {
+    "id": 2,
+    "depot_id": 976,
+    "bus_num": "AA00034",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": true,
+    "parameter_group": false,
+    "last_update": "2025-11-28 18:54:11"
+  },
+  {
+    "id": 3,
+    "depot_id": 970,
+    "bus_num": "I00000I",
+    "svc_provider_id": 17,
+    "trial_group": false,
+    "service_group": false,
+    "parameter_group": false,
+    "last_update": "2025-11-03 16:16:11"
+  },
+  {
+    "id": 4,
+    "depot_id": 976,
+    "bus_num": "IS0004A",
+    "svc_provider_id": 16,
+    "trial_group": true,
+    "service_group": false,
+    "parameter_group": true,
+    "last_update": "2025-11-15 10:20:30"
+  },
+  {
+    "id": 5,
+    "depot_id": 975,
+    "bus_num": "IS0005A",
+    "svc_provider_id": 18,
+    "trial_group": false,
+    "service_group": true,
+    "parameter_group": true,
+    "last_update": "2025-11-10 14:15:20"
+  },
+  {
+    "id": 6,
+    "depot_id": 976,
+    "bus_num": "MID0002",
+    "svc_provider_id": 16,
+    "trial_group": true,
+    "service_group": true,
+    "parameter_group": false,
+    "last_update": "2025-11-12 09:30:45"
+  },
+  {
+    "id": 7,
+    "depot_id": 970,
+    "bus_num": "MID0003",
+    "svc_provider_id": 17,
+    "trial_group": false,
+    "service_group": false,
+    "parameter_group": false,
+    "last_update": "2025-11-08 11:22:33"
+  },
+  {
+    "id": 8,
+    "depot_id": 970,
+    "bus_num": "OO00OO",
+    "svc_provider_id": 16,
+    "trial_group": true,
+    "service_group": false,
+    "parameter_group": false,
+    "last_update": "2025-10-03 14:30:44"
+  },
+  {
+    "id": 9,
+    "depot_id": 976,
+    "bus_num": "PA0715",
+    "svc_provider_id": 18,
+    "trial_group": false,
+    "service_group": true,
+    "parameter_group": true,
+    "last_update": "2025-11-25 16:40:50"
+  },
+  {
+    "id": 10,
+    "depot_id": 975,
+    "bus_num": "PA0716",
+    "svc_provider_id": 16,
+    "trial_group": true,
+    "service_group": true,
+    "parameter_group": true,
+    "last_update": "2025-11-18 13:25:15"
+  },
+  {
+    "id": 11,
+    "depot_id": 976,
+    "bus_num": "PA0717",
+    "svc_provider_id": 17,
+    "trial_group": false,
+    "service_group": false,
+    "parameter_group": true,
+    "last_update": "2025-11-22 08:15:30"
+  },
+  {
+    "id": 12,
+    "depot_id": 970,
+    "bus_num": "SB9999",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": false,
+    "parameter_group": false,
+    "last_update": "2025-11-05 16:46:46"
+  },
+  {
+    "id": 13,
+    "depot_id": 972,
+    "bus_num": "SBS0001",
+    "svc_provider_id": 18,
+    "trial_group": true,
+    "service_group": false,
+    "parameter_group": false,
+    "last_update": "2025-11-14 12:10:20"
+  },
+  {
+    "id": 14,
+    "depot_id": 976,
+    "bus_num": "SBS0002",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": true,
+    "parameter_group": false,
+    "last_update": "2025-11-19 15:35:40"
+  },
+  {
+    "id": 15,
+    "depot_id": 971,
+    "bus_num": "SBS0003",
+    "svc_provider_id": 17,
+    "trial_group": true,
+    "service_group": true,
+    "parameter_group": true,
+    "last_update": "2025-11-21 10:50:25"
+  },
+  {
+    "id": 16,
+    "depot_id": 976,
+    "bus_num": "SBS0004",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": false,
+    "parameter_group": true,
+    "last_update": "2025-11-16 14:20:10"
+  },
+  {
+    "id": 17,
+    "depot_id": 975,
+    "bus_num": "SBS0005",
+    "svc_provider_id": 18,
+    "trial_group": true,
+    "service_group": false,
+    "parameter_group": true,
+    "last_update": "2025-11-13 09:45:55"
+  },
+  {
+    "id": 18,
+    "depot_id": 970,
+    "bus_num": "SBS0006",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": true,
+    "parameter_group": false,
+    "last_update": "2025-11-17 11:30:05"
+  },
+  {
+    "id": 19,
+    "depot_id": 976,
+    "bus_num": "SBS0007",
+    "svc_provider_id": 17,
+    "trial_group": true,
+    "service_group": true,
+    "parameter_group": false,
+    "last_update": "2025-11-24 16:15:30"
+  },
+  {
+    "id": 20,
+    "depot_id": 972,
+    "bus_num": "SBS0008",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": false,
+    "parameter_group": true,
+    "last_update": "2025-11-11 13:40:20"
+  },
+  {
+    "id": 21,
+    "depot_id": 971,
+    "bus_num": "SBS0009",
+    "svc_provider_id": 18,
+    "trial_group": true,
+    "service_group": false,
+    "parameter_group": false,
+    "last_update": "2025-11-09 08:25:15"
+  },
+  {
+    "id": 22,
+    "depot_id": 976,
+    "bus_num": "SBS0010",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": true,
+    "parameter_group": true,
+    "last_update": "2025-11-26 15:50:45"
+  },
+  {
+    "id": 23,
+    "depot_id": 970,
+    "bus_num": "SBS0011",
+    "svc_provider_id": 17,
+    "trial_group": true,
+    "service_group": true,
+    "parameter_group": true,
+    "last_update": "2025-11-23 12:05:30"
+  },
+  {
+    "id": 24,
+    "depot_id": 975,
+    "bus_num": "SBS0012",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": false,
+    "parameter_group": false,
+    "last_update": "2025-11-07 10:20:40"
+  },
+  {
+    "id": 25,
+    "depot_id": 976,
+    "bus_num": "SBS0013",
+    "svc_provider_id": 18,
+    "trial_group": true,
+    "service_group": false,
+    "parameter_group": true,
+    "last_update": "2025-11-27 14:35:25"
+  },
+  {
+    "id": 26,
+    "depot_id": 972,
+    "bus_num": "SBS0014",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": true,
+    "parameter_group": false,
+    "last_update": "2025-11-06 09:15:10"
+  },
+  {
+    "id": 27,
+    "depot_id": 971,
+    "bus_num": "SBS0015",
+    "svc_provider_id": 17,
+    "trial_group": true,
+    "service_group": true,
+    "parameter_group": false,
+    "last_update": "2025-11-29 11:45:50"
+  },
+  {
+    "id": 28,
+    "depot_id": 970,
+    "bus_num": "SBS0016",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": false,
+    "parameter_group": true,
+    "last_update": "2025-11-04 16:30:20"
+  },
+  {
+    "id": 29,
+    "depot_id": 976,
+    "bus_num": "SBS0017",
+    "svc_provider_id": 18,
+    "trial_group": true,
+    "service_group": false,
+    "parameter_group": false,
+    "last_update": "2025-11-30 08:50:35"
+  },
+  {
+    "id": 30,
+    "depot_id": 975,
+    "bus_num": "SBS0018",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": true,
+    "parameter_group": true,
+    "last_update": "2025-11-01 13:25:45"
+  },
+  {
+    "id": 31,
+    "depot_id": 971,
+    "bus_num": "SBS5193U",
+    "svc_provider_id": 17,
+    "trial_group": true,
+    "service_group": true,
+    "parameter_group": true,
+    "last_update": "2025-11-02 15:10:30"
+  },
+  {
+    "id": 32,
+    "depot_id": 972,
+    "bus_num": "SBS5195P",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": false,
+    "parameter_group": false,
+    "last_update": "2025-11-31 10:40:15"
+  },
+  {
+    "id": 33,
+    "depot_id": 976,
+    "bus_num": "SBS5196L",
+    "svc_provider_id": 18,
+    "trial_group": true,
+    "service_group": false,
+    "parameter_group": true,
+    "last_update": "2025-10-28 12:55:40"
+  },
+  {
+    "id": 34,
+    "depot_id": 970,
+    "bus_num": "SBS5210D",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": true,
+    "parameter_group": false,
+    "last_update": "2025-10-29 14:20:25"
+  },
+  {
+    "id": 35,
+    "depot_id": 971,
+    "bus_num": "SBS5213X",
+    "svc_provider_id": 17,
+    "trial_group": true,
+    "service_group": true,
+    "parameter_group": false,
+    "last_update": "2025-10-30 09:35:50"
+  },
+  {
+    "id": 36,
+    "depot_id": 975,
+    "bus_num": "SBS5219E",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": false,
+    "parameter_group": true,
+    "last_update": "2025-10-31 11:15:20"
+  },
+  {
+    "id": 37,
+    "depot_id": 976,
+    "bus_num": "SBS5221Y",
+    "svc_provider_id": 18,
+    "trial_group": true,
+    "service_group": false,
+    "parameter_group": true,
+    "last_update": "2025-11-01 16:45:10"
+  },
+  {
+    "id": 38,
+    "depot_id": 972,
+    "bus_num": "SBS5225L",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": true,
+    "parameter_group": true,
+    "last_update": "2025-11-02 08:30:45"
+  },
+  {
+    "id": 39,
+    "depot_id": 970,
+    "bus_num": "SBS5228D",
+    "svc_provider_id": 17,
+    "trial_group": true,
+    "service_group": true,
+    "parameter_group": true,
+    "last_update": "2025-11-03 10:20:30"
+  },
+  {
+    "id": 40,
+    "depot_id": 971,
+    "bus_num": "SBS5229B",
+    "svc_provider_id": 16,
+    "trial_group": false,
+    "service_group": false,
+    "parameter_group": false,
+    "last_update": "2025-11-04 13:50:15"
+  }
+]

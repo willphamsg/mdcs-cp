@@ -1,0 +1,215 @@
+[
+  {
+    "id": 1,
+    "depot_id": 971,
+    "depot": {
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HDA"
+    },
+    "day_type": "s",
+    "bus_num": "SBS9025A",
+    "est_arrival_time": "11:30",
+    "est_arrival_count": 13,
+    "updated_on": "2024-07-01T00:00:00"
+  },
+  {
+    "id": 2,
+    "depot_id": 971,
+    "depot": {
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HDA"
+    },
+    "day_type": "w",
+    "bus_num": "SBS9025B",
+    "est_arrival_time": "11:11",
+    "est_arrival_count": 33,
+    "updated_on": "2024-07-01T00:00:00"
+  },
+  {
+    "id": 3,
+    "depot_id": 972,
+    "depot": {
+      "depot_id": "2",
+      "version": 1,
+      "depot_code": "AMK",
+      "depot_name": "SBST Ang Mo Kio Depot"
+    },
+    "day_type": "p",
+    "bus_num": "SBS9025A",
+    "est_arrival_time": "11:45",
+    "est_arrival_count": 1,
+    "updated_on": "2024-07-01T00:00:00"
+  },
+  {
+    "id": 4,
+    "depot_id": 981,
+    "depot": {
+      "depot_id": "3",
+      "version": 1,
+      "depot_name": "Aver Raja Depot Depot",
+      "depot_code": "ARDD"
+    },
+    "day_type": "p",
+    "bus_num": "SBS9025A",
+    "est_arrival_time": "14:30",
+    "est_arrival_count": 1,
+    "updated_on": "2024-07-01T00:00:00"
+  },
+  {
+    "id": 5,
+    "depot_id": 971,
+    "depot": {
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HDA"
+    },
+    "day_type": "s",
+    "bus_num": "SBS0225U",
+    "est_arrival_time": "12:00",
+    "est_arrival_count": 1,
+    "updated_on": "2024-07-01T00:00:00"
+  },
+  {
+    "id": 6,
+    "depot_id": 971,
+    "depot": {
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HDA"
+    },
+    "day_type": "w",
+    "bus_num": "SBS9025B",
+    "est_arrival_time": "15:00",
+    "est_arrival_count": 3,
+    "updated_on": "2024-07-01T00:00:00"
+  },
+  {
+    "id": 7,
+    "depot_id": 972,
+    "depot": {
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "SBST Ang Mo Kio Depot",
+      "depot_code": "AMK"
+    },
+    "day_type": "p",
+    "bus_num": "SBS9025A",
+    "est_arrival_time": "16:30",
+    "est_arrival_count": 1,
+    "updated_on": "2024-07-01T00:00:00"
+  },
+  {
+    "id": 8,
+    "depot_id": 981,
+    "depot": {
+      "depot_id": "3",
+      "version": 1,
+      "depot_name": "Aver Raja Depot Depot",
+      "depot_code": "ARDD"
+    },
+    "day_type": "p",
+    "bus_num": "SBS9025A",
+    "est_arrival_time": "10:15",
+    "est_arrival_count": 1,
+    "updated_on": "2024-07-01T00:00:00"
+  },
+  {
+    "id": 9,
+    "depot_id": 971,
+    "depot": {
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HDA"
+    },
+    "day_type": "s",
+    "bus_num": "SBS0225U",
+    "est_arrival_time": "11:30",
+    "est_arrival_count": 1,
+    "updated_on": "2024-07-01T00:00:00"
+  },
+  {
+    "id": 10,
+    "depot_id": 971,
+    "depot": {
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HDA"
+    },
+    "day_type": "w",
+    "bus_num": "SBS9025B",
+    "est_arrival_time": "12:30",
+    "est_arrival_count": 3,
+    "updated_on": "2024-07-01T00:00:00"
+  },
+  {
+    "id": 11,
+    "depot_id": 972,
+    "depot": {
+      "depot_id": "2",
+      "version": 1,
+      "depot_name": "SBST Ang Mo Kio Depot",
+      "depot_code": "AMK"
+    },
+    "day_type": "p",
+    "bus_num": "SBS9025A",
+    "est_arrival_time": "13:30",
+    "est_arrival_count": 1,
+    "updated_on": "2024-07-01T00:00:00"
+  },
+  {
+    "id": 12,
+    "version": 1,
+    "depot_id": 981,
+    "depot": {
+      "depot_id": "3",
+      "version": 1,
+      "depot_name": "Aver Raja Depot Depot",
+      "depot_code": "ARDD"
+    },
+    "day_type": "p",
+    "bus_num": "SBS9025A",
+    "est_arrival_time": "14:15",
+    "est_arrival_count": 1,
+    "updated_on": "2024-07-01T00:00:00"
+  },
+  {
+    "id": 13,
+    "depot_id": 981,
+    "depot": {
+      "id": 3,
+      "depot_id": "3",
+      "version": 1,
+      "depot_name": "Aver Raja Depot Depot",
+      "depot_code": "ARDD"
+    },
+    "day_type": "w",
+    "bus_num": "SBS1234",
+    "est_arrival_time": "12:00",
+    "est_arrival_count": 6,
+    "updated_on": "2025-11-19 23:59:27"
+  },
+  {
+    "id": 14,
+    "depot_id": 971,
+    "depot": {
+      "id": 1,
+      "depot_id": "1",
+      "version": 1,
+      "depot_name": "Hougang Depot",
+      "depot_code": "HDA"
+    },
+    "day_type": "p",
+    "bus_num": "SBS1235",
+    "est_arrival_time": "19:00",
+    "est_arrival_count": 2,
+    "updated_on": "2025-11-19 23:59:50"
+  }
+]

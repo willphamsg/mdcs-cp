@@ -1,0 +1,136 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [showHome]="false"
+    [headerTitle]="'Event History'"></app-breadcrumbs>
+</div>
+
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">Event History</h1>
+  </mat-card-header>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    <!-- FILTER COMPONENT -->
+    <div class="filter-wrapper">
+      <app-filter
+        [filterConfigs]="filterConfigs"
+        [placeholder]="'Search by keyword'"></app-filter>
+    </div>
+    <!-- Selected Filter Component -->
+    <app-selected-filter />
+
+    <div class="table-wrapper">
+      <table
+        mat-table
+        class="stripped"
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="sortHandler($event)">
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th [hidden]="!hiddenHandler('id')" mat-header-cell *matHeaderCellDef style="width: 120px">
+            No.
+          </th>
+          <td
+            [hidden]="!hiddenHandler('id')"
+            mat-cell
+            *matCellDef="let element; let dataIndex = index">
+            {{ (currentPage - 1) * params.page_size + dataIndex + 1 }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="depot">
+          <th
+            [hidden]="!hiddenHandler('depot')"
+            mat-header-cell
+            *matHeaderCellDef>
+            Depots
+          </th>
+          <td
+            [hidden]="!hiddenHandler('depot')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.depot }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="update_time">
+          <th
+            [hidden]="!hiddenHandler('update_time')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Event Date Time
+            <span class="custom-sort"></span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('update_time')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.update_time | date: 'dd/MM/yyyy HH:mm' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th
+            [hidden]="!hiddenHandler('description')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Description
+            <span class="custom-sort"></span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('description')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.description }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="effectiveDate">
+          <th
+            [hidden]="!hiddenHandler('effectiveDate')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Effective Date
+            <span class="custom-sort"></span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('effectiveDate')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.effectiveDate | date: 'dd/MM/yyyy HH:mm' }}
+          </td>
+        </ng-container>
+
+        <tr
+          style="background-color: #4a5964; font-weight: 600; color: white"
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+        <!-- <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
+            No Records Found
+          </td>
+        </tr> -->
+      </table>
+      @if (!dataSource.length) {
+        <div class="no-data">
+          No Records Found
+        </div>
+      }
+    </div>
+    <div class="table-footer">
+      <app-pagination
+        [totalItems]="rowCount"
+        [currentPageInput]="currentPage"
+        [itemsPerPageInput]="50"
+        (pageChange)="onPageChange($event)"></app-pagination>
+    </div>
+  </mat-card-content>
+</mat-card>

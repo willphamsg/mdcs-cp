@@ -1,0 +1,54 @@
+<button
+  [matMenuTriggerFor]="notif"
+  mat-icon-button
+  class="icon"
+  aria-label="Notification">
+  <mat-icon
+    style="transform: scale(1.4)"
+    matBadgeSize="small"
+    [matBadge]="unreadItems"
+    [matBadgeHidden]="!unreadItems"
+    matBadgeColor="warn"
+    aria-hidden="false"
+    aria-label="Notifications"
+    >notifications</mat-icon
+  >
+</button>
+
+<mat-menu class="notif-menu" #notif="matMenu">
+  <div class="container mat-elevation-z8">
+    <div class="notification">
+      <div class="notification__header">
+        <span class="notification__header-label">Notifications</span>
+        <span class="notification__header-mark" (click)="markAllAsRead()"
+          >Mark all as read</span
+        >
+      </div>
+
+      <mat-divider></mat-divider>
+
+      @for (notification of notifications; track notification) {
+        <div class="notification-item">
+          @if (!notification.read) {
+            <div class="notification-icon">
+              <mat-icon color="primary">circle</mat-icon>
+            </div>
+          }
+          <div class="content">
+            <span class="content__title">{{ notification.title }}</span>
+            <span class="content__message">{{ notification.message }}</span>
+            <span class="content__time">{{
+              notification.dateTime | date: 'HH:MM'
+            }}</span>
+          </div>
+        </div>
+
+        <mat-divider />
+      }
+
+      <a class="notification-centre-link" [routerLink]="['notification-centre']"
+        >Go to notification centre</a
+      >
+    </div>
+  </div>
+</mat-menu>

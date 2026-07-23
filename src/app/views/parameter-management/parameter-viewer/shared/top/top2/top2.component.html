@@ -1,0 +1,11 @@
+<div class="container">
+  <app-user-table [dataSource]="data.userData"></app-user-table>
+  <div class="label-container">
+    @for (item of items; track item) {
+      <div class="items">
+        <span class="label">{{ item.label }}:</span>
+        <span class="value">{{ item.value }}</span>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,111 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [menuItem]="'Report'"
+    [headerTitle]="'Daily Report'"></app-breadcrumbs>
+</div>
+
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">Daily Report</h1>
+  </mat-card-header>
+
+  <mat-divider> </mat-divider>
+  <mat-card-content>
+    <mat-tab-group
+      (selectedTabChange)="onTabChange($event)"
+      mat-stretch-tabs="false"
+      mat-align-tabs="start"
+      animationDuration="0ms">
+      @for (item of tabList; track item.key) {
+        <mat-tab [label]="item.key">
+          <ng-template mat-tab-label>
+            <div>{{ item?.title }}</div>
+          </ng-template>
+        </mat-tab>
+      }
+    </mat-tab-group>
+
+    <div class="entry-actions">
+      <!-- <app-filter [filterConfigs]="filterConfigs"></app-filter> -->
+      <mat-form-field class="mat-custom">
+        <mat-label>Business Day</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [max]="todayJS"
+          [(ngModel)]="businessDaySelected" />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="mat-custom" style="width: 360px">
+        <mat-label>Depot</mat-label>
+        <mat-select [(ngModel)]="depotSelected">
+          @for (depot of depots; track depot) {
+            <mat-option [value]="depot.depot_id">
+              {{ depot.depot_name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <div class="button-filter" style="text-align: right">
+        <div class="item download-item">
+          <button
+            type="button"
+            class="btn btn-download"
+            style="font-size: 16px"
+            [matMenuTriggerFor]="downloadMenu"
+            [disabled]="!depotSelected || !businessDaySelected"
+            (menuOpened)="menuHandler(true)"
+            (menuClosed)="menuHandler(false)">
+            <img
+              src="/assets/icons/download-icon.svg"
+              class="download-icon"
+              alt="" />
+            Download as
+            <div class="expand-icon">
+              <mat-icon [ngClass]="{ 'rotated-reverse': expandedMenu }"
+                >expand_less</mat-icon
+              >
+            </div>
+          </button>
+          <mat-menu #downloadMenu="matMenu">
+            <button (click)="exportExcel()" mat-menu-item>Excel</button>
+            <button (click)="exportCSV()" mat-menu-item>CSV</button>
+            <button (click)="print()" mat-menu-item class="menu-download">
+              PDF
+            </button>
+          </mat-menu>
+        </div>
+        <div class="item">
+          <button
+            type="button"
+            (click)="onViewReport()"
+            mat-flat-button
+            id="btndescription"
+            [disabled]="isButtonClick"
+            class="btn description">
+            <mat-icon>description</mat-icon>
+            View Report
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Selected Filter Component -->
+    <app-selected-filter />
+
+    <div class="table-wrapper">
+      <app-ssrs-reportviewer
+        [reportname]="reportName"
+        [parameter]="parameterReportViewer"
+        [option]="optionReportViewer"
+        [reportType]="'daily-report'"
+        (isIframeLoadedEvent)="
+          isIframeLoadedEvent($event)
+        "></app-ssrs-reportviewer>
+    </div>
+    <div class="table-footer"></div>
+  </mat-card-content>
+</mat-card>

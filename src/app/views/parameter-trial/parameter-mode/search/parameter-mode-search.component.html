@@ -1,0 +1,291 @@
+<div class="breadcrumbs">
+  <app-breadcrumbs
+    [menuItem]="'Parameter Trial'"
+    [headerTitle]="'Parameter Mode'"></app-breadcrumbs>
+</div>
+<mat-card>
+  <mat-card-header>
+    <h1 class="page-title">Parameter Mode</h1>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <mat-tab-group
+      (selectedTabChange)="onTabChange($event)"
+      mat-stretch-tabs="false"
+      mat-align-tabs="start"
+      [(selectedIndex)]="tabIdx">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="label">Action Required</div>
+        </ng-template>
+      </mat-tab>
+
+      @if (
+        authService.hasAccess(
+          ['parameterTrial', 'parameterMode', 'manage'],
+          'mdcs'
+        )
+      ) {
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div class="label">Action History</div>
+          </ng-template>
+        </mat-tab>
+      }
+    </mat-tab-group>
+
+    <div class="entry-actions">
+      <app-filter [filterConfigs]="filterConfigs"></app-filter>
+
+      <div class="button-filter">
+        @if (tabIdx === 0) {
+          <div class="item">
+            @if (
+              authService.hasAccess(
+                ['parameterTrial', 'parameterMode', 'manage'],
+                'mdcs'
+              )
+            ) {
+              <button
+                type="button"
+                [disabled]="selection.length === 0"
+                (click)="updateView('live')"
+                mat-flat-button
+                class="btn live"
+                [ngClass]="{ disabled: selection.length === 0 }">
+                <mat-icon>checked</mat-icon>
+                Set Live
+              </button>
+            }
+          </div>
+          <div class="item">
+            @if (
+              authService.hasAccess(
+                ['parameterTrial', 'parameterMode', 'manage'],
+                'mdcs'
+              )
+            ) {
+              <button
+                type="button"
+                [disabled]="selection.length === 0"
+                (click)="updateView('trial')"
+                mat-flat-button
+                id="btnedit"
+                class="btn trial"
+                [ngClass]="{ disabled: selection.length === 0 }">
+                <mat-icon
+                  ><img src="/assets/icons/union.svg" alt=""
+                /></mat-icon>
+                Set Trial
+              </button>
+            }
+          </div>
+        } @else {
+          <app-month-filter (monthChange)="onMonthFilterChange($event)" />
+        }
+      </div>
+    </div>
+    <!-- Selected Filter Component -->
+    <app-selected-filter />
+
+    <div class="table-wrapper">
+      <table
+        mat-table
+        class="stripped"
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="sortHandler($event)">
+        <!-- Check Column -->
+        <ng-container matColumnDef="chk">
+          <th mat-header-cell *matHeaderCellDef [hidden]="tabIdx !== 0">
+            @if (
+              authService.hasAccess(
+                ['parameterTrial', 'parameterMode', 'manage'],
+                'mdcs'
+              )
+            ) {
+              <mat-checkbox
+                onkeypress=""
+                [(ngModel)]="chkAll"
+                (change)="checkAllHandler($event)"
+                class="header-checkbox"></mat-checkbox>
+            }
+          </th>
+          <td mat-cell *matCellDef="let element" [hidden]="tabIdx !== 0">
+            @if (
+              authService.hasAccess(
+                ['parameterTrial', 'parameterMode', 'manage'],
+                'mdcs'
+              )
+            ) {
+              <mat-checkbox
+                onkeypress=""
+                [(ngModel)]="element.chk"
+                (change)="checkHandler($event, element)"
+                color="primary"></mat-checkbox>
+            }
+          </td>
+        </ng-container>
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th
+            [hidden]="!hiddenHandler('id')"
+            mat-header-cell
+            *matHeaderCellDef
+            style="width: 120px">
+            No.
+          </th>
+          <td
+            [hidden]="!hiddenHandler('id')"
+            mat-cell
+            *matCellDef="let element; let dataIndex = index">
+            {{ dataIndex + 1 }}
+          </td>
+        </ng-container>
+
+        <!-- Depots Column -->
+        <ng-container matColumnDef="depot_id">
+          <th
+            [hidden]="!hiddenHandler('depot_id')"
+            mat-header-cell
+            *matHeaderCellDef>
+            Depots
+          </th>
+          <td
+            [hidden]="!hiddenHandler('depot_id')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.depot_name }}
+          </td>
+        </ng-container>
+
+        <!-- Parameter Name Column -->
+        <ng-container matColumnDef="parameter_name">
+          <th
+            [hidden]="!hiddenHandler('parameter_name')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Parameter File Name
+            <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('parameter_name')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.parameter_name }}
+          </td>
+        </ng-container>
+
+        <!--  Parameter Version Column -->
+        <ng-container matColumnDef="parameter_version">
+          <th
+            [hidden]="!hiddenHandler('parameter_version')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Parameter File Version
+            <span class="custom-sort"> </span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('parameter_version')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.parameter_version }}
+          </td>
+        </ng-container>
+
+        <!-- Effective Date Time -->
+        <ng-container matColumnDef="effective_date_time">
+          <th
+            [hidden]="!hiddenHandler('effective_date_time')"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            <span class="text-align">Effective Date & Time </span>
+            <span class="custom-sort"></span>
+          </th>
+          <td
+            [hidden]="!hiddenHandler('effective_date_time')"
+            mat-cell
+            *matCellDef="let element">
+            {{ element.effective_date_time | date: 'dd/MM/yyyy HH:mm' }}
+          </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            [hidden]="tabIdx === 0">
+            Status
+            <span class="custom-sort"> </span>
+          </th>
+          <td mat-cell *matCellDef="let element" [hidden]="tabIdx === 0">
+            <span
+              class="status"
+              [ngClass]="
+                isInProgressStatus(element.status_desc)
+                  ? 'in-progress'
+                  : element.status_desc
+              ">
+              {{
+                isInProgressStatus(element.status_desc)
+                  ? 'In Progress'
+                  : (element.status_desc | titlecase)
+              }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="last_update">
+          <th
+            [hidden]="tabIdx === 0"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header>
+            Last Update
+            <span class="custom-sort"> </span>
+          </th>
+          <td [hidden]="tabIdx === 0" mat-cell *matCellDef="let element">
+            {{ element.last_update | date: 'dd/MM/yyy HH:mm' }}
+          </td>
+        </ng-container>
+
+        <tr
+          style="background-color: #4a5964; font-weight: 600; color: white"
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="data-row"
+          [class.selected]="row.chk"></tr>
+
+        <!-- <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
+          No Records Found
+        </td>
+      </tr> -->
+      </table>
+      @if (!dataSource.length) {
+        <div class="no-data">No Records Found</div>
+      }
+    </div>
+
+    <div class="table-footer">
+      <app-pagination
+        [totalItems]="rowCount"
+        [currentPageInput]="currentPage"
+        (pageChange)="onPageChange($event)"></app-pagination>
+      @if (tabIdx === 0) {
+        <div class="selected-item">
+          Selected: {{ selectionService.getParameterModeSelections().length }}
+        </div>
+      }
+    </div>
+  </mat-card-content>
+</mat-card>

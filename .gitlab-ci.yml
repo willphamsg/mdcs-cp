@@ -1,0 +1,176 @@
+stages:
+  # List of stages for jobs, and their order of execution
+  - virus_scan
+  - build
+  - test
+  - deploy
+  - sonar
+
+## RS Based Job Template 
+.base-job-template-rs:
+  image: ubuntu:22.04
+  before_script:
+    # Setting Environment Variable
+    - export PATH="/usr/local/bin:/usr/local/lib/node_modules/@angular/cli/bin:$PATH"
+
+    ## Package Installation
+    - apt-get update
+    - apt-get install -y git
+    - apt-get install -y curl gnupg2 build-essential
+    - curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+    - apt-get install -y nodejs
+    # - npm install
+    - npm install --legacy-peer-deps
+    - npm install -g @angular/cli@21.2.11
+
+    ## Checking the Version
+    - npm --version
+    - node --version
+    - ng version
+
+## RQ Based Job Template
+.base-job-template-rq:
+  image: ubuntu:22.04
+  id_tokens:
+    OIDC:
+      aud: sts.amazonaws.com
+  before_script:
+    # Setting Environment Variable
+    - export PATH="/usr/local/bin:/usr/local/lib/node_modules/@angular/cli/bin:$PATH"
+
+    ## Package Installation - Node and Angular
+    - apt-get update
+    - apt-get install -y git
+    - apt-get install -y unzip
+    - apt-get install -y curl gnupg2 build-essential
+    - curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+    - apt-get install -y nodejs
+    - npm install --legacy-peer-deps
+    - npm install -g @angular/cli@21.2.11
+
+    ## AWS CLI Installation - version 2.15.41
+    - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    - unzip -tq awscliv2.zip
+    - unzip -q awscliv2.zip && rm -rf awscliv2.zip
+    - ./aws/install
+    - export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+
+    ## SSM Manager Plugin Installation
+    - apt-get install -y jq
+    - curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+    - dpkg -i session-manager-plugin.deb
+
+    ## Checking the Version
+    - npm --version
+    - node --version
+    - ng version
+    - aws --version
+    - session-manager-plugin
+
+build-dist:
+  extends: .base-job-template-rs
+  stage: build
+  script:
+    - ng build
+  artifacts:
+    paths:
+      - dist
+
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev"
+      when: on_success
+    - if: $CI_COMMIT_BRANCH == "sit"
+      when: on_success
+    - if: $CI_COMMIT_BRANCH == "uat"
+      when: on_success
+
+
+# trigger_downstream:
+#   stage: build
+#   script:
+#     - curl -X POST -F token=TRIGGER_TOKEN -F ref=main https://gitlab.example.com/api/v4/projects/PROJECT_ID/trigger/pipeline
+#   dependencies: []
+
+deploy-dist-rq:
+  stage: deploy
+  extends: .base-job-template-rq
+  script:
+    ## Uploading the dist folder content to the S3 Bucket
+    # - ng build 
+    - npm run build:dummy
+    - aws s3 sync --delete ./dist/lta-btds-gui/browser/ s3://$AWS_DIST_BUCKET
+
+    ## Getting IntanceId based on the Tag Values 
+    # - instance_id=$(aws ssm describe-instance-information  --filters "Key=tag:Name,Values=lta-btds-rq23036-infra-mdcs-gui-instance" | jq -r '.[][].InstanceId')
+    - instance_id=$(aws ssm describe-instance-information  --filters "Key=tag:Name,Values=mdcs-server" | jq -r '.[][].InstanceId')
+    - echo $instance_id
+
+    ## Deleting the HTML Content
+    - send_command_id_delete=$(aws ssm send-command --instance-ids $instance_id  --document-name "AWS-RunShellScript"  --comment "delete the html folder content"  --parameters commands="rm -rf /var/www/html/*" | jq -r '.[].CommandId')
+    - sleep 10
+    - aws ssm get-command-invocation --command-id $send_command_id_delete --instance-id $instance_id | jq
+
+    ## Uploading the Dist Folder
+    - send_command_id_upload=$(aws ssm send-command --instance-ids $instance_id  --document-name "AWS-RunShellScript"  --comment "upload dist folder"  --parameters commands="aws s3 sync --delete s3://$AWS_DIST_BUCKET /var/www/html/" | jq -r '.[].CommandId')
+    - sleep 10
+    - aws ssm get-command-invocation --command-id $send_command_id_upload --instance-id $instance_id | jq
+
+    ## Restart the Lighttpd Service
+    - send_command_restart_lighttpd=$(aws ssm send-command --instance-ids $instance_id  --document-name "AWS-RunShellScript"  --comment "restart lighttpd service"  --parameters commands="systemctl restart lighttpd" | jq -r '.[].CommandId')
+    - sleep 10
+    - echo $send_command_restart_lighttpd
+    - aws ssm get-command-invocation --command-id $send_command_restart_lighttpd --instance-id $instance_id | jq
+
+ 
+  rules:
+    - if: $CI_COMMIT_BRANCH == "rq"
+      when: on_success
+
+include:
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Jobs/Code-Quality.gitlab-ci.yml
+
+# SonarCloud scan
+sonarqube_scan:
+  stage: sonar
+  image: node:20
+  before_script:
+    - apt-get update && apt-get install -y curl unzip
+    - curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+    - unzip sonar-scanner.zip
+    - export PATH="$PWD/sonar-scanner-5.0.1.3006-linux/bin:$PATH"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "rq"'
+  script:
+    - npm install --legacy-peer-deps
+    - 'echo "Branch: $CI_COMMIT_BRANCH"'
+    - '[ -z "$SONAR_TOKEN_RQ" ] && echo "SONAR_TOKEN_RQ is NOT set" || echo "SONAR_TOKEN_RQ is set"'
+    - 'echo "SONAR_TOKEN_RQ length: ${#SONAR_TOKEN_RQ}"'
+    - |
+      cat <<EOF > sonar-project.properties
+      sonar.projectKey=rs806_mdcs-gui
+      sonar.organization=rs806
+      sonar.sources=src
+      sonar.exclusions=**/*.spec.ts,**/test/**,**/*.stories.ts
+      sonar.token=$SONAR_TOKEN_RQ
+      sonar.host.url=https://sonarcloud.io
+      sonar.branch.name=rq
+      EOF
+    - sonar-scanner
+
+virus_scan:
+  image: clamav/clamav:latest
+  stage: virus_scan
+  script:
+    - echo "🕒 Scan started at $(date)"
+    - freshclam # update virus DB
+    - clamscan -r --infected --bell --log=scan.log .
+    - echo "🕒 Scan completed at $(date)"
+    - echo "📄 Scan log:"
+    - cat scan.log
+  artifacts:
+    paths:
+      - scan.log
+    expire_in: 1 week
+    

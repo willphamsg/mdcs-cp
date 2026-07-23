@@ -1,0 +1,51 @@
+.snackbar-message {
+  color: black;
+}
+
+.snackbar-action {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0px;
+  border: none;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  cursor: pointer;
+  > img {
+    width: 100%;
+    height: auto;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    path {
+      stroke-width: 1.5;
+    }
+  }
+}
+.multi-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0px;
+}
+
+.wrapper {
+  display: flex;
+  color: black;
+  .icon {
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+  }
+  > div {
+    &:first-of-type {
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+    &:not(:first-of-type) {
+      flex-shrink: 1;
+    }
+  }
+}

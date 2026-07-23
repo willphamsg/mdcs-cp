@@ -1,0 +1,19 @@
+<div class="report-container">
+  @if (!sanitizedUrl) {
+    <div class="empty-depot-display">
+      <img src="/assets/icons/camera.svg" alt="empty files" />
+      <p>Complete selection to view info.</p>
+      <p>No data to display.</p>
+    </div>
+  }
+  <div [ngClass]="{ active: isIframeLoaded, hidden: !isIframeLoaded }">
+    <iframe
+      [src]="sanitizedUrl"
+      width="100%"
+      height="600px"
+      frameborder="0"
+      allowfullscreen="false"
+      (load)="onIframeLoad()"></iframe>
+  </div>
+  <!-- <div *ngIf="reportHtml" [innerHTML]="reportHtml"></div> -->
+</div>

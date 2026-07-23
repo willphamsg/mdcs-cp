@@ -1,0 +1,62 @@
+[
+  {
+    "chk": true,
+    "field": "id",
+    "name": "Id",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "depot",
+    "name": "Depots",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "parameter_name",
+    "name": "Parameter Name",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "mdcs_live",
+    "name": "MDCS Live",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "dagw_live",
+    "name": "DAGW Live",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "effective_date_live",
+    "name": "Effective Date (DAGW Live)",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "mdcs_trial",
+    "name": "MDCS Trial",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "dagw_trial",
+    "name": "DAGW Trial",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "effective_date_time",
+    "name": "Effective Date & Time",
+    "hidden": false
+  },
+  {
+    "chk": true,
+    "field": "consistency",
+    "name": "Consistency",
+    "hidden": false
+  }
+]

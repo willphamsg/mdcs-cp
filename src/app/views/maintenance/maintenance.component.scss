@@ -1,0 +1,45 @@
+.content-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  // overflow-y: auto;
+  // overflow-x: hidden;
+
+  .empty-depot-display {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    flex-direction: column;
+    gap: 24px;
+
+    p:nth-child(2) {
+      font-size: 24px;
+      color: #000;
+    }
+    p:nth-child(3) {
+      font-size: 16px;
+      color: #828282;
+    }
+  }
+}
+
+// ::ng-deep .force-eod-dialog {
+//   align-self: start !important;
+//   margin-top: 5%;
+
+//   .mdc-dialog__surface {
+//     display: flex !important;
+//     align-items: center !important;
+//     justify-content: center !important;
+//     overflow: hidden !important;
+//   }
+// }
+
+.label-eod-in-process {
+  display: inline-flex;
+  align-items: center;
+}
+::ng-deep .button-filter {
+  position: absolute;
+  right: 24px;
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "version": 53,
+    "param_master_id": 416,
+    "svc_prov_id": 16,
+    "depot_id": 976,
+    "parameter_name": "CTRUAPPA.SYS",
+    "parameter_version": "93",
+    "status_code": 4,
+    "status_desc": "APPROVED",
+    "last_update": "2025-12-16 23:30:43",
+    "effective_date_time": "2025-05-02 01:00:00"
+  },
+  {
+    "version": 43,
+    "param_master_id": 418,
+    "svc_prov_id": 16,
+    "depot_id": 973,
+    "parameter_name": "CSC2APPA.SYS",
+    "parameter_version": "4",
+    "status_code": 4,
+    "status_desc": "APPROVED",
+    "last_update": "2025-12-08 12:03:43",
+    "effective_date_time": "2025-05-02 01:00:00"
+  }
+]

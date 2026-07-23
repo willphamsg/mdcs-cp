@@ -1,0 +1,222 @@
+@mixin header-text {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+@mixin table-data-text {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+.card-key-version-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  &.default-height {
+    min-height: 400px;
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 400px;
+  padding: 40px 20px;
+
+  .empty-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 24px;
+    opacity: 0.6;
+  }
+
+  .empty-title {
+    font-family: Inter, sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: center;
+    vertical-align: middle;
+    color: #000000;
+    margin: 0 0 8px 0;
+  }
+
+  .empty-message {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0px;
+    text-align: center;
+    vertical-align: middle;
+    color: #828282;
+    margin: 0;
+  }
+}
+
+.card-key-table {
+  margin: 20px 24px;
+
+  table {
+    width: 100%;
+    height: 32px;
+    border-collapse: collapse;
+    th,
+    td {
+      border: 1px solid #828282;
+    }
+    th {
+      padding: 8px 42px 8px 10px;
+      text-align: left;
+    }
+    td {
+      padding: 8px 34px;
+    }
+  }
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  justify-content: center;
+  gap: 30px;
+
+  .box {
+    width: 24px;
+    height: 13px;
+    margin-right: 10px;
+    border: 1px solid #000;
+
+    &-yellow {
+      background-color: #fff0cf;
+    }
+
+    &-orange {
+      background-color: #ffe1e1;
+    }
+  }
+}
+
+.inconsistent {
+  background-color: #fff0cf;
+}
+
+.failed {
+  background-color: #ffe1e1;
+}
+
+.chk-inconsistent {
+  &.inconsistent {
+    background-color: #fff0cf;
+  }
+  &.failed {
+    background-color: #ffe1e1;
+  }
+}
+
+.filter-wrapper {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+
+  mat-form-field {
+    width: 420px;
+  }
+}
+
+table {
+  width: 100%;
+  border-bottom: 1px solid #dedede;
+}
+
+.search-text {
+  max-width: 420px;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 12px;
+}
+
+.data-row {
+  @include table-data-text();
+  color: #000000;
+  height: 32px !important;
+
+  > td:not(:last-child) {
+    border-right: 1px solid #dedede;
+  }
+}
+
+.data-row:not(:last-child) > td {
+  border-bottom: unset;
+}
+
+.data-row:last-child > td {
+  border-bottom: 1px solid #dedede;
+}
+
+.header-row {
+  background-color: #4a5964;
+  font-weight: 600;
+  height: 32px !important;
+  color: #ffffff;
+
+  > th:not(:last-child) {
+    border-right: 1px solid #dedede;
+  }
+}
+
+.subheader-row {
+  background-color: #f3f7ff;
+  font-weight: 600;
+  height: 32px !important;
+  color: #4a5964;
+
+  > th:not(:last-child) {
+    border-right: 1px solid #dedede;
+  }
+}
+
+.subheader-row > th {
+  border-bottom: unset;
+}
+
+.main-header {
+  text-align: center;
+  vertical-align: middle;
+}
+
+// Zebra striping for ag-grid rows (grey & white)
+::ng-deep .common-ag {
+  // Apply zebra striping to ag-grid rows
+  .ag-center-cols-container .ag-row {
+    &:nth-child(odd) {
+      background-color: #ffffff !important;
+    }
+
+    &:nth-child(even) {
+      background-color: #fbfbfb !important;
+    }
+
+    // Status colors override striping - check if any cell has status class
+    &.inconsistent,
+    .ag-cell.inconsistent {
+      background-color: #fff0cf !important;
+    }
+
+    &.failed,
+    .ag-cell.failed {
+      background-color: #ffe1e1 !important;
+    }
+  }
+}
