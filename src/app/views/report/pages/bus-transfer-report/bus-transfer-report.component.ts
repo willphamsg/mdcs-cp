@@ -64,7 +64,7 @@ import { DD_MM_YYYY_FORMAT } from '@app/shared/utils/date-time';
   styleUrl: './bus-transfer-report.component.scss',
 })
 export class BusTransferReportComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   depots: IDepoList[] = [];
   operators: IOperatorList[] = [];

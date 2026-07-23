@@ -13,7 +13,7 @@ import { MessageService } from './message.service';
   providedIn: 'root',
 })
 export class ManageBusOperationService {
-  private uri = environment.gateway + 'operational-bus-list/';
+  private readonly uri: string;
   private readonly handler = inject(HttpBackend);
   constructor(
     private readonly http: HttpClient,
@@ -21,7 +21,7 @@ export class ManageBusOperationService {
     private readonly message: MessageService,
     private readonly dynamic: DynamicEndpoint
   ) {
-    this.uri = this.dynamic.setDynamicEndpoint('bus', this.uri);
+    this.uri = this.dynamic.setDynamicEndpoint('bus', environment.gateway + 'operational-bus-list/');
   }
 
   search(params: IParams): Observable<PayloadResponse> {

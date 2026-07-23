@@ -20,7 +20,7 @@ import { componentRegistry } from '../../core/component-registry';
   styleUrls: ['./main-layout.component.scss'],
 })
 export class MainLayoutComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   private destroyData$ = new Subject<void>();
 
   private topComponentRef: ComponentRef<any> | null = null;

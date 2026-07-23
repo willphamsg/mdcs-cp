@@ -84,8 +84,8 @@ const BUFFER_TIME = 30;
   ],
 })
 export class EndTrialSearchComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
-  private datePipe = new DatePipe('en-US');
+  private readonly destroy$ = new Subject<void>();
+  private readonly datePipe = new DatePipe('en-US');
   private readonly dateFormat = 'yyyy-MM-dd HH:mm:ss';
   private trialSchedulerRateSeconds = 0;
   private statusRefreshTimer$?: Subscription;
@@ -501,7 +501,11 @@ export class EndTrialSearchComponent implements OnInit, OnDestroy {
     element.chk = event.checked;
 
     // Toggle selection in the service
-    this.selectionService.toggleEndTrialSelection(element, event.checked);
+    if (event.checked) {
+      this.selectionService.addEndTrialSelection(element);
+    } else {
+      this.selectionService.removeEndTrialSelection(element.id);
+    }
 
     // Update the "check all" state based on current page selections
     this.updateCheckAllState();

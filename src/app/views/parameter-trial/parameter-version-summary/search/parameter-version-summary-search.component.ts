@@ -70,7 +70,7 @@ import { CommonService } from '@app/services/common.service';
 export class ParameterVersionSummarySearchComponent
   implements OnInit, OnDestroy
 {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   headerData = ParameterVersionSummaryHeader;
   chkAll = false;
   tab1Columns: string[] = ParameterVersionSummaryHeader.map((x: IHeader) => {

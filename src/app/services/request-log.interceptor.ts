@@ -21,10 +21,16 @@ function escapeCsvCell(value: unknown): string {
   let str: string;
   if (value === null || value === undefined) {
     str = '';
-  } else if (typeof value === 'object') {
-    str = JSON.stringify(value);
-  } else {
+  } else if (typeof value === 'string') {
+    str = value;
+  } else if (
+    typeof value === 'number' ||
+    typeof value === 'boolean' ||
+    typeof value === 'bigint'
+  ) {
     str = String(value);
+  } else {
+    str = JSON.stringify(value);
   }
   // Wrap in quotes and escape any existing double-quotes
   return `"${str.replaceAll('"', '""')}"`;

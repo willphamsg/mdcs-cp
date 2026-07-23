@@ -420,7 +420,11 @@ export class BusTransferSearchComponent implements OnInit, OnDestroy {
     element.chk = event.checked;
 
     // Toggle selection in the service
-    this.busSelectionService.toggleBusTransferSelection(element, event.checked);
+    if (event.checked) {
+      this.busSelectionService.addBusTransferSelection(element);
+    } else {
+      this.busSelectionService.removeBusTransferSelection(element.id);
+    }
 
     // Update the "check all" state based on current page selections
     this.updateCheckAllState();

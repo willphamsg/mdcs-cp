@@ -11,14 +11,14 @@ import { DynamicEndpoint } from './dynamic-endpoint';
   providedIn: 'root',
 })
 export class ManageCardKeyVersionService {
-  private uri = environment.gateway + 'card-key-version-summary/';
+  private readonly uri: string;
   constructor(
     private readonly http: HttpClient,
     public readonly dialog: MatDialog,
     private readonly message: MessageService,
     private readonly dynamic: DynamicEndpoint
   ) {
-    this.uri = this.dynamic.setDynamicEndpoint('bus', this.uri);
+    this.uri = this.dynamic.setDynamicEndpoint('bus', environment.gateway + 'card-key-version-summary/');
   }
 
   search(params: IParams): Observable<PayloadResponse> {

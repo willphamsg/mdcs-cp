@@ -12,14 +12,14 @@ import { DynamicEndpoint } from './dynamic-endpoint';
   providedIn: 'root',
 })
 export class ParameterVersionSummaryService {
-  private uri = environment.gateway + 'parameter-version-summary/';
+  private readonly uri: string;
   constructor(
     private readonly http: HttpClient,
     public readonly dialog: MatDialog,
     private readonly message: MessageService,
     private readonly dynamic: DynamicEndpoint
   ) {
-    this.uri = this.dynamic.setDynamicEndpoint('param', this.uri);
+    this.uri = this.dynamic.setDynamicEndpoint('param', environment.gateway + 'parameter-version-summary/');
   }
 
   search(params: IParams, tab: string): Observable<PayloadResponse> {

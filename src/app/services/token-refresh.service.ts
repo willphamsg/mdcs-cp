@@ -23,7 +23,7 @@ export class TokenRefreshService {
   private readonly dynamic = inject(DynamicEndpoint);
 
   private isRefreshing = false;
-  private refreshedAccessToken$ = new BehaviorSubject<string | null>(null);
+  private readonly refreshedAccessToken$ = new BehaviorSubject<string | null>(null);
 
   // Renews the access/refresh token pair and returns the new access token.
   // Concurrent callers (e.g. several requests failing with 401 at once) share

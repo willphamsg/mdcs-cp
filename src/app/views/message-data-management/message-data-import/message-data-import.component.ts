@@ -86,7 +86,7 @@ import { WebSocketService, WS_TOPICS } from '@app/services/web-socket.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessageDataImportComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   private pollingSubscription?: Subscription;
   isDagw = this.authService.isDagw();
   paginatedData: any[] = [];

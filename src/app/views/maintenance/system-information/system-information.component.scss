@@ -44,10 +44,7 @@
 :host {
   flex: 1;
   overflow-y: auto;
-}
 
-// Template layout: 90% width with 5% left/right margins
-:host {
   ::ng-deep .information-grid {
     width: 90%;
     margin-left: 5%;

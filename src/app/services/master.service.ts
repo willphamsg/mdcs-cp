@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpParams,
 } from '@angular/common/http';
 import { IParams, PayloadResponse, VehicleRequest } from '../models/common';
 import { Observable, catchError, of } from 'rxjs';
@@ -16,14 +15,14 @@ import { DynamicEndpoint } from './dynamic-endpoint';
   providedIn: 'root',
 })
 export class MasterService {
-  private uri = environment.gateway + 'master-bus-list/';
+  private readonly uri: string;
   constructor(
     private readonly http: HttpClient,
     public readonly dialog: MatDialog,
     private readonly message: MessageService,
     private readonly dynamic: DynamicEndpoint
   ) {
-    this.uri = this.dynamic.setDynamicEndpoint('bus', this.uri);
+    this.uri = this.dynamic.setDynamicEndpoint('bus', environment.gateway + 'master-bus-list/');
   }
 
   search(params: IParams): Observable<PayloadResponse> {

@@ -15,10 +15,10 @@ import { IDepoList } from '@app/models/depo';
   providedIn: 'root',
 })
 export class CommonService {
-  private uriSettings = environment.gateway + '';
-  private uri = environment.gateway + 'svc-provider/';
-  private uriGeneralInfo = environment.gateway + 'general-information';
-  private operatorList: BehaviorSubject<IOperatorList[]> = new BehaviorSubject<
+  private readonly uriSettings: string;
+  private readonly uri: string;
+  private readonly uriGeneralInfo: string;
+  private readonly operatorList: BehaviorSubject<IOperatorList[]> = new BehaviorSubject<
     IOperatorList[]
   >([]);
   operatorList$: Observable<IOperatorList[]> = this.operatorList.asObservable();
@@ -27,11 +27,11 @@ export class CommonService {
     private readonly message: MessageService,
     private readonly dynamic: DynamicEndpoint
   ) {
-    this.uriSettings = this.dynamic.setDynamicEndpoint('', this.uriSettings);
-    this.uri = this.dynamic.setDynamicEndpoint('common', this.uri);
+    this.uriSettings = this.dynamic.setDynamicEndpoint('', environment.gateway + '');
+    this.uri = this.dynamic.setDynamicEndpoint('common', environment.gateway + 'svc-provider/');
     this.uriGeneralInfo = this.dynamic.setDynamicEndpoint(
       '',
-      this.uriGeneralInfo
+      environment.gateway + 'general-information'
     );
   }
 

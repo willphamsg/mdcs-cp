@@ -10,10 +10,10 @@ import { DynamicEndpoint } from './dynamic-endpoint';
   providedIn: 'root',
 })
 export class DepoService {
-  private uri = environment.gateway + 'depot/';
+  private readonly uri: string;
 
-  private depo: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  private depoList: BehaviorSubject<IDepoList[]> = new BehaviorSubject<
+  private readonly depo: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private readonly depoList: BehaviorSubject<IDepoList[]> = new BehaviorSubject<
     IDepoList[]
   >([]);
   depoList$: Observable<IDepoList[]> = this.depoList.asObservable();
@@ -22,7 +22,7 @@ export class DepoService {
     private readonly http: HttpClient,
     private readonly dynamic: DynamicEndpoint
   ) {
-    this.uri = this.dynamic.setDynamicEndpoint('common', this.uri);
+    this.uri = this.dynamic.setDynamicEndpoint('common', environment.gateway + 'depot/');
   }
 
   search(params: DepoRequest): Observable<PayloadResponse> {

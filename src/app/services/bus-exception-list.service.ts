@@ -11,13 +11,13 @@ import { DynamicEndpoint } from './dynamic-endpoint';
   providedIn: 'root',
 })
 export class ManageBusExceptionListService {
-  private uri = environment.gateway + 'operational-bus-list/';
+  private readonly uri: string;
   constructor(
     private readonly http: HttpClient,
     public readonly dialog: MatDialog,
     private readonly dynamic: DynamicEndpoint
   ) {
-    this.uri = this.dynamic.setDynamicEndpoint('bus', this.uri);
+    this.uri = this.dynamic.setDynamicEndpoint('bus', environment.gateway + 'operational-bus-list/');
   }
 
   search(params: IParams): Observable<PayloadResponse> {

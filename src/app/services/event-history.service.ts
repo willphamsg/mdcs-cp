@@ -10,13 +10,13 @@ import { environment } from '@env/environment';
   providedIn: 'root',
 })
 export class EventHistoryService {
-  private uri = environment.gateway + 'event-history/';
+  private readonly uri: string;
   constructor(
     private readonly http: HttpClient,
     private readonly message: MessageService,
     private readonly dynamic: DynamicEndpoint
   ) {
-    this.uri = this.dynamic.setDynamicEndpoint('common', this.uri);
+    this.uri = this.dynamic.setDynamicEndpoint('common', environment.gateway + 'event-history/');
   }
 
   search(params: IParams): Observable<PayloadResponse> {

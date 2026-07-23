@@ -329,7 +329,15 @@ export class VehicleSearchComponent implements OnInit, OnDestroy {
     element.chk = event.checked;
 
     // Toggle selection in the service
-    this.busSelectionService.toggleVehicleSelection(element, event.checked);
+    if (event.checked) {
+      this.busSelectionService.addVehicleSelection(element);
+    } else {
+      const key =
+        element.master_bus_depot_id !== undefined
+          ? element.master_bus_depot_id
+          : element.id;
+      this.busSelectionService.removeVehicleSelection(key);
+    }
 
     // Update the "check all" state based on current page selections
     this.updateCheckAllState();

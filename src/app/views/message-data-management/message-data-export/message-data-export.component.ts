@@ -90,7 +90,7 @@ import { MessageExportReadyDialogComponent } from './export-ready-dialog.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessageDataExportComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   private timeoutSnackbarShownForStartedAt: number | null = null;
   private dialogShownForStartedAt: number | null = null;
   isDagw = this.authService.isDagw();

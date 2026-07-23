@@ -15,7 +15,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class FileImportExportService {
-  private uri = environment.gateway + 'param/';
+  private readonly uri: string;
   constructor(
     private readonly http: HttpClient,
     public readonly dialog: MatDialog,
@@ -23,7 +23,7 @@ export class FileImportExportService {
     private readonly message: MessageService,
     private readonly dynamic: DynamicEndpoint
   ) {
-    this.uri = this.dynamic.setDynamicEndpoint('param', this.uri);
+    this.uri = this.dynamic.setDynamicEndpoint('param', environment.gateway + 'param/');
   }
 
   manage(params: IParams, type: string) {

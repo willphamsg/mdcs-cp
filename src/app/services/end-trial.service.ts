@@ -13,14 +13,14 @@ import { DynamicEndpoint } from './dynamic-endpoint';
   providedIn: 'root',
 })
 export class EndTrialService {
-  private uri = environment.gateway + 'parameter-trial/';
+  private readonly uri: string;
   constructor(
     private readonly http: HttpClient,
     public readonly dialog: MatDialog,
     private readonly message: MessageService,
     private readonly dynamic: DynamicEndpoint
   ) {
-    this.uri = this.dynamic.setDynamicEndpoint('param', this.uri);
+    this.uri = this.dynamic.setDynamicEndpoint('param', environment.gateway + 'parameter-trial/');
   }
 
   search(params: IParams): Observable<PayloadResponse> {

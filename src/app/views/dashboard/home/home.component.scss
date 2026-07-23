@@ -71,12 +71,6 @@
       background-color: #f7f7f7;
       border-radius: 4px;
       margin: 8px;
-    }
-
-    .depot-name {
-      flex-basis: 60%;
-    }
-    .depot-status {
       flex-basis: 40%;
 
       .status {
@@ -96,6 +90,10 @@
           color: #000;
         }
       }
+    }
+
+    .depot-name {
+      flex-basis: 60%;
     }
   }
 

@@ -78,14 +78,14 @@ describe('ParameterSelectionService', () => {
       expect(service.getSelections()).toHaveSize(0);
     });
 
-    it('should toggle selection on', () => {
-      service.toggleSelection(mockApproval, true);
+    it('should select via add', () => {
+      service.addSelection(mockApproval);
       expect(service.isSelected(mockApproval.id)).toBeTrue();
     });
 
-    it('should toggle selection off', () => {
+    it('should deselect via remove', () => {
       service.addSelection(mockApproval);
-      service.toggleSelection(mockApproval, false);
+      service.removeSelection(mockApproval.id);
       expect(service.isSelected(mockApproval.id)).toBeFalse();
     });
 
@@ -126,8 +126,8 @@ describe('ParameterSelectionService', () => {
       expect(service.getParameterModeSelections()).toHaveSize(1);
     });
 
-    it('should toggle parameter mode selection', () => {
-      service.toggleParameterModeSelection(mockParameterMode, true);
+    it('should select parameter mode via add', () => {
+      service.addParameterModeSelection(mockParameterMode);
       expect(service.isParameterModeSelected(mockParameterMode.id)).toBeTrue();
     });
 
@@ -145,8 +145,8 @@ describe('ParameterSelectionService', () => {
       expect(service.getEndTrialSelections()).toHaveSize(1);
     });
 
-    it('should toggle end trial selection', () => {
-      service.toggleEndTrialSelection(mockEndTrial, true);
+    it('should select end trial via add', () => {
+      service.addEndTrialSelection(mockEndTrial);
       expect(service.isEndTrialSelected(mockEndTrial.id)).toBeTrue();
     });
 
@@ -164,8 +164,8 @@ describe('ParameterSelectionService', () => {
       expect(service.getTrialDeviceSelections()).toHaveSize(1);
     });
 
-    it('should toggle trial device selection', () => {
-      service.toggleTrialDeviceSelection(mockTrialDevice, true);
+    it('should select trial device via add', () => {
+      service.addTrialDeviceSelection(mockTrialDevice);
       expect(service.isTrialDeviceSelected(mockTrialDevice.id)).toBeTrue();
     });
 

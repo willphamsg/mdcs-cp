@@ -62,7 +62,7 @@ import { DD_MM_YYYY_FORMAT } from '@app/shared/utils/date-time';
   styleUrl: './bus-list-audit-trial.component.scss',
 })
 export class BusListAuditTrialComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   depots: IDepoList[] = [];
   operators: IOperatorList[] = [];

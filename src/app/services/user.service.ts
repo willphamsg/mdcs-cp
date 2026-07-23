@@ -9,13 +9,13 @@ import { DynamicEndpoint } from './dynamic-endpoint';
   providedIn: 'root',
 })
 export class UserService {
-  private uri = environment.gateway;
+  private readonly uri: string;
 
   constructor(
     private readonly http: HttpClient,
     private readonly dynamic: DynamicEndpoint
   ) {
-    this.uri = this.dynamic.setDynamicEndpoint('common', this.uri);
+    this.uri = this.dynamic.setDynamicEndpoint('common', environment.gateway);
   }
   // search(params: PayloadRequest): Observable<PayloadResponse> {
   //   return this.http.post<PayloadResponse>(`${this.uri}/search`, params);

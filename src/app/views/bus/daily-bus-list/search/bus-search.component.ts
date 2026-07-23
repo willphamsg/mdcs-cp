@@ -300,10 +300,11 @@ export class BusSearchComponent implements OnInit, OnDestroy {
     element.chk = event.checked;
 
     // Toggle selection in the service
-    this.busSelectionService.toggleDailyBusListSelection(
-      element,
-      event.checked
-    );
+    if (event.checked) {
+      this.busSelectionService.addDailyBusListSelection(element);
+    } else {
+      this.busSelectionService.removeDailyBusListSelection(element.id);
+    }
 
     // Update the "check all" state based on current page selections
     this.updateCheckAllState();

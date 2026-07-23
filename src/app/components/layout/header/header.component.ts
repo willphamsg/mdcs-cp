@@ -73,7 +73,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private readonly router = inject(Router);
   private readonly document = inject(DOCUMENT);
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   params: DepoRequest = {
     patternSearch: false,
@@ -335,7 +335,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   // Base navigation structure for DAGW
-  private dagwNavList: any = [
+  private readonly dagwNavList: any = [
     {
       label: 'Monitoring',
       value: 'monitoring',
@@ -688,8 +688,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  private autoClickTimerId: ReturnType<typeof setInterval> | null = null;
-  private autoClickIndex = 0;
+  private readonly autoClickTimerId: ReturnType<typeof setInterval> | null = null;
+  private readonly autoClickIndex = 0;
 
   private showLogoutConfirmation() {
     const dialogRef = this.dialog.open(LogoutConfirmationDialogComponent, {

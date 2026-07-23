@@ -3,7 +3,8 @@ import { CanActivateFn } from '@angular/router';
 
 import { AuthGuard } from './auth.guard';
 
-xdescribe('authGuard — skipped: pending SSO/test-bed setup', () => {
+// Ignored: SSO/OIDC and AuthGuard TestBed wiring are not available in unit tests.
+xdescribe('authGuard', () => {
   const executeGuard: CanActivateFn = (...guardParameters) =>
     TestBed.runInInjectionContext(() => AuthGuard(...guardParameters));
 

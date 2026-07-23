@@ -109,17 +109,6 @@ export class BusSelectionService {
     this.busTransferManager.removeSelection(itemId);
   }
 
-  toggleBusTransferSelection(
-    item: IBusTransferList,
-    isSelected: boolean
-  ): void {
-    if (isSelected) {
-      this.busTransferManager.selectItem(item);
-    } else {
-      this.busTransferManager.deselectItem(item);
-    }
-  }
-
   addMultipleBusTransferSelections(items: IBusTransferList[]): void {
     this.busTransferManager.addMultipleSelections(items);
   }
@@ -153,14 +142,6 @@ export class BusSelectionService {
     this.dailyBusListManager.removeSelection(itemId);
   }
 
-  toggleDailyBusListSelection(item: IBustList, isSelected: boolean): void {
-    if (isSelected) {
-      this.dailyBusListManager.selectItem(item);
-    } else {
-      this.dailyBusListManager.deselectItem(item);
-    }
-  }
-
   addMultipleDailyBusListSelections(items: IBustList[]): void {
     this.dailyBusListManager.addMultipleSelections(items);
   }
@@ -192,14 +173,6 @@ export class BusSelectionService {
 
   removeVehicleSelection(itemId: string | number): void {
     this.vehicleManager.removeSelection(itemId);
-  }
-
-  toggleVehicleSelection(item: IVehicleList, isSelected: boolean): void {
-    if (isSelected) {
-      this.vehicleManager.selectItem(item, true);
-    } else {
-      this.vehicleManager.deselectItem(item, true);
-    }
   }
 
   addMultipleVehicleSelections(items: IVehicleList[]): void {

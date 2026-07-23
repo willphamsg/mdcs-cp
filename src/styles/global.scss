@@ -279,6 +279,10 @@ button.btn {
   padding-left: 0px !important;
   padding-right: 0px !important;
   padding-bottom: 0px !important;
+  flex: 1;
+  overflow: hidden;
+  display: flex !important;
+  flex-direction: column;
 }
 
 .btn {
@@ -634,11 +638,6 @@ button.btn {
   background-color: rgba(255, 240, 207, 0.4) !important;
 }
 
-button.btn:disabled {
-  background-color: #828282 !important;
-  opacity: 0.6 !important;
-}
-
 // Material buttons disabled state
 .mat-mdc-button:disabled,
 .mat-mdc-flat-button:disabled,
@@ -863,13 +862,6 @@ button[mat-unelevated-button]:disabled {
 .mdc-card {
   flex: 1;
   overflow: hidden;
-}
-
-.mat-mdc-card-content {
-  flex: 1;
-  overflow: hidden;
-  display: flex !important;
-  flex-direction: column;
 }
 
 .scroll-y {

@@ -158,6 +158,7 @@ table {
     color: white !important;
     font-weight: 600 !important;
     border-right: none !important;
+    border-left: none !important;
   }
 
   .ag-header-cell-label,
@@ -182,12 +183,6 @@ table {
 
   // Override global styles that add vertical borders
   .ag-center-cols-container .ag-cell {
-    border-left: none !important;
-    border-right: none !important;
-  }
-
-  .ag-header-cell,
-  .ag-header-group-cell {
     border-left: none !important;
     border-right: none !important;
   }

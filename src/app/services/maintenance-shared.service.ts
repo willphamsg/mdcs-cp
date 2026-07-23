@@ -26,15 +26,15 @@ export interface DepotParam {
   providedIn: 'root',
 })
 export class MaintenanceSharedService {
-  private selectedDepot = new BehaviorSubject<IDepoList | null>(null);
+  private readonly selectedDepot = new BehaviorSubject<IDepoList | null>(null);
 
-  private formGroupSubject = new BehaviorSubject<FormGroup | null>(null);
+  private readonly formGroupSubject = new BehaviorSubject<FormGroup | null>(null);
 
-  private uriSystemInformation = environment.gateway + 'system-info/';
-  private uriDiagnostic = environment.gateway + 'diagnostics/';
-  private uriAuditTrail = environment.gateway + 'audit-trail-log/';
-  private uriEodProcess = environment.gateway + 'eod-process/';
-  private triggerResetSubject = new Subject<void>();
+  private readonly uriSystemInformation: string;
+  private readonly uriDiagnostic: string;
+  private readonly uriAuditTrail: string;
+  private readonly uriEodProcess: string;
+  private readonly triggerResetSubject = new Subject<void>();
 
   constructor(
     private readonly http: HttpClient,
@@ -42,19 +42,19 @@ export class MaintenanceSharedService {
   ) {
     this.uriSystemInformation = this.dynamic.setDynamicEndpoint(
       'common',
-      this.uriSystemInformation
+      environment.gateway + 'system-info/'
     );
     this.uriDiagnostic = this.dynamic.setDynamicEndpoint(
       'bus',
-      this.uriDiagnostic
+      environment.gateway + 'diagnostics/'
     );
     this.uriAuditTrail = this.dynamic.setDynamicEndpoint(
       'common',
-      this.uriAuditTrail
+      environment.gateway + 'audit-trail-log/'
     );
     this.uriEodProcess = this.dynamic.setDynamicEndpoint(
       'common',
-      this.uriEodProcess
+      environment.gateway + 'eod-process/'
     );
   }
   // triggerReset$ = this.triggerResetSubject.asObservable();

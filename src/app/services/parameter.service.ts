@@ -21,10 +21,10 @@ import { DynamicEndpoint } from './dynamic-endpoint';
   providedIn: 'root',
 })
 export class ParameterService {
-  private uri = environment.gateway + 'parameter/trial/';
-  private uriHistorySearch = environment.gateway + 'parameter/trial-history/';
+  private readonly uri: string;
+  private readonly uriHistorySearch: string;
 
-  private uriScheduler = environment.gateway + 'parameter/scheduler/';
+  private readonly uriScheduler: string;
 
   constructor(
     private readonly http: HttpClient,
@@ -32,14 +32,14 @@ export class ParameterService {
     private readonly message: MessageService,
     private readonly dynamic: DynamicEndpoint
   ) {
-    this.uri = this.dynamic.setDynamicEndpoint('param', this.uri);
+    this.uri = this.dynamic.setDynamicEndpoint('param', environment.gateway + 'parameter/trial/');
     this.uriHistorySearch = this.dynamic.setDynamicEndpoint(
       'param',
-      this.uriHistorySearch
+      environment.gateway + 'parameter/trial-history/'
     );
     this.uriScheduler = this.dynamic.setDynamicEndpoint(
       'param',
-      this.uriScheduler
+      environment.gateway + 'parameter/scheduler/'
     );
   }
 

@@ -82,7 +82,7 @@ const POLLING_INTERVAL = 10000;
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   depots: IDepoList[] = [];
   depotSelected: string = '';
   hourSelected: number = 1;
@@ -201,7 +201,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private dagwStatusSubscription?: Subscription;
   private parameterTrialCountSubscription?: Subscription;
   private busTransferCountSubscription?: Subscription;
-  private taskCountPayload: Record<string, number> = {};
+  private readonly taskCountPayload: Record<string, number> = {};
 
   constructor(
     private readonly depoService: DepoService,

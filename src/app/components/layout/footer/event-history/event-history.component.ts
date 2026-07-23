@@ -63,7 +63,7 @@ export class EventHistoryComponent implements OnInit, OnDestroy {
   currentPage: number = 1;
 
   filterConfigs: IFilterConfig[] = [];
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   eventHistory: IEventHistory[] = [];
 
   constructor(

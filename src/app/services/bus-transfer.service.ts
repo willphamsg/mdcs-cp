@@ -18,7 +18,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class ManageBusTransferService {
-  private uri = environment.gateway + 'bus-transfer/';
+  private readonly uri: string;
   private readonly handler = inject(HttpBackend);
   constructor(
     private readonly http: HttpClient,
@@ -27,7 +27,7 @@ export class ManageBusTransferService {
     private readonly dynamic: DynamicEndpoint,
     private readonly auth: AuthService
   ) {
-    this.uri = this.dynamic.setDynamicEndpoint('bus', this.uri);
+    this.uri = this.dynamic.setDynamicEndpoint('bus', environment.gateway + 'bus-transfer/');
   }
 
   search(params: IParams): Observable<PayloadResponse> {

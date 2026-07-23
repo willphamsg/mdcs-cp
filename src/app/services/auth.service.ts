@@ -33,15 +33,15 @@ import { REFRESH_TOKEN_COOKIE } from '@app/shared/utils/constants';
   providedIn: 'root',
 })
 export class AuthService {
-  private uri = environment.ssoUri;
-  private useDevSign = (environment as any).useDevSign;
-  private enableSSO = environment.enableSSO;
+  private readonly uri = environment.ssoUri;
+  private readonly useDevSign = (environment as any).useDevSign;
+  private readonly enableSSO = environment.enableSSO;
   private readonly isAuthenticatedSubject$ = new BehaviorSubject<boolean>(false);
   public readonly isAuthenticated$ = this.isAuthenticatedSubject$.asObservable();
 
   private readonly isDoneLoadingSubject$ = new ReplaySubject<boolean>();
   public readonly isDoneLoading$ = this.isDoneLoadingSubject$.asObservable();
-  private ssoSignIn = environment.enableSSO;
+  private readonly ssoSignIn = environment.enableSSO;
   private readonly platformId = inject(PLATFORM_ID);
   private readonly router = inject(Router);
   private readonly oAuthService = inject(OAuthService);

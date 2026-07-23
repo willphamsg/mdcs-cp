@@ -103,14 +103,6 @@ export class ParameterSelectionService {
     this.newParameterApprovalManager.removeSelection(itemId);
   }
 
-  toggleSelection(item: INewParameterApproval, isSelected: boolean): void {
-    if (isSelected) {
-      this.newParameterApprovalManager.selectItem(item);
-    } else {
-      this.newParameterApprovalManager.deselectItem(item);
-    }
-  }
-
   addMultipleSelections(items: INewParameterApproval[]): void {
     this.newParameterApprovalManager.addMultipleSelections(items);
   }
@@ -144,17 +136,6 @@ export class ParameterSelectionService {
     this.parameterModeManager.removeSelection(itemId);
   }
 
-  toggleParameterModeSelection(
-    item: IParameterMode,
-    isSelected: boolean
-  ): void {
-    if (isSelected) {
-      this.parameterModeManager.selectItem(item);
-    } else {
-      this.parameterModeManager.deselectItem(item);
-    }
-  }
-
   addMultipleParameterModeSelections(items: IParameterMode[]): void {
     this.parameterModeManager.addMultipleSelections(items);
   }
@@ -184,14 +165,6 @@ export class ParameterSelectionService {
     this.endTrialManager.removeSelection(itemId);
   }
 
-  toggleEndTrialSelection(item: IEndTrial, isSelected: boolean): void {
-    if (isSelected) {
-      this.endTrialManager.selectItem(item);
-    } else {
-      this.endTrialManager.deselectItem(item);
-    }
-  }
-
   addMultipleEndTrialSelections(items: IEndTrial[]): void {
     this.endTrialManager.addMultipleSelections(items);
   }
@@ -219,17 +192,6 @@ export class ParameterSelectionService {
 
   removeTrialDeviceSelection(itemId: string | number): void {
     this.trialDeviceSelectionManager.removeSelection(itemId);
-  }
-
-  toggleTrialDeviceSelection(
-    item: ITrialDeviceSelection,
-    isSelected: boolean
-  ): void {
-    if (isSelected) {
-      this.trialDeviceSelectionManager.selectItem(item);
-    } else {
-      this.trialDeviceSelectionManager.deselectItem(item);
-    }
   }
 
   addMultipleTrialDeviceSelections(items: ITrialDeviceSelection[]): void {

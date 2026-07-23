@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class AdhocReportService {
-  private uri = environment.gateway + 'master-bus-list/';
+  private readonly uri = environment.gateway + 'master-bus-list/';
   constructor(
     private readonly http: HttpClient,
     public readonly dialog: MatDialog

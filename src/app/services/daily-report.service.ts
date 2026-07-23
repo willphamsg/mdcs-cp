@@ -10,13 +10,13 @@ import { DynamicEndpoint } from './dynamic-endpoint';
   providedIn: 'root',
 })
 export class DailyReportService {
-  private uri = environment.gateway + 'dagw-report/';
+  private readonly uri: string;
   constructor(
     private readonly http: HttpClient,
     public readonly dialog: MatDialog,
     private readonly dynamic: DynamicEndpoint
   ) {
-    this.uri = this.dynamic.setDynamicEndpoint('report', this.uri);
+    this.uri = this.dynamic.setDynamicEndpoint('report', environment.gateway + 'dagw-report/');
   }
 
   search(params: DAGWDailyReportRequest): Observable<PayloadResponse> {

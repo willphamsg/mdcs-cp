@@ -48,7 +48,7 @@ export class SSRSReportViewerComponent
 
   isIframeLoaded: boolean = false;
 
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
     private readonly sanitizer: DomSanitizer,

@@ -2,7 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ApplicationParametersComponent } from './application-parameters.component';
 
-xdescribe('ApplicationParametersComponent — skipped: pending parameter-viewer fixtures', () => {
+// Ignored: parameter-viewer fixtures and layout deps are not wired for unit tests.
+xdescribe('ApplicationParametersComponent', () => {
   let component: ApplicationParametersComponent;
   let fixture: ComponentFixture<ApplicationParametersComponent>;
 

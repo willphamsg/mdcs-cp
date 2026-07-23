@@ -81,7 +81,7 @@ export const tabsKeys = {
   styleUrl: './daily-report-search.component.scss',
 })
 export class DailyReportComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   tabList: TabList[] = [
     {

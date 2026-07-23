@@ -48,7 +48,6 @@ import {
   combineLatest,
   Subject,
   takeUntil,
-  timer,
   Subscription,
   debounceTime,
   finalize,
@@ -90,8 +89,8 @@ const BUFFER_TIME = 30;
   ],
 })
 export class ParameterModeSearchComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
-  private datePipe = new DatePipe('en-US');
+  private readonly destroy$ = new Subject<void>();
+  private readonly datePipe = new DatePipe('en-US');
   private readonly dateFormat = 'yyyy-MM-dd HH:mm:ss';
   private trialSchedulerRateSeconds = 0;
   private statusRefreshTimer$?: Subscription;
@@ -392,7 +391,11 @@ export class ParameterModeSearchComponent implements OnInit, OnDestroy {
     element.chk = event.checked;
 
     // Toggle selection in the service
-    this.selectionService.toggleParameterModeSelection(element, event.checked);
+    if (event.checked) {
+      this.selectionService.addParameterModeSelection(element);
+    } else {
+      this.selectionService.removeParameterModeSelection(element.id);
+    }
 
     // Update the "check all" state based on current page selections
     this.updateCheckAllState();

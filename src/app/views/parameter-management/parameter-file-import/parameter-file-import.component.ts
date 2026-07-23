@@ -92,7 +92,7 @@ import { WebSocketService, WS_TOPICS } from '@app/services/web-socket.service';
 export class ParameterFileImportComponent implements OnInit, OnDestroy {
   @ViewChild('fileInput') fileInputRef!: ElementRef<HTMLInputElement>;
 
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   private statusPollingSub?: Subscription;
   private depoChangesSub?: Subscription;
   paginatedData: any[] = [];
@@ -107,7 +107,7 @@ export class ParameterFileImportComponent implements OnInit, OnDestroy {
     return [];
   }
   grpIdentifierIds: string[] = [];
-  private grpIdentifierIdsByDepot = new Map<number, string[]>();
+  private readonly grpIdentifierIdsByDepot = new Map<number, string[]>();
 
   headerData = ParameterFile;
   displayedColumns: string[] = ParameterFile.map((x: IHeader) => {

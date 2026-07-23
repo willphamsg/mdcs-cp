@@ -66,7 +66,7 @@ import { generateUniqueNumberId } from '@app/shared/utils/utils';
 })
 export class TrialDeviceSelectionSearchComponent implements OnInit, OnDestroy {
   dagw = this.authService.isDagw();
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   headerData = TrialDeviceSelection;
   chkAll = false;
   tab1Columns: string[] = this.headerData.map((x: IHeader) => x.field);
@@ -317,7 +317,11 @@ export class TrialDeviceSelectionSearchComponent implements OnInit, OnDestroy {
     element.chk = event.checked;
 
     // Toggle selection in the service
-    this.selectionService.toggleTrialDeviceSelection(element, event.checked);
+    if (event.checked) {
+      this.selectionService.addTrialDeviceSelection(element);
+    } else {
+      this.selectionService.removeTrialDeviceSelection(element.id);
+    }
 
     // Update the "check all" state based on current page selections
     this.updateCheckAllState();

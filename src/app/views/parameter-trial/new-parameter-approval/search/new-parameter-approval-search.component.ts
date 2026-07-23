@@ -84,8 +84,8 @@ const BUFFER_TIME = 30;
   providers: [DatePipe],
 })
 export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
-  private datePipe = new DatePipe('en-US');
+  private readonly destroy$ = new Subject<void>();
+  private readonly datePipe = new DatePipe('en-US');
   private readonly dateFormat = 'yyyy-MM-dd HH:mm:ss';
   private trialSchedulerRateSeconds = 0;
   private statusRefreshTimer$?: Subscription;
@@ -93,7 +93,7 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
   private statusRefreshEndTime = 0;
   private pendingParamMasterIds: number[] = [];
   private readonly STATUS_REFRESH_INTERVAL = 5000; // 5 seconds between refresh calls
-  private componentId = 'new-parameter-approval-' + Date.now();
+  private readonly componentId = 'new-parameter-approval-' + Date.now();
   private isDestroyed = false;
   private isTabChanging = false; // Flag to prevent duplicate API calls during tab change
   private readonly inProgressStatusCodes = new Set([
@@ -497,7 +497,11 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
     element.chk = event.checked;
 
     // Toggle selection in the service
-    this.selectionService.toggleSelection(element, event.checked);
+    if (event.checked) {
+      this.selectionService.addSelection(element);
+    } else {
+      this.selectionService.removeSelection(element.id);
+    }
 
     // Update the "check all" state based on current page selections
     this.updateCheckAllState();

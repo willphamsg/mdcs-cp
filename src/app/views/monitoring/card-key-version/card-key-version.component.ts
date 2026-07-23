@@ -18,7 +18,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
 import {
-  FormArray,
   FormControl,
   FormGroup,
   FormsModule,
@@ -517,16 +516,16 @@ export class ViewCardKeyVersionComponent implements OnInit, OnDestroy {
           ? (item.ver6 as { status?: string }).status
           : undefined;
 
-      const versionStatuses = [
+      const versionStatuses = new Set([
         ver1Status,
         ver2Status,
         ver3Status,
         ver4Status,
         ver5Status,
         ver6Status,
-      ];
-      const hasFailed = versionStatuses.includes('2');
-      const hasInconsistent = versionStatuses.includes('1');
+      ]);
+      const hasFailed = versionStatuses.has('2');
+      const hasInconsistent = versionStatuses.has('1');
       let busStatus: string | undefined;
       if (hasFailed) {
         busStatus = 'failed';

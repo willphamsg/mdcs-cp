@@ -11,14 +11,14 @@ import { catchError, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class BusOperationService {
-  private uri = environment.gateway + 'bus-operation-status/';
+  private readonly uri: string;
   constructor(
     private readonly http: HttpClient,
     public readonly dialog: MatDialog,
     private readonly message: MessageService,
     private readonly dynamic: DynamicEndpoint
   ) {
-    this.uri = this.dynamic.setDynamicEndpoint('bus', this.uri);
+    this.uri = this.dynamic.setDynamicEndpoint('bus', environment.gateway + 'bus-operation-status/');
   }
 
   search(params: IParams): Observable<PayloadResponse> {
