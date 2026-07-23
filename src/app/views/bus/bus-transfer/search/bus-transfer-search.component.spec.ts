@@ -206,7 +206,7 @@ describe('BusTransferSearchComponent', () => {
     component.operators = [{ id: '1', value: 'SBS' }];
     component.loadFilterValues();
 
-    expect(component.filterConfigs.length).toBe(3);
+    expect(component.filterConfigs).toHaveSize(3);
     expect(component.filterConfigs[0].controlName).toBe('currDepot');
     expect(component.filterConfigs[0].options?.length).toBe(mockDepots.length);
   });

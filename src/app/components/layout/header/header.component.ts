@@ -66,13 +66,13 @@ import * as autoClicker from '../../../../tools/auto-clicker.js';
 export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   isDummy = environment.useDummyData;
   authService = inject(AuthService);
-  private depoService = inject(DepoService);
-  private commonService = inject(CommonService);
-  private messageService = inject(MessageService);
-  private dialog = inject(MatDialog);
+  private readonly depoService = inject(DepoService);
+  private readonly commonService = inject(CommonService);
+  private readonly messageService = inject(MessageService);
+  private readonly dialog = inject(MatDialog);
 
-  private router = inject(Router);
-  private document = inject(DOCUMENT);
+  private readonly router = inject(Router);
+  private readonly document = inject(DOCUMENT);
   private destroy$ = new Subject<void>();
 
   params: DepoRequest = {
@@ -449,7 +449,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   // Filtered navigation list based on access rights
   navList: any[] = [];
 
-  constructor(private eRef: ElementRef) {}
+  constructor(private readonly eRef: ElementRef) {}
 
   ngOnInit(): void {
     // Load user profile data

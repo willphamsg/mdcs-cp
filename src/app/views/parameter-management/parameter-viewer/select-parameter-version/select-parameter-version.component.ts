@@ -3,8 +3,6 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnDestroy,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -24,7 +22,7 @@ import {
   styleUrl: './select-parameter-version.component.scss',
 })
 export class SelectParameterVersionComponent
-  implements OnInit, OnChanges, OnDestroy
+  implements OnChanges
 {
   @Input() parameterMultipleVersion: IParameterMultipleVersion[] = [];
   // @Input() originalParameterMultipleVersion: IParameterMultipleVersion[] = [];
@@ -37,20 +35,18 @@ export class SelectParameterVersionComponent
 
   constructor() {}
 
-  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.checkMultiVersion();
   }
 
-  ngOnDestroy(): void {}
 
   checkMultiVersion(): void {
     // this.parameterMultipleVersion = this.originalParameterMultipleVersion;
     if (!this.isMultipleVersion) {
       // this.parameterMultipleVersionRadio = this.parameterMultipleVersion.filter(version => version.depot_id === this.parameterVersionSelected.depot_id);
       this.parameterMultipleVersionRadio = this.parameterMultipleVersion.filter(
-        version => version.depot_id === parseInt(this.depotSelected)
+        version => version.depot_id === Number.parseInt(this.depotSelected, 10)
       );
 
       if (this.parameterMultipleVersionRadio.length === 0) {

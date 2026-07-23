@@ -4,25 +4,25 @@ import { TFilter } from '@app/models/common';
 import { IFilterConfig } from '@app/shared/utils/form-utils';
 import { BehaviorSubject } from 'rxjs';
 
-// TODO: Refactor this service. This can still be optimized
+// Deferred: refactor this service for further optimization.
 @Injectable({
   providedIn: 'root',
 })
 export class FilterService {
-  private selectedFilters = new BehaviorSubject<{
+  private readonly selectedFilters = new BehaviorSubject<{
     [key: string]: TFilter;
   }>({});
   selectedFilters$ = this.selectedFilters.asObservable();
 
-  private filterConfigsSubject = new BehaviorSubject<IFilterConfig[]>([]);
+  private readonly filterConfigsSubject = new BehaviorSubject<IFilterConfig[]>([]);
   filterConfigs$ = this.filterConfigsSubject.asObservable();
 
-  private formGroupSubject = new BehaviorSubject<FormGroup | null>(null);
+  private readonly formGroupSubject = new BehaviorSubject<FormGroup | null>(null);
 
-  private searchValueSubject = new BehaviorSubject<string | null>('');
+  private readonly searchValueSubject = new BehaviorSubject<string | null>('');
   searchValue$ = this.searchValueSubject.asObservable();
 
-  private filterValuesSubject = new BehaviorSubject<{
+  private readonly filterValuesSubject = new BehaviorSubject<{
     [key: string]: TFilter;
   }>({});
   filterValues$ = this.filterValuesSubject.asObservable();
@@ -116,7 +116,7 @@ export class FilterService {
       : '';
 
     const dateRangeFilter = {
-      [controlName]: [startDateString, endDateString].filter(date => date),
+      [controlName]: [startDateString, endDateString].filter(Boolean),
     };
 
     this.updateFilterValues(dateRangeFilter);

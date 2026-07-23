@@ -1,4 +1,17 @@
 node_modules
 npm-debug.log
+dist
+.tmp
+.angular
+.scannerwork
+.sonar-issues.json
+.sonar-by-rule.json
+.git
+.gitignore
+.vscode
+.idea
+coverage
+*.md
 Dockerfile
 .dockerignore
+src/assets/sslcertificate/*.key

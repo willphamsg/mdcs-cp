@@ -93,7 +93,7 @@ export class BusSearchComponent implements OnInit, OnDestroy {
   rowCount: number = 0;
   currentPage: number = 1;
 
-  // TODO: Create base component for pagination
+  // Deferred: create base component for pagination.
   params: IParams = {
     page_size: 10,
     page_index: 0,

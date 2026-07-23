@@ -75,7 +75,7 @@ export class MaintenanceComponent implements OnInit, OnDestroy {
     { id: '1', value: 'Failed' },
   ];
 
-  // TODO: Optimize child components form. Update/Remove unnecessary code
+  // Deferred: optimize child component forms and remove unnecessary code.
   constructor(
     private readonly depoService: DepoService,
     private readonly sharedService: MaintenanceSharedService,

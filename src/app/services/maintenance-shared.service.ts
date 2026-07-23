@@ -11,7 +11,7 @@ import {
 } from '@app/models/maitenance';
 import DummyData from '@data/db.json';
 import { environment } from '@env/environment';
-import { BehaviorSubject, map, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { DynamicEndpoint } from './dynamic-endpoint';
 
 export interface DepotParam {
@@ -19,7 +19,7 @@ export interface DepotParam {
 }
 
 /**
- * TODO: Remove unused code when API is integrated....
+ * Deferred: remove unused code when API is integrated.
  * NEEDS TO REWORK THIS SERVICE WHEN API IS FINALIZED
  */
 @Injectable({
@@ -37,8 +37,8 @@ export class MaintenanceSharedService {
   private triggerResetSubject = new Subject<void>();
 
   constructor(
-    private http: HttpClient,
-    private dynamic: DynamicEndpoint
+    private readonly http: HttpClient,
+    private readonly dynamic: DynamicEndpoint
   ) {
     this.uriSystemInformation = this.dynamic.setDynamicEndpoint(
       'common',

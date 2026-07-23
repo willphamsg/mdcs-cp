@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './top4.component.html',
-  styleUrl: './top4.component.scss'
 })
 export class Top4Component {
 

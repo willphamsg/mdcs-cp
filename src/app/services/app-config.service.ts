@@ -12,7 +12,7 @@ export class AppConfigService {
   }
 
   constructor(
-    private http: HttpClient
+    private readonly http: HttpClient
   ) {}
 
   loadConfig(): Promise<void> {

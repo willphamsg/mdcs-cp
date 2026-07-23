@@ -90,7 +90,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 })
 export class ExportCancelDownloadDialogComponent {
   constructor(
-    private dialogRef: MatDialogRef<ExportCancelDownloadDialogComponent>
+    private readonly dialogRef: MatDialogRef<ExportCancelDownloadDialogComponent>
   ) {}
 
   onNo(): void {

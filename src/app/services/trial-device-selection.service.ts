@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, of } from 'rxjs';
-import { BusRequest, IParams, PayloadResponse } from '../models/common';
+import { Observable, catchError } from 'rxjs';
+import { IParams, PayloadResponse } from '../models/common';
 import { ITrialDeviceSelection } from '../models/parameter-trial';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from '@env/environment';
-import DummyData from '@data/db.json';
 import { MessageService } from './message.service';
 import { DynamicEndpoint } from './dynamic-endpoint';
 
@@ -15,10 +14,10 @@ import { DynamicEndpoint } from './dynamic-endpoint';
 export class TrialDeviceSelectionService {
   private uri = environment.gateway + 'parameter/trial-device/';
   constructor(
-    private http: HttpClient,
-    public dialog: MatDialog,
-    private message: MessageService,
-    private dynamic: DynamicEndpoint
+    private readonly http: HttpClient,
+    public readonly dialog: MatDialog,
+    private readonly message: MessageService,
+    private readonly dynamic: DynamicEndpoint
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('param', this.uri);
   }

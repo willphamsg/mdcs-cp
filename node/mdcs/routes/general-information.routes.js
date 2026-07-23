@@ -1,6 +1,6 @@
 const express = require('express');
-const fs = require('fs').promises;
-const path = require('path');
+const fs = require('node:fs').promises;
+const path = require('node:path');
 
 const router = express.Router();
 const dataPath = path.join(__dirname, '../data/footer-information.json');

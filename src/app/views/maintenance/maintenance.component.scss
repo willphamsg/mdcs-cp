@@ -2,8 +2,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  // overflow-y: auto;
-  // overflow-x: hidden;
 
   .empty-depot-display {
     display: flex;
@@ -22,18 +20,6 @@
     }
   }
 }
-
-// ::ng-deep .force-eod-dialog {
-//   align-self: start !important;
-//   margin-top: 5%;
-
-//   .mdc-dialog__surface {
-//     display: flex !important;
-//     align-items: center !important;
-//     justify-content: center !important;
-//     overflow: hidden !important;
-//   }
-// }
 
 .label-eod-in-process {
   display: inline-flex;

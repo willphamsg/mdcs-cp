@@ -67,7 +67,7 @@ describe('MaintenanceComponent', () => {
   });
 
   it('should initialize depot form on init', () => {
-    expect(component.depotConfig.length).toBe(1);
+    expect(component.depotConfig).toHaveSize(1);
     expect(component.depotConfig[0].controlName).toBe('depots');
   });
 

@@ -12,9 +12,9 @@ import { environment } from '@env/environment';
 export class EventHistoryService {
   private uri = environment.gateway + 'event-history/';
   constructor(
-    private http: HttpClient,
-    private message: MessageService,
-    private dynamic: DynamicEndpoint
+    private readonly http: HttpClient,
+    private readonly message: MessageService,
+    private readonly dynamic: DynamicEndpoint
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('common', this.uri);
   }

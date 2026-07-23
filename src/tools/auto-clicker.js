@@ -52,7 +52,7 @@ function collectClickableElements() {
 function getRandomInt(min, max) {
     min = Math.ceil(min); // round up lower bound
     max = Math.floor(max); // round down upper bound
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(Math.random() * (max - min + 1)) + min; // NOSONAR - non-security use: random UI element pick
 }
 
 function startAutoClicker() {

@@ -11,7 +11,7 @@ import { MatTableModule } from '@angular/material/table';
   styleUrl: './user-table.component.scss',
 })
 export class UserTableComponent {
-  @Input() dataSource: any | null = null;
+  @Input() dataSource: any = null;
 
   displayedColumns: string[] = [
     'fileId',

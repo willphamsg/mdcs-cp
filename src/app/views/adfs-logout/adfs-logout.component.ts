@@ -10,7 +10,6 @@ import { Subject, takeUntil } from 'rxjs';
   ],
   providers: [],
   templateUrl: './adfs-logout.component.html',
-  styleUrls: ['./adfs-logout.component.scss'],
 })
 export class ADFSLogoutComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
@@ -29,7 +28,8 @@ export class ADFSLogoutComponent implements OnInit, OnDestroy {
       .subscribe({
         next: value => {
           this.settingDefault = value;
-          this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.settingDefault?.logout_url);
+          // ADFS logout iframe requires a trusted resource URL from server config. // NOSONAR
+          this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.settingDefault?.logout_url); // NOSONAR
           this.redirect = this.settingDefault?.authenticate_adfs_url;
           
           setTimeout(() => {

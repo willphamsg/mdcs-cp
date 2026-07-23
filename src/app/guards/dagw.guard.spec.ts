@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { CanActivateFn } from '@angular/router';
 import { DagwGuard, MdcsGuard } from './dagw.guard';
 
-xdescribe('dagwGuard', () => {
+xdescribe('dagwGuard — skipped: pending environment/mode setup', () => {
   const executeGuard: CanActivateFn = (...guardParameters) =>
     TestBed.runInInjectionContext(() => DagwGuard(...guardParameters));
 

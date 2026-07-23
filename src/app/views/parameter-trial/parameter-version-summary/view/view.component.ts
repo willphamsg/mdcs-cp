@@ -25,7 +25,7 @@ import {
 } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTable, MatTableModule } from '@angular/material/table';
@@ -39,14 +39,13 @@ import { RouterModule } from '@angular/router';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { INewParameterApproval } from '@models/parameter-trial';
 import { IDepoList } from '@models/depo';
-import { DepoRequest, PayloadResponse } from '@models/common';
+import { DepoRequest } from '@models/common';
 import { DepoService } from '@services/depo.service';
 import { ParameterService } from '@app/services/parameter.service';
 
 import { MessageService } from '@services/message.service';
 import { AppStore } from '@store/app.state';
 import { Store } from '@ngrx/store';
-import { showSnackbar } from '@store/snackbar/snackbar.actions';
 @Component({
     selector: 'app-view',
     templateUrl: './view.component.html',
@@ -91,14 +90,14 @@ export class ViewComponent implements OnInit {
   displayedColumns = ['depot', 'parameter_name', 'parameter_version'];
 
   constructor(
-    private fb: FormBuilder,
-    public dialog: MatDialog,
-    private parameterService: ParameterService,
-    private depoService: DepoService,
-    private message: MessageService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ViewComponent>,
-    private store: Store<AppStore>
+    private readonly fb: FormBuilder,
+    public readonly dialog: MatDialog,
+    private readonly parameterService: ParameterService,
+    private readonly depoService: DepoService,
+    private readonly message: MessageService,
+    @Inject(MAT_DIALOG_DATA) public readonly data: any,
+    public readonly dialogRef: MatDialogRef<ViewComponent>,
+    private readonly store: Store<AppStore>
   ) {
     this.depoService.depoList$.subscribe((value: IDepoList[]) => {
       this.depots = value;

@@ -145,7 +145,7 @@ describe('ParameterFileExportComponent', () => {
   it('should load filter values', () => {
     component.loadFilterValues();
 
-    expect(component.filterConfigs.length).toBe(1);
+    expect(component.filterConfigs).toHaveSize(1);
     expect(component.filterConfigs[0].controlName).toBe('param_type');
   });
 
@@ -166,7 +166,7 @@ describe('ParameterFileExportComponent', () => {
     const item = mockExportData[0] as any;
 
     component.checkHandler(mockEvent, item);
-    expect(component.selection.length).toBe(1);
+    expect(component.selection).toHaveSize(1);
   });
 
   it('should deselect an individual item when unchecked', () => {
@@ -176,20 +176,20 @@ describe('ParameterFileExportComponent', () => {
     const mockEvent = { checked: false } as MatCheckboxChange;
     component.checkHandler(mockEvent, item);
 
-    expect(component.selection.length).toBe(0);
+    expect(component.selection).toHaveSize(0);
   });
 
   it('should select all items when checkAllHandler is checked', () => {
     component.dataSource = mockExportData as any[];
     const mockEvent = { checked: true } as MatCheckboxChange;
     component.checkAllHandler(mockEvent);
-    expect(component.selection.length).toEqual(component.dataSource.length);
+    expect(component.selection).toHaveSize(component.dataSource.length);
   });
 
   it('should deselect all items when checkAllHandler is unchecked', () => {
     const mockEvent = { checked: false } as MatCheckboxChange;
     component.checkAllHandler(mockEvent);
-    expect(component.selection.length).toEqual(0);
+    expect(component.selection).toHaveSize(0);
   });
 
   it('should unsubscribe from observables on destroy', () => {

@@ -1,7 +1,7 @@
 const e = require('cors');
 const express = require('express');
-const fs = require('fs').promises;
-const path = require('path');
+const fs = require('node:fs').promises;
+const path = require('node:path');
 
 const router = express.Router();
 const parameterViewerPath = path.join(
@@ -72,7 +72,6 @@ function applyFilters(items, filter) {
     status,
     svc_prov_id,
     svc_provider_id,
-    consistency_list,
     bus_num,
     trial_group,
     service_group,
@@ -178,7 +177,7 @@ function applySort(items, sortOrder) {
       vb = new Date(vb).getTime();
     }
 
-    if (isNaN(va) || isNaN(vb)) {
+    if (Number.isNaN(Number(va)) || Number.isNaN(Number(vb))) {
       if (va < vb) return desc ? 1 : -1;
       if (va > vb) return desc ? -1 : 1;
     } else {

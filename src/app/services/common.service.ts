@@ -23,9 +23,9 @@ export class CommonService {
   >([]);
   operatorList$: Observable<IOperatorList[]> = this.operatorList.asObservable();
   constructor(
-    private http: HttpClient,
-    private message: MessageService,
-    private dynamic: DynamicEndpoint
+    private readonly http: HttpClient,
+    private readonly message: MessageService,
+    private readonly dynamic: DynamicEndpoint
   ) {
     this.uriSettings = this.dynamic.setDynamicEndpoint('', this.uriSettings);
     this.uri = this.dynamic.setDynamicEndpoint('common', this.uri);
@@ -67,7 +67,7 @@ export class CommonService {
     }
 
     // Format: 2–3 letters, 4 digits, optional final letter
-    const livePattern = /^[a-zA-Z]{0,3}[0-9]{0,4}[a-zA-Z]?$/;
+    const livePattern = /^[a-zA-Z]{0,3}\d{0,4}[a-zA-Z]?$/;
 
     if (!livePattern.test(simulated)) {
       e.preventDefault();

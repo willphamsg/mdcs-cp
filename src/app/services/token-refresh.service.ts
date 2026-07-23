@@ -10,7 +10,6 @@ import {
   tap,
   throwError,
 } from 'rxjs';
-import { environment } from '@env/environment';
 import { ITokenRenewRequest, ITokenRenewResponse } from '@app/models/user';
 import { AuthService } from './auth.service';
 import { DynamicEndpoint } from './dynamic-endpoint';
@@ -21,7 +20,7 @@ import { DynamicEndpoint } from './dynamic-endpoint';
 export class TokenRefreshService {
   private readonly authService = inject(AuthService);
   private readonly http = new HttpClient(inject(HttpBackend));
-  private dynamic = inject(DynamicEndpoint);
+  private readonly dynamic = inject(DynamicEndpoint);
 
   private isRefreshing = false;
   private refreshedAccessToken$ = new BehaviorSubject<string | null>(null);

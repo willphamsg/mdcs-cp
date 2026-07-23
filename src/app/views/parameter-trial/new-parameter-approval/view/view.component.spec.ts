@@ -80,13 +80,13 @@ describe('NewParameterApproval ViewComponent', () => {
   });
 
   it('should populate items from selection data', () => {
-    expect(component.items.length).toBe(1);
+    expect(component.items).toHaveSize(1);
     expect(component.mode).toBe('approve');
   });
 
   it('should return items FormArray from getter', () => {
     expect(component.items).toBeTruthy();
-    expect(component.items.length).toBe(1);
+    expect(component.items).toHaveSize(1);
   });
 
   it('should call manage on valid submit', () => {

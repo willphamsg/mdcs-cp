@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCard } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -13,9 +12,7 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { FilterComponent } from '@app/components/filter/filter.component';
 import { SelectedFilterComponent } from '@app/components/filter/selected-filter/selected-filter.component';
-import { BreadcrumbsComponent } from '@app/components/layout/breadcrumbs/breadcrumbs.component';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
-import { ClickStopPropagationDirective } from '@app/directives/click-stop-propagation.directive';
 import { DropdownList } from '@app/models/common';
 import { IParameterPayloadDetails } from '@app/models/parameter-management';
 import { PaginationService } from '@app/services/pagination.service';
@@ -104,7 +101,7 @@ export class SystemParametersComponent implements OnInit {
   tab1Columns: string[] = ['no', 'user_staff_id', 'mdcs_access'];
   filterConfigs: IFilterConfig[] = [];
 
-  constructor(private paginationService: PaginationService) {}
+  constructor(private readonly paginationService: PaginationService) {}
 
   ngOnInit(): void {
     this.paginatedData$ = this.paginationService.paginatedData$;

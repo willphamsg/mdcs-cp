@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, of } from 'rxjs';
-import { BusRequest, PayloadResponse, IParams } from '../models/common';
+import { PayloadResponse, IParams } from '../models/common';
 import { IParameterMode } from '../models/parameter-trial';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from '@env/environment';
@@ -15,10 +15,10 @@ import { DynamicEndpoint } from './dynamic-endpoint';
 export class ParameterModeService {
   private uri = environment.gateway + 'parameter-trial/';
   constructor(
-    private http: HttpClient,
-    public dialog: MatDialog,
-    private message: MessageService,
-    private dynamic: DynamicEndpoint
+    private readonly http: HttpClient,
+    public readonly dialog: MatDialog,
+    private readonly message: MessageService,
+    private readonly dynamic: DynamicEndpoint
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('param', this.uri);
   }
@@ -69,14 +69,6 @@ export class ParameterModeService {
 
   update(params: IParameterMode[]): Observable<PayloadResponse> {
     if (environment?.useDummyData) {
-      const dummyData: PayloadResponse = {
-        status: 200,
-        status_code: 'SUCCESS',
-        timestamp: Date.now(),
-        message: 'Updated successfully',
-        payload: DummyData,
-      };
-      // return of(dummyData);
       return this.http
         .put<PayloadResponse>(`${this.uri}update`, params)
         .pipe(
@@ -88,14 +80,6 @@ export class ParameterModeService {
 
   delete(params: IParameterMode[]): Observable<PayloadResponse> {
     if (environment?.useDummyData) {
-      const dummyData: PayloadResponse = {
-        status: 200,
-        status_code: 'SUCCESS',
-        timestamp: Date.now(),
-        message: 'Updated successfully',
-        payload: DummyData,
-      };
-      // return of(dummyData);
       return this.http
         .delete<PayloadResponse>(`${this.uri}delete`, {
           body: params,

@@ -3,7 +3,6 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
-  OnInit,
   Output,
 } from '@angular/core';
 
@@ -19,7 +18,7 @@ import { Subject } from 'rxjs';
   templateUrl: './select-service-no.component.html',
   styleUrl: './select-service-no.component.scss',
 })
-export class SelectServiceNoComponent implements OnInit, OnDestroy {
+export class SelectServiceNoComponent implements OnDestroy {
   destroy$ = new Subject<void>();
 
   @Input() serviceNoSelected: number | null = null;
@@ -28,7 +27,6 @@ export class SelectServiceNoComponent implements OnInit, OnDestroy {
 
   constructor() {}
 
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.destroy$.next();

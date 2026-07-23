@@ -49,7 +49,7 @@ describe('DataListComponent', () => {
 
   it('should accept a list input', () => {
     component.list = mockMessages;
-    expect(component.list.length).toBe(2);
+    expect(component.list).toHaveSize(2);
   });
 
   it('should default list to empty array', () => {

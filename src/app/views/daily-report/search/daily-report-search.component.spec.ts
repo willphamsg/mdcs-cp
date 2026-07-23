@@ -63,11 +63,11 @@ describe('DailyReportComponent', () => {
   });
 
   it('should have tabList with 5 tabs', () => {
-    expect(component.tabList.length).toBe(5);
+    expect(component.tabList).toHaveSize(5);
   });
 
   it('should load depots on init via subscribeDepot', () => {
-    expect(component.depots.length).toBe(1);
+    expect(component.depots).toHaveSize(1);
     expect(component.depots[0].depot_name).toBe('Test Depot');
   });
 

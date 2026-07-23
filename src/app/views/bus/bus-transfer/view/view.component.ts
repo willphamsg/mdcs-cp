@@ -1,4 +1,4 @@
-import { AsyncPipe, DatePipe, CommonModule } from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -112,14 +112,14 @@ export class BusTransferViewComponent implements OnInit {
   ];
 
   constructor(
-    private fb: FormBuilder,
-    public dialog: MatDialog,
-    private manageBusTransferService: ManageBusTransferService,
-    private depoService: DepoService,
-    private message: MessageService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<BusTransferViewComponent>,
-    private store: Store<AppStore>
+    private readonly fb: FormBuilder,
+    public readonly dialog: MatDialog,
+    private readonly manageBusTransferService: ManageBusTransferService,
+    private readonly depoService: DepoService,
+    private readonly message: MessageService,
+    @Inject(MAT_DIALOG_DATA) public readonly data: any,
+    public readonly dialogRef: MatDialogRef<BusTransferViewComponent>,
+    private readonly store: Store<AppStore>
   ) {
     this.depoService.depoList$.subscribe((value: IDepoList[]) => {
       this.depots = value;
@@ -259,32 +259,18 @@ export class BusTransferViewComponent implements OnInit {
       this.manageBusTransferService
         .manage(this.myForm.getRawValue().items, this.data.action)
         .subscribe({
-          next: (value: PayloadResponse) => {
-            if (value.status == 201) {
-              this.store.dispatch(
-                showSnackbar({
-                  message:
-                    this.data.action === 'reject'
-                      ? 'Records have been successfully rejected'
-                      : `Records have been successfully ${this.data.action || 'added'}`,
-                  title: 'Success',
-                  typeSnackbar: 'success',
-                })
-              );
-              this.dialog.closeAll();
-            } else {
-              this.store.dispatch(
-                showSnackbar({
-                  message:
-                    this.data.action === 'reject'
-                      ? 'Records have been successfully rejected'
-                      : `Records have been successfully ${this.data.action || 'added'}`,
-                  title: 'Success',
-                  typeSnackbar: 'success',
-                })
-              );
-              this.dialog.closeAll();
-            }
+          next: (_value: PayloadResponse) => {
+            this.store.dispatch(
+              showSnackbar({
+                message:
+                  this.data.action === 'reject'
+                    ? 'Records have been successfully rejected'
+                    : `Records have been successfully ${this.data.action || 'added'}`,
+                title: 'Success',
+                typeSnackbar: 'success',
+              })
+            );
+            this.dialog.closeAll();
           },
         });
     }

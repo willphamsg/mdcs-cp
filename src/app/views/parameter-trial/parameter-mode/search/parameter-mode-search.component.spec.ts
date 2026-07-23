@@ -165,7 +165,7 @@ describe('ParameterModeSearchComponent', () => {
     component.depots = mockDepots;
     component.loadFilterValues();
 
-    expect(component.filterConfigs.length).toBe(2);
+    expect(component.filterConfigs).toHaveSize(2);
     expect(component.filterConfigs[0].controlName).toBe('depots');
     expect(component.filterConfigs[0].options).toEqual(mockDepots);
   });

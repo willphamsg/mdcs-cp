@@ -1,4 +1,4 @@
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -26,7 +26,7 @@ import {
 } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTable, MatTableModule } from '@angular/material/table';
@@ -38,7 +38,6 @@ import {
 } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
-import { INewParameterApproval } from '@models/parameter-trial';
 import { IDepoList } from '@models/depo';
 import { DepoRequest, PayloadResponse } from '@models/common';
 import { DepoService } from '@services/depo.service';
@@ -49,7 +48,6 @@ import { Store } from '@ngrx/store';
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { ParameterService } from '@app/services/parameter.service';
-import { generateUniqueNumberId } from '@app/shared/utils/utils';
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
@@ -102,14 +100,14 @@ export class ViewComponent implements OnInit {
   ];
 
   constructor(
-    private fb: FormBuilder,
-    public dialog: MatDialog,
-    private depoService: DepoService,
-    private parameterService: ParameterService,
-    private message: MessageService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ViewComponent>,
-    private store: Store<AppStore>
+    private readonly fb: FormBuilder,
+    public readonly dialog: MatDialog,
+    private readonly depoService: DepoService,
+    private readonly parameterService: ParameterService,
+    private readonly message: MessageService,
+    @Inject(MAT_DIALOG_DATA) public readonly data: any,
+    public readonly dialogRef: MatDialogRef<ViewComponent>,
+    private readonly store: Store<AppStore>
   ) {
     this.depoService.depoList$.subscribe((value: IDepoList[]) => {
       this.depots = value;

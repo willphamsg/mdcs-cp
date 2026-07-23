@@ -7,7 +7,6 @@ import { PayloadRequest, Parameters } from '../../../models/common';
 @Component({
     selector: 'app-user-view',
     templateUrl: './user-view.component.html',
-    styleUrls: ['./user-view.component.scss'],
     imports: [MatTableModule, MatPaginatorModule]
 })
 export class UserViewComponent {

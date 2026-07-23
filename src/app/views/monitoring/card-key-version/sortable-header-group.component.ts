@@ -58,11 +58,6 @@ export class SortableHeaderGroupComponent implements IHeaderGroupAngularComp {
   private gridApi: any;
 
   get sortIcon(): string {
-    if (this.sortState === 'asc') {
-      return 'assets/icons/sort.svg';
-    } else if (this.sortState === 'desc') {
-      return 'assets/icons/sort.svg';
-    }
     return 'assets/icons/sort.svg';
   }
 
@@ -91,12 +86,14 @@ export class SortableHeaderGroupComponent implements IHeaderGroupAngularComp {
     if (!this.sortable || !this.sortField || !this.gridApi) return;
 
     // Cycle through: asc -> desc -> none
-    const nextSort =
-      this.sortState === null
-        ? 'asc'
-        : this.sortState === 'asc'
-          ? 'desc'
-          : null;
+    let nextSort: 'asc' | 'desc' | null;
+    if (this.sortState === null) {
+      nextSort = 'asc';
+    } else if (this.sortState === 'asc') {
+      nextSort = 'desc';
+    } else {
+      nextSort = null;
+    }
 
     this.gridApi.applyColumnState({
       state: [{ colId: this.sortField, sort: nextSort }],

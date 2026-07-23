@@ -24,7 +24,6 @@ import {
 } from '@app/models/user';
 import { MessageService } from './message.service';
 import { isPlatformBrowser } from '@angular/common';
-import DummyData from '@data/db.json';
 import AccessList from '@data/access-rights.json';
 import { MENU_ACCESS } from './role-access.config';
 import { CookieService } from 'ngx-cookie-service';
@@ -37,27 +36,27 @@ export class AuthService {
   private uri = environment.ssoUri;
   private useDevSign = (environment as any).useDevSign;
   private enableSSO = environment.enableSSO;
-  private isAuthenticatedSubject$ = new BehaviorSubject<boolean>(false);
-  public isAuthenticated$ = this.isAuthenticatedSubject$.asObservable();
+  private readonly isAuthenticatedSubject$ = new BehaviorSubject<boolean>(false);
+  public readonly isAuthenticated$ = this.isAuthenticatedSubject$.asObservable();
 
-  private isDoneLoadingSubject$ = new ReplaySubject<boolean>();
-  public isDoneLoading$ = this.isDoneLoadingSubject$.asObservable();
+  private readonly isDoneLoadingSubject$ = new ReplaySubject<boolean>();
+  public readonly isDoneLoading$ = this.isDoneLoadingSubject$.asObservable();
   private ssoSignIn = environment.enableSSO;
   private readonly platformId = inject(PLATFORM_ID);
   private readonly router = inject(Router);
-  private oAuthService = inject(OAuthService);
-  private http = inject(HttpClient);
-  private message = inject(MessageService);
-  private handler = inject(HttpBackend);
-  private cookieService = inject(CookieService);
+  private readonly oAuthService = inject(OAuthService);
+  private readonly http = inject(HttpClient);
+  private readonly message = inject(MessageService);
+  private readonly handler = inject(HttpBackend);
+  private readonly cookieService = inject(CookieService);
 
   public canActivateProtectedRoutes$: Observable<boolean> = combineLatest([
     this.isAuthenticated$,
     this.isDoneLoading$,
-  ]).pipe(map(values => values.every(b => b)));
+  ]).pipe(map(values => values.every(Boolean)));
 
   private navigateToLoginPage() {
-    // TODO: Remember current URL
+    // Deferred: remember current URL before navigating to login.
     this.router.navigateByUrl('/');
   }
 
@@ -296,11 +295,7 @@ export class AuthService {
       return x;
     });
     const profile = this.getSessionProfile();
-    if (
-      profile &&
-      profile.access_token_profile &&
-      Array.isArray(profile.access_token_profile.roles)
-    ) {
+    if (Array.isArray(profile?.access_token_profile?.roles)) {
       const roles = profile.access_token_profile.roles;
       const filtered = access.find(x => roles.includes(x.roles));
       return filtered?.access.find(x => x.module == module)
@@ -366,7 +361,6 @@ export class AuthService {
         const rights = access[element];
         if (rights) {
           valid = true;
-          return;
         } else {
           valid = rights;
         }

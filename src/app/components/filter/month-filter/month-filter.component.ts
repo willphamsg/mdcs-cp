@@ -10,7 +10,6 @@ export interface MonthRange {
     selector: 'app-month-filter',
     imports: [],
     templateUrl: './month-filter.component.html',
-    styleUrl: './month-filter.component.scss',
     providers: [DatePipe],
 })
 export class MonthFilterComponent implements OnInit {

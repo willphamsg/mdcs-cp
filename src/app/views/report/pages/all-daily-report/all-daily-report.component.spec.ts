@@ -86,12 +86,12 @@ describe('AllDailyReportComponent', () => {
     component.onCheckAllToggle();
 
     expect(component.chkAll).toBeTrue();
-    expect(component.selection.length).toBe(8);
+    expect(component.selection).toHaveSize(8);
 
     component.onCheckAllToggle();
 
     expect(component.chkAll).toBeFalse();
-    expect(component.selection.length).toBe(0);
+    expect(component.selection).toHaveSize(0);
   });
 
   it('should open the download dialog', () => {

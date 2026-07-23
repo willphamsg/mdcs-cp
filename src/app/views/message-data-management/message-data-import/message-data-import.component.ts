@@ -1,4 +1,4 @@
-import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -12,18 +12,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { FilterComponent } from '@app/components/filter/filter.component';
-import { SelectedFilterComponent } from '@app/components/filter/selected-filter/selected-filter.component';
 import { BreadcrumbsComponent } from '@app/components/layout/breadcrumbs/breadcrumbs.component';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
-import { ClickStopPropagationDirective } from '@app/directives/click-stop-propagation.directive';
 import {
   DropdownList,
   IHeader,
@@ -129,16 +126,16 @@ export class MessageDataImportComponent implements OnInit, OnDestroy {
   // dateSelected: string = '';
 
   constructor(
-    private importExportService: MessageDataImportExportService,
-    private cdr: ChangeDetectorRef,
-    private depoService: DepoService,
-    private filterService: FilterService,
-    private store: Store<AppStore>,
-    private paginationService: PaginationService,
-    public dialog: MatDialog,
-    private configService: AppConfigService,
-    private authService: AuthService,
-    private webSocketService: WebSocketService
+    private readonly importExportService: MessageDataImportExportService,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly depoService: DepoService,
+    private readonly filterService: FilterService,
+    private readonly store: Store<AppStore>,
+    private readonly paginationService: PaginationService,
+    public readonly dialog: MatDialog,
+    private readonly configService: AppConfigService,
+    private readonly authService: AuthService,
+    private readonly webSocketService: WebSocketService
   ) {}
 
   ngOnInit() {
@@ -186,17 +183,15 @@ export class MessageDataImportComponent implements OnInit, OnDestroy {
   reloadHandler() {
     if (this.groupIdentifier) {
       this.searchByGroupId(this.groupIdentifier);
-    } else {
-      if (this.depots) {
-        this.importExportService.manage(this.params, 'import').subscribe({
-          next: value => {
-            if (value.status === 200) {
-              this.updateDataSource(value.payload);
-              this.cdr.detectChanges();
-            }
-          },
-        });
-      }
+    } else if (this.depots) {
+      this.importExportService.manage(this.params, 'import').subscribe({
+        next: value => {
+          if (value.status === 200) {
+            this.updateDataSource(value.payload);
+            this.cdr.detectChanges();
+          }
+        },
+      });
     }
   }
 
@@ -274,7 +269,7 @@ export class MessageDataImportComponent implements OnInit, OnDestroy {
 
   sortHandler(element: Sort) {
     this.params.sort_order = [
-      { name: element.active, desc: element.direction == 'asc' ? false : true },
+      { name: element.active, desc: element.direction != 'asc' },
     ];
     this.reloadHandler();
   }
@@ -317,8 +312,8 @@ export class MessageDataImportComponent implements OnInit, OnDestroy {
       //     this.dateSelected,
       //     "yyyy-MM-dd'T'00:00:00"
       //   ) ?? '';
-      for (let index = 0; index < fileList.length; index++) {
-        formData.append('file', fileList[index]);
+      for (const file of Array.from(fileList)) {
+        formData.append('file', file);
       }
       // formData.append('date_selected', date);
 

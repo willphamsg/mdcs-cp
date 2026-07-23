@@ -17,11 +17,11 @@ import { AuthService } from './auth.service';
 export class FileImportExportService {
   private uri = environment.gateway + 'param/';
   constructor(
-    private http: HttpClient,
-    public dialog: MatDialog,
-    private auth: AuthService,
-    private message: MessageService,
-    private dynamic: DynamicEndpoint
+    private readonly http: HttpClient,
+    public readonly dialog: MatDialog,
+    private readonly auth: AuthService,
+    private readonly message: MessageService,
+    private readonly dynamic: DynamicEndpoint
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('param', this.uri);
   }
@@ -191,7 +191,7 @@ export class FileImportExportService {
             const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(
               contentDisposition
             );
-            if (matches && matches[1]) {
+            if (matches?.[1]) {
               filename = matches[1].replace(/['"]/g, '');
             }
           }

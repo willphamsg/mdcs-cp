@@ -26,7 +26,7 @@ import {
 } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTable, MatTableModule } from '@angular/material/table';
@@ -100,14 +100,14 @@ export class ViewComponent implements OnInit {
   ];
 
   constructor(
-    private fb: FormBuilder,
-    public dialog: MatDialog,
-    private parameterService: ParameterService,
-    private depoService: DepoService,
-    private message: MessageService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ViewComponent>,
-    private store: Store<AppStore>
+    private readonly fb: FormBuilder,
+    public readonly dialog: MatDialog,
+    private readonly parameterService: ParameterService,
+    private readonly depoService: DepoService,
+    private readonly message: MessageService,
+    @Inject(MAT_DIALOG_DATA) public readonly data: any,
+    public readonly dialogRef: MatDialogRef<ViewComponent>,
+    private readonly store: Store<AppStore>
   ) {
     this.depoService.depoList$.subscribe((value: IDepoList[]) => {
       this.depots = value;

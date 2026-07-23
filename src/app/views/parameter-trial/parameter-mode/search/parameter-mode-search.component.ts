@@ -173,16 +173,16 @@ export class ParameterModeSearchComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    private parameterService: ParameterService,
-    private depoService: DepoService,
-    public dialog: MatDialog,
-    private paginationService: PaginationService,
-    private filterService: FilterService,
-    public authService: AuthService,
-    private commonService: CommonService,
-    public selectionService: ParameterSelectionService,
-    private store: Store,
-    private webSocketService: WebSocketService
+    private readonly parameterService: ParameterService,
+    private readonly depoService: DepoService,
+    public readonly dialog: MatDialog,
+    private readonly paginationService: PaginationService,
+    private readonly filterService: FilterService,
+    public readonly authService: AuthService,
+    private readonly commonService: CommonService,
+    public readonly selectionService: ParameterSelectionService,
+    private readonly store: Store,
+    private readonly webSocketService: WebSocketService
   ) {}
 
   callTrialSchedulerRateSeconds(): void {
@@ -206,7 +206,7 @@ export class ParameterModeSearchComponent implements OnInit, OnDestroy {
     this.callTrialSchedulerRateSeconds();
     this.params.search_select_filter = {
       ...this.params.search_select_filter,
-      svc_prov_id: [parseInt(this.svcProviderID!)],
+      svc_prov_id: [Number.parseInt(this.svcProviderID!, 10)],
     };
     this.subscribeToDepoChanges();
 
@@ -541,7 +541,7 @@ export class ParameterModeSearchComponent implements OnInit, OnDestroy {
       ...item,
       id: stableId,
       chk: false,
-      svc_prov_id: parseInt(this.svcProviderID!),
+      svc_prov_id: Number.parseInt(this.svcProviderID!, 10),
       depot_name: strDepotId === '0' ? 'All Depot' : depot?.depot_name,
       param_master_id: item.param_master_id,
     };
@@ -552,14 +552,14 @@ export class ParameterModeSearchComponent implements OnInit, OnDestroy {
       this.params.sort_order = [
         {
           name: element.active,
-          desc: element.direction == 'asc' ? false : true,
+          desc: element.direction != 'asc',
         },
       ];
     } else if (this.tabIdx == 1) {
       this.actionHistoryParams.sort_order = [
         {
           name: element.active,
-          desc: element.direction == 'asc' ? false : true,
+          desc: element.direction != 'asc',
         },
       ];
     }
@@ -567,12 +567,12 @@ export class ParameterModeSearchComponent implements OnInit, OnDestroy {
   }
 
   headerHandler(event: MatCheckboxChange, element: IHeader) {
-    this.headerData.filter(x => x.field == element.field)[0].chk =
+    this.headerData.find(x => x.field == element.field)!.chk =
       event.checked;
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element)!.chk;
   }
 
   updateView(action: string) {
@@ -993,6 +993,16 @@ export class ParameterModeSearchComponent implements OnInit, OnDestroy {
     return (actionType as TUserActionType) || 'NONE';
   }
 
+  private getUpdateViewTitle(action: string): string {
+    if (action === 'live') {
+      return 'Live';
+    }
+    if (action === 'trial') {
+      return 'Trial';
+    }
+    return '';
+  }
+
   private openViewDialog(
     action: string,
     selection: IParameterMode[],
@@ -1007,7 +1017,7 @@ export class ParameterModeSearchComponent implements OnInit, OnDestroy {
       height: '70%',
       disableClose: true,
       data: {
-        title: `${action === 'live' ? 'Live' : action === 'trial' ? 'Trial' : ''} Selected`,
+        title: `${this.getUpdateViewTitle(action)} Selected`,
         selection,
         action,
         remark: options?.remark,

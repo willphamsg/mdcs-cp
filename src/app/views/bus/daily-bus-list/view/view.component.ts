@@ -43,7 +43,6 @@ import { DepoService } from '@services/depo.service';
 import { ManageDailyBusListService } from '@services/manage-daily-bus-list.service';
 import { MessageService } from '@services/message.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { CommonService } from '@app/services/common.service';
 import { AuthService } from '@app/services/auth.service';
 import { TimeInput24hDirective } from '@app/shared/directives/time-input-24h.directive';
@@ -108,15 +107,15 @@ export class ViewComponent implements OnInit {
   submitAttempted: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
-    public dialog: MatDialog,
-    private manageDailyBusListService: ManageDailyBusListService,
-    private depoService: DepoService,
-    private commonService: CommonService,
-    private message: MessageService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ViewComponent>,
-    private authService: AuthService
+    private readonly fb: FormBuilder,
+    public readonly dialog: MatDialog,
+    private readonly manageDailyBusListService: ManageDailyBusListService,
+    private readonly depoService: DepoService,
+    private readonly commonService: CommonService,
+    private readonly message: MessageService,
+    @Inject(MAT_DIALOG_DATA) public readonly data: any,
+    public readonly dialogRef: MatDialogRef<ViewComponent>,
+    private readonly authService: AuthService
   ) {
     // this.depoService.depo$.subscribe((value: string) => {
     //   this.depotId = value;
@@ -217,11 +216,12 @@ export class ViewComponent implements OnInit {
       svc_prov_id: element.svc_prov_id,
       day_type: [
         {
-          value: Array.isArray(element.day_type)
-            ? element.day_type
-            : element.day_type
-              ? [element.day_type]
-              : [],
+          value: (() => {
+            if (Array.isArray(element.day_type)) {
+              return element.day_type;
+            }
+            return element.day_type ? [element.day_type] : [];
+          })(),
           disabled: true,
         },
         [Validators.required, this.arrayNotEmptyValidator.bind(this)],
@@ -293,7 +293,7 @@ export class ViewComponent implements OnInit {
   }
 
   handleSvcValidate(e: any) {
-    const val = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    const val = String.fromCodePoint(!e.charCode ? e.which : e.charCode);
     const digits = val.match(/[0-9a-zA-Z]/g);
 
     if (digits == null) {
@@ -355,21 +355,21 @@ export class ViewComponent implements OnInit {
     const value = control.value.toString();
 
     // Check if it matches the basic character sequence pattern
-    const partialPattern = /^[a-zA-Z]{0,3}[0-9]{0,4}[a-zA-Z]{0,1}$/;
+    const partialPattern = /^[a-zA-Z]{0,3}\d{0,4}[a-zA-Z]?$/;
     if (!partialPattern.test(value)) {
       return { pattern: true };
     }
 
     // For input length >= 6, apply full validation
     if (value.length >= 6) {
-      const fullPattern = /^[a-zA-Z]{2,3}[0-9]{4}[a-zA-Z]?$/;
+      const fullPattern = /^[a-zA-Z]{2,3}\d{4}[a-zA-Z]?$/;
       return fullPattern.test(value) ? null : { pattern: true };
     }
 
     // For incomplete input (< 6 chars), show error if field is touched/blurred
     // This allows typing but shows validation feedback
     if (control.touched) {
-      const fullPattern = /^[a-zA-Z]{2,3}[0-9]{4}[a-zA-Z]?$/;
+      const fullPattern = /^[a-zA-Z]{2,3}\d{4}[a-zA-Z]?$/;
       return fullPattern.test(value) ? null : { pattern: true };
     }
 
@@ -397,7 +397,7 @@ export class ViewComponent implements OnInit {
   private duplicateBusIdValidator(
     control: AbstractControl
   ): ValidationErrors | null {
-    if (!control.value || !control.parent || !control.parent.parent) {
+    if (!control.value || !control.parent?.parent) {
       return null;
     }
 
@@ -450,7 +450,7 @@ export class ViewComponent implements OnInit {
 
     this.items.controls.forEach(control => {
       const busNumControl = control.get('bus_num');
-      if (busNumControl && busNumControl.value) {
+      if (busNumControl?.value) {
         const upperValue = busNumControl.value.toUpperCase();
         busIdCounts.set(upperValue, (busIdCounts.get(upperValue) || 0) + 1);
       }
@@ -609,11 +609,12 @@ export class ViewComponent implements OnInit {
         // For add: expand each item's day_type array into individual entries
         // and send all entries in a single API call
         const expandedItems = rawItems.flatMap((item: any) => {
-          const dayTypes: string[] = Array.isArray(item.day_type)
-            ? item.day_type
-            : item.day_type
-              ? [item.day_type]
-              : [];
+          let dayTypes: string[];
+          if (Array.isArray(item.day_type)) {
+            dayTypes = item.day_type;
+          } else {
+            dayTypes = item.day_type ? [item.day_type] : [];
+          }
 
           return dayTypes.map((dayType: string) => ({
             ...item,

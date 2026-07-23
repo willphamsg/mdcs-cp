@@ -24,6 +24,7 @@ const settingsRoutes = require('./routes/settings.routes');
 const parameterViewerRoutes = require('./routes/parameter-viewer.routes');
 
 const app = express();
+app.disable('x-powered-by');
 
 // Stateful counters used by the mock progress endpoints (kept in-memory,
 // exactly like the original file-based server).
@@ -32,7 +33,7 @@ app.locals.PARAMETER_FILE_IMPORT_COUNT = 0;
 app.locals.PARAMETER_FILE_EXPORT_COUNT = 0;
 app.locals.PARAMETER_FILE_EXPORT = [];
 
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:8035' }));
 app.use(express.json());
 
 // Routes (same base paths as node/mdcs/index.js)

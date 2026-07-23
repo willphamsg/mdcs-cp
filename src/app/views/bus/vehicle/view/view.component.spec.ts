@@ -69,7 +69,7 @@ describe('Vehicle ViewComponent', () => {
   });
 
   it('should add an item when no selection', () => {
-    expect(component.items.length).toBe(1);
+    expect(component.items).toHaveSize(1);
   });
 
   it('should have status options', () => {

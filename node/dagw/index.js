@@ -23,6 +23,7 @@ const parameterViewerRoutes = require('./routes/parameter-viewer.routes');
 const reportRoutes = require('./routes/report.routes');
 
 const app = express();
+app.disable('x-powered-by');
 
 app.locals.EOD_PROCESS_COUNT = 0;
 app.locals.PARAMETER_FILE_IMPORT_COUNT = 0;
@@ -32,7 +33,7 @@ app.locals.PARAMETER_MODE_LIVE_TRIAL_COUNT = 0;
 app.locals.PARAMETER_MODE_LIVE_LIST = [];
 app.locals.PARAMETER_MODE_TRIAL_LIST = [];
 
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:8035' }));
 
 app.use(express.json());
 

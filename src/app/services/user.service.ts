@@ -12,8 +12,8 @@ export class UserService {
   private uri = environment.gateway;
 
   constructor(
-    private http: HttpClient,
-    private dynamic: DynamicEndpoint
+    private readonly http: HttpClient,
+    private readonly dynamic: DynamicEndpoint
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('common', this.uri);
   }

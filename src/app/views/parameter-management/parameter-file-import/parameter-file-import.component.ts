@@ -23,8 +23,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { FilterComponent } from '@app/components/filter/filter.component';
-import { SelectedFilterComponent } from '@app/components/filter/selected-filter/selected-filter.component';
 import { BreadcrumbsComponent } from '@app/components/layout/breadcrumbs/breadcrumbs.component';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
 import {
@@ -158,17 +156,17 @@ export class ParameterFileImportComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    private importExportService: FileImportExportService,
-    private parameterService: ParameterService,
-    private cdr: ChangeDetectorRef,
-    private depoService: DepoService,
-    private filterService: FilterService,
-    private store: Store<AppStore>,
-    private paginationService: PaginationService,
-    public dialog: MatDialog,
-    private commonService: CommonService,
-    public authService: AuthService,
-    private webSocketService: WebSocketService
+    private readonly importExportService: FileImportExportService,
+    private readonly parameterService: ParameterService,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly depoService: DepoService,
+    private readonly filterService: FilterService,
+    private readonly store: Store<AppStore>,
+    private readonly paginationService: PaginationService,
+    public readonly dialog: MatDialog,
+    private readonly commonService: CommonService,
+    public readonly authService: AuthService,
+    private readonly webSocketService: WebSocketService
   ) {}
 
   ngOnInit() {
@@ -242,11 +240,6 @@ export class ParameterFileImportComponent implements OnInit, OnDestroy {
       .subscribe(([depotList, searchValue, filterValue]) => {
         this.params.search_text = searchValue;
         this.depots = depotList;
-
-        let depots = filterValue?.['depots'] ?? [];
-        if (!Array.isArray(depots) || depots.length === 0) {
-          depots = this.commonService.getDepotIds(depotList);
-        }
 
         const { mdcsAccess = [] } = {
           mdcsAccess: filterValue?.['mdcsAccess'],
@@ -398,7 +391,7 @@ export class ParameterFileImportComponent implements OnInit, OnDestroy {
     this.params.sort_order = [
       {
         name: backendFieldName,
-        desc: element.direction === 'asc' ? false : true,
+        desc: element.direction !== 'asc',
       },
     ];
 
@@ -412,7 +405,7 @@ export class ParameterFileImportComponent implements OnInit, OnDestroy {
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element)!.chk;
   }
 
   openView() {
@@ -461,11 +454,11 @@ export class ParameterFileImportComponent implements OnInit, OnDestroy {
 
     const files = Array.from(fileList);
 
-    const invalidFile = files.find(file => {
-      return !file.name.toLowerCase().endsWith('.zip');
-    });
+    const hasInvalidFile = files.some(
+      file => !file.name.toLowerCase().endsWith('.zip')
+    );
 
-    if (invalidFile) {
+    if (hasInvalidFile) {
       this.store.dispatch(
         showSnackbar({
           message: 'Only ZIP file is allowed.',
@@ -491,8 +484,8 @@ export class ParameterFileImportComponent implements OnInit, OnDestroy {
       if (confirmed) {
         const formData = new FormData();
 
-        for (let index = 0; index < fileList.length; index++) {
-          formData.append('file', fileList[index]);
+        for (const file of Array.from(fileList)) {
+          formData.append('file', file);
         }
 
         this.importExportService
@@ -533,10 +526,8 @@ export class ParameterFileImportComponent implements OnInit, OnDestroy {
               }
             },
           });
-      } else {
-        if (this.fileInputRef?.nativeElement) {
-          this.fileInputRef.nativeElement.value = '';
-        }
+      } else if (this.fileInputRef?.nativeElement) {
+        this.fileInputRef.nativeElement.value = '';
       }
     });
   }

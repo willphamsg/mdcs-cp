@@ -137,10 +137,10 @@ export class DailyReportComponent implements OnInit, OnDestroy {
   expandedMenu: boolean = false;
 
   constructor(
-    private depoService: DepoService,
-    public dialog: MatDialog,
-    private authService: AuthService,
-    private dailyReportService: DailyReportService
+    private readonly depoService: DepoService,
+    public readonly dialog: MatDialog,
+    private readonly authService: AuthService,
+    private readonly dailyReportService: DailyReportService
   ) {}
 
   ngOnInit() {
@@ -211,8 +211,8 @@ export class DailyReportComponent implements OnInit, OnDestroy {
       report_name: this.reportName,
       business_day: this.formatDate(this.businessDaySelected),
       format: 'pdf',
-      svc_prov_id: parseInt(this.svcProviderID!),
-      depot_id: parseInt(this.depotSelected),
+      svc_prov_id: Number.parseInt(this.svcProviderID!, 10),
+      depot_id: Number.parseInt(this.depotSelected, 10),
     };
 
     this.dailyReportService
@@ -269,8 +269,8 @@ export class DailyReportComponent implements OnInit, OnDestroy {
       report_name: this.reportName,
       business_day: this.formatDate(this.businessDaySelected),
       format: downloadFormat,
-      svc_prov_id: parseInt(this.svcProviderID!),
-      depot_id: parseInt(this.depotSelected),
+      svc_prov_id: Number.parseInt(this.svcProviderID!, 10),
+      depot_id: Number.parseInt(this.depotSelected, 10),
     };
 
     this.dailyReportService

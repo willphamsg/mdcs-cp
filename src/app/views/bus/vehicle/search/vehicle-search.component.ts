@@ -38,7 +38,6 @@ import { IDepoList } from '@models/depo';
 import { IVehicleList } from '@models/vehicle-list';
 import { DepoService } from '@services/depo.service';
 import { MasterService } from '@services/master.service';
-import { MessageService } from '@services/message.service';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
 import { ViewComponent } from '../view/view.component';
 import { PaginationService } from '@app/services/pagination.service';
@@ -73,7 +72,7 @@ const POLLING_INTERVAL = 10000;
   templateUrl: './vehicle-search.component.html',
   styleUrls: ['./vehicle-search.component.scss'],
 })
-export class VehicleSearchComponent implements OnInit {
+export class VehicleSearchComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
   dagw = this.authService.isDagw();
   headerData = VehicleHeader;
@@ -113,17 +112,17 @@ export class VehicleSearchComponent implements OnInit {
 
   filterConfigs: IFilterConfig[] = [];
   constructor(
-    public authService: AuthService,
-    private masterService: MasterService,
-    private depoService: DepoService,
-    public dialog: MatDialog,
-    private filterService: FilterService,
-    public paginationService: PaginationService,
-    private commonService: CommonService,
-    private busSelectionService: BusSelectionService,
-    private webSocketService: WebSocketService
+    public readonly authService: AuthService,
+    private readonly masterService: MasterService,
+    private readonly depoService: DepoService,
+    public readonly dialog: MatDialog,
+    private readonly filterService: FilterService,
+    public readonly paginationService: PaginationService,
+    private readonly commonService: CommonService,
+    private readonly busSelectionService: BusSelectionService,
+    private readonly webSocketService: WebSocketService
   ) {
-    // TODO: Remove this from the constructor and create  test case for this
+    // Deferred: move status mapping out of constructor and cover with tests.
     this.status = VehicleStatus.map((item: any) => {
       return <DropdownList>{
         id: item.id,
@@ -192,7 +191,7 @@ export class VehicleSearchComponent implements OnInit {
           effectiveDate = [],
         } = filterValue || {};
 
-        // TODO: Move this in service, all data manipulation should be done in service
+        // Deferred: move filter data manipulation into a service.
         this.params.search_select_filter = {
           ...this.params.search_select_filter,
           depot_id_list: depots,
@@ -380,12 +379,12 @@ export class VehicleSearchComponent implements OnInit {
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element)!.chk;
   }
 
   sortHandler(element: Sort) {
     this.params.sort_order = [
-      { name: element.active, desc: element.direction == 'asc' ? false : true },
+      { name: element.active, desc: element.direction != 'asc' },
     ];
     this.reloadHandler();
   }

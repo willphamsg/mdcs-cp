@@ -87,7 +87,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 })
 export class FileImportConfirmationDialogComponent {
   constructor(
-    private dialogRef: MatDialogRef<FileImportConfirmationDialogComponent>
+    private readonly dialogRef: MatDialogRef<FileImportConfirmationDialogComponent>
   ) {}
 
   onNo(): void {

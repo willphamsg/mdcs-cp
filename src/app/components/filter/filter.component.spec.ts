@@ -127,7 +127,7 @@ describe('FilterComponent', () => {
     });
 
     const appliedFilters = component.getAppliedFilters();
-    expect(Object.keys(appliedFilters).length).toBe(0);
+    expect(Object.keys(appliedFilters)).toHaveSize(0);
   });
 
   it('should get config options for a config key', () => {

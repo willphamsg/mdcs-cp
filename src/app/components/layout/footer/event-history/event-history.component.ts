@@ -45,7 +45,7 @@ export class EventHistoryComponent implements OnInit, OnDestroy {
   dataSource: IEventHistory[] = [];
   headerData = EventHistoryHeader;
   displayedColumns: string[] = this.headerData
-    .filter(x => x.hidden == false)
+    .filter(x => !x.hidden)
     .map((x: IHeader) => x.field);
   params: IParams = {
     page_size: 50,
@@ -67,13 +67,13 @@ export class EventHistoryComponent implements OnInit, OnDestroy {
   eventHistory: IEventHistory[] = [];
 
   constructor(
-    private cdr: ChangeDetectorRef,
-    public paginationService: PaginationService,
-    private eventHistoryService: EventHistoryService,
-    private filterService: FilterService,
-    private commonService: CommonService,
-    private depoService: DepoService,
-    private authService: AuthService
+    private readonly cdr: ChangeDetectorRef,
+    public readonly paginationService: PaginationService,
+    private readonly eventHistoryService: EventHistoryService,
+    private readonly filterService: FilterService,
+    private readonly commonService: CommonService,
+    private readonly depoService: DepoService,
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -86,7 +86,7 @@ export class EventHistoryComponent implements OnInit, OnDestroy {
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element)!.chk;
   }
 
   subscribeToDepoChanges(): void {
@@ -205,7 +205,7 @@ export class EventHistoryComponent implements OnInit, OnDestroy {
 
   sortHandler(sort: Sort): void {
     this.params.sort_order = [
-      { name: sort.active, desc: sort.direction === 'asc' ? false : true },
+      { name: sort.active, desc: sort.direction !== 'asc' },
     ];
     this.reloadHandler();
   }

@@ -10,8 +10,8 @@
  * Usage: npm run seed
  */
 require('dotenv').config();
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 const { connect, getDb, close } = require('../config/db');
 
 const DATA_DIR = path.join(__dirname, '..', 'data');

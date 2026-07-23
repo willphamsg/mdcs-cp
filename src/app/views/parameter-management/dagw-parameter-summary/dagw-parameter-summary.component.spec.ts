@@ -135,7 +135,7 @@ describe('DagwParameterSummaryComponent', () => {
     component.loadFilterValues();
     fixture.detectChanges();
 
-    expect(component.filterConfigs.length).toBe(4);
+    expect(component.filterConfigs).toHaveSize(4);
     expect(component.filterConfigs[0].controlName).toBe('depotsSec');
     expect(component.filterConfigs[0].options).toEqual(mockDepots);
   });
@@ -144,7 +144,7 @@ describe('DagwParameterSummaryComponent', () => {
     component.reloadHandler();
     fixture.detectChanges();
 
-    expect(component.dataSource.length).toBe(mockDagwList.length);
+    expect(component.dataSource).toHaveSize(mockDagwList.length);
   });
 
   it('should unsubscribe from observables', () => {

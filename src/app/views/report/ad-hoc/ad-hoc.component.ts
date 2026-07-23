@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -13,10 +13,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { BreadcrumbsComponent } from '@app/components/layout/breadcrumbs/breadcrumbs.component';
-import { IDepoList } from '@app/models/depo';
-import { DepoService } from '@app/services/depo.service';
-import { IFilterConfig } from '@app/shared/utils/form-utils';
-import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-ad-hoc',
@@ -41,7 +37,7 @@ import { Subject, takeUntil } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class AdHocComponent {
-  constructor(private route: ActivatedRoute) {}
+  constructor(private readonly route: ActivatedRoute) {}
 
   getAdhocType(): string {
     const adhocType = this.route.snapshot?.firstChild?.routeConfig?.path;

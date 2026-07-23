@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, of } from 'rxjs';
-import { BusRequest, PayloadResponse, IParams } from '../models/common';
+import { PayloadResponse, IParams } from '../models/common';
 import { INewParameterApproval } from '../models/parameter-trial';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from '@env/environment';
@@ -15,10 +15,10 @@ import { DynamicEndpoint } from './dynamic-endpoint';
 export class NewParameterApprovalService {
   private uri = environment.gateway + 'parameter-trial/';
   constructor(
-    private http: HttpClient,
-    public dialog: MatDialog,
-    private message: MessageService,
-    private dynamic: DynamicEndpoint
+    private readonly http: HttpClient,
+    public readonly dialog: MatDialog,
+    private readonly message: MessageService,
+    private readonly dynamic: DynamicEndpoint
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('param', this.uri);
   }

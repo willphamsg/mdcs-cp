@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { DepoRequest, PayloadResponse } from '../models/common';
-import { BehaviorSubject, Observable, of, catchError } from 'rxjs';
-import DummyData from '@data/db.json';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IDepoList } from '@models/depo';
 import { DynamicEndpoint } from './dynamic-endpoint';
 
@@ -20,8 +19,8 @@ export class DepoService {
   depoList$: Observable<IDepoList[]> = this.depoList.asObservable();
   depo$: Observable<string> = this.depo.asObservable();
   constructor(
-    private http: HttpClient,
-    private dynamic: DynamicEndpoint
+    private readonly http: HttpClient,
+    private readonly dynamic: DynamicEndpoint
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('common', this.uri);
   }

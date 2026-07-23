@@ -3,7 +3,7 @@ import { CanActivateFn } from '@angular/router';
 
 import { AuthGuard } from './auth.guard';
 
-xdescribe('authGuard', () => {
+xdescribe('authGuard — skipped: pending SSO/test-bed setup', () => {
   const executeGuard: CanActivateFn = (...guardParameters) =>
     TestBed.runInInjectionContext(() => AuthGuard(...guardParameters));
 

@@ -145,15 +145,15 @@ export class MessageDataExportComponent implements OnInit, OnDestroy {
   svcProviderID: string = this.authService.getSVCProvider() ?? '';
 
   constructor(
-    private importExportService: MessageDataImportExportService,
-    private filterService: FilterService,
-    private paginationService: PaginationService,
-    private depoService: DepoService,
-    private cdr: ChangeDetectorRef,
-    private store: Store<AppStore>,
-    public dialog: MatDialog,
-    private configService: AppConfigService,
-    private authService: AuthService
+    private readonly importExportService: MessageDataImportExportService,
+    private readonly filterService: FilterService,
+    private readonly paginationService: PaginationService,
+    private readonly depoService: DepoService,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly store: Store<AppStore>,
+    public readonly dialog: MatDialog,
+    private readonly configService: AppConfigService,
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -304,13 +304,13 @@ export class MessageDataExportComponent implements OnInit, OnDestroy {
 
   sortHandler(element: Sort) {
     this.params.sort_order = [
-      { name: element.active, desc: element.direction == 'asc' ? false : true },
+      { name: element.active, desc: element.direction != 'asc' },
     ];
     this.reloadHandler();
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element)!.chk;
   }
 
   downloadHandler() {
@@ -497,7 +497,7 @@ export class MessageDataExportComponent implements OnInit, OnDestroy {
     link.download = filename;
     document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link);
+    link.remove();
     window.URL.revokeObjectURL(url);
 
     this.store.dispatch(

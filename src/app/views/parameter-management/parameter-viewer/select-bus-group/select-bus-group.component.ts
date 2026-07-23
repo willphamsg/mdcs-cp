@@ -3,7 +3,6 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
-  OnInit,
   Output,
 } from '@angular/core';
 
@@ -19,7 +18,7 @@ import { Subject } from 'rxjs';
   templateUrl: './select-bus-group.component.html',
   styleUrl: './select-bus-group.component.scss',
 })
-export class SelectBusGroupComponent implements OnInit, OnDestroy {
+export class SelectBusGroupComponent implements OnDestroy {
   destroy$ = new Subject<void>();
 
   @Input() busGroupNoSelected: number | null = null;
@@ -28,7 +27,6 @@ export class SelectBusGroupComponent implements OnInit, OnDestroy {
 
   constructor() {}
 
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.destroy$.next();

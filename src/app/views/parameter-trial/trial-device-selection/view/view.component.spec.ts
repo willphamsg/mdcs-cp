@@ -76,7 +76,7 @@ describe('TrialDeviceSelection ViewComponent', () => {
   });
 
   it('should populate items from selection data', () => {
-    expect(component.items.length).toBe(1);
+    expect(component.items).toHaveSize(1);
     expect(component.isEdit).toBeTrue();
   });
 

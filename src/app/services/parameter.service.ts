@@ -27,10 +27,10 @@ export class ParameterService {
   private uriScheduler = environment.gateway + 'parameter/scheduler/';
 
   constructor(
-    private http: HttpClient,
-    public dialog: MatDialog,
-    private message: MessageService,
-    private dynamic: DynamicEndpoint
+    private readonly http: HttpClient,
+    public readonly dialog: MatDialog,
+    private readonly message: MessageService,
+    private readonly dynamic: DynamicEndpoint
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('param', this.uri);
     this.uriHistorySearch = this.dynamic.setDynamicEndpoint(
@@ -60,11 +60,7 @@ export class ParameterService {
   }
 
   searchHistory(params: IActionHistoryParams): Observable<PayloadResponse> {
-    return this.http
-      .post<PayloadResponse>(`${this.uriHistorySearch}search`, params)
-      .pipe(
-        catchError((err: HttpErrorResponse) => this.message.multiError(err))
-      );
+    return this.historySearch(params);
   }
 
   searchError(

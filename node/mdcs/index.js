@@ -22,13 +22,14 @@ const settingsRoutes = require('./routes/settings.routes');
 const parameterViewerRoutes = require('./routes/parameter-viewer.routes');
 
 const app = express();
+app.disable('x-powered-by');
 
 app.locals.EOD_PROCESS_COUNT = 0;
 app.locals.PARAMETER_FILE_IMPORT_COUNT = 0;
 app.locals.PARAMETER_FILE_EXPORT_COUNT = 0;
 app.locals.PARAMETER_FILE_EXPORT = [];
 
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:8035' }));
 
 app.use(express.json());
 

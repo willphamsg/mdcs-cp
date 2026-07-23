@@ -132,7 +132,7 @@ describe('MessageDataExportComponent', () => {
   it('should set filterConfigs in loadFilterValues', () => {
     component.loadFilterValues();
 
-    expect(component.filterConfigs.length).toBe(1);
+    expect(component.filterConfigs).toHaveSize(1);
     expect(component.filterConfigs[0].controlName).toBe('mdcsAccess');
   });
 

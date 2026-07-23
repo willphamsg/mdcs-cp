@@ -102,7 +102,7 @@ describe('HomeComponent', () => {
       ],
     } as any;
     const result = component.transformChartData(connectedBus);
-    expect(result.length).toBe(2);
+    expect(result).toHaveSize(2);
     expect(result[0]).toEqual({ x: '08:00', y: 3 });
   });
 

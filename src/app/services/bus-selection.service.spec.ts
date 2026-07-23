@@ -76,13 +76,13 @@ describe('BusSelectionService', () => {
   describe('Bus Transfer selections', () => {
     it('should add and get bus transfer selection', () => {
       service.addBusTransferSelection(mockBusTransfer);
-      expect(service.getBusTransferSelections().length).toBe(1);
+      expect(service.getBusTransferSelections()).toHaveSize(1);
     });
 
     it('should remove bus transfer selection', () => {
       service.addBusTransferSelection(mockBusTransfer);
       service.removeBusTransferSelection(mockBusTransfer.id);
-      expect(service.getBusTransferSelections().length).toBe(0);
+      expect(service.getBusTransferSelections()).toHaveSize(0);
     });
 
     it('should toggle bus transfer selection on', () => {
@@ -130,7 +130,7 @@ describe('BusSelectionService', () => {
   describe('Daily Bus List selections', () => {
     it('should add and get daily bus list selection', () => {
       service.addDailyBusListSelection(mockDailyBusList);
-      expect(service.getDailyBusListSelections().length).toBe(1);
+      expect(service.getDailyBusListSelections()).toHaveSize(1);
     });
 
     it('should toggle daily bus list selection', () => {
@@ -149,7 +149,7 @@ describe('BusSelectionService', () => {
   describe('Vehicle selections', () => {
     it('should add and get vehicle selection', () => {
       service.addVehicleSelection(mockVehicle);
-      expect(service.getVehicleSelections().length).toBe(1);
+      expect(service.getVehicleSelections()).toHaveSize(1);
     });
 
     it('should toggle vehicle selection', () => {

@@ -18,10 +18,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { BreadcrumbsComponent } from '@app/components/layout/breadcrumbs/breadcrumbs.component';
 import { SelectedFilterComponent } from '@app/components/filter/selected-filter/selected-filter.component';
 import { SSRSReportViewerComponent } from '@app/components/ssrs-reportviewer/ssrs-reportviewer.component';
-import { IReportParameter, IReportViewerOption } from '@models/common';
+import {
+  IReportParameter,
+  IReportViewerOption,
+  IOperatorList,
+  DepoRequest,
+} from '@models/common';
 import { IDepoList } from '@models/depo';
 import { DepoService } from '@services/depo.service';
 import { combineLatest, forkJoin, Subject, takeUntil } from 'rxjs';
@@ -29,7 +33,6 @@ import { AuthService } from '@app/services/auth.service';
 import { DailyReportService } from '@services/daily-report.service';
 import { CommonService } from '@app/services/common.service';
 import { MessageService } from '@app/services/message.service';
-import { IOperatorList, DepoRequest } from '@models/common';
 import { DD_MM_YYYY_FORMAT } from '@app/shared/utils/date-time';
 
 @Component({
@@ -111,12 +114,12 @@ export class BusTransferReportComponent implements OnInit, OnDestroy {
   isAdhocReport: boolean = false;
 
   constructor(
-    private depoService: DepoService,
-    private authService: AuthService,
-    private dailyReportService: DailyReportService,
-    private route: ActivatedRoute,
-    private commonService: CommonService,
-    private messageService: MessageService
+    private readonly depoService: DepoService,
+    private readonly authService: AuthService,
+    private readonly dailyReportService: DailyReportService,
+    private readonly route: ActivatedRoute,
+    private readonly commonService: CommonService,
+    private readonly messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -184,15 +187,11 @@ export class BusTransferReportComponent implements OnInit, OnDestroy {
         : this.formatDate(this.businessDaySelected),
       depotid: this.depotSelected,
       month: null,
-      currenteffectivedatetime: this.isAdhocReport
-        ? this.startDateSelected
-          ? this.formatDate(this.startDateSelected)
-          : null
+      currenteffectivedatetime: this.isAdhocReport && this.startDateSelected
+        ? this.formatDate(this.startDateSelected)
         : null,
-      futureeffectivedatetime: this.isAdhocReport
-        ? this.endDateSelected
-          ? this.formatDate(this.endDateSelected)
-          : null
+      futureeffectivedatetime: this.isAdhocReport && this.endDateSelected
+        ? this.formatDate(this.endDateSelected)
         : null,
       currentspid: this.isAdhocReport
         ? this.currentOperatorSelected || null
@@ -251,8 +250,8 @@ export class BusTransferReportComponent implements OnInit, OnDestroy {
         ? null
         : this.formatDate(this.businessDaySelected),
       format: downloadFormat,
-      svc_prov_id: parseInt(this.svcProviderID!),
-      depot_id: parseInt(this.depotSelected),
+      svc_prov_id: Number.parseInt(this.svcProviderID!, 10),
+      depot_id: Number.parseInt(this.depotSelected, 10),
     };
 
     this.dailyReportService

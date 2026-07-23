@@ -18,24 +18,22 @@ export const WS_TOPICS = {
   messageDataImport: '/ws/topic/message-data-import',
 } as const;
 
-export type WebSocketTopic =
-  | (typeof WS_TOPICS)[keyof typeof WS_TOPICS]
-  | string;
+export type WebSocketTopic = (typeof WS_TOPICS)[keyof typeof WS_TOPICS];
 
 @Injectable({
   providedIn: 'root',
 })
 export class WebSocketService {
   private client?: Client;
-  private subjects = new Map<string, Subject<unknown>>();
-  private subscriptions = new Map<string, StompSubscription>();
-  private requestedTopics = new Set<string>();
+  private readonly subjects = new Map<string, Subject<unknown>>();
+  private readonly subscriptions = new Map<string, StompSubscription>();
+  private readonly requestedTopics = new Set<string>();
   private connecting = false;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private authService: AuthService,
-    private zone: NgZone
+    @Inject(PLATFORM_ID) private readonly platformId: Object,
+    private readonly authService: AuthService,
+    private readonly zone: NgZone
   ) {}
 
   isEnabled(): boolean {
@@ -227,9 +225,11 @@ export class WebSocketService {
       configuredUrl = configuredUrl.replace("mdcs", "dagw");
     }
 
-    const cleanUrl = configuredUrl
-      .replace(/\/info$/, '')
-      .replace(/\/+$/, '');
+    const withoutInfo = configuredUrl.replace(/\/info$/, '');
+    let cleanUrl = withoutInfo;
+    while (cleanUrl.endsWith('/')) {
+      cleanUrl = cleanUrl.slice(0, -1);
+    }
 
     if (cleanUrl.endsWith('/ws/connect')) {
       return cleanUrl;

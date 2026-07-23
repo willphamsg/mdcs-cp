@@ -75,7 +75,7 @@ describe('DailyBusList ViewComponent', () => {
 
   it('should add an item when no selection', () => {
     // When no selection, addItem is called
-    expect(component.items.length).toBe(1);
+    expect(component.items).toHaveSize(1);
   });
 
   it('should return items FormArray from getter', () => {

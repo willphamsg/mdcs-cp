@@ -75,20 +75,20 @@ describe('ParameterFileImportViewComponent', () => {
   it('should add an item to the form array', () => {
     const initialLength = component.items.length;
     component.addItem();
-    expect(component.items.length).toBe(initialLength + 1);
+    expect(component.items).toHaveSize(initialLength + 1);
   });
 
   it('should remove an item from the form array', () => {
     component.addItem();
     const initialLength = component.items.length;
     component.removeItem(1);
-    expect(component.items.length).toBe(initialLength - 1);
+    expect(component.items).toHaveSize(initialLength - 1);
   });
 
   it('should not remove the last item from the form array', () => {
-    expect(component.items.length).toBe(1);
+    expect(component.items).toHaveSize(1);
     component.removeItem(0);
-    expect(component.items.length).toBe(1);
+    expect(component.items).toHaveSize(1);
   });
 
   it('should handle file import and set filename in the form group', () => {

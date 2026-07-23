@@ -17,25 +17,19 @@ export class DeviceConfigurationComponent implements OnInit {
   bfcConfig1: IParameterBfcConfig[] = [];
   bfcConfig2: IParameterBfcConfig[] = [];
 
-  constructor(private parameterViewerService: ParameterViewerService) {}
+  constructor(private readonly parameterViewerService: ParameterViewerService) {}
 
   ngOnInit(): void {
-    switch (this.type) {
-      case 2:
-        {
-          const mapData = this.parameterViewerService.parameterMapper(
-            this.type,
-            this.payload
-          );
-          this.bfcConfig1 = mapData.param1;
-          this.bfcConfig2 = mapData.param2;
-        }
-
-        break;
-      default:
-        this.bfcConfig1 = this.bfcConfig.slice(0, this.bfcConfig.length / 2);
-        this.bfcConfig2 = this.bfcConfig.slice(this.bfcConfig.length / 2);
-        break;
+    if (this.type === 2) {
+      const mapData = this.parameterViewerService.parameterMapper(
+        this.type,
+        this.payload
+      );
+      this.bfcConfig1 = mapData.param1;
+      this.bfcConfig2 = mapData.param2;
+    } else {
+      this.bfcConfig1 = this.bfcConfig.slice(0, this.bfcConfig.length / 2);
+      this.bfcConfig2 = this.bfcConfig.slice(this.bfcConfig.length / 2);
     }
   }
 }

@@ -1,4 +1,4 @@
-module.exports = function (config) {
+module.exports = function karmaConfig(config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
@@ -16,7 +16,7 @@ module.exports = function (config) {
       suppressAll: true,
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/lta-btds-gui'),
+      dir: require('node:path').join(__dirname, './coverage/lta-btds-gui'),
       subdir: '.',
       reporters: [{ type: 'html' }, { type: 'lcovonly' }, { type: 'text-summary' }],
     },

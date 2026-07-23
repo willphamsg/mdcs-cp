@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -27,7 +26,7 @@ import {
 } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTable, MatTableModule } from '@angular/material/table';
@@ -48,7 +47,6 @@ import { TrialDeviceSelectionService } from '@services/trial-device-selection.se
 import { MessageService } from '@services/message.service';
 import { AppStore } from '@store/app.state';
 import { Store } from '@ngrx/store';
-import { showSnackbar } from '@store/snackbar/snackbar.actions';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HttpErrorResponse } from '@angular/common/http';
 @Component({
@@ -103,14 +101,14 @@ export class ViewComponent implements OnInit {
   ];
 
   constructor(
-    private fb: FormBuilder,
-    public dialog: MatDialog,
-    private trialDeviceSelectionService: TrialDeviceSelectionService,
-    private depoService: DepoService,
-    private message: MessageService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ViewComponent>,
-    private store: Store<AppStore>
+    private readonly fb: FormBuilder,
+    public readonly dialog: MatDialog,
+    private readonly trialDeviceSelectionService: TrialDeviceSelectionService,
+    private readonly depoService: DepoService,
+    private readonly message: MessageService,
+    @Inject(MAT_DIALOG_DATA) public readonly data: any,
+    public readonly dialogRef: MatDialogRef<ViewComponent>,
+    private readonly store: Store<AppStore>
   ) {
     this.depoService.depoList$.subscribe((value: IDepoList[]) => {
       this.depots = value;

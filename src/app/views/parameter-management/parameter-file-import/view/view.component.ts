@@ -104,15 +104,15 @@ export class ViewComponent implements OnInit {
   isDisabled: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
-    public dialog: MatDialog,
-    private manageDailyBusListService: ManageDailyBusListService,
-    private depoService: DepoService,
-    private message: MessageService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ViewComponent>,
-    private _snackBar: MatSnackBar,
-    private store: Store<AppStore>
+    private readonly fb: FormBuilder,
+    public readonly dialog: MatDialog,
+    private readonly manageDailyBusListService: ManageDailyBusListService,
+    private readonly depoService: DepoService,
+    private readonly message: MessageService,
+    @Inject(MAT_DIALOG_DATA) public readonly data: any,
+    public readonly dialogRef: MatDialogRef<ViewComponent>,
+    private readonly _snackBar: MatSnackBar,
+    private readonly store: Store<AppStore>
   ) {
     this.depoService.depo$.subscribe((value: string) => {
       this.depotId = value;
@@ -157,10 +157,10 @@ export class ViewComponent implements OnInit {
       const formData = new FormData();
       const itemGroup = this.items.at(index) as FormGroup;
       const fileNameControl = itemGroup.get('fileName');
-      for (let index = 0; index < fileList.length; index++) {
-        formData.append('file', fileList[index]);
+      for (const file of Array.from(fileList)) {
+        formData.append('file', file);
 
-        fileNameControl?.setValue(fileList[index].name);
+        fileNameControl?.setValue(file.name);
       }
     }
   }
@@ -236,7 +236,7 @@ export class ViewComponent implements OnInit {
           .subscribe({
             next: (value: PayloadResponse) => {
               if (value.status == 201) {
-                const dialogRef = this.message.confirmation(
+                this.message.confirmation(
                   value.status_code,
                   value.message
                 );

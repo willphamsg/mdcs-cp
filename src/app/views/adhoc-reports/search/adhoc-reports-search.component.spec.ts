@@ -81,11 +81,11 @@ describe('AdhocReportsComponent', () => {
   });
 
   it('should have a tabList with 6 tabs', () => {
-    expect(component.tabList.length).toBe(6);
+    expect(component.tabList).toHaveSize(6);
   });
 
   it('should generate months on init', () => {
-    expect(component.months.length).toBe(3);
+    expect(component.months).toHaveSize(3);
   });
 
   it('should call loadDepotsAndOperators on init', () => {
@@ -148,7 +148,7 @@ describe('AdhocReportsComponent', () => {
 
   it('should getMonthValue return 3 months', () => {
     const months = component.getMonthValue(new Date(2024, 5, 15));
-    expect(months.length).toBe(3);
+    expect(months).toHaveSize(3);
   });
 
   it('should unsubscribe on destroy', () => {

@@ -81,7 +81,7 @@ describe('HeaderComponent', () => {
   });
 
   it('should populate depot options from profile', () => {
-    expect(component.options.length).toBe(1);
+    expect(component.options).toHaveSize(1);
     expect(component.options[0].depot_name).toBe('Depot One');
   });
 

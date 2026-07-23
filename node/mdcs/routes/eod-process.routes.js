@@ -1,7 +1,7 @@
 const express = require('express');
-const fs = require('fs').promises;
-const path = require('path');
-const { start } = require('repl');
+const fs = require('node:fs').promises;
+const path = require('node:path');
+const { start } = require('node:repl');
 
 const router = express.Router();
 const dataPath = path.join(__dirname, '../data/eod-process.json');
@@ -103,11 +103,7 @@ router.post('/check-eod-status', async (req, res) => {
       page_size = 10,
       page_index = 0,
       sort_order = [],
-      search_text = '',
-      search_select_filter = {},
     } = params;
-    const depot_id = search_select_filter.depot_id;
-
     // if (depot_id === '2') {
     //   items.pop();
     // }
@@ -118,7 +114,7 @@ router.post('/check-eod-status', async (req, res) => {
     // }
 
     data = applySort(data, sort_order);
-    data = applyPagination(data, parseInt(page_index), parseInt(page_size));
+    data = applyPagination(data, Number.parseInt(page_index), Number.parseInt(page_size));
 
     let forceStatus = 0;
 

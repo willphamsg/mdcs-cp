@@ -8,7 +8,7 @@ const env = {
   useDevSign: true,
   useDynamicEndpoint: true,
   version: '0.0.16',
-  ssoUri: 'http://10.7.1.109:8025/api/',
+  ssoUri: 'http://10.7.1.109:8025/api/', // NOSONAR - internal gateway uses HTTP on the private network
   gateway: 'https://localhost:8060/api/',
 };
 

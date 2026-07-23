@@ -1,1 +1,6 @@
-{}
+{
+    "sonarlint.connectedMode.project": {
+        "connectionId": "willphamsg",
+        "projectKey": "willphamsg_mdcs-cp"
+    }
+}

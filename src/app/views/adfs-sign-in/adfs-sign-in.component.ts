@@ -14,7 +14,6 @@ import { REFRESH_TOKEN_COOKIE } from '@app/shared/utils/constants';
   imports: [PageLoaderComponent],
   providers: [CookieService],
   templateUrl: './adfs-sign-in.component.html',
-  styleUrls: ['./adfs-sign-in.component.css'],
 })
 export class AdfsSignInComponent implements OnInit {
   redirect = this.authService.isDagw()

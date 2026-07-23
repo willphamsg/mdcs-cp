@@ -164,16 +164,16 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    private parameterService: ParameterService,
-    private depoService: DepoService,
-    private filterService: FilterService,
-    private paginationService: PaginationService,
-    public authService: AuthService,
-    public dialog: MatDialog,
-    private commonService: CommonService,
-    public selectionService: ParameterSelectionService,
-    private store: Store,
-    private webSocketService: WebSocketService
+    private readonly parameterService: ParameterService,
+    private readonly depoService: DepoService,
+    private readonly filterService: FilterService,
+    private readonly paginationService: PaginationService,
+    public readonly authService: AuthService,
+    public readonly dialog: MatDialog,
+    private readonly commonService: CommonService,
+    public readonly selectionService: ParameterSelectionService,
+    private readonly store: Store,
+    private readonly webSocketService: WebSocketService
   ) {}
 
   ngOnInit(): void {
@@ -181,7 +181,7 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
 
     this.params.search_select_filter = {
       ...this.params.search_select_filter,
-      svc_prov_id: [parseInt(this.svcProviderID!)],
+      svc_prov_id: [Number.parseInt(this.svcProviderID!, 10)],
     };
     this.subscribeToDepoChanges();
 
@@ -485,7 +485,7 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
       ...item,
       id: uniqueId,
       chk: false,
-      svc_prov_id: parseInt(this.svcProviderID!),
+      svc_prov_id: Number.parseInt(this.svcProviderID!, 10),
       depot_name: strDepotId === '0' ? 'All Depot' : depot?.depot_name,
       param_master_id: item.param_master_id,
       status: normalizedStatus,
@@ -541,14 +541,14 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
       this.params.sort_order = [
         {
           name: element.active,
-          desc: element.direction == 'asc' ? false : true,
+          desc: element.direction != 'asc',
         },
       ];
     } else if (this.tabIdx == 1) {
       this.actionHistoryParams.sort_order = [
         {
           name: element.active,
-          desc: element.direction == 'asc' ? false : true,
+          desc: element.direction != 'asc',
         },
       ];
     }
@@ -556,12 +556,12 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
   }
 
   headerHandler(event: MatCheckboxChange, element: IHeader) {
-    this.headerData.filter(x => x.field == element.field)[0].chk =
+    this.headerData.find(x => x.field == element.field)!.chk =
       event.checked;
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element)!.chk;
   }
 
   updateView(action: string) {
@@ -580,7 +580,7 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
       height: '70%',
       disableClose: true,
       data: {
-        title: `${action === 'update' ? 'Edit' : action === 'reject' ? 'Reject' : 'Approve'} Selected`,
+        title: `${this.getUpdateViewTitle(action)} Selected`,
         selection: allSelectedItems, // Pass all selected items from the service
         action,
       },
@@ -605,6 +605,16 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
       event,
       this.reloadHandler.bind(this)
     );
+  }
+
+  private getUpdateViewTitle(action: string): string {
+    if (action === 'update') {
+      return 'Edit';
+    }
+    if (action === 'reject') {
+      return 'Reject';
+    }
+    return 'Approve';
   }
 
   private startStatusRefreshCycle(paramMasterIds: number[]): void {

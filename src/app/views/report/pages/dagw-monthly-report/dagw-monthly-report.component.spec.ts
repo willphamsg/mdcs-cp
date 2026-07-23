@@ -57,6 +57,6 @@ describe('DagwMonthlyReportComponent', () => {
   });
 
   it('should load form configurations correctly', () => {
-    expect(component.months.length).toBe(3);
+    expect(component.months).toHaveSize(3);
   });
 });

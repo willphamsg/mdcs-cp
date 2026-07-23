@@ -69,13 +69,13 @@ describe('ParameterSelectionService', () => {
   describe('New Parameter Approval selections', () => {
     it('should add and get selection', () => {
       service.addSelection(mockApproval);
-      expect(service.getSelections().length).toBe(1);
+      expect(service.getSelections()).toHaveSize(1);
     });
 
     it('should remove selection', () => {
       service.addSelection(mockApproval);
       service.removeSelection(mockApproval.id);
-      expect(service.getSelections().length).toBe(0);
+      expect(service.getSelections()).toHaveSize(0);
     });
 
     it('should toggle selection on', () => {
@@ -123,7 +123,7 @@ describe('ParameterSelectionService', () => {
   describe('Parameter Mode selections', () => {
     it('should add and get parameter mode selection', () => {
       service.addParameterModeSelection(mockParameterMode);
-      expect(service.getParameterModeSelections().length).toBe(1);
+      expect(service.getParameterModeSelections()).toHaveSize(1);
     });
 
     it('should toggle parameter mode selection', () => {
@@ -134,7 +134,7 @@ describe('ParameterSelectionService', () => {
     it('should clear parameter mode selections', () => {
       service.addParameterModeSelection(mockParameterMode);
       service.clearParameterModeSelections();
-      expect(service.getParameterModeSelections().length).toBe(0);
+      expect(service.getParameterModeSelections()).toHaveSize(0);
     });
   });
 
@@ -142,7 +142,7 @@ describe('ParameterSelectionService', () => {
   describe('End Trial selections', () => {
     it('should add and get end trial selection', () => {
       service.addEndTrialSelection(mockEndTrial);
-      expect(service.getEndTrialSelections().length).toBe(1);
+      expect(service.getEndTrialSelections()).toHaveSize(1);
     });
 
     it('should toggle end trial selection', () => {
@@ -153,7 +153,7 @@ describe('ParameterSelectionService', () => {
     it('should clear end trial selections', () => {
       service.addEndTrialSelection(mockEndTrial);
       service.clearEndTrialSelections();
-      expect(service.getEndTrialSelections().length).toBe(0);
+      expect(service.getEndTrialSelections()).toHaveSize(0);
     });
   });
 
@@ -161,7 +161,7 @@ describe('ParameterSelectionService', () => {
   describe('Trial Device selections', () => {
     it('should add and get trial device selection', () => {
       service.addTrialDeviceSelection(mockTrialDevice);
-      expect(service.getTrialDeviceSelections().length).toBe(1);
+      expect(service.getTrialDeviceSelections()).toHaveSize(1);
     });
 
     it('should toggle trial device selection', () => {
@@ -172,7 +172,7 @@ describe('ParameterSelectionService', () => {
     it('should clear trial device selections', () => {
       service.addTrialDeviceSelection(mockTrialDevice);
       service.clearTrialDeviceSelections();
-      expect(service.getTrialDeviceSelections().length).toBe(0);
+      expect(service.getTrialDeviceSelections()).toHaveSize(0);
     });
   });
 });

@@ -204,11 +204,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   private taskCountPayload: Record<string, number> = {};
 
   constructor(
-    private depoService: DepoService,
-    private dashboardService: DashboardService,
-    private router: Router,
-    private webSocketService: WebSocketService,
-    public authService: AuthService,
+    private readonly depoService: DepoService,
+    private readonly dashboardService: DashboardService,
+    private readonly router: Router,
+    private readonly webSocketService: WebSocketService,
+    public readonly authService: AuthService,
   ) {}
 
   ngOnInit() {
@@ -359,7 +359,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private generateBusesRendered() {
     const params: IConnectedBusParams = {
-      depot_ids: this.depotSelected ? [parseInt(this.depotSelected, 10)] : [],
+      depot_ids: this.depotSelected ? [Number.parseInt(this.depotSelected, 10)] : [],
       hours: this.hourSelected,
     };
     this.dashboardService
@@ -380,7 +380,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           const depot = this.depots.find(
             d => d.depot_id.toString() === curr.depot_id.toString()
           );
-          if (!!depot) {
+          if (depot) {
             acc[curr.depot_id] = {
               depot_name: depot?.depot_name,
               depot_code: depot?.depot_code,

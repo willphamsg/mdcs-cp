@@ -30,12 +30,12 @@ class SelectionManager<T extends ISelectable> {
     this.updateSelectionSubject();
   }
 
-  toggleSelection(item: T, isSelected: boolean): void {
-    if (isSelected) {
-      this.addSelection(item);
-    } else {
-      this.removeSelection(item.id);
-    }
+  selectItem(item: T): void {
+    this.addSelection(item);
+  }
+
+  deselectItem(item: T): void {
+    this.removeSelection(item.id);
   }
 
   addMultipleSelections(items: T[]): void {
@@ -104,7 +104,11 @@ export class ParameterSelectionService {
   }
 
   toggleSelection(item: INewParameterApproval, isSelected: boolean): void {
-    this.newParameterApprovalManager.toggleSelection(item, isSelected);
+    if (isSelected) {
+      this.newParameterApprovalManager.selectItem(item);
+    } else {
+      this.newParameterApprovalManager.deselectItem(item);
+    }
   }
 
   addMultipleSelections(items: INewParameterApproval[]): void {
@@ -144,7 +148,11 @@ export class ParameterSelectionService {
     item: IParameterMode,
     isSelected: boolean
   ): void {
-    this.parameterModeManager.toggleSelection(item, isSelected);
+    if (isSelected) {
+      this.parameterModeManager.selectItem(item);
+    } else {
+      this.parameterModeManager.deselectItem(item);
+    }
   }
 
   addMultipleParameterModeSelections(items: IParameterMode[]): void {
@@ -177,7 +185,11 @@ export class ParameterSelectionService {
   }
 
   toggleEndTrialSelection(item: IEndTrial, isSelected: boolean): void {
-    this.endTrialManager.toggleSelection(item, isSelected);
+    if (isSelected) {
+      this.endTrialManager.selectItem(item);
+    } else {
+      this.endTrialManager.deselectItem(item);
+    }
   }
 
   addMultipleEndTrialSelections(items: IEndTrial[]): void {
@@ -213,7 +225,11 @@ export class ParameterSelectionService {
     item: ITrialDeviceSelection,
     isSelected: boolean
   ): void {
-    this.trialDeviceSelectionManager.toggleSelection(item, isSelected);
+    if (isSelected) {
+      this.trialDeviceSelectionManager.selectItem(item);
+    } else {
+      this.trialDeviceSelectionManager.deselectItem(item);
+    }
   }
 
   addMultipleTrialDeviceSelections(items: ITrialDeviceSelection[]): void {

@@ -10,7 +10,6 @@ import {
 @Component({
   selector: 'app-confirmation-dialog',
   templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.css'],
   standalone: true,
   imports: [MatDialogActions, MatDialogContent, MatButton, MatDialogTitle],
 })

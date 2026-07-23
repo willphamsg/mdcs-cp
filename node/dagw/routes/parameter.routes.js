@@ -1,7 +1,7 @@
 const e = require('cors');
 const express = require('express');
-const fs = require('fs').promises;
-const path = require('path');
+const fs = require('node:fs').promises;
+const path = require('node:path');
 const { of } = require('rxjs');
 
 const router = express.Router();
@@ -203,7 +203,7 @@ function applySort(items, sortOrder) {
       vb = new Date(vb).getTime();
     }
 
-    if (isNaN(va) || isNaN(vb)) {
+    if (Number.isNaN(Number(va)) || Number.isNaN(Number(vb))) {
       if (va < vb) return desc ? 1 : -1;
       if (va > vb) return desc ? -1 : 1;
     } else {
@@ -283,7 +283,7 @@ router.post('/parameter/trial-device/search', async (req, res) => {
     // ↕️ 3. Sort
     data = applySort(data, sort_order);
     // // 📄 4. Pagination
-    data = applyPagination(data, parseInt(page_index), parseInt(page_size));
+    data = applyPagination(data, Number.parseInt(page_index), Number.parseInt(page_size));
 
     const result = {
       status: 201,
@@ -326,7 +326,7 @@ router.post('/parameter/trial/search', async (req, res) => {
     // ↕️ 3. Sort
     data = applySort(data, sort_order);
     // // 📄 4. Pagination
-    data = applyPagination(data, parseInt(page_index), parseInt(page_size));
+    data = applyPagination(data, Number.parseInt(page_index), Number.parseInt(page_size));
 
     const filterStatus = search_select_filter.status;
     const payload = { records_count: total };
@@ -376,7 +376,7 @@ router.post('/parameter/trial-history/search', async (req, res) => {
     // ↕️ 3. Sort
     data = applySort(data, sort_order);
     // // 📄 4. Pagination
-    data = applyPagination(data, parseInt(page_index), parseInt(page_size));
+    data = applyPagination(data, Number.parseInt(page_index), Number.parseInt(page_size));
 
     const filterStatus = search_select_filter.status;
     const payload = { records_count: total };
@@ -430,7 +430,7 @@ router.post('/parameter-trial/search-live', async (req, res) => {
     // ↕️ 3. Sort
     data = applySort(data, sort_order);
     // // 📄 4. Pagination
-    data = applyPagination(data, parseInt(page_index), parseInt(page_size));
+    data = applyPagination(data, Number.parseInt(page_index), Number.parseInt(page_size));
 
     const result = {
       status: 200,
@@ -471,7 +471,7 @@ router.post('/parameter-trial/search-trial', async (req, res) => {
     // ↕️ 3. Sort
     data = applySort(data, sort_order);
     // // 📄 4. Pagination
-    data = applyPagination(data, parseInt(page_index), parseInt(page_size));
+    data = applyPagination(data, Number.parseInt(page_index), Number.parseInt(page_size));
 
     const result = {
       status: 200,
@@ -512,7 +512,7 @@ router.post('/dagw-param-version-summary/search', async (req, res) => {
     // ↕️ 3. Sort
     data = applySort(data, sort_order);
     // // 📄 4. Pagination
-    data = applyPagination(data, parseInt(page_index), parseInt(page_size));
+    data = applyPagination(data, Number.parseInt(page_index), Number.parseInt(page_size));
 
     const result = {
       status: 200,
@@ -607,9 +607,9 @@ router.delete('/delete', async (req, res) => {
     if (!Array.isArray(deleteItems)) {
       return res.status(400).json({ message: 'The params must be an array' });
     }
-    const ids = deleteItems.map(x => x.id);
+    const ids = new Set(deleteItems.map(x => x.id));
     // Delete items
-    const filtered = items.filter(item => !ids.includes(item.id));
+    const filtered = items.filter(item => !ids.has(item.id));
 
     await saveData(filtered);
     // await new Promise(resolve => setTimeout(resolve, 2000));

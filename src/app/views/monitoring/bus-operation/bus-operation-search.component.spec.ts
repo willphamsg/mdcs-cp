@@ -77,7 +77,7 @@ describe('BusOperationSearchComponent', () => {
   it('should set filterConfigs in loadFilterValues', () => {
     component.loadFilterValues();
 
-    expect(component.filterConfigs.length).toBe(5);
+    expect(component.filterConfigs).toHaveSize(5);
     expect(component.filterConfigs[0].controlName).toBe('depots');
     expect(component.filterConfigs[0].options?.length).toBe(mockDepots.length);
   });

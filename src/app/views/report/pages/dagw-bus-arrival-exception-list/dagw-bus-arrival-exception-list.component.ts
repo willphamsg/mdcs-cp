@@ -19,13 +19,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
-import { FilterComponent } from '@app/components/filter/filter.component';
-import { SelectedFilterComponent } from '@app/components/filter/selected-filter/selected-filter.component';
-import { PaginationComponent } from '@app/components/pagination/pagination.component';
 import { IReportList } from '@app/models/daily-report';
 import { AuthService } from '@app/services/auth.service';
 import { FilterService } from '@app/services/filter.service';
-import { DownloadDialogComponent } from '@components/download-dialog/download-dialog.component';
 import { BreadcrumbsComponent } from '@components/layout/breadcrumbs/breadcrumbs.component';
 import TableHeader from '@data/daily-report-header.json';
 import {
@@ -127,12 +123,12 @@ export class DAGWBusArrivalExceptionListComponent implements OnInit, OnDestroy {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   constructor(
-    private dailyReportService: DailyReportService,
-    private authService: AuthService,
-    private depoService: DepoService,
-    public dialog: MatDialog,
-    private filterService: FilterService,
-    private reportService: ReportService,
+    private readonly dailyReportService: DailyReportService,
+    private readonly authService: AuthService,
+    private readonly depoService: DepoService,
+    public readonly dialog: MatDialog,
+    private readonly filterService: FilterService,
+    private readonly reportService: ReportService,
   ) {}
 
   ngOnInit() {
@@ -152,8 +148,8 @@ export class DAGWBusArrivalExceptionListComponent implements OnInit, OnDestroy {
     combineLatest([depot$, depotList$])
       .pipe(takeUntil(this.destroy$))
       .subscribe(([depoValue, depotList]) => {
-        this.params.depot = parseInt(depoValue);
-        this.params.svc_Provider_Id = parseInt(this.svcProviderID!);
+        this.params.depot = Number.parseInt(depoValue, 10);
+        this.params.svc_Provider_Id = Number.parseInt(this.svcProviderID!, 10);
         this.params.business_day = this.selectedDate;
         this.depots = depotList;
         // this.fetchDailyReportList();
@@ -230,7 +226,7 @@ export class DAGWBusArrivalExceptionListComponent implements OnInit, OnDestroy {
     for (const record of data) {
       const row = headers.map(key => {
         const value = record[key] ?? '';
-        return `"${String(value).replace(/"/g, '""')}"`;
+        return `"${String(value).replaceAll('"', '""')}"`;
       });
       csvRows.push(row.join(','));
     }

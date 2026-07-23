@@ -97,14 +97,14 @@ export class TrialDeviceSelectionSearchComponent implements OnInit, OnDestroy {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   constructor(
-    private trialDeviceSelectionService: TrialDeviceSelectionService,
-    private filterService: FilterService,
-    private paginationService: PaginationService,
-    private depoService: DepoService,
-    private commonService: CommonService,
-    public dialog: MatDialog,
-    public authService: AuthService,
-    private selectionService: ParameterSelectionService
+    private readonly trialDeviceSelectionService: TrialDeviceSelectionService,
+    private readonly filterService: FilterService,
+    private readonly paginationService: PaginationService,
+    private readonly depoService: DepoService,
+    private readonly commonService: CommonService,
+    public readonly dialog: MatDialog,
+    public readonly authService: AuthService,
+    private readonly selectionService: ParameterSelectionService
   ) {}
 
   ngOnInit() {
@@ -376,22 +376,22 @@ export class TrialDeviceSelectionSearchComponent implements OnInit, OnDestroy {
 
   sortHandler(sort: Sort): void {
     this.params.sort_order = [
-      { name: sort.active, desc: sort.direction === 'asc' ? false : true },
+      { name: sort.active, desc: sort.direction !== 'asc' },
     ];
     this.reloadHandler();
   }
 
   headerHandler(event: MatCheckboxChange, element: IHeader) {
-    this.headerData.filter(x => x.field == element.field)[0].chk =
+    this.headerData.find(x => x.field == element.field)!.chk =
       event.checked;
   }
 
   isLastRow(row: any): boolean {
-    return this.dataSource[this.dataSource.length - 1] === row;
+    return this.dataSource.at(-1) === row;
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element)!.chk;
   }
 
   updateView() {

@@ -47,7 +47,7 @@ describe('WrapperTableComponent', () => {
     component.ngOnChanges({
       columns: new SimpleChange([], mockColumns, false),
     });
-    expect(component.gridOptions.columnDefs!.length).toBe(2);
+    expect(component.gridOptions.columnDefs!).toHaveSize(2);
   });
 
   it('should detect hasSubHeader when columns have subHeaders', () => {

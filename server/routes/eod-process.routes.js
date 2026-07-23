@@ -72,11 +72,7 @@ router.post('/check-eod-status', async (req, res) => {
       page_size = 10,
       page_index = 0,
       sort_order = [],
-      search_text = '',
-      search_select_filter = {},
     } = params;
-    const depot_id = search_select_filter.depot_id;
-
     // if (depot_id === '2') {
     //   items.pop();
     // }
@@ -87,7 +83,7 @@ router.post('/check-eod-status', async (req, res) => {
     // }
 
     data = applySort(data, sort_order);
-    data = applyPagination(data, parseInt(page_index), parseInt(page_size));
+    data = applyPagination(data, Number.parseInt(page_index), Number.parseInt(page_size));
 
     let forceStatus = 0;
 

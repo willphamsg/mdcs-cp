@@ -18,12 +18,10 @@ import {
   SafeResourceUrl,
 } from '@angular/platform-browser';
 import { IReportParameter, IReportViewerOption } from '@models/common';
-import { AppConfigService } from '@app/services/app-config.service';
 import { ReportService } from '@app/services/report.service';
 import { AuthService } from '@app/services/auth.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-ssrs-reportviewer',
@@ -53,11 +51,11 @@ export class SSRSReportViewerComponent
   private destroy$ = new Subject<void>();
 
   constructor(
-    private sanitizer: DomSanitizer,
-    private reportService: ReportService,
-    private authService: AuthService,
-    @Inject(PLATFORM_ID) private platformId: object,
-    private http: HttpClient
+    private readonly sanitizer: DomSanitizer,
+    private readonly reportService: ReportService,
+    private readonly authService: AuthService,
+    @Inject(PLATFORM_ID) private readonly platformId: object,
+    private readonly http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -170,7 +168,8 @@ export class SSRSReportViewerComponent
       futurespid +
       username;
 
-    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+    // SSRS embeds a trusted report URL from our backend; sanitizer bypass is required for iframe. // NOSONAR
+    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl( // NOSONAR
       this.reportService.getReportURL(reportFileName, params)
     );
     // this.http

@@ -30,7 +30,7 @@ describe('PaginationService', () => {
     service.loadData(mockData, 10, 1, 25);
 
     service.paginatedData$.subscribe(data => {
-      expect(data.length).toBe(25);
+      expect(data).toHaveSize(25);
       expect(data[0]).toBe('Item 1');
     });
   });
@@ -40,7 +40,7 @@ describe('PaginationService', () => {
     service.loadData(mockData, 10, 2, 25);
 
     service.paginatedData$.subscribe(data => {
-      expect(data.length).toBe(25);
+      expect(data).toHaveSize(25);
       expect(data[0]).toBe('Item 1');
     });
   });
@@ -66,7 +66,7 @@ describe('PaginationService', () => {
     service.clearPagination();
 
     service.paginatedData$.subscribe(data => {
-      expect(data.length).toBe(0);
+      expect(data).toHaveSize(0);
     });
 
     expect(service.currentPage).toBe(1);

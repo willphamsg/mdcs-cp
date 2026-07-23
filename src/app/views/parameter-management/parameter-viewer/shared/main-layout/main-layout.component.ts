@@ -42,8 +42,8 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
   topComponentValid: boolean = false;
 
   constructor(
-    private layoutConfigService: LayoutConfigService,
-    private cdr: ChangeDetectorRef
+    private readonly layoutConfigService: LayoutConfigService,
+    private readonly cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {

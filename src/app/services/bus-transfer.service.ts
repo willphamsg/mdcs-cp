@@ -6,9 +6,8 @@ import {
 } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import DummyData from '@data/db.json';
 import { environment } from '@env/environment';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { IBusTransferList } from '../models/bus-transfer';
 import { IParams, PayloadResponse } from '../models/common';
 import { DynamicEndpoint } from './dynamic-endpoint';
@@ -20,13 +19,13 @@ import { AuthService } from './auth.service';
 })
 export class ManageBusTransferService {
   private uri = environment.gateway + 'bus-transfer/';
-  private handler = inject(HttpBackend);
+  private readonly handler = inject(HttpBackend);
   constructor(
-    private http: HttpClient,
-    public dialog: MatDialog,
-    private message: MessageService,
-    private dynamic: DynamicEndpoint,
-    private auth: AuthService
+    private readonly http: HttpClient,
+    public readonly dialog: MatDialog,
+    private readonly message: MessageService,
+    private readonly dynamic: DynamicEndpoint,
+    private readonly auth: AuthService
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('bus', this.uri);
   }

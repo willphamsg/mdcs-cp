@@ -1,6 +1,6 @@
 const express = require('express');
-const fs = require('fs').promises;
-const path = require('path');
+const fs = require('node:fs').promises;
+const path = require('node:path');
 
 const router = express.Router();
 const userDataPath = path.join(__dirname, '../data/user.json');
@@ -263,7 +263,7 @@ router.post('/event-history/search', async (req, res) => {
     // ↕️ 3. Sort
     data = applySort(data, sort_order);
     // 📄 4. Pagination
-    data = applyPagination(data, parseInt(page_index), parseInt(page_size));
+    data = applyPagination(data, Number.parseInt(page_index), Number.parseInt(page_size));
 
     const result = {
       status: 200,

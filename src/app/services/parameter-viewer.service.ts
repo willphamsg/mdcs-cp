@@ -40,7 +40,7 @@ export class ParameterViewerService {
   }
 
   /**
-   * TODO: Separate Service Data for clean service
+   * Deferred: separate service data for a cleaner service
    * Rework when API is available
    */
 

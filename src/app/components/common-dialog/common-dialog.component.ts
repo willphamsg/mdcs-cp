@@ -10,7 +10,6 @@ import {
 @Component({
   selector: 'app-common-dialog',
   templateUrl: './common-dialog.component.html',
-  styleUrls: ['./common-dialog.component.css'],
   imports: [MatDialogActions, MatDialogContent, MatButton, MatDialogTitle],
 })
 export class CommonDialogComponent {

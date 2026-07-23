@@ -104,7 +104,7 @@ describe('EventHistoryComponent', () => {
   });
 
   it('should initialize filterConfigs with depots and effectiveDate', () => {
-    expect(component.filterConfigs.length).toBe(2);
+    expect(component.filterConfigs).toHaveSize(2);
     expect(component.filterConfigs[0].controlName).toBe('depots');
     expect(component.filterConfigs[0].type).toBe('array');
     expect(component.filterConfigs[1].controlName).toBe('effectiveDate');
@@ -165,7 +165,7 @@ describe('EventHistoryComponent', () => {
     };
     component.updateDataSource(payload);
     expect(component.rowCount).toBe(2);
-    expect(component.dataSource.length).toBe(2);
+    expect(component.dataSource).toHaveSize(2);
     expect(component.dataSource[0].depot).toBe('Depot A');
     expect(component.dataSource[1].depot).toBe('Depot B');
   });

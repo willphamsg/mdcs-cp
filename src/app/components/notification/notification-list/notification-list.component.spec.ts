@@ -22,7 +22,7 @@ describe('NotificationListComponent', () => {
   });
 
   it('should have 3 header columns', () => {
-    expect(component.headerData.length).toBe(3);
+    expect(component.headerData).toHaveSize(3);
   });
 
   it('should derive tab1Columns from headerData fields', () => {
@@ -30,7 +30,7 @@ describe('NotificationListComponent', () => {
   });
 
   it('should have 4 data source entries', () => {
-    expect(component.dataSource.length).toBe(4);
+    expect(component.dataSource).toHaveSize(4);
   });
 
   it('should have empty notifications initially', () => {

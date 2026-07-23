@@ -23,7 +23,7 @@ export class InactivityTimeoutService {
   private warningTimer?: ReturnType<typeof setTimeout>;
   private lastActivity = Date.now();
   private isActive = false;
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   private readonly platformId = inject(PLATFORM_ID);
   private readonly ngZone = inject(NgZone);

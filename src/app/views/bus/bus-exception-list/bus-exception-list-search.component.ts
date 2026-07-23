@@ -91,12 +91,12 @@ export class BusExceptionListSearchComponent implements OnInit, OnDestroy {
   filterConfigs: any = {};
 
   constructor(
-    private manageBusExceptionListService: ManageBusExceptionListService,
-    private depoService: DepoService,
-    public dialog: MatDialog,
-    private filterService: FilterService,
-    public paginationService: PaginationService,
-    private commonService: CommonService
+    private readonly manageBusExceptionListService: ManageBusExceptionListService,
+    private readonly depoService: DepoService,
+    public readonly dialog: MatDialog,
+    private readonly filterService: FilterService,
+    public readonly paginationService: PaginationService,
+    private readonly commonService: CommonService
   ) {}
 
   ngOnInit() {
@@ -174,18 +174,18 @@ export class BusExceptionListSearchComponent implements OnInit, OnDestroy {
 
   sortHandler(element: Sort) {
     this.params.sort_order = [
-      { name: element.active, desc: element.direction == 'asc' ? false : true },
+      { name: element.active, desc: element.direction != 'asc' },
     ];
     this.reloadHandler();
   }
 
   headerHandler(event: MatCheckboxChange, element: IHeader) {
-    this.headerData.filter(x => x.field == element.field)[0].chk =
+    this.headerData.find(x => x.field == element.field)!.chk =
       event.checked;
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element)!.chk;
   }
 
   onPageChange(event: IPaginationEvent): void {

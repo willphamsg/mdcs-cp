@@ -30,7 +30,7 @@ describe('NotificationComponent', () => {
   });
 
   it('should initialize with 3 default notifications', () => {
-    expect(component.notifications.length).toBe(3);
+    expect(component.notifications).toHaveSize(3);
   });
 
   it('should count unread items correctly', () => {

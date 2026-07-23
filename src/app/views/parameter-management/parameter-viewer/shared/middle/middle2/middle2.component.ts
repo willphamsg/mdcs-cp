@@ -22,7 +22,7 @@ export class Middle2Component implements OnInit {
   ];
   activeItem: any = null;
 
-  constructor(private layoutConfigService: LayoutConfigService) {}
+  constructor(private readonly layoutConfigService: LayoutConfigService) {}
 
   ngOnInit(): void {
     if (this.items.length > 0) {

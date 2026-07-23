@@ -1,31 +1,22 @@
-# Use the official Ubuntu 22.04 as a base image
-## This is not needed it should only creates a dist folder and send the modules to the view repo.
-FROM ubuntu:22.04
+# Dev/serve image for the Angular BTDS GUI (ng serve on 8035).
+# Prefer official Node image over ubuntu+nodesource curl|bash install.
+FROM node:18-bookworm
 
-# Add npm global bin to PATH
-ENV PATH=/usr/local/bin:/usr/local/lib/node_modules/@angular/cli/bin:$PATH
-
-# Set the working directory inside the container.
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json to the working directory first for better caching of npm install
-COPY package*.json ./
+# Enable pnpm via Corepack (lockfile is pnpm-lock.yaml)
+RUN corepack enable
 
-# Update and install necessary packages
-RUN apt-get update \
-    && apt-get install -y curl gnupg2 build-essential \
-    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash -\
-    && apt-get install -y nodejs \
-    && npm install \
-    && npm install -g @angular/cli@17.0.10 \
-    && rm -rf /var/lib/apt/lists/ 
+# Install dependencies first for better layer caching
+COPY --chown=node:node package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
-# Copy the rest of the application code to the working directory.
-COPY . /usr/src/app
+# Application sources (.dockerignore excludes node_modules, secrets catalogs, etc.)
+COPY --chown=node:node . .
 
-# Expose the port that the application will run on.
+USER node
+
 EXPOSE 8035
 
-# Command to run the application.
-ENTRYPOINT ["ng", "serve"]
-CMD ["--host", "0.0.0.0"]
+ENTRYPOINT ["pnpm", "exec", "ng", "serve"]
+CMD ["--host", "0.0.0.0", "--port", "8035"]

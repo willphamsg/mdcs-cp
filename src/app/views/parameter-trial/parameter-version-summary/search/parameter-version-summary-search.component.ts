@@ -39,7 +39,6 @@ import { BreadcrumbsComponent } from '@components/layout/breadcrumbs/breadcrumbs
 import ParameterVersionSummaryHeader from '@data/parameter-version-summary-header.json';
 import { DepoService } from '@services/depo.service';
 import { combineLatest, debounceTime, Subject, takeUntil } from 'rxjs';
-import { ViewComponent } from '../view/view.component';
 import { PaginationService } from '@app/services/pagination.service';
 import { CommonService } from '@app/services/common.service';
 
@@ -142,12 +141,12 @@ export class ParameterVersionSummarySearchComponent
   };
 
   constructor(
-    private parameterVersionSummaryService: ParameterVersionSummaryService,
-    private depoService: DepoService,
-    private filterService: FilterService,
-    private paginationService: PaginationService,
-    public dialog: MatDialog,
-    private commonService: CommonService
+    private readonly parameterVersionSummaryService: ParameterVersionSummaryService,
+    private readonly depoService: DepoService,
+    private readonly filterService: FilterService,
+    private readonly paginationService: PaginationService,
+    public readonly dialog: MatDialog,
+    private readonly commonService: CommonService
   ) {}
 
   ngOnInit() {
@@ -375,18 +374,18 @@ export class ParameterVersionSummarySearchComponent
 
   sortHandler(element: Sort) {
     this.params.sort_order = [
-      { name: element.active, desc: element.direction == 'asc' ? false : true },
+      { name: element.active, desc: element.direction != 'asc' },
     ];
     this.reloadHandler();
   }
 
   headerHandler(event: MatCheckboxChange, element: IHeader) {
-    this.headerData.filter(x => x.field == element.field)[0].chk =
+    this.headerData.find(x => x.field == element.field)!.chk =
       event.checked;
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element)!.chk;
   }
 
   onPageChange(event: IPaginationEvent): void {

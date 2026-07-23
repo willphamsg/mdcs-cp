@@ -120,7 +120,7 @@ export class ParameterViewerComponent implements OnInit, OnDestroy {
 
   parameterName: string | null = null;
 
-  // TODO: Refactor retrieval of data... Probably use services efficiently
+  // Deferred: refactor data retrieval, likely with maps.
   constructor(
     private readonly parameterViewerService: ParameterViewerService,
     private readonly cdr: ChangeDetectorRef,

@@ -94,7 +94,7 @@ export class FilterComponent implements OnInit, OnChanges, OnDestroy {
 
   FILTER_NAMES: { [key: string]: string } = CONTROL_NAME_LABELS;
 
-  // TODO: Filter Component can still be optimized, still temporary. Need the final logic
+  // Deferred: Filter Component can still be optimized; final filter logic pending.
   constructor(
     private readonly cdr: ChangeDetectorRef,
     private readonly filterService: FilterService

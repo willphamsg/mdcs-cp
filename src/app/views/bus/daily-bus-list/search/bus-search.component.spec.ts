@@ -110,13 +110,13 @@ describe('BusSearchComponent', () => {
   it('should load filter values with depotsSec and dayType', () => {
     component.depots = mockDepots;
     component.loadFilterValues();
-    expect(component.filterConfigs.length).toBe(2);
+    expect(component.filterConfigs).toHaveSize(2);
     expect(component.filterConfigs[0].controlName).toBe('depotsSec');
   });
 
   it('should update dataSource after calling reloadHandler', () => {
     component.reloadHandler();
-    expect(component.dataSource.length).toBe(mockBusList.length);
+    expect(component.dataSource).toHaveSize(mockBusList.length);
   });
 
   it('should call pagination service on page change', () => {

@@ -10,7 +10,6 @@ import {
 @Component({
   selector: 'app-force-eod-dialog',
   templateUrl: './force-eod-dialog.component.html',
-  styleUrls: ['./force-eod-dialog.component.css'],
   imports: [MatDialogActions, MatDialogContent, MatButton, MatDialogTitle],
 })
 export class ForceEodDialogComponent {

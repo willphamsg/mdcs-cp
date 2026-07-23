@@ -90,7 +90,6 @@ function applyPagination(items, pageIndex, pageSize) {
 // POST get items
 router.get('/system/check', async (req, res) => {
   try {
-    const db = await readDoc('settings');
     const result = {
       system: 'mdcs'
     };

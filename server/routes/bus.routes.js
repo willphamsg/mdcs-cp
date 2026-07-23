@@ -113,7 +113,7 @@ router.post('/bus-transfer/search', async (req, res) => {
     // ↕️ 3. Sort
     data = applySort(data, sort_order);
     // 📄 4. Pagination
-    data = applyPagination(data, parseInt(page_index), parseInt(page_size));
+    data = applyPagination(data, Number.parseInt(page_index), Number.parseInt(page_size));
 
     const result = {
       status: 200,
@@ -136,7 +136,6 @@ router.post('/bus-transfer/search', async (req, res) => {
 router.post('/bus-transfer/update', async (req, res) => {
   try {
     const items = await readCollection('bus-transfer-list');
-    let data = [...items];
 
     const updateItems = req.body;
     console.log('🚀 updateItems:', updateItems);
@@ -169,7 +168,6 @@ router.post('/bus-transfer/update', async (req, res) => {
 router.post('/bus-transfer/approved', async (req, res) => {
   try {
     const items = await readCollection('bus-transfer-list');
-    let data = [...items];
 
     const updateItems = req.body;
     const merged = items.map(item => {
@@ -201,7 +199,6 @@ router.post('/bus-transfer/approved', async (req, res) => {
 router.post('/bus-transfer/reject', async (req, res) => {
   try {
     const items = await readCollection('bus-transfer-list');
-    let data = [...items];
 
     const updateItems = req.body;
     const merged = items.map(item => {
@@ -308,9 +305,9 @@ router.delete('/delete', async (req, res) => {
     if (!Array.isArray(deleteItems)) {
       return res.status(400).json({ message: 'The params must be an array' });
     }
-    const ids = deleteItems.map(x => x.id);
+    const ids = new Set(deleteItems.map(x => x.id));
     // Delete items
-    const filtered = items.filter(item => !ids.includes(item.id));
+    const filtered = items.filter(item => !ids.has(item.id));
 
     await replaceCollection('bus-transfer-list', filtered);
     // await new Promise(resolve => setTimeout(resolve, 2000));
@@ -355,7 +352,7 @@ router.post('/bus-operation-status/connected-buses', async (req, res) => {
     Object.values(depotBusCount).forEach(buses => {
       buses.sort((a, b) => new Date(b.captured_at) - new Date(a.captured_at)); // Sort by time desc
       console.log('🚀 sorted buses:', buses);
-      if (!!hours) {
+      if (hours) {
         const nextBuses = buses.slice(0, hours * 7 - (hours - 1));
         busResults.push(...nextBuses);
       }

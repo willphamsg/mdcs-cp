@@ -326,11 +326,11 @@ export class ViewCardKeyVersionComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    private manageCardKeyVersionService: ManageCardKeyVersionService,
-    private depoService: DepoService,
-    private filterService: FilterService,
-    private paginationService: PaginationService,
-    public dialog: MatDialog
+    private readonly manageCardKeyVersionService: ManageCardKeyVersionService,
+    private readonly depoService: DepoService,
+    private readonly filterService: FilterService,
+    private readonly paginationService: PaginationService,
+    public readonly dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -414,10 +414,7 @@ export class ViewCardKeyVersionComponent implements OnInit, OnDestroy {
     this.dataSource = payload['card_key_version_list'] || [];
 
     // Handle DAGW card key version - split by comma and filter out empty values
-    if (
-      payload['dagw_card_key_version'] &&
-      payload['dagw_card_key_version'].ver
-    ) {
+    if (payload['dagw_card_key_version']?.ver) {
       const dagwVersions = payload['dagw_card_key_version'].ver.split(',');
       this.dagwSource = dagwVersions.filter(
         (v: string) => v && v.trim() !== ''
@@ -464,13 +461,14 @@ export class ViewCardKeyVersionComponent implements OnInit, OnDestroy {
         ver5Status,
         ver6Status,
       ];
-      const hasFailed = versionStatuses.some(s => s === '2');
-      const hasInconsistent = versionStatuses.some(s => s === '1');
-      const busStatus = hasFailed
-        ? 'failed'
-        : hasInconsistent
-          ? 'inconsistent'
-          : undefined;
+      const hasFailed = versionStatuses.includes('2');
+      const hasInconsistent = versionStatuses.includes('1');
+      let busStatus: string | undefined;
+      if (hasFailed) {
+        busStatus = 'failed';
+      } else if (hasInconsistent) {
+        busStatus = 'inconsistent';
+      }
 
       return {
         device_id: {
@@ -586,7 +584,7 @@ export class ViewCardKeyVersionComponent implements OnInit, OnDestroy {
     // Handle both ISO format and space-separated format
     // API returns: "2024-11-01 18:42:59"
     // Convert to ISO format for Date parsing
-    if (reportTime && reportTime.includes(' ')) {
+    if (reportTime?.includes(' ')) {
       return reportTime.replace(' ', 'T');
     }
     return reportTime;
@@ -602,12 +600,12 @@ export class ViewCardKeyVersionComponent implements OnInit, OnDestroy {
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.filter(x => x.field == element)[0].chk;
+    return this.headerData.find(x => x.field == element)!.chk;
   }
 
   sortHandler(element: Sort) {
     this.params.sort_order = [
-      { name: element.active, desc: element.direction == 'asc' ? false : true },
+      { name: element.active, desc: element.direction != 'asc' },
     ];
     this.reloadHandler();
   }

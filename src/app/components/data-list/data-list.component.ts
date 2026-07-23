@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,13 +22,12 @@ import { PaginationComponent } from '../pagination/pagination.component';
     templateUrl: './data-list.component.html',
     styleUrl: './data-list.component.scss'
 })
-export class DataListComponent implements OnInit {
+export class DataListComponent {
   @Input() headerName: string;
   @Input() list: IMessage[] = [];
 
   paginatedList$: Observable<any[]> = of([]);
 
-  constructor(private paginationService: PaginationService) {}
+  constructor(private readonly paginationService: PaginationService) {}
 
-  ngOnInit(): void {}
 }

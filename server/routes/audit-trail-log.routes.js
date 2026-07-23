@@ -41,8 +41,6 @@ function applyFilters(items, filter) {
     const depotMatch =
       !depot_id.length || depot_id.includes(item.depot) || depot_id.includes(Number(item.depot));
 
-      return depotMatch
-
     // ✅ User filter (case-insensitive, partial match)
     const userMatch =
       !user_id.length ||
@@ -110,7 +108,7 @@ router.post('/view', async (req, res) => {
     const total = data.length;
 
     data = applySort(data, sort_order);
-    data = applyPagination(data, parseInt(page_index), parseInt(page_size));
+    data = applyPagination(data, Number.parseInt(page_index), Number.parseInt(page_size));
 
     const result = {
       status: 200,

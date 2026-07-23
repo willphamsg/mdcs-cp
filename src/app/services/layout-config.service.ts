@@ -9,32 +9,32 @@ import { BehaviorSubject } from 'rxjs';
 export class LayoutConfigService {
   private originalLayoutConfig: ILayoutConfig | null = null;
 
-  private layoutConfigSubject = new BehaviorSubject<ILayoutConfig | null>(null);
+  private readonly layoutConfigSubject = new BehaviorSubject<ILayoutConfig | null>(null);
   layoutConfig$ = this.layoutConfigSubject.asObservable();
 
-  private deviceCodeSubject = new BehaviorSubject<string>('');
+  private readonly deviceCodeSubject = new BehaviorSubject<string>('');
   deviceCode$ = this.deviceCodeSubject.asObservable();
 
-  private topFieldValuesSubject = new BehaviorSubject<{ [key: string]: any }>(
+  private readonly topFieldValuesSubject = new BehaviorSubject<{ [key: string]: any }>(
     {}
   );
   topFieldValues$ = this.topFieldValuesSubject.asObservable();
 
-  private middleSelectionSubject = new BehaviorSubject<{ [key: string]: any }>(
+  private readonly middleSelectionSubject = new BehaviorSubject<{ [key: string]: any }>(
     {}
   );
   middleSelection$ = this.middleSelectionSubject.asObservable();
 
-  private topDataSubject = new BehaviorSubject<any>(null);
+  private readonly topDataSubject = new BehaviorSubject<any>(null);
   topData$ = this.topDataSubject.asObservable();
 
-  private userTableSubject = new BehaviorSubject<any>(null);
+  private readonly userTableSubject = new BehaviorSubject<any>(null);
   userTable$ = this.userTableSubject.asObservable();
 
-  private middleDataSubject = new BehaviorSubject<any>(null);
+  private readonly middleDataSubject = new BehaviorSubject<any>(null);
   middleData$ = this.middleDataSubject.asObservable();
 
-  private bottomDataSubject = new BehaviorSubject<any>(null);
+  private readonly bottomDataSubject = new BehaviorSubject<any>(null);
   bottomData$ = this.bottomDataSubject.asObservable();
 
   setLayoutConfig(pageKey: string): void {
@@ -68,7 +68,7 @@ export class LayoutConfigService {
   triggerApi(params?: { [key: string]: any }): void {
     const deviceCode = this.deviceCodeSubject.value;
     let dummyData;
-    if (!!deviceCode)
+    if (deviceCode)
       dummyData = DummyData?.[deviceCode as keyof typeof DummyData];
     if (!dummyData) dummyData = DummyData.bank_card_bin;
     const { headers, values } = this.mapTableData(dummyData);

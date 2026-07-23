@@ -10,7 +10,6 @@ import {
   standalone: true,
   imports: [WrapperTableComponent, PaginationComponent],
   templateUrl: './bottom2.component.html',
-  styleUrl: './bottom2.component.scss',
 })
 export class Bottom2Component implements OnInit {
   @Input() data: any;

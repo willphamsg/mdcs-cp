@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -33,10 +33,9 @@ import { IReportList } from '@app/models/daily-report';
 import { IDepoList } from '@app/models/depo';
 import { DailyReportService } from '@app/services/daily-report.service';
 import { DepoService } from '@app/services/depo.service';
-import { FilterService } from '@app/services/filter.service';
 import { IFilterConfig } from '@app/shared/utils/form-utils';
 import { DD_MM_YYYY_FORMAT } from '@app/shared/utils/date-time';
-import { combineLatest, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-all-daily-report',
@@ -70,7 +69,7 @@ import { combineLatest, Subject, takeUntil } from 'rxjs';
     templateUrl: './all-daily-report.component.html',
     styleUrl: './all-daily-report.component.scss'
 })
-export class AllDailyReportComponent implements OnInit {
+export class AllDailyReportComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
   dataSource: IReportList[] = [
     {
@@ -161,9 +160,9 @@ export class AllDailyReportComponent implements OnInit {
   ];
 
   constructor(
-    private dailyReportService: DailyReportService,
-    private depoService: DepoService,
-    public dialog: MatDialog
+    private readonly dailyReportService: DailyReportService,
+    private readonly depoService: DepoService,
+    public readonly dialog: MatDialog
   ) {}
   ngOnInit() {
     this.subscribeToDepoChanges();
@@ -265,7 +264,7 @@ export class AllDailyReportComponent implements OnInit {
 
   sortHandler(element: Sort) {
     this.params.sort_order = [
-      { name: element.active, desc: element.direction == 'asc' ? false : true },
+      { name: element.active, desc: element.direction != 'asc' },
     ];
   }
 

@@ -111,14 +111,14 @@ export class ViewComponent implements OnInit {
   minDate = new Date();
 
   constructor(
-    private fb: FormBuilder,
-    public dialog: MatDialog,
-    private masterService: MasterService,
-    private depoService: DepoService,
-    private commonService: CommonService,
-    private message: MessageService,
-    private store: Store<AppStore>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    private readonly fb: FormBuilder,
+    public readonly dialog: MatDialog,
+    private readonly masterService: MasterService,
+    private readonly depoService: DepoService,
+    private readonly commonService: CommonService,
+    private readonly message: MessageService,
+    private readonly store: Store<AppStore>,
+    @Inject(MAT_DIALOG_DATA) public readonly data: any
   ) {
     this.depoService.depo$.subscribe((value: string) => {
       this.depotId = value;
@@ -533,7 +533,10 @@ export class ViewComponent implements OnInit {
       if (duplicates.isDuplicate) {
         this.message.confirmation(
           'Duplicate Detected',
-          `The following Bus Numbers are duplicates: ${duplicates.duplicates.map(d => `${d.bus_num} (Depot: ${d.depot_id})`).join(', ')}`
+          'The following Bus Numbers are duplicates: ' +
+            duplicates.duplicates
+              .map(d => d.bus_num + ' (Depot: ' + d.depot_id + ')')
+              .join(', ')
         );
         return;
       }
@@ -559,43 +562,41 @@ export class ViewComponent implements OnInit {
 
       if (obj.length <= 0) {
         this.message.confirmation('Warning', 'No Record To Save');
+      } else if (this.isDelete) {
+        const objDelete = this.myForm
+          .getRawValue()
+          .items.map((item: IVehicleDelete) => {
+            return <IVehicleDelete>{
+              id: item.id,
+              version: item.version,
+              depot_id: item.depot_id,
+              svc_prov_id: item.svc_prov_id,
+              bus_num: item.bus_num,
+            };
+          });
+        this.masterService.delete(objDelete).subscribe({
+          next: (value: PayloadResponse) => {
+            const resp = this.message.MessageResponse(value, false);
+            if (resp) {
+              this.dialog.closeAll();
+            }
+          },
+          error: (err: HttpErrorResponse) => {
+            this.message.multiError(err);
+          },
+        });
       } else {
-        if (this.isDelete) {
-          const objDelete = this.myForm
-            .getRawValue()
-            .items.map((item: IVehicleDelete) => {
-              return <IVehicleDelete>{
-                id: item.id,
-                version: item.version,
-                depot_id: item.depot_id,
-                svc_prov_id: item.svc_prov_id,
-                bus_num: item.bus_num,
-              };
-            });
-          this.masterService.delete(objDelete).subscribe({
-            next: (value: PayloadResponse) => {
-              const resp = this.message.MessageResponse(value, false);
-              if (resp) {
-                this.dialog.closeAll();
-              }
-            },
-            error: (err: HttpErrorResponse) => {
-              this.message.multiError(err);
-            },
-          });
-        } else {
-          this.masterService.add(obj).subscribe({
-            next: (value: PayloadResponse) => {
-              const resp = this.message.MessageResponse(value, false);
-              if (resp) {
-                this.dialog.closeAll();
-              }
-            },
-            error: (err: HttpErrorResponse) => {
-              this.message.multiError(err);
-            },
-          });
-        }
+        this.masterService.add(obj).subscribe({
+          next: (value: PayloadResponse) => {
+            const resp = this.message.MessageResponse(value, false);
+            if (resp) {
+              this.dialog.closeAll();
+            }
+          },
+          error: (err: HttpErrorResponse) => {
+            this.message.multiError(err);
+          },
+        });
       }
     }
   }
@@ -615,21 +616,21 @@ export class ViewComponent implements OnInit {
     const value = control.value.toString();
 
     // Check if it matches the basic character sequence pattern
-    const partialPattern = /^[a-zA-Z]{0,3}[0-9]{0,4}[a-zA-Z]{0,1}$/;
+    const partialPattern = /^[a-zA-Z]{0,3}\d{0,4}[a-zA-Z]?$/;
     if (!partialPattern.test(value)) {
       return { pattern: true };
     }
 
     // For input length >= 6, apply full validation
     if (value.length >= 6) {
-      const fullPattern = /^[a-zA-Z]{2,3}[0-9]{4}[a-zA-Z]?$/;
+      const fullPattern = /^[a-zA-Z]{2,3}\d{4}[a-zA-Z]?$/;
       return fullPattern.test(value) ? null : { pattern: true };
     }
 
     // For incomplete input (< 6 chars), show error if field is touched/blurred
     // This allows typing but shows validation feedback
     if (control.touched) {
-      const fullPattern = /^[a-zA-Z]{2,3}[0-9]{4}[a-zA-Z]?$/;
+      const fullPattern = /^[a-zA-Z]{2,3}\d{4}[a-zA-Z]?$/;
       return fullPattern.test(value) ? null : { pattern: true };
     }
 

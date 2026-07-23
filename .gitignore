@@ -47,3 +47,11 @@ test_report.xml
 ## Yarn Lock File
 yarn.lock
 
+# Localhost SSL private keys (keep on disk for ng serve SSL; do not commit)
+src/assets/sslcertificate/*.key
+
+# SonarQube local scan artifacts
+.sonar-issues.json
+.sonar-by-rule.json
+.scannerwork/
+

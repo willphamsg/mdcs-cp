@@ -6,7 +6,6 @@ import { UserTableComponent } from '../../components/user-table/user-table.compo
   standalone: true,
   imports: [UserTableComponent],
   templateUrl: './top1.component.html',
-  styleUrl: './top1.component.scss',
 })
 export class Top1Component {
   @Input() data: any;

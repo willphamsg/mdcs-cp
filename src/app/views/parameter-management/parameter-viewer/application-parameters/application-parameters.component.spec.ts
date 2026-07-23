@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ApplicationParametersComponent } from './application-parameters.component';
 
-xdescribe('ApplicationParametersComponent', () => {
+xdescribe('ApplicationParametersComponent — skipped: pending parameter-viewer fixtures', () => {
   let component: ApplicationParametersComponent;
   let fixture: ComponentFixture<ApplicationParametersComponent>;
 

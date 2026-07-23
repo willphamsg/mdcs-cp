@@ -114,7 +114,7 @@ describe('MessageDataImportComponent', () => {
   it('should set filterConfigs in loadFilterValues', () => {
     component.loadFilterValues();
 
-    expect(component.filterConfigs.length).toBe(0);
+    expect(component.filterConfigs).toHaveSize(0);
   });
 
   it('should call reloadHandler on depo change in ngOnInit', () => {

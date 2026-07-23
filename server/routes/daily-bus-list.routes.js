@@ -104,7 +104,7 @@ router.post('/search', async (req, res) => {
     // ↕️ 3. Sort
     data = applySort(data, sort_order);
     // 📄 4. Pagination
-    data = applyPagination(data, parseInt(page_index), parseInt(page_size));
+    data = applyPagination(data, Number.parseInt(page_index), Number.parseInt(page_size));
 
     const result = {
       status: 200,
@@ -213,9 +213,9 @@ router.delete('/delete', async (req, res) => {
     if (!Array.isArray(deleteItems)) {
       return res.status(400).json({ message: 'The params must be an array' });
     }
-    const ids = deleteItems.map(x => x.id);
+    const ids = new Set(deleteItems.map(x => x.id));
     // Delete items
-    const filtered = items.filter(item => !ids.includes(item.id));
+    const filtered = items.filter(item => !ids.has(item.id));
 
     await replaceCollection('daily-bus-list', filtered);
     // await new Promise(resolve => setTimeout(resolve, 2000));

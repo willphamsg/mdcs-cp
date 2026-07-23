@@ -14,34 +14,17 @@ import { MessageService } from './message.service';
 })
 export class ManageBusOperationService {
   private uri = environment.gateway + 'operational-bus-list/';
-  private handler = inject(HttpBackend);
+  private readonly handler = inject(HttpBackend);
   constructor(
-    private http: HttpClient,
-    public dialog: MatDialog,
-    private message: MessageService,
-    private dynamic: DynamicEndpoint
+    private readonly http: HttpClient,
+    public readonly dialog: MatDialog,
+    private readonly message: MessageService,
+    private readonly dynamic: DynamicEndpoint
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('bus', this.uri);
   }
 
   search(params: IParams): Observable<PayloadResponse> {
-    if (environment?.useDummyData) {
-      const dummyData: PayloadResponse = {
-        status: 200,
-        status_code: 'SUCCESS',
-        timestamp: Date.now(),
-        message: 'Dummy data fetched successfully',
-        payload: DummyData,
-      };
-      // return of(dummyData);
-      // console.log({ requestBusTransferParams: params });
-      return this.http
-        .post<PayloadResponse>(`${this.uri}search`, params)
-        .pipe(
-          catchError((err: HttpErrorResponse) => this.message.multiError(err))
-        );
-    }
-    // return this.http.post<PayloadResponse>(`${this.uri}search`, params);
     return this.http
       .post<PayloadResponse>(`${this.uri}search`, params)
       .pipe(

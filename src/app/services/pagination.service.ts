@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 })
 export class PaginationService {
   private dataSource: any[] = [];
-  private paginatedDataSubject = new BehaviorSubject<any[]>([]);
+  private readonly paginatedDataSubject = new BehaviorSubject<any[]>([]);
   paginatedData$ = this.paginatedDataSubject.asObservable();
 
   pageSize = 10;
@@ -26,7 +26,7 @@ export class PaginationService {
     this.totalItems = totalItems;
     this.currentPage = currentPage;
 
-    // TODO: Remove this when all pages is integrated with BE
+    // Deferred: remove dummy pagination when all pages are integrated with BE.
     if (environment?.useDummyData) {
       this.paginateData();
     } else {

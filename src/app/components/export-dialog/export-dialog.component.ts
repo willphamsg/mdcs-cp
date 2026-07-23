@@ -28,8 +28,8 @@ export class ExportDialogComponent implements OnInit {
   dataSource: ExportReadyTableHeader[] = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<ExportDialogComponent>
+    @Inject(MAT_DIALOG_DATA) public readonly data: any,
+    private readonly dialogRef: MatDialogRef<ExportDialogComponent>
   ) {}
 
   ngOnInit(): void {

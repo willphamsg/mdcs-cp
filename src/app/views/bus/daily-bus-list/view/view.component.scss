@@ -99,11 +99,6 @@
   border: none !important;
 }
 
-// This custom cannot be used because it will affect the Filter outside the table
-// ::ng-deep .mat-mdc-form-field-infix {
-//   width: 100% !important;
-// }
-
 .material-icons.md-18 {
   line-height: 4rem !important;
   width: 4rem !important;
@@ -128,11 +123,6 @@
     flex: 0 0 15%;
   }
 }
-
-// .mat-mdc-form-field.custom-input {
-//   border: 1px solid #ccc !important;
-//   border-radius: 4px !important;
-// }
 
 .time-picker {
   position: relative;

@@ -12,8 +12,8 @@ import { Observable, of } from 'rxjs';
 export class AdhocReportService {
   private uri = environment.gateway + 'master-bus-list/';
   constructor(
-    private http: HttpClient,
-    public dialog: MatDialog
+    private readonly http: HttpClient,
+    public readonly dialog: MatDialog
   ) {}
 
   search(params: DailyReportRequest): Observable<PayloadResponse> {

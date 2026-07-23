@@ -97,7 +97,7 @@ describe('ParameterFileImportComponent', () => {
   it('should load depots and filter values from the service', () => {
     component.loadFilterValues();
     expect(component.depots).toBeTruthy();
-    expect(component.filterConfigs.length).toBe(2);
+    expect(component.filterConfigs).toHaveSize(2);
   });
 
   it('should open a dialog when openView is called', () => {

@@ -17,7 +17,6 @@ import {
   standalone: true,
   imports: [RadioComponent, DepotDropdownComponent],
   templateUrl: './top3.component.html',
-  styleUrl: './top3.component.scss',
 })
 export class Top3Component implements OnInit {
   @Input() data: any;
@@ -41,7 +40,7 @@ export class Top3Component implements OnInit {
   selectedRadio: string | null = null;
   selectedDepot: string | null = null;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private readonly cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     console.log(this.data);

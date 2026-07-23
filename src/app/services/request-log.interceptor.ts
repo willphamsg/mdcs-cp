@@ -18,9 +18,16 @@ const CSV_HEADERS = ['requestTimestamp', 'method', 'url', 'params', 'body', 'res
 const logs: RequestLogEntry[] = [];
 
 function escapeCsvCell(value: unknown): string {
-  const str = typeof value === 'object' ? JSON.stringify(value) : String(value ?? '');
+  let str: string;
+  if (value === null || value === undefined) {
+    str = '';
+  } else if (typeof value === 'object') {
+    str = JSON.stringify(value);
+  } else {
+    str = String(value);
+  }
   // Wrap in quotes and escape any existing double-quotes
-  return `"${str.replace(/"/g, '""')}"`;
+  return `"${str.replaceAll('"', '""')}"`;
 }
 
 export function getRequestLogs(): RequestLogEntry[] {

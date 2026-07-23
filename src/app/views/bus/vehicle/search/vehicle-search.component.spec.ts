@@ -118,13 +118,13 @@ describe('VehicleSearchComponent', () => {
     component.depots = mockDepots;
     component.loadFilterValues();
     // Non-dagw mode: depotsSec + effectiveDate + status = 3 configs
-    expect(component.filterConfigs.length).toBe(3);
+    expect(component.filterConfigs).toHaveSize(3);
     expect(component.filterConfigs[0].controlName).toBe('depotsSec');
   });
 
   it('should update dataSource after calling reloadHandler', () => {
     component.reloadHandler();
-    expect(component.dataSource.length).toBe(mockVehicleList.length);
+    expect(component.dataSource).toHaveSize(mockVehicleList.length);
   });
 
   it('should handle tab change and call reloadHandler', () => {

@@ -130,7 +130,7 @@ export class DagwParameterSummaryComponent implements OnInit, OnDestroy {
           effectiveDateTrial = [],
         } = filterValue || {};
 
-        // TODO: Move this in service, all data manipulation should be done in service
+        // Deferred: move filter data manipulation into a service.
         this.params.search_select_filter = {
           ...this.params.search_select_filter,
           depot_id_list: depots,

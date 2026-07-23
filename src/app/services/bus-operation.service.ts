@@ -5,8 +5,7 @@ import { MessageService } from './message.service';
 import { DynamicEndpoint } from './dynamic-endpoint';
 import { environment } from '@env/environment';
 import { IParams, PayloadResponse } from '@app/models/common';
-import { catchError, Observable, of } from 'rxjs';
-import DummyData from '@data/db.json';
+import { catchError, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +13,10 @@ import DummyData from '@data/db.json';
 export class BusOperationService {
   private uri = environment.gateway + 'bus-operation-status/';
   constructor(
-    private http: HttpClient,
-    public dialog: MatDialog,
-    private message: MessageService,
-    private dynamic: DynamicEndpoint
+    private readonly http: HttpClient,
+    public readonly dialog: MatDialog,
+    private readonly message: MessageService,
+    private readonly dynamic: DynamicEndpoint
   ) {
     this.uri = this.dynamic.setDynamicEndpoint('bus', this.uri);
   }

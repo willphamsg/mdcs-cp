@@ -42,7 +42,7 @@ export class DiagnosticsComponent implements OnInit, OnDestroy {
     private readonly cdr: ChangeDetectorRef
   ) {}
 
-  // TODO: Create a loading screen for while waiting for api response
+  // Deferred: add a loading screen while waiting for API response.
   ngOnInit(): void {
     this.sharedService.selectedDepot$
       .pipe(takeUntil(this.destroy$))

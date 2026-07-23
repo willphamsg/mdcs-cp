@@ -13,8 +13,8 @@ interface ISelectable {
 
 // Generic selection manager class
 class SelectionManager<T extends ISelectable> {
-  private selectedItemsMap = new Map<string, T>();
-  private selectionSubject = new BehaviorSubject<T[]>([]);
+  private readonly selectedItemsMap = new Map<string, T>();
+  private readonly selectionSubject = new BehaviorSubject<T[]>([]);
 
   public selection$: Observable<T[]> = this.selectionSubject.asObservable();
 
@@ -31,19 +31,16 @@ class SelectionManager<T extends ISelectable> {
     this.updateSelectionSubject();
   }
 
-  toggleSelection(
-    item: T,
-    isSelected: boolean,
-    useDepotId: boolean = false
-  ): void {
-    if (isSelected) {
-      this.addSelection(item, useDepotId);
-    } else {
-      const key = useDepotId && item.master_bus_depot_id !== undefined
+  selectItem(item: T, useDepotId: boolean = false): void {
+    this.addSelection(item, useDepotId);
+  }
+
+  deselectItem(item: T, useDepotId: boolean = false): void {
+    const key =
+      useDepotId && item.master_bus_depot_id !== undefined
         ? item.master_bus_depot_id
         : item.id;
-      this.removeSelection(key);
-    }
+    this.removeSelection(key);
   }
 
   addMultipleSelections(items: T[], useDepotId: boolean = false): void {
@@ -92,14 +89,14 @@ class SelectionManager<T extends ISelectable> {
 })
 export class BusSelectionService {
   // Separate selection managers for each bus component type
-  private busTransferManager = new SelectionManager<IBusTransferList>();
-  private dailyBusListManager = new SelectionManager<IBustList>();
-  private vehicleManager = new SelectionManager<IVehicleList>();
+  private readonly busTransferManager = new SelectionManager<IBusTransferList>();
+  private readonly dailyBusListManager = new SelectionManager<IBustList>();
+  private readonly vehicleManager = new SelectionManager<IVehicleList>();
 
   // Expose observables for each type
-  public busTransferSelection$ = this.busTransferManager.selection$;
-  public dailyBusListSelection$ = this.dailyBusListManager.selection$;
-  public vehicleSelection$ = this.vehicleManager.selection$;
+  public readonly busTransferSelection$ = this.busTransferManager.selection$;
+  public readonly dailyBusListSelection$ = this.dailyBusListManager.selection$;
+  public readonly vehicleSelection$ = this.vehicleManager.selection$;
 
   constructor() {}
 
@@ -116,7 +113,11 @@ export class BusSelectionService {
     item: IBusTransferList,
     isSelected: boolean
   ): void {
-    this.busTransferManager.toggleSelection(item, isSelected);
+    if (isSelected) {
+      this.busTransferManager.selectItem(item);
+    } else {
+      this.busTransferManager.deselectItem(item);
+    }
   }
 
   addMultipleBusTransferSelections(items: IBusTransferList[]): void {
@@ -153,7 +154,11 @@ export class BusSelectionService {
   }
 
   toggleDailyBusListSelection(item: IBustList, isSelected: boolean): void {
-    this.dailyBusListManager.toggleSelection(item, isSelected);
+    if (isSelected) {
+      this.dailyBusListManager.selectItem(item);
+    } else {
+      this.dailyBusListManager.deselectItem(item);
+    }
   }
 
   addMultipleDailyBusListSelections(items: IBustList[]): void {
@@ -190,7 +195,11 @@ export class BusSelectionService {
   }
 
   toggleVehicleSelection(item: IVehicleList, isSelected: boolean): void {
-    this.vehicleManager.toggleSelection(item, isSelected, true);
+    if (isSelected) {
+      this.vehicleManager.selectItem(item, true);
+    } else {
+      this.vehicleManager.deselectItem(item, true);
+    }
   }
 
   addMultipleVehicleSelections(items: IVehicleList[]): void {

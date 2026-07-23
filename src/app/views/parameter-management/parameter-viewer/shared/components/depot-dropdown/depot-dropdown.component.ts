@@ -31,8 +31,8 @@ export class DepotDropdownComponent implements OnInit, AfterViewInit {
   depots$: Observable<IDepoList[]>;
 
   constructor(
-    private depotService: DepoService,
-    private cdr: ChangeDetectorRef
+    private readonly depotService: DepoService,
+    private readonly cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
