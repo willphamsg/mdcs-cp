@@ -4,10 +4,12 @@
     style="margin-bottom: 20px; display: flex; align-items: flex-end">
     @if (!isAdhocReport) {
       <div style="display: flex; flex-direction: column">
-        <label for="bus-list-audit-trial-date-input" style="font-weight: 700">Business Date</label>
+        <label [attr.for]="formIdPrefix + '-date-input'" style="font-weight: 700"
+          >Business Date</label
+        >
         <mat-form-field style="width: 320px">
           <input
-            id="bus-list-audit-trial-date-input"
+            [id]="formIdPrefix + '-date-input'"
             matInput
             placeholder="Select Date"
             [matDatepicker]="picker"
@@ -32,10 +34,14 @@
     }
 
     <div style="display: flex; flex-direction: column">
-      <label for="bus-list-audit-trial-depot-select" style="font-weight: 700">Depot Name</label>
+      <label
+        [attr.for]="formIdPrefix + '-depot-select'"
+        style="font-weight: 700"
+        >Depot Name</label
+      >
       <mat-form-field class="mat-custom" style="width: 360px">
         <mat-select
-          id="bus-list-audit-trial-depot-select"
+          [id]="formIdPrefix + '-depot-select'"
           [(ngModel)]="depotSelected"
           placeholder="Select Depot"
           [multiple]="isAdhocReport">
@@ -53,9 +59,14 @@
 
     @if (isAdhocReport) {
       <div style="display: flex; flex-direction: column">
-        <label for="bus-list-audit-trial-sp-select" style="font-weight: 700">SP Name</label>
+        <label [attr.for]="formIdPrefix + '-sp-select'" style="font-weight: 700"
+          >SP Name</label
+        >
         <mat-form-field class="mat-custom" style="width: 360px">
-          <mat-select id="bus-list-audit-trial-sp-select" [(ngModel)]="spNameSelected" placeholder="Select SP Name">
+          <mat-select
+            [id]="formIdPrefix + '-sp-select'"
+            [(ngModel)]="spNameSelected"
+            placeholder="Select SP Name">
             @for (operator of operators; track operator) {
               <mat-option [value]="operator.svc_prov_id">
                 {{ operator.svc_prov_name }}
@@ -88,7 +99,6 @@
         </button>
       </div>
     </div>
-    <!-- Selected Filter Component -->
     <app-selected-filter />
   </div>
 
@@ -98,9 +108,7 @@
       [parameter]="parameterReportViewer"
       [option]="optionReportViewer"
       [reportType]="isAdhocReport ? 'adhoc-report' : 'daily-report'"
-      (isIframeLoadedEvent)="
-        isIframeLoadedEvent($event)
-      "></app-ssrs-reportviewer>
+      (isIframeLoadedEvent)="isIframeLoadedEvent($event)"></app-ssrs-reportviewer>
   </div>
   <div class="table-footer"></div>
 </div>

@@ -41,6 +41,13 @@ import { DepoService } from '@services/depo.service';
 import { combineLatest, debounceTime, Subject, takeUntil } from 'rxjs';
 import { PaginationService } from '@app/services/pagination.service';
 import { CommonService } from '@app/services/common.service';
+import {
+  buildDepotEffectiveDateFilterConfigs,
+  getFilteredDepotIds,
+  parseEffectiveDates,
+} from '../../shared/parameter-trial-filter.utils';
+
+
 
 @Component({
   selector: 'app-parameter-version-summary-search',
@@ -200,10 +207,10 @@ export class ParameterVersionSummarySearchComponent
   ): void {
     this.params.search_text = searchValue || '';
 
-    const depotIds = this.getFilteredDepotIds(filterValue);
+    const depotIds = getFilteredDepotIds(filterValue, this.depots, this.commonService);
     const statusList = this.getStatusList(filterValue);
 
-    const effectiveDates = this.parseEffectiveDates(
+    const effectiveDates = parseEffectiveDates(
       filterValue?.['effectiveDate']
     );
 
@@ -215,39 +222,6 @@ export class ParameterVersionSummarySearchComponent
     };
   }
 
-  private getFilteredDepotIds(filterValue: any): any[] {
-    const depots = filterValue?.['depots'] ?? [];
-    return Array.isArray(depots) && depots.length > 0
-      ? depots
-      : this.commonService.getDepotIds(this.depots);
-  }
-
-  private parseEffectiveDates(effectiveDate: any): {
-    effective_date_from: string;
-    effective_date_till: string;
-  } {
-    const datePipe = new DatePipe('en-US');
-    const dateFormat = 'yyyy-MM-dd HH:mm:ss';
-
-    let effective_date_from = '';
-    let effective_date_till = '';
-
-    if (Array.isArray(effectiveDate)) {
-      if (effectiveDate.length > 0) {
-        effective_date_from =
-          datePipe.transform(effectiveDate[0], dateFormat) || '';
-      }
-      if (effectiveDate.length > 1) {
-        effective_date_till =
-          datePipe.transform(effectiveDate[1], dateFormat) || '';
-      }
-    } else if (effectiveDate) {
-      effective_date_from = (effectiveDate as TDate).startDate || '';
-      effective_date_till = (effectiveDate as TDate).endDate || '';
-    }
-
-    return { effective_date_from, effective_date_till };
-  }
 
   private getStatusList(filterValue: any): number[] {
     // Trial Parameters tab does not use status filter
@@ -288,22 +262,7 @@ export class ParameterVersionSummarySearchComponent
   }
 
   loadFilterValues(): void {
-    this.filterConfigs = [
-      {
-        controlName: 'depots',
-        value: [],
-        type: 'array',
-        options: this.depots,
-      },
-      {
-        controlName: 'effectiveDate',
-        type: 'date-range',
-        children: [
-          { controlName: 'startDate', value: '' },
-          { controlName: 'endDate', value: '' },
-        ],
-      },
-    ];
+    this.filterConfigs = buildDepotEffectiveDateFilterConfigs(this.depots);
 
     // Only include Status filter for Live Parameters tab (tabIdx === 0)
     if (this.tabIdx === 0) {
@@ -318,7 +277,6 @@ export class ParameterVersionSummarySearchComponent
       });
     }
 
-    // Update the filter service with new configs to enable proper filter persistence
     this.filterService.updateFilterConfigs(this.filterConfigs);
   }
 

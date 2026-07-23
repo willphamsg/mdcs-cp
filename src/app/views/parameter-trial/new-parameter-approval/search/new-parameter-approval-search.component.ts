@@ -44,7 +44,6 @@ import {
   combineLatest,
   Subject,
   takeUntil,
-  Subscription,
   debounceTime,
   finalize,
 } from 'rxjs';
@@ -56,9 +55,16 @@ import { ParameterSelectionService } from '@app/services/parameter-selection.ser
 import { generateUniqueNumberId } from '@app/shared/utils/utils';
 import { Store } from '@ngrx/store';
 import { showSnackbar } from '@app/store/snackbar/snackbar.actions';
-import { WebSocketService, WS_TOPICS } from '@app/services/web-socket.service';
+import { WebSocketService } from '@app/services/web-socket.service';
+import {
+  buildDepotEffectiveDateFilterConfigs,
+  getFilteredDepotIds,
+  parseEffectiveDates,
+} from '../../shared/parameter-trial-filter.utils';
+import { ParameterTrialStatusRefresh } from '../../shared/parameter-trial-status-refresh';
 
 const BUFFER_TIME = 30;
+
 @Component({
   selector: 'app-new-parameter-approval-search',
   templateUrl: './new-parameter-approval-search.component.html',
@@ -88,11 +94,7 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
   private readonly datePipe = new DatePipe('en-US');
   private readonly dateFormat = 'yyyy-MM-dd HH:mm:ss';
   private trialSchedulerRateSeconds = 0;
-  private statusRefreshTimer$?: Subscription;
-  private statusRefreshTimeoutHandle?: ReturnType<typeof setTimeout>;
-  private statusRefreshEndTime = 0;
-  private pendingParamMasterIds: number[] = [];
-  private readonly STATUS_REFRESH_INTERVAL = 5000; // 5 seconds between refresh calls
+  private statusRefresh!: ParameterTrialStatusRefresh;
   private readonly componentId = 'new-parameter-approval-' + Date.now();
   private isDestroyed = false;
   private isTabChanging = false; // Flag to prevent duplicate API calls during tab change
@@ -174,7 +176,14 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
     public readonly selectionService: ParameterSelectionService,
     private readonly store: Store,
     private readonly webSocketService: WebSocketService
-  ) {}
+  ) {
+    this.statusRefresh = new ParameterTrialStatusRefresh(
+      this.webSocketService,
+      this.destroy$,
+      () => this.refreshActionHistoryForPendingIds(),
+      ids => this.triggerErrorCheck(ids)
+    );
+  }
 
   ngOnInit(): void {
     this.callTrialSchedulerRateSeconds();
@@ -311,9 +320,9 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
   ): void {
     this.params.search_text = searchValue || '';
 
-    const depotIds = this.getFilteredDepotIds(filterValue);
+    const depotIds = getFilteredDepotIds(filterValue, this.depots, this.commonService);
     const status = filterValue?.['status'] ?? [2];
-    const effectiveDates = this.parseEffectiveDates(
+    const effectiveDates = parseEffectiveDates(
       filterValue?.['effectiveDate']
     );
 
@@ -335,39 +344,6 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getFilteredDepotIds(filterValue: any): any[] {
-    const depots = filterValue?.['depots'] ?? [];
-    return Array.isArray(depots) && depots.length > 0
-      ? depots
-      : this.commonService.getDepotIds(this.depots);
-  }
-
-  private parseEffectiveDates(effectiveDate: any): {
-    effective_date_from: string;
-    effective_date_till: string;
-  } {
-    const datePipe = new DatePipe('en-US');
-    const dateFormat = 'yyyy-MM-dd HH:mm:ss';
-
-    let effective_date_from = '';
-    let effective_date_till = '';
-
-    if (Array.isArray(effectiveDate)) {
-      if (effectiveDate.length > 0) {
-        effective_date_from =
-          datePipe.transform(effectiveDate[0], dateFormat) || '';
-      }
-      if (effectiveDate.length > 1) {
-        effective_date_till =
-          datePipe.transform(effectiveDate[1], dateFormat) || '';
-      }
-    } else if (effectiveDate) {
-      effective_date_from = (effectiveDate as TDate).startDate || '';
-      effective_date_till = (effectiveDate as TDate).endDate || '';
-    }
-
-    return { effective_date_from, effective_date_till };
-  }
 
   private resetPagination(): void {
     this.paginationService.currentPage = 1;
@@ -376,24 +352,7 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
   }
 
   loadFilterValues(): void {
-    this.filterConfigs = [
-      {
-        controlName: 'depots',
-        value: [],
-        type: 'array',
-        options: this.depots,
-      },
-      {
-        controlName: 'effectiveDate',
-        type: 'date-range',
-        children: [
-          { controlName: 'startDate', value: '' },
-          { controlName: 'endDate', value: '' },
-        ],
-      },
-    ];
-
-    // Update the filter service with new configs to enable proper filter persistence
+    this.filterConfigs = buildDepotEffectiveDateFilterConfigs(this.depots);
     this.filterService.updateFilterConfigs(this.filterConfigs);
   }
 
@@ -622,47 +581,24 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
   }
 
   private startStatusRefreshCycle(paramMasterIds: number[]): void {
-    if (!paramMasterIds.length || this.isDestroyed) {
-      return;
-    }
-
-    this.stopStatusRefreshCycle(true); // ensure previous cycle finalizes before starting a new one
-
-    this.pendingParamMasterIds = paramMasterIds;
-
-    const refreshWindowSeconds =
-      this.trialSchedulerRateSeconds > 0 ? this.trialSchedulerRateSeconds : 1;
-    this.statusRefreshEndTime = Date.now() + refreshWindowSeconds * 1000;
-
-    this.statusRefreshTimeoutHandle = setTimeout(() => {
-      this.stopStatusRefreshCycle(true);
-    }, refreshWindowSeconds * 1000);
-
-    this.statusRefreshTimer$ = this.webSocketService
-      .refreshTrigger(
-        WS_TOPICS.parameterTrial,
-        this.STATUS_REFRESH_INTERVAL,
-        true
-      )
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        const now = Date.now();
-        if (now >= this.statusRefreshEndTime) {
-          this.stopStatusRefreshCycle(true);
-          return;
-        }
-        this.refreshActionHistoryForPendingIds();
-      });
+    this.statusRefresh.start(
+      paramMasterIds,
+      this.trialSchedulerRateSeconds,
+      () => this.isDestroyed
+    );
   }
 
   private refreshActionHistoryForPendingIds(): void {
-    if (!this.pendingParamMasterIds.length || this.isDestroyed) {
+    if (
+      !this.statusRefresh.pendingParamMasterIds.length ||
+      this.isDestroyed
+    ) {
       return;
     }
 
     const params: IActionHistoryParams = {
       ...this.actionHistoryParams,
-      param_master_ids: this.pendingParamMasterIds,
+      param_master_ids: this.statusRefresh.pendingParamMasterIds,
     };
 
     this.parameterService.searchHistory(params).subscribe({
@@ -677,24 +613,8 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
     });
   }
 
-  private stopStatusRefreshCycle(triggerErrorCheck = false): void {
-    if (this.statusRefreshTimer$) {
-      this.statusRefreshTimer$.unsubscribe();
-      this.statusRefreshTimer$ = undefined;
-    }
-
-    if (this.statusRefreshTimeoutHandle) {
-      clearTimeout(this.statusRefreshTimeoutHandle);
-      this.statusRefreshTimeoutHandle = undefined;
-    }
-
-    if (triggerErrorCheck && this.pendingParamMasterIds.length > 0) {
-      const ids = [...this.pendingParamMasterIds];
-      this.pendingParamMasterIds = [];
-      this.triggerErrorCheck(ids);
-    } else if (!triggerErrorCheck) {
-      this.pendingParamMasterIds = [];
-    }
+  private stopStatusRefreshCycle(trigger?: boolean): void {
+    this.statusRefresh.stop(trigger);
   }
 
   private triggerErrorCheck(paramMasterIds: number[]): void {
