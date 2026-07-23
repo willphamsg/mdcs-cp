@@ -14,7 +14,6 @@
     justify-content: center;
     margin: auto;
     flex-grow: 1;
-    // height: calc(100vh - 64px - 40px); //100vh - header - footer
     overflow-y: hidden;
 
     @include respond-to-min(sm) {

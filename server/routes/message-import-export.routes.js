@@ -47,7 +47,7 @@ function applyFilters(items, filter) {
   if (!filter) return items;
 
   const { type } = filter;
-  console.log('Applying type filter:', type);
+  console.log('Applying type filter');
 
   return items.filter(item => {
     console.log('item:', item);

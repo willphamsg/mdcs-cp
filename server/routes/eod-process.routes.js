@@ -136,7 +136,7 @@ router.post('/check-eod-status', async (req, res) => {
             startTime: '2024-06-15 01:00:00',
             endTime: '2024-06-15 01:45:10',
           };
-        } else if (index === 2) {
+        } else if (index === 2 || index === 5) {
           return {
             ...item,
             status: 'Completed',
@@ -156,13 +156,6 @@ router.post('/check-eod-status', async (req, res) => {
             status: 'Failed',
             startTime: '2024-06-15 01:00:00',
             endTime: '2024-06-15 01:45:10',
-          };
-        } else if (index === 5) {
-          return {
-            ...item,
-            status: 'Completed',
-            startTime: '2024-06-15 01:30:00',
-            endTime: '2024-06-15 02:00:00',
           };
         } else {
           return { ...item, status: 'Processing' };
@@ -185,13 +178,6 @@ router.post('/check-eod-status', async (req, res) => {
             startTime: '2024-06-15 01:00:00',
             endTime: '2024-06-15 01:45:10',
           };
-        } else if (index === 2) {
-          return {
-            ...item,
-            status: 'Completed',
-            startTime: '2024-06-15 01:30:00',
-            endTime: '2024-06-15 02:00:00',
-          };
         } else if (index === 3) {
           return {
             ...item,
@@ -206,14 +192,8 @@ router.post('/check-eod-status', async (req, res) => {
             startTime: '2024-06-15 01:00:00',
             endTime: '2024-06-15 01:45:10',
           };
-        } else if (index === 5) {
-          return {
-            ...item,
-            status: 'Completed',
-            startTime: '2024-06-15 01:30:00',
-            endTime: '2024-06-15 02:00:00',
-          };
         } else {
+          // index 2, 5, and default share the same completed payload
           return {
             ...item,
             status: 'Completed',

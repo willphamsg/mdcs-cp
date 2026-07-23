@@ -138,10 +138,9 @@ router.post('/bus-transfer/update', async (req, res) => {
     const items = await readCollection('bus-transfer-list');
 
     const updateItems = req.body;
-    console.log('🚀 updateItems:', updateItems);
+    console.log('updateItems count:', Array.isArray(updateItems) ? updateItems.length : 0);
     const merged = items.map(item => {
       const updated = updateItems.find(u => u.bus_num?.toString() === item.bus_num?.toString());
-      console.log('🚀 updated:', updated);
       item['target_effective_time'] =
         updated?.target_effective_time || item.target_effective_time;
       item['target_effective_date'] = updated?.target_effective_date || item.target_effective_date;
@@ -171,8 +170,7 @@ router.post('/bus-transfer/approved', async (req, res) => {
 
     const updateItems = req.body;
     const merged = items.map(item => {
-      const updated = updateItems.find(u => u.bus_num?.toString() === item.bus_num?.toString());
-      if (updated) {
+      if (updateItems.some(u => u.bus_num?.toString() === item.bus_num?.toString())) {
         item['status'] = 3;
       }
       return item;
@@ -202,8 +200,7 @@ router.post('/bus-transfer/reject', async (req, res) => {
 
     const updateItems = req.body;
     const merged = items.map(item => {
-      const updated = updateItems.find(u => u.bus_num?.toString() === item.bus_num?.toString());
-      if (updated) {
+      if (updateItems.some(u => u.bus_num?.toString() === item.bus_num?.toString())) {
         item['status'] = 2;
       }
       return item;

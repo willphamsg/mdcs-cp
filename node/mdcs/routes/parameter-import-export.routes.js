@@ -56,7 +56,7 @@ function applyFilters(items, filter) {
   if (!filter) return items;
 
   const { param_type: type, depot_id } = filter;
-  console.log('Applying type filter:', type);
+  console.log('Applying type filter');
 
   return items.filter(item => {
     const matchDepot =

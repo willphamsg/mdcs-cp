@@ -61,6 +61,35 @@ function applySearch(items, searchText) {
   });
 }
 
+
+function hasNonEmptyArray(arr) {
+  return Array.isArray(arr) && arr.length > 0;
+}
+
+function matchesArrayFilter(arr, value) {
+  return !hasNonEmptyArray(arr) || arr.includes(value);
+}
+
+function matchesGroupFlag(filterValue, itemValue) {
+  if (filterValue == null || filterValue === '') return true;
+  if (filterValue === 'trial') return itemValue === true;
+  if (filterValue === 'non-trial') return itemValue === false;
+  return true;
+}
+
+function matchesBusNumFilter(filterBusNum, itemBusNum) {
+  if (!filterBusNum) return true;
+  return Boolean(
+    itemBusNum?.toLowerCase().includes(filterBusNum.toLowerCase())
+  );
+}
+
+function compareSortValues(va, vb, desc) {
+  if (va < vb) return desc ? 1 : -1;
+  if (va > vb) return desc ? -1 : 1;
+  return 0;
+}
+
 function applyFilters(items, filter) {
   if (!filter || Object.keys(filter).length === 0) return items;
 
@@ -78,7 +107,7 @@ function applyFilters(items, filter) {
     service_group,
     parameter_group,
     last_updated_end,
-    last_updated_start
+    last_updated_start,
   } = filter;
 
   const effDateFrom = effective_date_from
@@ -95,14 +124,8 @@ function applyFilters(items, filter) {
     : null;
 
   return items.filter(item => {
-    const hasDepotFilter =
-      depot_id && Array.isArray(depot_id) && depot_id.length > 0;
-    const matchDepot = !hasDepotFilter || depot_id.includes(item.depot_id);
-
-    const hasDepotListFilter =
-      depot_id_list && Array.isArray(depot_id_list) && depot_id_list.length > 0;
-    const matchDepot2 =
-      !hasDepotListFilter || depot_id_list.includes(item.depot_id);
+    const matchDepot = matchesArrayFilter(depot_id, item.depot_id);
+    const matchDepot2 = matchesArrayFilter(depot_id_list, item.depot_id);
 
     let effDateMatch = true;
     if (effDateFrom && effDateTill && item.effective_date_time) {
@@ -118,9 +141,7 @@ function applyFilters(items, filter) {
       lastUpdatedMatch = afterStart && beforeEnd;
     }
 
-    const hasStatusFilter =
-      status && Array.isArray(status) && status.length > 0;
-    const matchStatus = !hasStatusFilter || status.includes(item.status_code);
+    const matchStatus = matchesArrayFilter(status, item.status_code);
 
     const hasSvcProvFilter = svc_prov_id || svc_provider_id;
     const matchSvcProv =
@@ -128,43 +149,13 @@ function applyFilters(items, filter) {
       (svc_prov_id && [16].includes(item.svc_prov_id)) ||
       (svc_provider_id && [16].includes(item.svc_provider_id));
 
-    const hasBusNumFilter = bus_num && bus_num !== '';
-    const matchBusNum =
-      !hasBusNumFilter ||
-      (item.bus_num &&
-        item.bus_num.toLowerCase().includes(bus_num.toLowerCase()));
-
-    const hasTrialGroupFilter =
-      trial_group &&
-      trial_group !== '' &&
-      trial_group !== null &&
-      trial_group !== undefined;
-    const matchTrialGroup =
-      !hasTrialGroupFilter ||
-      (trial_group === 'trial' && item.trial_group === true) ||
-      (trial_group === 'non-trial' && item.trial_group === false);
-
-    const hasServiceGroupFilter =
-      service_group &&
-      service_group !== '' &&
-      service_group !== null &&
-      service_group !== undefined;
-    const matchServiceGroup =
-      !hasServiceGroupFilter ||
-      (service_group === 'trial' && item.service_group === true) ||
-      (service_group === 'non-trial' && item.service_group === false);
-
-    const hasParameterGroupFilter =
-      parameter_group &&
-      parameter_group !== '' &&
-      parameter_group !== null &&
-      parameter_group !== undefined;
-    const matchParameterGroup =
-      !hasParameterGroupFilter ||
-      (parameter_group === 'trial' && item.parameter_group === true) ||
-      (parameter_group === 'non-trial' && item.parameter_group === false);
-
-
+    const matchBusNum = matchesBusNumFilter(bus_num, item.bus_num);
+    const matchTrialGroup = matchesGroupFlag(trial_group, item.trial_group);
+    const matchServiceGroup = matchesGroupFlag(service_group, item.service_group);
+    const matchParameterGroup = matchesGroupFlag(
+      parameter_group,
+      item.parameter_group
+    );
     const matchConsistency =
       !consistency_list?.length || consistency_list.includes(item.consistency);
 
@@ -178,41 +169,35 @@ function applyFilters(items, filter) {
       matchBusNum &&
       matchTrialGroup &&
       matchServiceGroup &&
-      matchParameterGroup && matchConsistency
+      matchParameterGroup &&
+      matchConsistency
     );
   });
 }
 
 function applySort(items, sortOrder) {
   if (!Array.isArray(sortOrder) || sortOrder.length === 0) {
-     sortOrder = [{ name: 'last_update', desc: true }];
-  };
+    sortOrder = [{ name: 'last_update', desc: true }];
+  }
 
   const [{ name, desc }] = sortOrder;
 
-  console.log('Sorting by:', name, 'Order:', desc ? 'DESC' : 'ASC');
+  console.log('Sorting order:', desc ? 'DESC' : 'ASC');
 
   return items.sort((a, b) => {
     let va = a[name]?.value || a[name];
     let vb = b[name]?.value || b[name];
-
-    console.log('Sorting by:', name, 'Values:', va, vb, typeof va, typeof vb);
 
     if (['effective_date_live', 'effective_date'].includes(name)) {
       va = new Date(va).getTime();
       vb = new Date(vb).getTime();
     }
 
-    if (Number.isNaN(Number(va)) || Number.isNaN(Number(vb))) {
-      if (va < vb) return desc ? 1 : -1;
-      if (va > vb) return desc ? -1 : 1;
-    } else {
+    if (!(Number.isNaN(Number(va)) || Number.isNaN(Number(vb)))) {
       va = Number(va);
       vb = Number(vb);
-      if (va < vb) return desc ? 1 : -1;
-      if (va > vb) return desc ? -1 : 1;
     }
-    return 0;
+    return compareSortValues(va, vb, desc);
   });
 }
 
@@ -667,7 +652,7 @@ router.post('/parameter/trial/validate-live', async (req, res) => {
     // Simulate processing time
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    console.log('Parameters set live successfully', params);
+    console.log('Parameters set live successfully, count:', Array.isArray(params) ? params.length : 0);
 
     const result = {
       status: 200,
@@ -699,7 +684,7 @@ router.post('/parameter/trial/validate-trial', async (req, res) => {
     // Simulate processing time
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    console.log('Parameters set live successfully', params);
+    console.log('Parameters set live successfully, count:', Array.isArray(params) ? params.length : 0);
 
     const result = {
       status: 200,
@@ -733,7 +718,7 @@ router.post('/parameter/trial/live', async (req, res) => {
     // Simulate processing time
     // await new Promise(resolve => setTimeout(resolve, 2000));
 
-    console.log('Parameters end trial successfully', params);
+    console.log('Parameters end trial successfully, count:', Array.isArray(params) ? params.length : 0);
     const deleteIds = new Set(params.map(p => p.parameter_status.param_master_id));
     const filtered = [];
 
@@ -772,9 +757,7 @@ router.post('/parameter/trial/trial', async (req, res) => {
     // Simulate processing time
     // await new Promise(resolve => setTimeout(resolve, 2000));
 
-    console.log('Parameters end trial successfully', params);
-
-    console.log('Parameters end trial successfully', params);
+    console.log('Parameters end trial successfully, count:', Array.isArray(params) ? params.length : 0);
     const deleteIds = new Set(params.map(p => p.parameter_status.param_master_id));
     const filtered = [];
 

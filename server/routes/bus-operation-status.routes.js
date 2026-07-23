@@ -24,7 +24,7 @@ function applyFilters(items, filter) {
 
   const { connections, authStatus, downloadStatus, uploadStatus, depots } = filter;
 
-  console.log('Applying filters:', filter);
+  console.log('Applying filters, key count:', filter ? Object.keys(filter).length : 0);
 
   return items.filter(item => {
     const matchConnection =

@@ -65,7 +65,7 @@ router.get('/', async (req, res) => {
   try {
     const db = await readDoc('footer-information');
     const query = req.query;
-    console.log('query:', query);
+    console.log('query key count:', Object.keys(query || {}).length);
     // const depot_id = params.depot_id;
     const isDagw = JSON.parse(query.dagw || 'false');
 

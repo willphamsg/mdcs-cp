@@ -140,14 +140,14 @@
           font-size: 20px;
           border-radius: 30px;
           background-color: #f3f7ff;
-          color: #648fff;
+          color: #2b5cc4;
           cursor: pointer;
           transition: all 0.3s ease;
           white-space: nowrap;
 
           &:hover,
           &.selected {
-            background-color: #648fff !important;
+            background-color: #3d6fd9 !important;
             color: #fff !important;
           }
         }

@@ -93,7 +93,7 @@ button.btn {
   }
 
   &:disabled {
-    background-color: #828282 !important;
+    background-color: #5c5c5c !important;
     opacity: 0.6 !important;
     color: white;
     cursor: not-allowed;
@@ -239,7 +239,7 @@ button.btn {
   }
 
   &.active {
-    background-color: #009e73;
+    background-color: #007a59;
     color: white;
   }
 
@@ -248,7 +248,7 @@ button.btn {
   }
 
   &.obsolete {
-    background-color: #828282;
+    background-color: #5c5c5c;
     color: white;
   }
 
@@ -293,7 +293,7 @@ button.btn {
 }
 
 .btn-download {
-  background-color: #009e73;
+  background-color: #007a59;
   color: white;
   display: flex;
   border: none;
@@ -442,7 +442,7 @@ button.btn {
 
 // Tab styling - inactive tabs: regular font (400), black color
 .mdc-tab__text-label {
-  font-family: Inter !important;
+  font-family: Inter, sans-serif !important;
   font-size: 16px !important;
   font-weight: 400 !important;
   font-style: normal !important;
@@ -453,7 +453,7 @@ button.btn {
   color: black !important;
   
   .label {
-    font-family: Inter !important;
+    font-family: Inter, sans-serif !important;
     font-size: 16px !important;
     font-weight: 400 !important;
     font-style: normal !important;
@@ -468,7 +468,7 @@ button.btn {
 // Tab styling - active tabs: semi bold font (600), blue color
 .mdc-tab--active {
   .mdc-tab__text-label {
-    font-family: Inter !important;
+    font-family: Inter, sans-serif !important;
     font-weight: 600 !important;
     font-style: normal !important;
     font-size: 16px !important;
@@ -479,7 +479,7 @@ button.btn {
     color: #0046AD !important;
     
     .label {
-      font-family: Inter !important;
+      font-family: Inter, sans-serif !important;
       font-weight: 600 !important;
       font-style: normal !important;
       font-size: 16px !important;
@@ -650,7 +650,7 @@ button[mat-flat-button]:disabled,
 button[mat-raised-button]:disabled,
 button[mat-stroked-button]:disabled,
 button[mat-unelevated-button]:disabled {
-  background-color: #828282 !important;
+  background-color: #5c5c5c !important;
   opacity: 0.6 !important;
   color: white !important;
   cursor: not-allowed;
