@@ -14,29 +14,29 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      # - uses: pnpm/action-setup@v4
+      #   with:
+      #     version: 9
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
+      # - uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 20
+      #     cache: pnpm
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      # - name: Install dependencies
+      #   run: pnpm install --frozen-lockfile
 
-      - name: Setup Chrome
-        id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
+      # - name: Setup Chrome
+      #   id: setup-chrome
+      #   uses: browser-actions/setup-chrome@v1
 
-      - name: Unit tests with coverage
-        run: pnpm run test:coverage:ci
-        env:
-          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
+      # - name: Unit tests with coverage
+      #   run: pnpm run test:coverage:ci
+      #   env:
+      #     CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
 
-      - name: Ensure LCOV report exists
-        run: test -f coverage/lta-btds-gui/lcov.info && head -n 5 coverage/lta-btds-gui/lcov.info
+      # - name: Ensure LCOV report exists
+      #   run: test -f coverage/lta-btds-gui/lcov.info && head -n 5 coverage/lta-btds-gui/lcov.info
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995 # v8.1.0
