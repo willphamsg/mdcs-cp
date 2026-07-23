@@ -22,7 +22,6 @@ import {
   IHeader,
   IPaginationEvent,
   IParams,
-  TDate,
   DepoRequest,
   PayloadResponse,
 } from '@models/common';
@@ -94,7 +93,7 @@ export class NewParameterApprovalSearchComponent implements OnInit, OnDestroy {
   private readonly datePipe = new DatePipe('en-US');
   private readonly dateFormat = 'yyyy-MM-dd HH:mm:ss';
   private trialSchedulerRateSeconds = 0;
-  private statusRefresh!: ParameterTrialStatusRefresh;
+  private readonly statusRefresh!: ParameterTrialStatusRefresh;
   private readonly componentId = 'new-parameter-approval-' + Date.now();
   private isDestroyed = false;
   private isTabChanging = false; // Flag to prevent duplicate API calls during tab change

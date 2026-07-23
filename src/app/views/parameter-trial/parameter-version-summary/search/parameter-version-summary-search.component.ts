@@ -22,7 +22,6 @@ import {
   IPaginationEvent,
   IParams,
   PayloadResponse,
-  TDate,
   DepoRequest,
 } from '@models/common';
 import { IDepoList } from '@models/depo';
