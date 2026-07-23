@@ -332,10 +332,7 @@ export class VehicleSearchComponent implements OnInit, OnDestroy {
     if (event.checked) {
       this.busSelectionService.addVehicleSelection(element);
     } else {
-      const key =
-        element.master_bus_depot_id !== undefined
-          ? element.master_bus_depot_id
-          : element.id;
+      const key = element.master_bus_depot_id ?? element.id;
       this.busSelectionService.removeVehicleSelection(key);
     }
 
