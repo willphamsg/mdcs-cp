@@ -34,7 +34,7 @@ export abstract class DepotBusinessDayReportBase
   abstract readonly formIdPrefix: string;
 
   /** When true, operators are loaded on every init (not only ad-hoc). */
-  protected readonly loadOperatorsAlways = false;
+  protected readonly loadOperatorsAlways: boolean = false;
 
   depots: IDepoList[] = [];
   operators: IOperatorList[] = [];

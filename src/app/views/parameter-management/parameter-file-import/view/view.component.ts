@@ -157,7 +157,7 @@ export class ViewComponent implements OnInit {
       const formData = new FormData();
       const itemGroup = this.items.at(index) as FormGroup;
       const fileNameControl = itemGroup.get('fileName');
-      for (const file of Array.from(fileList)) {
+      for (const file of Array.from(fileList) as File[]) {
         formData.append('file', file);
 
         fileNameControl?.setValue(file.name);

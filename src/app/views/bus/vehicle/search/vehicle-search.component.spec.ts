@@ -77,7 +77,7 @@ describe('VehicleSearchComponent', () => {
     mockAuthService.hasAccess.and.returnValue(true);
     mockAuthService.isWebSocketEnabled.and.returnValue(false);
     mockMasterService.search.and.returnValue(of(mockPayloadResponse));
-    mockBusSelectionService.vehicleSelection$ = of([]);
+    (mockBusSelectionService as any).vehicleSelection$ = of([]);
     mockBusSelectionService.isVehicleSelected = jasmine.createSpy().and.returnValue(false);
     mockBusSelectionService.getVehicleSelections.and.returnValue([]);
 

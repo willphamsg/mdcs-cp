@@ -34,7 +34,7 @@ describe('DynamicEndpoint', () => {
   });
 
   it('should return the original uri when useDynamicEndpoint is false', () => {
-    service['isDynamic'] = false;
+    (service as any)['isDynamic'] = false;
 
     const uri = 'test';
 
@@ -43,7 +43,7 @@ describe('DynamicEndpoint', () => {
   });
 
   it('should return the dynamic uri when useDynamicEndpoint is true', () => {
-    service['isDynamic'] = true;
+    (service as any)['isDynamic'] = true;
 
     environment.useDummyData = true;
 

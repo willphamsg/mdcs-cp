@@ -51,7 +51,7 @@ export class ParameterService {
       );
   }
 
-  historySearch(params: IParams): Observable<PayloadResponse> {
+  historySearch(params: IActionHistoryParams): Observable<PayloadResponse> {
     return this.http
       .post<PayloadResponse>(`${this.uriHistorySearch}search`, params)
       .pipe(

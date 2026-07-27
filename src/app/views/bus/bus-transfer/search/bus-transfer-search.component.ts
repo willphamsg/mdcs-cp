@@ -526,7 +526,7 @@ export class BusTransferSearchComponent implements OnInit, OnDestroy {
   }
 
   hiddenHandler(element: string) {
-    return this.headerData.find(x => x.field == element).chk;
+    return this.headerData.find(x => x.field == element)?.chk ?? false;
   }
 
   private getBusTransferDialogTitle(action: string): string {

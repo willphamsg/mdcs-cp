@@ -220,8 +220,8 @@ export class AuthService {
   }
 
   devLogin(params: DevLogin) {
-    this.http = new HttpClient(this.handler);
-    return this.http
+    const http = new HttpClient(this.handler);
+    return http
       .post<any>(`${this.uri}token/generate`, params)
       .pipe(
         catchError((err: HttpErrorResponse) => this.message.multiError(err))

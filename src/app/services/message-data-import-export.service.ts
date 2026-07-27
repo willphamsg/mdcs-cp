@@ -377,7 +377,7 @@ export class MessageDataImportExportService {
    * Use searchImportByGroupId for new workflow
    */
   searchImport(params: IParams): Observable<PayloadResponse> {
-    this.http = new HttpClient(this.handler);
+    const http = new HttpClient(this.handler);
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${this.auth.getToken()}`);
     headers = headers.set('Content-Type', 'application/json');
@@ -395,7 +395,7 @@ export class MessageDataImportExportService {
       };
       return of(dummyData);
     }
-    return this.http
+    return http
       .post<PayloadResponse>(`${this.uri}import/search`, params, {
         headers: headers,
       })
@@ -412,7 +412,7 @@ export class MessageDataImportExportService {
    * @returns Observable containing the search results
    */
   searchImportByGroupId(grpIdentifier: string): Observable<PayloadResponse> {
-    this.http = new HttpClient(this.handler);
+    const http = new HttpClient(this.handler);
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${this.auth.getToken()}`);
     headers = headers.set('Content-Type', 'application/json');
@@ -435,7 +435,7 @@ export class MessageDataImportExportService {
       return of(dummyData);
     }
 
-    return this.http
+    return http
       .post<PayloadResponse>(`${this.uri}import/search`, searchRequest, {
         headers: headers,
       })
@@ -445,7 +445,7 @@ export class MessageDataImportExportService {
   }
 
   searchExport(params: IParams): Observable<PayloadResponse> {
-    this.http = new HttpClient(this.handler);
+    const http = new HttpClient(this.handler);
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${this.auth.getToken()}`);
     headers = headers.set('Content-Type', 'application/json');
@@ -463,7 +463,7 @@ export class MessageDataImportExportService {
       };
       return of(dummyData);
     }
-    return this.http
+    return http
       .post<PayloadResponse>(`${this.uri}export/search`, params, {
         headers: headers,
       })
@@ -515,11 +515,11 @@ export class MessageDataImportExportService {
    * @returns Observable with response containing grp_identifier
    */
   import(params: FormData): Observable<PayloadResponse> {
-    this.http = new HttpClient(this.handler);
+    const http = new HttpClient(this.handler);
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${this.auth.getToken()}`);
 
-    return this.http
+    return http
       .post<PayloadResponse>(`${this.uri}import/upload/zip`, params, {
         headers: headers,
       })
@@ -534,7 +534,7 @@ export class MessageDataImportExportService {
     params: any[],
     returnBlob?: boolean
   ): Observable<PayloadResponse | Blob> {
-    this.http = new HttpClient(this.handler);
+    const http = new HttpClient(this.handler);
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${this.auth.getToken()}`);
 
@@ -559,7 +559,7 @@ export class MessageDataImportExportService {
 
     if (returnBlob) {
       // Handle blob response for file download
-      return this.http
+      return http
         .post(`${this.uri}export/download/zip`, params, {
           headers: headers,
           responseType: 'blob',
@@ -573,7 +573,7 @@ export class MessageDataImportExportService {
     } else {
       // Handle JSON response
       headers = headers.set('Content-Type', 'application/json');
-      return this.http
+      return http
         .post<PayloadResponse>(`${this.uri}export/download/zip`, params, {
           headers: headers,
         })
@@ -629,7 +629,7 @@ export class MessageDataImportExportService {
     serviceProviderId: number,
     depotId: number | null = null
   ): Observable<PayloadResponse> {
-    this.http = new HttpClient(this.handler);
+    const http = new HttpClient(this.handler);
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${this.auth.getToken()}`);
     headers = headers.set('Content-Type', 'application/json');
@@ -657,7 +657,7 @@ export class MessageDataImportExportService {
       return of(dummyData);
     }
 
-    return this.http
+    return http
       .post<PayloadResponse>(`${this.uri}export-file/search`, requestBody, {
         headers: headers,
       })

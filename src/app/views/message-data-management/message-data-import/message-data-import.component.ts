@@ -312,7 +312,7 @@ export class MessageDataImportComponent implements OnInit, OnDestroy {
       //     this.dateSelected,
       //     "yyyy-MM-dd'T'00:00:00"
       //   ) ?? '';
-      for (const file of Array.from(fileList)) {
+      for (const file of Array.from(fileList) as File[]) {
         formData.append('file', file);
       }
       // formData.append('date_selected', date);

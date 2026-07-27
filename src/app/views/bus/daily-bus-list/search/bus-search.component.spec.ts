@@ -72,7 +72,7 @@ describe('BusSearchComponent', () => {
     mockAuthService.hasAccess.and.returnValue(true);
     mockAuthService.isWebSocketEnabled.and.returnValue(false);
     mockManageDailyBusListService.search.and.returnValue(of(mockPayloadResponse));
-    mockBusSelectionService.dailyBusListSelection$ = of([]);
+    (mockBusSelectionService as any).dailyBusListSelection$ = of([]);
     mockBusSelectionService.isDailyBusListSelected = jasmine.createSpy().and.returnValue(false);
 
     TestBed.configureTestingModule({

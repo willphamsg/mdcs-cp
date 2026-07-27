@@ -10,7 +10,7 @@ export function getFilteredDepotIds(
   filterValue: Record<string, unknown> | null | undefined,
   depots: IDepoList[],
   commonService: CommonService
-): unknown[] {
+): string[] {
   const selected = filterValue?.['depots'] ?? [];
   return Array.isArray(selected) && selected.length > 0
     ? selected

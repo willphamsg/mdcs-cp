@@ -151,7 +151,7 @@ describe('BusTransferSearchComponent', () => {
     mockAuthService.getServiceProviderId.and.returnValue(1);
     mockAuthService.hasAccess.and.returnValue(true);
     mockAuthService.isLTA.and.returnValue(false);
-    mockBusSelectionService.busTransferSelection$ = of([]);
+    (mockBusSelectionService as any).busTransferSelection$ = of([]);
     mockBusSelectionService.isBusTransferSelected.and.returnValue(false);
 
     TestBed.configureTestingModule({

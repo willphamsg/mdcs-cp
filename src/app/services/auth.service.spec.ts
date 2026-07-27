@@ -103,14 +103,14 @@ describe('AuthService', () => {
 
   it('should clear sessionStorage if useDevSign is true', () => {
     spyOn(sessionStorage, 'clear');
-    service['useDevSign'] = true;
+    (service as any)['useDevSign'] = true;
     service.logout();
     expect(sessionStorage.clear).toHaveBeenCalled();
   });
 
   it('should call OAuthService.logout if enableSSO is true', () => {
-    service['useDevSign'] = false;
-    service['enableSSO'] = true;
+    (service as any)['useDevSign'] = false;
+    (service as any)['enableSSO'] = true;
 
     service.logout();
     expect(mockOAuthService.revokeTokenAndLogout).toHaveBeenCalled();
@@ -119,18 +119,18 @@ describe('AuthService', () => {
 
   it('should return true if token exists', () => {
     spyOn(sessionStorage, 'getItem').and.returnValue('fake_token');
-    service['useDevSign'] = true;
+    (service as any)['useDevSign'] = true;
     expect(service.isAuthenticated()).toBeTrue();
   });
 
   it('should return false if no token', () => {
     spyOn(sessionStorage, 'getItem').and.returnValue(null);
-    service['useDevSign'] = true;
+    (service as any)['useDevSign'] = true;
     expect(service.isAuthenticated()).toBeFalse();
   });
 
   it('should return true if useDevSign is false', () => {
-    service['useDevSign'] = false;
+    (service as any)['useDevSign'] = false;
     expect(service.isAuthenticated()).toBeTrue();
   });
 });
