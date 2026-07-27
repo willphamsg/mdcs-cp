@@ -1,68 +1,33 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import {
-  MatCheckboxChange,
-  MatCheckboxModule,
-} from '@angular/material/checkbox';
-import { MatDialog } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuTrigger } from '@angular/material/menu';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSortModule, Sort } from '@angular/material/sort';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { RouterModule } from '@angular/router';
 import {
-  DropdownList,
   IActionHistoryParams,
-  IHeader,
-  IPaginationEvent,
   IParams,
-  DepoRequest,
   PayloadResponse,
 } from '@models/common';
-import { IDepoList } from '@models/depo';
 import { IEndTrial } from '@models/parameter-trial';
 
 import { MatDividerModule } from '@angular/material/divider';
 import { FilterComponent } from '@app/components/filter/filter.component';
-import { MonthFilterComponent, MonthRange } from '@app/components/filter/month-filter/month-filter.component';
+import { MonthFilterComponent } from '@app/components/filter/month-filter/month-filter.component';
 import { SelectedFilterComponent } from '@app/components/filter/selected-filter/selected-filter.component';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
-import { FilterService } from '@app/services/filter.service';
-import { IFilterConfig } from '@app/shared/utils/form-utils';
 import { BreadcrumbsComponent } from '@components/layout/breadcrumbs/breadcrumbs.component';
 import EndTrialHeader from '@data/end-trial-header.json';
-import { DepoService } from '@services/depo.service';
-import {
-  combineLatest,
-  Subject,
-  takeUntil,
-  debounceTime,
-  finalize,
-} from 'rxjs';
+import { Observable } from 'rxjs';
 import { ViewComponent } from '../view/view.component';
-import { ParameterService } from '@app/services/parameter.service';
-import { PaginationService } from '@app/services/pagination.service';
-import { AuthService } from '@app/services/auth.service';
-import { CommonService } from '@app/services/common.service';
-import { ParameterSelectionService } from '@app/services/parameter-selection.service';
 import { generateUniqueNumberId } from '@app/shared/utils/utils';
-import { Store } from '@ngrx/store';
-import { showSnackbar } from '@app/store/snackbar/snackbar.actions';
-import { WebSocketService } from '@app/services/web-socket.service';
-import {
-  buildDepotEffectiveDateFilterConfigs,
-  getFilteredDepotIds,
-  parseEffectiveDates,
-} from '../../shared/parameter-trial-filter.utils';
-import { ParameterTrialStatusRefresh } from '../../shared/parameter-trial-status-refresh';
-
-const BUFFER_TIME = 30;
+import { ParameterTrialSearchBase } from '../../shared/parameter-trial-search.base';
 
 @Component({
   selector: 'app-end-trial-search',
@@ -88,15 +53,13 @@ const BUFFER_TIME = 30;
     MonthFilterComponent,
   ],
 })
-export class EndTrialSearchComponent implements OnInit, OnDestroy {
-  private readonly destroy$ = new Subject<void>();
-  private readonly datePipe = new DatePipe('en-US');
-  private readonly dateFormat = 'yyyy-MM-dd HH:mm:ss';
-  private trialSchedulerRateSeconds = 0;
-  private readonly statusRefresh!: ParameterTrialStatusRefresh;
-  private isDestroyed = false;
-  private isTabChanging = false; // Flag to prevent duplicate API calls during tab change
-  private readonly inProgressStatusCodes = new Set([
+export class EndTrialSearchComponent extends ParameterTrialSearchBase<IEndTrial> {
+  protected readonly viewDialogComponent = ViewComponent;
+  protected readonly listPayloadKey = 'end_trial_list';
+  protected readonly errorItemLabel = 'end trial';
+  protected readonly errorSnackbarTitle = 'End Trial Error';
+  protected readonly defaultStatus = [7];
+  protected readonly inProgressStatusCodes = new Set([
     'APPROVE_TO_LIVE',
     'TRIAL_TO_LIVE',
     'TRIAL_TO_REJECTED',
@@ -104,15 +67,6 @@ export class EndTrialSearchComponent implements OnInit, OnDestroy {
   ]);
 
   headerData = EndTrialHeader;
-  chkAll: boolean = false;
-  displayedColumns: string[] = EndTrialHeader.map((x: IHeader) => {
-    return x.field;
-  });
-  options: DropdownList[] = [];
-  dataSource: IEndTrial[] = [];
-  selection: IEndTrial[] = [];
-  rowCount: number = 0;
-  currentPage: number = 1;
 
   params: IParams = {
     page_size: 10,
@@ -145,293 +99,42 @@ export class EndTrialSearchComponent implements OnInit, OnDestroy {
     },
   };
 
-  tabIdx = 0;
-  depots: IDepoList[] = [];
-
-  pageSize: number;
-  chkGroup: { [key: string]: boolean } = {};
-  searchForm: FormGroup;
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
-
-  filterConfigs: IFilterConfig[] = [];
-  svcProviderID: string | null = this.authService.getSVCProvider()!;
-
-  depo: DepoRequest = {
-    patternSearch: false,
-    search_text: '',
-    is_pattern_search: false,
-    page_size: 100,
-    page_index: 0,
-    sort_order: [],
-  };
-
-  constructor(
-    private readonly parameterService: ParameterService,
-    private readonly depoService: DepoService,
-    public readonly dialog: MatDialog,
-    private readonly paginationService: PaginationService,
-    private readonly filterService: FilterService,
-    public readonly authService: AuthService,
-    private readonly commonService: CommonService,
-    public readonly selectionService: ParameterSelectionService,
-    private readonly store: Store,
-    private readonly webSocketService: WebSocketService
-  ) {
-    this.statusRefresh = new ParameterTrialStatusRefresh(
-      this.webSocketService,
-      this.destroy$,
-      () => this.refreshActionHistoryForPendingIds(),
-      ids => this.triggerErrorCheck(ids)
-    );
+  protected getSelectionObservable(): Observable<IEndTrial[]> {
+    return this.selectionService.endTrialSelection$;
   }
 
-  callTrialSchedulerRateSeconds(): void {
-    this.parameterService
-      .getTrialSchedulerRateSeconds()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (value: PayloadResponse) => {
-          if (value.status === 200) {
-            this.trialSchedulerRateSeconds =
-              value?.payload?.rateSeconds + BUFFER_TIME || 0;
-          }
-        },
-        error: error => {
-          console.error('Unable to fetch trial scheduler rate seconds:', error);
-        },
-      });
+  protected addSelection(item: IEndTrial): void {
+    this.selectionService.addEndTrialSelection(item);
   }
 
-  ngOnInit() {
-    this.callTrialSchedulerRateSeconds();
-    this.params.search_select_filter = {
-      ...this.params.search_select_filter,
-      svc_prov_id: [Number.parseInt(this.svcProviderID!, 10)],
-    };
-    this.subscribeToDepoChanges();
-
-    // Subscribe to selection changes
-    this.selectionService.endTrialSelection$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(selections => {
-        this.selection = selections;
-      });
+  protected removeSelection(id: string | number): void {
+    this.selectionService.removeEndTrialSelection(id);
   }
 
-  ngOnDestroy(): void {
-    this.isDestroyed = true;
+  protected isSelected(id: string | number): boolean {
+    return this.selectionService.isEndTrialSelected(id);
+  }
 
-    // Stop all subscriptions and timers immediately
-    this.stopStatusRefreshCycle();
+  protected getSelections(): IEndTrial[] {
+    return this.selectionService.getEndTrialSelections();
+  }
 
-    // Clear any remaining subscriptions
-    this.destroy$.next();
-    this.destroy$.complete();
-
-    // Clear selections when component is destroyed
+  protected clearSelections(): void {
     this.selectionService.clearEndTrialSelections();
   }
 
-  subscribeToDepoChanges(): void {
-    combineLatest([
-      this.depoService.search(this.depo),
-      this.filterService.searchValue$,
-      this.filterService.filterValues$,
-    ])
-      .pipe(debounceTime(100), takeUntil(this.destroy$))
-      .subscribe(([depotList, searchValue, filterValue]) => {
-        if (this.isTabChanging) {
-          return;
-        }
-
-        this.updateDepots(depotList);
-        this.updateSearchParams(searchValue, filterValue);
-        this.resetPagination();
-        this.selectionService.clearEndTrialSelections();
-        this.reloadHandler();
-      });
+  protected addMultipleSelections(items: IEndTrial[]): void {
+    this.selectionService.addMultipleEndTrialSelections(items);
   }
 
-  private updateDepots(depotList: any): void {
-    const wasEmpty = this.depots.length === 0;
-    this.depots = depotList.payload['depot_info']
-      .filter((item: any) => item.depot_id !== 999)
-      .map((item: any) => ({ ...item, value: item.depot_name }));
-
-    // Only load filter values on initial depot load, not on every update
-    if (wasEmpty && this.depots.length > 0) {
-      this.loadFilterValues();
-    }
+  protected removeMultipleSelections(ids: string[]): void {
+    this.selectionService.removeMultipleEndTrialSelections(ids);
   }
 
-  private updateSearchParams(
-    searchValue: string | null,
-    filterValue: any
-  ): void {
-    this.params.search_text = searchValue || '';
-
-    const depotIds = getFilteredDepotIds(filterValue, this.depots, this.commonService);
-    const status = filterValue?.['status'] ?? [7];
-    const effectiveDates = parseEffectiveDates(
-      filterValue?.['effectiveDate']
-    );
-
-    this.params.search_select_filter = {
-      ...this.params.search_select_filter,
-      depot_id: depotIds,
-      status: status,
-      ...effectiveDates,
-    };
-
-    if (this.tabIdx === 1) {
-      // For Action History tab, use status [8, 11] (Live and Rejected) unless user specifically filters
-      // If user provides status filter, use it; otherwise default to [7]
-      const actionHistoryStatus = filterValue?.['status'] ?? [7];
-
-      this.actionHistoryParams.search_select_filter = {
-        ...this.actionHistoryParams.search_select_filter,
-        depot_id: depotIds,
-        status: actionHistoryStatus,
-        ...effectiveDates,
-      };
-      this.actionHistoryParams.search_text = searchValue || '';
-    }
-  }
-
-
-  private resetPagination(): void {
-    this.paginationService.currentPage = 1;
-    this.params.page_index = 0;
-    this.currentPage = 1;
-  }
-
-  loadFilterValues(): void {
-    this.filterConfigs = buildDepotEffectiveDateFilterConfigs(this.depots);
-    this.filterService.updateFilterConfigs(this.filterConfigs);
-  }
-
-  onTabChange(event?: any) {
-    // Set flag to prevent combineLatest from calling reloadHandler during tab change
-    this.isTabChanging = true;
-
-    // Update tabIdx immediately from event to ensure correct API call
-    if (event?.index !== undefined) {
-      this.tabIdx = event.index;
-    }
-
-    this.filterService.clearSelectedFilters();
-
-    // Clear existing data immediately to show loading state
-    this.dataSource = [];
-    // Update status based on tab
-    if (this.tabIdx === 0) {
-      // Action Required tab - status 7
-      this.params.search_select_filter = {
-        ...this.params.search_select_filter,
-        status: [7],
-      };
-    } else {
-      // Action History tab - status 7 for searchHistory
-      const range = this.initDefaultMonth();
-      this.actionHistoryParams.search_select_filter = {
-        ...this.actionHistoryParams.search_select_filter,
-        status: [7],
-        last_updated_start: range.effective_date_from,
-        last_updated_end: range.effective_date_till,
-      };
-      this.actionHistoryParams.sort_order = [{ name: 'last_update', desc: true }];
-    }
-
-    // Reset page when tab changes
-    this.paginationService.currentPage = 1;
-    this.params.page_index = 0;
-    this.currentPage = 1;
-
-    // Clear selections when switching tabs
-    this.selectionService.clearEndTrialSelections();
-    this.chkAll = false;
-    // Reload data with new status
-    this.reloadHandler();
-
-    // Reset flag after a short delay to allow future combineLatest emissions
-    setTimeout(() => {
-      this.isTabChanging = false;
-    }, 150);
-  }
-
-  private initDefaultMonth(): MonthRange {
-    const currentDate: Date = new Date();
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0, 23, 59, 59);
-
-    return {
-      effective_date_from: this.datePipe.transform(firstDay, this.dateFormat) || '',
-      effective_date_till: this.datePipe.transform(lastDay, this.dateFormat) || '',
-    }
-  }
-
-  onMonthFilterChange(range: MonthRange): void {
-    this.actionHistoryParams.search_select_filter = {
-      ...this.actionHistoryParams.search_select_filter,
-      last_updated_start: range.effective_date_from,
-      last_updated_end: range.effective_date_till,
-    };
-    if (this.tabIdx === 1) {
-      this.resetPagination();
-      this.reloadHandler();
-    }
-  }
-
-  reloadHandler() {
-    if (this.depots) {
-      // Use searchHistory for Action History tab (index 1), regular search for Action Required tab (index 0)
-      const searchMethod =
-        this.tabIdx === 1
-          ? this.parameterService.searchHistory(this.actionHistoryParams)
-          : this.parameterService.search(this.params);
-
-      searchMethod.subscribe({
-        next: value => {
-          if (value.status === 200) {
-            this.updateDataSource(value.payload);
-          } else {
-            // Handle non-200 status codes
-            this.dataSource = [];
-            this.rowCount = 0;
-            this.selectionService.clearEndTrialSelections();
-            this.chkAll = false;
-          }
-        },
-        error: error => {
-          // Handle API errors
-          console.error('Error fetching end trial data:', error);
-          this.dataSource = [];
-          this.rowCount = 0;
-          this.selectionService.clearEndTrialSelections();
-          this.chkAll = false;
-        },
-      });
-    }
-  }
-
-  updateDataSource(payload: any): void {
-    this.rowCount = payload['records_count'];
-    this.dataSource = payload['end_trial_list'].map((item: any) =>
-      this.mapDataSource(item)
-    );
-
-    // Restore checkbox state for items that were previously selected
-    this.dataSource.forEach(item => {
-      item.chk = this.selectionService.isEndTrialSelected(item.id);
-    });
-
-    // Update check all state for current page
-    this.updateCheckAllState();
+  protected searchActionErrors(
+    params: IActionHistoryParams
+  ): Observable<PayloadResponse> {
+    return this.parameterService.searchEndTrialErrors(params);
   }
 
   mapDataSource(item: any): IEndTrial {
@@ -454,129 +157,7 @@ export class EndTrialSearchComponent implements OnInit, OnDestroy {
     };
   }
 
-  checkHandler(event: MatCheckboxChange, element: IEndTrial) {
-    // Update element checkbox state
-    element.chk = event.checked;
-
-    // Toggle selection in the service
-    if (event.checked) {
-      this.selectionService.addEndTrialSelection(element);
-    } else {
-      this.selectionService.removeEndTrialSelection(element.id);
-    }
-
-    // Update the "check all" state based on current page selections
-    this.updateCheckAllState();
-  }
-
-  private updateCheckAllState(): void {
-    const totalSelectableItems = this.dataSource.length;
-    // Count how many items on the current page are selected
-    const selectedItemsOnCurrentPage = this.dataSource.filter(item =>
-      this.selectionService.isEndTrialSelected(item.id)
-    ).length;
-
-    // Update chkAll based on whether all items on current page are selected
-    this.chkAll =
-      totalSelectableItems > 0 &&
-      selectedItemsOnCurrentPage === totalSelectableItems;
-  }
-
-  checkAllHandler(event: MatCheckboxChange): void {
-    this.chkAll = event.checked;
-
-    if (event.checked) {
-      // Add all current page items
-      const itemsToAdd = this.dataSource.map(item => {
-        item.chk = true;
-        return item;
-      });
-      this.selectionService.addMultipleEndTrialSelections(itemsToAdd);
-    } else {
-      // Remove only current page items
-      const idsToRemove = this.dataSource.map(item => {
-        item.chk = false;
-        return String(item.id);
-      });
-      this.selectionService.removeMultipleEndTrialSelections(idsToRemove);
-    }
-  }
-
-  sortHandler(element: Sort) {
-    if (this.tabIdx === 0) {
-      this.params.sort_order = [
-        {
-          name: element.active,
-          desc: element.direction != 'asc',
-        },
-      ];
-    } else if (this.tabIdx === 1) {
-      this.actionHistoryParams.sort_order = [
-        {
-          name: element.active,
-          desc: element.direction != 'asc',
-        },
-      ];
-    }
-    this.reloadHandler();
-  }
-
-  headerHandler(event: MatCheckboxChange, element: IHeader) {
-    this.headerData.find(x => x.field == element.field)!.chk =
-      event.checked;
-  }
-
-  hiddenHandler(element: string) {
-    return this.headerData.find(x => x.field == element)!.chk;
-  }
-
-  updateView(action: string) {
-    // Get all selected items from the service
-    const allSelectedItems = this.selectionService.getEndTrialSelections();
-    const paramMasterIds = Array.from(
-      new Set(
-        allSelectedItems
-          .map(item => item.param_master_id)
-          .filter((id): id is number => typeof id === 'number')
-      )
-    );
-
-    const dialogRef = this.dialog.open(ViewComponent, {
-      width: '95%',
-      height: '70%',
-      disableClose: true,
-      data: {
-        title: `${this.getUpdateViewTitle(action)} Selected`,
-        selection: allSelectedItems, // Pass all selected items from the service
-        action,
-      },
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (
-        ['trial-to-live', 'reject-trial'].includes(action) &&
-        result !== 'cancel'
-      ) {
-        // Switch to Action History tab after successful submission
-        this.tabIdx = 1;
-        // Clear selections after successful action
-        this.selectionService.clearEndTrialSelections();
-        this.reloadHandler();
-        this.startStatusRefreshCycle(paramMasterIds);
-      }
-    });
-  }
-
-  onPageChange(event: IPaginationEvent): void {
-    this.currentPage = event.page;
-    this.paginationService.handlePageEvent(
-      this.params,
-      event,
-      this.reloadHandler.bind(this)
-    );
-  }
-
-  private getUpdateViewTitle(action: string): string {
+  protected getUpdateViewTitle(action: string): string {
     if (action === 'trial-to-live') {
       return 'Accept';
     }
@@ -586,115 +167,16 @@ export class EndTrialSearchComponent implements OnInit, OnDestroy {
     return '';
   }
 
-  private startStatusRefreshCycle(paramMasterIds: number[]): void {
-    this.statusRefresh.start(
+  updateView(action: string): void {
+    const allSelectedItems = this.getSelections();
+    const paramMasterIds = this.extractParamMasterIds(allSelectedItems);
+    this.openParameterTrialDialog(
+      action,
+      allSelectedItems,
       paramMasterIds,
-      this.trialSchedulerRateSeconds,
-      () => this.isDestroyed
+      ['trial-to-live', 'reject-trial'],
+      ['cancel']
     );
-  }
-
-  private refreshActionHistoryForPendingIds(): void {
-    if (
-      !this.statusRefresh.pendingParamMasterIds.length ||
-      this.isDestroyed
-    ) {
-      return;
-    }
-
-    const params: IActionHistoryParams = {
-      ...this.actionHistoryParams,
-      param_master_ids: this.statusRefresh.pendingParamMasterIds,
-    };
-
-    this.parameterService.searchHistory(params).subscribe({
-      next: value => {
-        if (value.status === 200 && this.tabIdx === 1) {
-          this.updateDataSource(value.payload);
-        }
-      },
-      error: error => {
-        console.error('Failed to refresh end trial action history:', error);
-      },
-    });
-  }
-
-  private stopStatusRefreshCycle(trigger?: boolean): void {
-    this.statusRefresh.stop(trigger);
-  }
-
-  private triggerErrorCheck(paramMasterIds: number[]): void {
-    const params: IActionHistoryParams = {
-      ...this.errorCheckParams,
-      param_master_ids: paramMasterIds,
-    };
-
-    this.parameterService
-      .searchEndTrialErrors(params)
-      .pipe(finalize(() => this.refreshActionRequiredAndHistory()))
-      .subscribe({
-        next: value => {
-          if (value.status === 200 && value.payload) {
-            const errorData = value.payload['end_trial_list'] || [];
-
-            if (Array.isArray(errorData) && errorData.length > 0) {
-              this.store.dispatch(
-                showSnackbar({
-                  message: `Found ${errorData.length} end trial error(s). Please check the system.`,
-                  title: 'End Trial Error',
-                  typeSnackbar: 'error',
-                })
-              );
-            }
-          }
-        },
-        error: error => {
-          console.error('Error checking for end trial errors:', error);
-        },
-      });
-  }
-
-  private refreshActionRequiredAndHistory(): void {
-    this.parameterService
-      .search(this.params)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: value => {
-          if (value.status === 200 && this.tabIdx === 0) {
-            this.updateDataSource(value.payload);
-          }
-        },
-        error: error => {
-          console.error(
-            'Error refreshing End Trial Action Required data:',
-            error
-          );
-        },
-      });
-
-    this.parameterService
-      .searchHistory(this.actionHistoryParams)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: value => {
-          if (value.status === 200 && this.tabIdx === 1) {
-            this.updateDataSource(value.payload);
-          }
-        },
-        error: error => {
-          console.error(
-            'Error refreshing End Trial Action History data:',
-            error
-          );
-        },
-      });
-  }
-
-  isInProgressStatus(status?: string | null): boolean {
-    if (!status) {
-      return false;
-    }
-    return this.inProgressStatusCodes.has(status.toUpperCase());
   }
 
   /**
