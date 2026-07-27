@@ -131,7 +131,7 @@ export class NewParameterApprovalSearchComponent extends ParameterTrialSearchBas
     return this.parameterService.searchNewParameterApprovalErrors(params);
   }
 
-  mapDataSource(item: any, isActionHistoryView = false): INewParameterApproval {
+  override mapDataSource(item: any, isActionHistoryView = false): INewParameterApproval {
     const depot = this.depots.find(_d => _d.depot_id === item.depot_id);
     const strDepotId = item.depot_id.toString();
 

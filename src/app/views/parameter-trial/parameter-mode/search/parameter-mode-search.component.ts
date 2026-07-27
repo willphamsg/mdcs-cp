@@ -139,26 +139,6 @@ export class ParameterModeSearchComponent extends ParameterTrialSearchBase<IPara
     return this.parameterService.searchParameterModeErrors(params);
   }
 
-  mapDataSource(item: any): IParameterMode {
-    const depot = this.depots.find(_d => _d.depot_id === item.depot_id);
-    const strDepotId = item.depot_id.toString();
-
-    // Use stable ID: param_master_id + depot_id combination for selection persistence
-    const stableId =
-      item.param_master_id && item.depot_id
-        ? `${item.param_master_id}_${item.depot_id}`
-        : generateUniqueNumberId();
-
-    return <IParameterMode>{
-      ...item,
-      id: stableId,
-      chk: false,
-      svc_prov_id: Number.parseInt(this.svcProviderID!, 10),
-      depot_name: strDepotId === '0' ? 'All Depot' : depot?.depot_name,
-      param_master_id: item.param_master_id,
-    };
-  }
-
   protected getUpdateViewTitle(action: string): string {
     if (action === 'live') {
       return 'Live';
@@ -181,35 +161,37 @@ export class ParameterModeSearchComponent extends ParameterTrialSearchBase<IPara
     }
     const paramMasterIds = this.extractParamMasterIds(allSelectedItems);
 
-    if (action === 'live') {
-      this.validateSelectionsForLive(allSelectedItems, paramMasterIds);
-      return;
-    }
-
-    if (action === 'trial') {
-      this.validateSelectionsForTrial(allSelectedItems, paramMasterIds);
+    if (action === 'live' || action === 'trial') {
+      this.validateSelectionsFor(action, allSelectedItems, paramMasterIds);
       return;
     }
 
     this.openViewDialog(action, allSelectedItems, paramMasterIds);
   }
 
-  private validateSelectionsForLive(
+  private validateSelectionsFor(
+    mode: 'live' | 'trial',
     selections: IParameterMode[],
     paramMasterIds: number[]
   ): void {
+    const title = mode === 'live' ? 'Set Live' : 'Set Trial';
     const payload = this.buildValidationPayload(selections);
 
     if (!payload.length) {
       this.showSnackbarNotification(
-        'Unable to validate Set Live request. Missing parameter identifiers.',
-        'Set Live',
+        `Unable to validate ${title} request. Missing parameter identifiers.`,
+        title,
         'error'
       );
       return;
     }
 
-    this.parameterService.validateLive(payload).subscribe({
+    const validate =
+      mode === 'live'
+        ? this.parameterService.validateLive(payload)
+        : this.parameterService.validateTrial(payload);
+
+    validate.subscribe({
       next: value => {
         if (value.status === 200) {
           const validatedStatuses: IValidatedParameterStatus[] =
@@ -220,74 +202,24 @@ export class ParameterModeSearchComponent extends ParameterTrialSearchBase<IPara
           );
           const userActionType = this.extractUserActionType(validatedStatuses);
 
-          this.openViewDialog('live', mergedSelection, paramMasterIds, {
+          this.openViewDialog(mode, mergedSelection, paramMasterIds, {
             remark: value.message,
             userActionType,
           });
         } else {
           this.showSnackbarNotification(
             value.message ||
-              'Validation failed. Please try again before setting live.',
-            'Set Live',
+              `Validation failed. Please try again before setting ${mode}.`,
+            title,
             'error'
           );
         }
       },
       error: error => {
-        console.error('Failed to validate Set Live request:', error);
+        console.error(`Failed to validate ${title} request:`, error);
         this.showSnackbarNotification(
-          'Unable to validate Set Live request. Please retry.',
-          'Set Live',
-          'error'
-        );
-      },
-    });
-  }
-
-  private validateSelectionsForTrial(
-    selections: IParameterMode[],
-    paramMasterIds: number[]
-  ): void {
-    const payload = this.buildValidationPayload(selections);
-
-    if (!payload.length) {
-      this.showSnackbarNotification(
-        'Unable to validate Set Trial request. Missing parameter identifiers.',
-        'Set Trial',
-        'error'
-      );
-      return;
-    }
-
-    this.parameterService.validateTrial(payload).subscribe({
-      next: value => {
-        if (value.status === 200) {
-          const validatedStatuses: IValidatedParameterStatus[] =
-            value.payload?.['validated_parameter_status'] ?? [];
-          const mergedSelection = this.mergeValidatedStatuses(
-            validatedStatuses,
-            selections
-          );
-          const userActionType = this.extractUserActionType(validatedStatuses);
-
-          this.openViewDialog('trial', mergedSelection, paramMasterIds, {
-            remark: value.message,
-            userActionType,
-          });
-        } else {
-          this.showSnackbarNotification(
-            value.message ||
-              'Validation failed. Please try again before setting trial.',
-            'Set Trial',
-            'error'
-          );
-        }
-      },
-      error: error => {
-        console.error('Failed to validate Set Trial request:', error);
-        this.showSnackbarNotification(
-          'Unable to validate Set Trial request. Please retry.',
-          'Set Trial',
+          `Unable to validate ${title} request. Please retry.`,
+          title,
           'error'
         );
       },

@@ -34,6 +34,7 @@ import {
   parseEffectiveDates,
 } from './parameter-trial-filter.utils';
 import { ParameterTrialStatusRefresh } from './parameter-trial-status-refresh';
+import { generateUniqueNumberId } from '@app/shared/utils/utils';
 import { combineLatest, debounceTime, finalize, Subject, takeUntil, Observable } from 'rxjs';
 
 const BUFFER_TIME = 30;
@@ -140,7 +141,31 @@ export abstract class ParameterTrialSearchBase<T extends IParameterTrialSearchIt
   protected abstract addMultipleSelections(items: T[]): void;
   protected abstract removeMultipleSelections(ids: string[]): void;
 
-  abstract mapDataSource(item: any, isActionHistoryView?: boolean): T;
+  /**
+   * Default mapping strategy shared by the simpler search pages: a stable ID
+   * from `param_master_id` + `depot_id` (falling back to a generated one),
+   * with depot name resolved from the loaded depot list. Override when a
+   * page needs different ID or status-normalization behavior.
+   */
+  mapDataSource(item: any, isActionHistoryView?: boolean): T {
+    void isActionHistoryView;
+    const depot = this.depots.find(_d => _d.depot_id === item.depot_id);
+    const strDepotId = item.depot_id.toString();
+
+    const stableId =
+      item.param_master_id && item.depot_id
+        ? `${item.param_master_id}_${item.depot_id}`
+        : generateUniqueNumberId();
+
+    return <T>{
+      ...item,
+      id: stableId,
+      chk: false,
+      svc_prov_id: Number.parseInt(this.svcProviderID!, 10),
+      depot_name: strDepotId === '0' ? 'All Depot' : depot?.depot_name,
+      param_master_id: item.param_master_id,
+    };
+  }
   protected abstract getUpdateViewTitle(action: string): string;
   abstract updateView(action: string): void;
   protected abstract searchActionErrors(

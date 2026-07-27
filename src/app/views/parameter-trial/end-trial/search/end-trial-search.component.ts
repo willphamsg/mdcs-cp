@@ -26,7 +26,6 @@ import { BreadcrumbsComponent } from '@components/layout/breadcrumbs/breadcrumbs
 import EndTrialHeader from '@data/end-trial-header.json';
 import { Observable } from 'rxjs';
 import { ViewComponent } from '../view/view.component';
-import { generateUniqueNumberId } from '@app/shared/utils/utils';
 import { ParameterTrialSearchBase } from '../../shared/parameter-trial-search.base';
 
 @Component({
@@ -135,26 +134,6 @@ export class EndTrialSearchComponent extends ParameterTrialSearchBase<IEndTrial>
     params: IActionHistoryParams
   ): Observable<PayloadResponse> {
     return this.parameterService.searchEndTrialErrors(params);
-  }
-
-  mapDataSource(item: any): IEndTrial {
-    const depot = this.depots.find(_d => _d.depot_id === item.depot_id);
-    const strDepotId = item.depot_id.toString();
-
-    // Use stable ID: param_master_id + depot_id combination for selection persistence
-    const stableId =
-      item.param_master_id && item.depot_id
-        ? `${item.param_master_id}_${item.depot_id}`
-        : generateUniqueNumberId();
-
-    return <IEndTrial>{
-      ...item,
-      id: stableId,
-      chk: false,
-      svc_prov_id: Number.parseInt(this.svcProviderID!, 10),
-      depot_name: strDepotId === '0' ? 'All Depot' : depot?.depot_name,
-      param_master_id: item.param_master_id,
-    };
   }
 
   protected getUpdateViewTitle(action: string): string {
