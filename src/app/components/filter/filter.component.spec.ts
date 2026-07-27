@@ -1,6 +1,11 @@
 import { ComponentFixture, TestBed, waitForAsync, fakeAsync, tick } from '@angular/core/testing';
 import { FilterComponent } from './filter.component';
-import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormGroup,
+  FormControl,
+  FormArray,
+} from '@angular/forms';
 import { FilterService } from '@app/services/filter.service';
 import { IFilterConfig } from '@app/shared/utils/form-utils';
 import { of } from 'rxjs';
@@ -268,5 +273,121 @@ describe('FilterComponent', () => {
   it('should clean up on ngOnDestroy', () => {
     component.ngOnDestroy();
     expect(filterService.updateSearchValue).toHaveBeenCalledWith('');
+  });
+
+  it('should classify depot, formArray, radio, dateRange and default branches and call FilterService with exact args', () => {
+    const startDate = new Date(2026, 6, 1);
+
+    component.filterConfigs = [
+      {
+        controlName: 'currDepot',
+        type: 'group',
+        options: [
+          { depot_id: 'D1', depot_name: 'Depot One' },
+          { depot_id: 'D2', depot_name: 'Depot Two' },
+        ],
+      },
+      {
+        controlName: 'statusArray',
+        type: 'array',
+        options: [
+          { id: 'a1', value: 'Active' },
+          { id: 'a2', value: 'Inactive' },
+        ],
+      },
+      {
+        controlName: 'priority',
+        type: 'radio',
+        options: [
+          { id: 'r1', value: 'High' },
+          { id: 'r2', value: 'Low' },
+        ],
+      },
+      { controlName: 'eventDateTime', type: 'date-range' },
+      { controlName: 'keyword', type: 'control' },
+    ];
+
+    component.filterForm = new FormGroup({
+      currDepot: new FormGroup({
+        '0': new FormControl(true),
+        '1': new FormControl(false),
+      }),
+      statusArray: new FormArray([
+        new FormControl(true),
+        new FormControl(false),
+      ]),
+      priority: new FormControl('High'),
+      eventDateTime: new FormGroup({
+        startDate: new FormControl(startDate),
+        endDate: new FormControl(null),
+      }),
+      keyword: new FormControl('foo bar'),
+    });
+
+    component.applyFilter();
+
+    expect(filterService.updateSelectedFilters).toHaveBeenCalledWith({
+      currDepot: 'Depot One',
+      statusArray: 'Active',
+      priority: 'High',
+      eventDateTime: { startDate, endDate: startDate },
+      keyword: 'foo bar',
+    } as any);
+
+    expect(filterService.updateFilterValues).toHaveBeenCalledWith({
+      currDepot: ['D1'],
+      statusArray: ['a1'],
+      priority: ['r1'],
+      keyword: ['foo bar'],
+    });
+
+    expect(filterService.updateDateRangeFilter).toHaveBeenCalledWith(
+      'eventDateTime',
+      { startDate, endDate: startDate }
+    );
+  });
+
+  it('should auto-fill startDate from endDate when only endDate is set in a date-range control', () => {
+    const endDate = new Date(2026, 7, 15);
+
+    component.filterConfigs = [
+      { controlName: 'eventDateTime', type: 'date-range' },
+    ];
+    component.filterForm = new FormGroup({
+      eventDateTime: new FormGroup({
+        startDate: new FormControl(null),
+        endDate: new FormControl(endDate),
+      }),
+    });
+
+    component.applyFilter();
+
+    expect(filterService.updateDateRangeFilter).toHaveBeenCalledWith(
+      'eventDateTime',
+      { startDate: endDate, endDate }
+    );
+  });
+
+  it('should not call updateFilterValues when no formArray checkboxes are checked', () => {
+    component.filterConfigs = [
+      {
+        controlName: 'statusArray',
+        type: 'array',
+        options: [
+          { id: 'a1', value: 'Active' },
+          { id: 'a2', value: 'Inactive' },
+        ],
+      },
+    ];
+    component.filterForm = new FormGroup({
+      statusArray: new FormArray([
+        new FormControl(false),
+        new FormControl(false),
+      ]),
+    });
+
+    component.applyFilter();
+
+    expect(filterService.updateFilterValues).not.toHaveBeenCalled();
   });
 });

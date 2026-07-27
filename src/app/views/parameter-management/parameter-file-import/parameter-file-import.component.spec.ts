@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 import DummyData from '@data/db.json';
 import { of } from 'rxjs';
 import { ParameterFileImportComponent } from './parameter-file-import.component';
+import { showSnackbar } from '@app/store/snackbar/snackbar.actions';
 
 describe('ParameterFileImportComponent', () => {
   let component: ParameterFileImportComponent;
@@ -113,5 +114,104 @@ describe('ParameterFileImportComponent', () => {
 
     expect(component['destroy$'].next).toHaveBeenCalled();
     expect(component['destroy$'].complete).toHaveBeenCalled();
+  });
+
+  it('should return the configured chk value for a known column via hiddenHandler', () => {
+    expect(component.hiddenHandler('file_id')).toBe(true);
+    expect(component.hiddenHandler('param_filename')).toBe(false);
+  });
+
+  describe('importHandler', () => {
+    it('should dispatch an error snackbar and skip the confirmation dialog when a non-zip file is selected', () => {
+      const invalidFile = new File(['content'], 'notes.txt', {
+        type: 'text/plain',
+      });
+      const event = {
+        target: { files: [invalidFile] },
+      } as unknown as Event;
+
+      mockDialog.open.calls.reset();
+      mockStore.dispatch.calls.reset();
+      const fakeInput = { value: 'notes.txt' };
+      component.fileInputRef = { nativeElement: fakeInput } as any;
+
+      component.importHandler(event);
+
+      expect(mockStore.dispatch).toHaveBeenCalledWith(
+        showSnackbar({
+          message: 'Only ZIP file is allowed.',
+          title: 'Invalid File',
+          typeSnackbar: 'error',
+        })
+      );
+      expect(mockDialog.open).not.toHaveBeenCalled();
+      expect(fakeInput.value).toBe('');
+    });
+
+    it('should submit the selected files as FormData and handle a successful import response when confirmed', () => {
+      const zipFile = new File(['zip-content'], 'params.zip', {
+        type: 'application/zip',
+      });
+      const event = {
+        target: { files: [zipFile] },
+      } as unknown as Event;
+
+      mockDialog.open.and.returnValue({
+        afterClosed: () => of(true),
+      } as any);
+      mockFileImportExportService.import.and.returnValue(
+        of({
+          status: 201,
+          status_code: 'SUCCESS',
+          timestamp: Date.now(),
+          message: 'Import started',
+          payload: {
+            param_import_files: [
+              { grp_identifier_id: 'GRP-1' },
+              { grp_identifier_id: '' },
+            ],
+          },
+        })
+      );
+      mockStore.dispatch.calls.reset();
+      spyOn(component, 'reloadHandler').and.callThrough();
+
+      component.importHandler(event);
+
+      expect(mockFileImportExportService.import).toHaveBeenCalled();
+      const formDataArg = mockFileImportExportService.import.calls
+        .mostRecent().args[0] as FormData;
+      expect(formDataArg.getAll('file')).toEqual([zipFile]);
+      expect(mockStore.dispatch).toHaveBeenCalledWith(
+        showSnackbar({
+          message: 'Import started',
+          title: 'Success',
+          typeSnackbar: 'success',
+        })
+      );
+      expect(component.currentPage).toBe(1);
+      expect(component.reloadHandler).toHaveBeenCalled();
+    });
+
+    it('should clear the file input without importing when the confirmation dialog is dismissed', () => {
+      const zipFile = new File(['zip-content'], 'params.zip', {
+        type: 'application/zip',
+      });
+      const event = {
+        target: { files: [zipFile] },
+      } as unknown as Event;
+
+      mockDialog.open.and.returnValue({
+        afterClosed: () => of(false),
+      } as any);
+      mockFileImportExportService.import.calls.reset();
+      const fakeInput = { value: 'params.zip' };
+      component.fileInputRef = { nativeElement: fakeInput } as any;
+
+      component.importHandler(event);
+
+      expect(mockFileImportExportService.import).not.toHaveBeenCalled();
+      expect(fakeInput.value).toBe('');
+    });
   });
 });

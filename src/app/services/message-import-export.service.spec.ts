@@ -99,4 +99,69 @@ describe('MessageDataImportExportService', () => {
     expect(req.request.method).toBe('GET');
     req.flush(DummyData.message_data_import);
   });
+
+  it('should call searchImport and return data', () => {
+    environment.useDummyData = false;
+
+    service.searchImport(mockBusRequest).subscribe((response: any) => {
+      expect(response).toEqual(mockResponse);
+    });
+
+    const req = httpMock.expectOne(`${environment.gateway}message-data/import/search`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(mockBusRequest);
+    req.flush(mockResponse);
+  });
+
+  it('should call searchImportByGroupId and return data', () => {
+    environment.useDummyData = false;
+
+    service.searchImportByGroupId('test-grp-id').subscribe((response: any) => {
+      expect(response).toEqual(mockResponse);
+    });
+
+    const req = httpMock.expectOne(`${environment.gateway}message-data/import/search`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ grp_identifier: 'test-grp-id' });
+    req.flush(mockResponse);
+  });
+
+  it('should call import with FormData and return data', () => {
+    environment.useDummyData = false;
+    const formData = new FormData();
+
+    service.import(formData).subscribe((response: any) => {
+      expect(response).toEqual(mockResponse);
+    });
+
+    const req = httpMock.expectOne(`${environment.gateway}message-data/import/upload/zip`);
+    expect(req.request.method).toBe('POST');
+    req.flush(mockResponse);
+  });
+
+  it('should call export with returnBlob true and return a blob', () => {
+    environment.useDummyData = false;
+    const dummyBlob = new Blob(['zip content'], { type: 'application/zip' });
+
+    service.export([], true).subscribe(response => {
+      expect(response).toEqual(dummyBlob);
+    });
+
+    const req = httpMock.expectOne(`${environment.gateway}message-data/export/download/zip`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.responseType).toBe('blob');
+    req.flush(dummyBlob);
+  });
+
+  it('should call export without returnBlob and return JSON data', () => {
+    environment.useDummyData = false;
+
+    service.export([]).subscribe((response: any) => {
+      expect(response).toEqual(mockResponse);
+    });
+
+    const req = httpMock.expectOne(`${environment.gateway}message-data/export/download/zip`);
+    expect(req.request.method).toBe('POST');
+    req.flush(mockResponse);
+  });
 });

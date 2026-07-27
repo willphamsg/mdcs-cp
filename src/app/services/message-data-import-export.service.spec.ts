@@ -193,4 +193,51 @@ describe('MessageDataImportExportService', () => {
     const req = httpMock.expectOne(`${testUri}export/send-message-request`);
     req.flush(mockPayloadResponse);
   });
+
+  it('should call export with returnBlob true and return a blob', () => {
+    environment.useDummyData = false;
+    const dummyBlob = new Blob(['zip content'], { type: 'application/zip' });
+
+    service.export([], true).subscribe(response => {
+      expect(response).toEqual(dummyBlob);
+    });
+
+    const req = httpMock.expectOne(`${testUri}export/download/zip`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.responseType).toBe('blob');
+    req.flush(dummyBlob);
+  });
+
+  it('should call export without returnBlob and return JSON data', () => {
+    environment.useDummyData = false;
+
+    service.export([]).subscribe(response => {
+      expect(response).toEqual(mockPayloadResponse);
+    });
+
+    const req = httpMock.expectOne(`${testUri}export/download/zip`);
+    expect(req.request.method).toBe('POST');
+    req.flush(mockPayloadResponse);
+  });
+
+  it('should call searchExportFileByGroupId and return data', () => {
+    environment.useDummyData = false;
+
+    service
+      .searchExportFileByGroupId('grp-id', 1, null)
+      .subscribe(response => {
+        expect(response).toEqual(mockPayloadResponse);
+      });
+
+    const req = httpMock.expectOne(`${testUri}export-file/search`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({
+      message_data_export: {
+        grp_identifier_id: 'grp-id',
+        service_provider_id: 1,
+        depot_id: null,
+      },
+    });
+    req.flush(mockPayloadResponse);
+  });
 });

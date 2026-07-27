@@ -119,6 +119,8 @@ describe('BusTransferSearchComponent', () => {
       'toggleBusTransferSelection',
       'addMultipleBusTransferSelections',
       'removeMultipleBusTransferSelections',
+      'addBusTransferSelection',
+      'removeBusTransferSelection',
     ]);
 
     filterServiceSpy.searchValue$ = of('test');
@@ -232,5 +234,35 @@ describe('BusTransferSearchComponent', () => {
 
     expect(component['destroy$'].next).toHaveBeenCalled();
     expect(component['destroy$'].complete).toHaveBeenCalled();
+  });
+
+  it('should add the item to selection service when checkbox is checked', () => {
+    const element = { ...mockBusTransferList[0] };
+    const mockEvent = { checked: true } as MatCheckboxChange;
+
+    component.checkHandler(mockEvent, element);
+
+    expect(element.chk).toBeTrue();
+    expect(
+      mockBusSelectionService.addBusTransferSelection
+    ).toHaveBeenCalledWith(element);
+  });
+
+  it('should remove the item from selection service when checkbox is unchecked', () => {
+    const element = { ...mockBusTransferList[0] };
+    const mockEvent = { checked: false } as MatCheckboxChange;
+
+    component.checkHandler(mockEvent, element);
+
+    expect(element.chk).toBeFalse();
+    expect(
+      mockBusSelectionService.removeBusTransferSelection
+    ).toHaveBeenCalledWith(element.id);
+  });
+
+  it('should resolve the correct dialog title per action', () => {
+    expect(component['getBusTransferDialogTitle']('update')).toBe('Edit');
+    expect(component['getBusTransferDialogTitle']('reject')).toBe('Reject');
+    expect(component['getBusTransferDialogTitle']('approve')).toBe('Approve');
   });
 });

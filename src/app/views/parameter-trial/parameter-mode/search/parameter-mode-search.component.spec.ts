@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PayloadResponse } from '@app/models/common';
@@ -10,8 +11,9 @@ import { FilterService } from '@app/services/filter.service';
 import { PaginationService } from '@app/services/pagination.service';
 import { ParameterService } from '@app/services/parameter.service';
 import { ParameterSelectionService } from '@app/services/parameter-selection.service';
+import { WebSocketService } from '@app/services/web-socket.service';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { ParameterModeSearchComponent } from './parameter-mode-search.component';
 
 describe('ParameterModeSearchComponent', () => {
@@ -25,6 +27,8 @@ describe('ParameterModeSearchComponent', () => {
   let mockCommonService: jasmine.SpyObj<CommonService>;
   let mockSelectionService: jasmine.SpyObj<ParameterSelectionService>;
   let mockStore: jasmine.SpyObj<Store>;
+  let mockWebSocketService: jasmine.SpyObj<WebSocketService>;
+  let refreshTriggerSubject: Subject<unknown>;
 
   const mockDepots: IDepoList[] = [
     { depot_id: 1, depot_name: 'Depot A', depot_code: 'DA', version: 1 } as any,
@@ -65,6 +69,7 @@ describe('ParameterModeSearchComponent', () => {
       'search',
       'searchHistory',
       'getTrialSchedulerRateSeconds',
+      'searchParameterModeErrors',
     ]);
     mockDepoService = jasmine.createSpyObj('DepoService', [
       'depoList$',
@@ -92,11 +97,18 @@ describe('ParameterModeSearchComponent', () => {
       'clearParameterModeSelections',
       'isParameterModeSelected',
       'toggleParameterModeSelection',
+      'addParameterModeSelection',
+      'removeParameterModeSelection',
       'addMultipleParameterModeSelections',
       'removeMultipleParameterModeSelections',
       'getParameterModeSelections',
     ]);
     mockStore = jasmine.createSpyObj('Store', ['dispatch']);
+    refreshTriggerSubject = new Subject<unknown>();
+    mockWebSocketService = jasmine.createSpyObj('WebSocketService', [
+      'refreshTrigger',
+    ]);
+    mockWebSocketService.refreshTrigger.and.returnValue(refreshTriggerSubject);
 
     mockDepoService.depoList$ = of(mockDepots);
     mockDepoService.search = jasmine.createSpy().and.returnValue(
@@ -121,6 +133,9 @@ describe('ParameterModeSearchComponent', () => {
     mockParameterService.getTrialSchedulerRateSeconds.and.returnValue(
       of({ status: 200, status_code: 'SUCCESS', timestamp: Date.now(), message: '', payload: { rateSeconds: 60 } })
     );
+    mockParameterService.searchParameterModeErrors.and.returnValue(
+      of(mockPayloadResponse)
+    );
     mockSelectionService.parameterModeSelection$ = of([]);
     mockSelectionService.isParameterModeSelected.and.returnValue(false);
     mockSelectionService.getParameterModeSelections.and.returnValue([]);
@@ -137,6 +152,7 @@ describe('ParameterModeSearchComponent', () => {
         { provide: CommonService, useValue: mockCommonService },
         { provide: ParameterSelectionService, useValue: mockSelectionService },
         { provide: Store, useValue: mockStore },
+        { provide: WebSocketService, useValue: mockWebSocketService },
       ],
     }).compileComponents();
   }));
@@ -192,5 +208,125 @@ describe('ParameterModeSearchComponent', () => {
 
     expect(component['destroy$'].next).toHaveBeenCalled();
     expect(component['destroy$'].complete).toHaveBeenCalled();
+  });
+
+  describe('checkHandler', () => {
+    it('adds the row to the selection service when checked', () => {
+      const element = { id: 1, chk: false } as any;
+
+      component.checkHandler({ checked: true } as MatCheckboxChange, element);
+
+      expect(element.chk).toBeTrue();
+      expect(mockSelectionService.addParameterModeSelection).toHaveBeenCalledWith(
+        element
+      );
+      expect(
+        mockSelectionService.removeParameterModeSelection
+      ).not.toHaveBeenCalled();
+    });
+
+    it('removes the row from the selection service when unchecked', () => {
+      const element = { id: 1, chk: true } as any;
+
+      component.checkHandler({ checked: false } as MatCheckboxChange, element);
+
+      expect(element.chk).toBeFalse();
+      expect(
+        mockSelectionService.removeParameterModeSelection
+      ).toHaveBeenCalledWith(1);
+      expect(
+        mockSelectionService.addParameterModeSelection
+      ).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('headerHandler', () => {
+    it('updates the chk flag of the matching header column', () => {
+      const field = component.headerData[0].field;
+
+      component.headerHandler(
+        { checked: true } as MatCheckboxChange,
+        { field } as any
+      );
+
+      expect(component.headerData.find(x => x.field === field)!.chk).toBeTrue();
+
+      component.headerHandler(
+        { checked: false } as MatCheckboxChange,
+        { field } as any
+      );
+
+      expect(component.headerData.find(x => x.field === field)!.chk).toBeFalse();
+    });
+  });
+
+  describe('status refresh cycle', () => {
+    it('does not start the refresh cycle when there are no ids to track', () => {
+      mockWebSocketService.refreshTrigger.calls.reset();
+
+      component['startStatusRefreshCycle']([]);
+
+      expect(mockWebSocketService.refreshTrigger).not.toHaveBeenCalled();
+    });
+
+    it('starts the refresh cycle and reacts to websocket ticks via the onTick callback', () => {
+      component['startStatusRefreshCycle']([1, 2]);
+
+      expect(mockWebSocketService.refreshTrigger).toHaveBeenCalled();
+
+      mockParameterService.searchHistory.calls.reset();
+      refreshTriggerSubject.next(null);
+
+      expect(mockParameterService.searchHistory).toHaveBeenCalled();
+    });
+
+    it('does not start the refresh cycle when the component has been destroyed', () => {
+      component['isDestroyed'] = true;
+      mockWebSocketService.refreshTrigger.calls.reset();
+
+      component['startStatusRefreshCycle']([7, 8]);
+
+      expect(mockWebSocketService.refreshTrigger).not.toHaveBeenCalled();
+    });
+
+    it('skips refreshing action history when there are no pending ids (guard)', () => {
+      mockParameterService.searchHistory.calls.reset();
+
+      component['refreshActionHistoryForPendingIds']();
+
+      expect(mockParameterService.searchHistory).not.toHaveBeenCalled();
+    });
+
+    it('refreshes action history when pending ids are present (guard, populated branch)', () => {
+      component['startStatusRefreshCycle']([1, 2]);
+      mockParameterService.searchHistory.calls.reset();
+
+      component['refreshActionHistoryForPendingIds']();
+
+      expect(mockParameterService.searchHistory).toHaveBeenCalled();
+    });
+
+    it('triggers the error check via the onComplete callback when the cycle completes', () => {
+      component['startStatusRefreshCycle']([5, 6]);
+      mockParameterService.searchParameterModeErrors.calls.reset();
+
+      component['stopStatusRefreshCycle'](true);
+
+      expect(mockParameterService.searchParameterModeErrors).toHaveBeenCalled();
+    });
+  });
+
+  describe('getUpdateViewTitle', () => {
+    it("returns 'Live' for the live action", () => {
+      expect(component['getUpdateViewTitle']('live')).toBe('Live');
+    });
+
+    it("returns 'Trial' for the trial action", () => {
+      expect(component['getUpdateViewTitle']('trial')).toBe('Trial');
+    });
+
+    it('returns an empty string for any other action', () => {
+      expect(component['getUpdateViewTitle']('other')).toBe('');
+    });
   });
 });

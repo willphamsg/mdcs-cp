@@ -31,7 +31,11 @@ describe('Vehicle ViewComponent', () => {
       depo$: of('1'),
       depoList$: of([{ depot_id: '1', depot_name: 'Depot A' }]),
     });
-    mockMasterService = jasmine.createSpyObj('MasterService', ['find']);
+    mockMasterService = jasmine.createSpyObj('MasterService', [
+      'find',
+      'add',
+      'delete',
+    ]);
     mockCommonService = jasmine.createSpyObj('CommonService', ['getDepotIds']);
     mockMessage = jasmine.createSpyObj('MessageService', ['confirmation', 'MessageResponse', 'multiError']);
     mockDialog = jasmine.createSpyObj('MatDialog', ['closeAll']);
@@ -78,5 +82,72 @@ describe('Vehicle ViewComponent', () => {
 
   it('should return items FormArray from getter', () => {
     expect(component.items).toBeTruthy();
+  });
+
+  it('should warn about duplicates and abort save without calling masterService', () => {
+    component.items.at(0).patchValue({
+      bus_num: 'SBS1234',
+      depot_id: '1',
+      effective_date: '2024-01-01',
+      effective_time: '10:00',
+    });
+    component.addItem();
+    component.items.at(1).patchValue({
+      bus_num: 'SBS1234',
+      depot_id: '1',
+      effective_date: '2024-01-02',
+      effective_time: '11:00',
+    });
+
+    component.onSubmit();
+
+    expect(mockMessage.confirmation).toHaveBeenCalledWith(
+      'Duplicate Detected',
+      jasmine.stringMatching('SBS1234')
+    );
+    expect(mockMasterService.add).not.toHaveBeenCalled();
+    expect(mockMasterService.delete).not.toHaveBeenCalled();
+  });
+
+  it('should call masterService.delete when isDelete is true and there are no duplicates', () => {
+    component.isDelete = true;
+    component.items.at(0).patchValue({
+      bus_num: 'SBS1234',
+      depot_id: '1',
+      effective_date: '2024-01-01',
+      effective_time: '10:00',
+    });
+    mockMasterService.delete.and.returnValue(of({ status: 200 } as any));
+    mockMessage.MessageResponse.and.returnValue(true);
+
+    component.onSubmit();
+
+    expect(mockMasterService.delete).toHaveBeenCalled();
+    expect(mockDialog.closeAll).toHaveBeenCalled();
+  });
+
+  it('should validate bus number format for input of 6+ characters', () => {
+    const control = { value: 'SBS1234', touched: false } as any;
+    expect(component['busNumFormatValidator'](control)).toBeNull();
+
+    const badControl = { value: 'SB12345', touched: false } as any;
+    expect(component['busNumFormatValidator'](badControl)).toEqual({
+      pattern: true,
+    });
+  });
+
+  it('should validate bus number format for short, touched input', () => {
+    const touchedInvalid = { value: 'SBS12', touched: true } as any;
+    expect(component['busNumFormatValidator'](touchedInvalid)).toEqual({
+      pattern: true,
+    });
+
+    const touchedValidPrefix = { value: 'SB123', touched: true } as any;
+    expect(component['busNumFormatValidator'](touchedValidPrefix)).toEqual({
+      pattern: true,
+    });
+
+    const untouchedShort = { value: 'SBS12', touched: false } as any;
+    expect(component['busNumFormatValidator'](untouchedShort)).toBeNull();
   });
 });

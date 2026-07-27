@@ -104,6 +104,8 @@ describe('TrialDeviceSelectionSearchComponent', () => {
       'addMultipleTrialDeviceSelections',
       'removeMultipleTrialDeviceSelections',
       'getTrialDeviceSelections',
+      'addTrialDeviceSelection',
+      'removeTrialDeviceSelection',
     ]);
 
     mockDepoService.depoList$ = of(mockDepots);
@@ -195,5 +197,45 @@ describe('TrialDeviceSelectionSearchComponent', () => {
 
     expect(component['destroy$'].next).toHaveBeenCalled();
     expect(component['destroy$'].complete).toHaveBeenCalled();
+  });
+
+  it('should add the item to selection service when checkbox is checked', () => {
+    const element = { ...mockTrialList[0] };
+    const mockEvent = { checked: true } as MatCheckboxChange;
+
+    component.checkHandler(mockEvent, element);
+
+    expect(element.chk).toBeTrue();
+    expect(mockSelectionService.addTrialDeviceSelection).toHaveBeenCalledWith(
+      element
+    );
+  });
+
+  it('should remove the item from selection service when checkbox is unchecked', () => {
+    const element = { ...mockTrialList[0] };
+    const mockEvent = { checked: false } as MatCheckboxChange;
+
+    component.checkHandler(mockEvent, element);
+
+    expect(element.chk).toBeFalse();
+    expect(
+      mockSelectionService.removeTrialDeviceSelection
+    ).toHaveBeenCalledWith(element.id);
+  });
+
+  it('should update the header chk state via headerHandler', () => {
+    const field = component.headerData[0].field;
+    const mockEvent = { checked: true } as MatCheckboxChange;
+
+    component.headerHandler(mockEvent, { field } as any);
+
+    expect(component.headerData.find(x => x.field === field)!.chk).toBeTrue();
+  });
+
+  it('should identify the last row via isLastRow', () => {
+    component.dataSource = mockTrialList as any[];
+
+    expect(component.isLastRow(mockTrialList[mockTrialList.length - 1])).toBeTrue();
+    expect(component.isLastRow(mockTrialList[0])).toBeFalse();
   });
 });
