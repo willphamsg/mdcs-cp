@@ -299,7 +299,7 @@ describe('ParameterViewerService', () => {
     it('should return dummy bus list data when useDummyData is true', () => {
       service.getBusList('').subscribe(data => {
         expect(data).toBeTruthy();
-        expect(data.length).toBe(DummyData.daily_bus_list.length);
+        expect(data).toHaveSize(DummyData.daily_bus_list.length);
       });
     });
 
@@ -381,8 +381,8 @@ describe('ParameterViewerService', () => {
 
       const result = service.parameterMapper(1, payload);
 
-      expect(result.param1.length).toBe(Param_BLS1ConfigGrid.Param1.length);
-      expect(result.param2.length).toBe(Param_BLS1ConfigGrid.Param2.length);
+      expect(result.param1).toHaveSize(Param_BLS1ConfigGrid.Param1.length);
+      expect(result.param2).toHaveSize(Param_BLS1ConfigGrid.Param2.length);
       expect(result.param1[0]).toEqual({
         key: Param_BLS1ConfigGrid.Param1[0].fieldLabel,
         value: list[Param_BLS1ConfigGrid.Param1[0].itemId],
@@ -404,8 +404,8 @@ describe('ParameterViewerService', () => {
 
       const result = service.parameterMapper(undefined, payload);
 
-      expect(result.param1.length).toBe(Param_BLS1ConfigGrid.Param1.length);
-      expect(result.param2.length).toBe(Param_BLS1ConfigGrid.Param2.length);
+      expect(result.param1).toHaveSize(Param_BLS1ConfigGrid.Param1.length);
+      expect(result.param2).toHaveSize(Param_BLS1ConfigGrid.Param2.length);
     });
   });
 });

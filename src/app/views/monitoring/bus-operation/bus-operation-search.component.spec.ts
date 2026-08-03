@@ -208,7 +208,7 @@ describe('BusOperationSearchComponent', () => {
         bus_operation_status: [{ depot_id: '1', conn_status: 1 }],
       });
 
-      expect(component.dataSource.length).toBe(1);
+      expect(component.dataSource).toHaveSize(1);
       expect(component.rowCount).toBe(1);
     });
 
@@ -218,7 +218,7 @@ describe('BusOperationSearchComponent', () => {
         bus_operation_list: [{ depot_id: '1', conn_status: 0 }],
       });
 
-      expect(component.dataSource.length).toBe(1);
+      expect(component.dataSource).toHaveSize(1);
     });
 
     it('defaults to an empty array when neither field is present', () => {

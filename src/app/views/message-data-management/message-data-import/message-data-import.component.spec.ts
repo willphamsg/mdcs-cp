@@ -223,7 +223,7 @@ describe('MessageDataImportComponent', () => {
 
       component.searchByGroupId('GRP1');
 
-      expect(component.dataSource.length).toBe(1);
+      expect(component.dataSource).toHaveSize(1);
       expect(component['stopPolling']).not.toHaveBeenCalled();
     });
 

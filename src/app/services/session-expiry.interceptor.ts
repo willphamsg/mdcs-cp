@@ -14,7 +14,11 @@ export const sessionExpiryInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status === 401 && error.statusText === 'Unauthorized') {
+      // statusText is deprecated, but the backend deliberately sends distinct
+      // 401 statusTexts (e.g. 'Token Missing') for cases that should NOT
+      // trigger a forced logout - only a true session-expiry response
+      // reaches this branch. See session-expiry.interceptor.spec.ts.
+      if (error.status === 401 && error.statusText === 'Unauthorized') { // NOSONAR
         // Show red error toast
         store.dispatch(
           showSnackbar({

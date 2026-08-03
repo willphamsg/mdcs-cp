@@ -368,7 +368,7 @@ describe('Vehicle ViewComponent', () => {
       const result = component.checkDuplicate();
 
       expect(result.isDuplicate).toBeTrue();
-      expect(result.duplicates.length).toBe(1);
+      expect(result.duplicates).toHaveSize(1);
     });
 
     it('accumulates indices when a third matching entry is added', () => {
@@ -427,7 +427,7 @@ describe('Vehicle ViewComponent', () => {
 
     it('blocks submission when there are no items', () => {
       component.removeItem(0);
-      expect(component.items.length).toBe(0);
+      expect(component.items).toHaveSize(0);
 
       expect(component.isNotAllowedSubmit()).toBeTrue();
     });

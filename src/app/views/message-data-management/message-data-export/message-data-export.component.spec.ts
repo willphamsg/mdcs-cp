@@ -274,7 +274,7 @@ describe('MessageDataExportComponent', () => {
         startedAt: null,
       });
 
-      expect(component.dataSource.length).toBe(1);
+      expect(component.dataSource).toHaveSize(1);
       expect(component.rowCount).toBe(1);
     });
 
@@ -290,7 +290,7 @@ describe('MessageDataExportComponent', () => {
         startedAt: null,
       });
 
-      expect(component.dataSource.length).toBe(1);
+      expect(component.dataSource).toHaveSize(1);
     });
 
     it('should dispatch a timeout warning when state.timedOut is true', () => {
@@ -448,7 +448,7 @@ describe('MessageDataExportComponent', () => {
 
       component.reloadHandler();
 
-      expect(component.dataSource.length).toBe(1);
+      expect(component.dataSource).toHaveSize(1);
       expect(mockImportExportService.manage).not.toHaveBeenCalled();
     });
 
@@ -758,7 +758,7 @@ describe('MessageDataExportComponent', () => {
 
       component.onDateChange();
 
-      expect(component.dataSource.length).toBe(1);
+      expect(component.dataSource).toHaveSize(1);
       expect(component.rowCount).toBe(5);
     });
 

@@ -147,8 +147,7 @@ export abstract class ParameterTrialSearchBase<T extends IParameterTrialSearchIt
    * with depot name resolved from the loaded depot list. Override when a
    * page needs different ID or status-normalization behavior.
    */
-  mapDataSource(item: any, isActionHistoryView?: boolean): T {
-    void isActionHistoryView;
+  mapDataSource(item: any, _isActionHistoryView?: boolean): T {
     const depot = this.depots.find(_d => _d.depot_id === item.depot_id);
     const strDepotId = item.depot_id.toString();
 

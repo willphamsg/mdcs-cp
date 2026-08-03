@@ -312,7 +312,7 @@ describe('BusTransferSearchComponent', () => {
 
       component.loadDepotsAndOperators();
 
-      expect(component.depots.length).toBe(1);
+      expect(component.depots).toHaveSize(1);
       expect(component.depots[0].depot_id).toBe('1');
     });
   });
@@ -327,7 +327,7 @@ describe('BusTransferSearchComponent', () => {
     // pending rather than mask it with fixture.detectChanges({checkNoChanges:
     // false}) or another change that would hide a real (if minor) rendering
     // bug instead of fixing it - needs further investigation.
-    xit('uses provided status when on Managed Records tab with a non-empty status array', () => {
+    xit('uses provided status when on Managed Records tab with a non-empty status array', () => { // NOSONAR - see explanation above
       const search$ = new Subject<string>();
       const filter$ = new Subject<any>();
       filterServiceSpy.searchValue$ = search$;
@@ -346,7 +346,7 @@ describe('BusTransferSearchComponent', () => {
       freshFixture.destroy();
     });
 
-    xit('falls back to statusView when status array is empty on Managed Records tab', () => {
+    xit('falls back to statusView when status array is empty on Managed Records tab', () => { // NOSONAR - see explanation above
       const search$ = new Subject<string>();
       const filter$ = new Subject<any>();
       filterServiceSpy.searchValue$ = search$;

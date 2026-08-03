@@ -225,7 +225,7 @@ describe('DailyBusList ViewComponent', () => {
   it('updates validity for populated and empty bus_num controls across items', () => {
     component.addItem();
     component.addItem();
-    expect(component.items.length).toBe(3);
+    expect(component.items).toHaveSize(3);
 
     const item0 = component.items.at(0);
     const item1 = component.items.at(1);
@@ -276,7 +276,7 @@ describe('DailyBusList ViewComponent', () => {
 
     expect(mockDailyBusService.add).toHaveBeenCalled();
     const expandedItems = mockDailyBusService.add.calls.mostRecent().args[0];
-    expect(expandedItems.length).toBe(3);
+    expect(expandedItems).toHaveSize(3);
     expect(expandedItems.map((i: any) => i.day_type)).toEqual([
       'MON',
       'TUE',

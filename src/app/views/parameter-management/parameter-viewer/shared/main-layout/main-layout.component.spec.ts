@@ -113,7 +113,7 @@ describe('MainLayoutComponent', () => {
       requiresValidation: true,
     });
 
-    expect(component['otherComponentRefs'].length).toBe(0);
+    expect(component['otherComponentRefs']).toHaveSize(0);
   });
 
   it('renders user table, middle, and bottom components when validation is not required', () => {
@@ -135,7 +135,7 @@ describe('MainLayoutComponent', () => {
     // destroyBottomComponent's cleanup filter never actually removes the
     // previous bottom ref (it compares componentRef.location.nativeElement
     // to the container's own anchor element, which are never equal).
-    expect(component['otherComponentRefs'].length).toBe(4);
+    expect(component['otherComponentRefs']).toHaveSize(4);
   });
 
   it('renders the other components once the top component becomes valid on a re-emission of the same config', () => {
@@ -146,12 +146,12 @@ describe('MainLayoutComponent', () => {
       requiresValidation: true,
     };
     configSubject.next(config);
-    expect(component['otherComponentRefs'].length).toBe(0);
+    expect(component['otherComponentRefs']).toHaveSize(0);
 
     component.topComponentValid = true;
     configSubject.next(config);
 
-    expect(component['otherComponentRefs'].length).toBe(1);
+    expect(component['otherComponentRefs']).toHaveSize(1);
   });
 
   it('logs an error and skips rendering when bottomComponent is an unresolved object at render time', () => {
@@ -163,7 +163,7 @@ describe('MainLayoutComponent', () => {
     });
 
     expect(console.error).toHaveBeenCalled();
-    expect(component['otherComponentRefs'].length).toBe(0);
+    expect(component['otherComponentRefs']).toHaveSize(0);
   });
 
   it('wires the created top component outputs to onValuesChange and validity state', () => {
@@ -189,7 +189,7 @@ describe('MainLayoutComponent', () => {
 
     it('re-renders the same bottom component when bottomComponent is a plain string', () => {
       configSubject.next({ ...baseConfig, bottomComponent: 'Bottom1Component' });
-      expect(component['otherComponentRefs'].length).toBe(1);
+      expect(component['otherComponentRefs']).toHaveSize(1);
 
       component.onTabChange(0);
 
@@ -198,7 +198,7 @@ describe('MainLayoutComponent', () => {
       // which are never equal, so the previous bottom ref is never actually
       // removed from otherComponentRefs -- only the DOM view is cleared. The
       // re-render therefore leaves both the stale ref and the new one behind.
-      expect(component['otherComponentRefs'].length).toBe(2);
+      expect(component['otherComponentRefs']).toHaveSize(2);
     });
 
     it('renders the tab-specific bottom component when bottomComponent is an object map', () => {
@@ -206,11 +206,11 @@ describe('MainLayoutComponent', () => {
         ...baseConfig,
         bottomComponent: { 0: 'Bottom1Component', 1: 'Bottom2Component' } as any,
       });
-      expect(component['otherComponentRefs'].length).toBe(0);
+      expect(component['otherComponentRefs']).toHaveSize(0);
 
       component.onTabChange(1);
 
-      expect(component['otherComponentRefs'].length).toBe(1);
+      expect(component['otherComponentRefs']).toHaveSize(1);
     });
 
     it('destroys the bottom component without recreating it when the tab has no mapped component', () => {
@@ -220,7 +220,7 @@ describe('MainLayoutComponent', () => {
       });
 
       component.onTabChange(0);
-      expect(component['otherComponentRefs'].length).toBe(1);
+      expect(component['otherComponentRefs']).toHaveSize(1);
 
       component.onTabChange(5);
 
@@ -228,14 +228,14 @@ describe('MainLayoutComponent', () => {
       // calls destroyBottomComponent() (no re-render). That clears the DOM
       // view, but its cleanup filter never actually removes the ref from
       // otherComponentRefs (see comment above), so the stale ref lingers.
-      expect(component['otherComponentRefs'].length).toBe(1);
+      expect(component['otherComponentRefs']).toHaveSize(1);
     });
   });
 
   describe('onValuesChange', () => {
     it('updates selectedDepot, propagates field values, and re-renders components', () => {
       configSubject.next({ ...baseConfig, userTableComponent: 'Top0Component' });
-      expect(component['otherComponentRefs'].length).toBe(1);
+      expect(component['otherComponentRefs']).toHaveSize(1);
 
       component.onValuesChange({ depot: 'D5' });
 
@@ -244,7 +244,7 @@ describe('MainLayoutComponent', () => {
         depot: 'D5',
       });
       // Components are destroyed and re-rendered fresh.
-      expect(component['otherComponentRefs'].length).toBe(1);
+      expect(component['otherComponentRefs']).toHaveSize(1);
     });
   });
 

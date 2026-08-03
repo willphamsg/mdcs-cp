@@ -36,7 +36,7 @@ export class MessageService {
       }
     }
 
-    return throwError(err);
+    return throwError(() => err);
   }
 
   private dispatchErrorFromBody(err: HttpErrorResponse, error: any): void {
@@ -71,9 +71,12 @@ export class MessageService {
       );
       return null;
     }
-    if (err.status == 403 && err.statusText == 'Forbidden') {
+    // statusText is deprecated, but kept here deliberately: only a 403 whose
+    // statusText is exactly 'Forbidden' is rethrown silently; other 403
+    // statusTexts fall through to the generic error snackbar below.
+    if (err.status == 403 && err.statusText == 'Forbidden') { // NOSONAR
       // 403 errors are now handled by sessionExpiryInterceptor
-      return throwError(err);
+      return throwError(() => err);
     }
     this.store.dispatch(
       showSnackbar({
@@ -116,7 +119,7 @@ export class MessageService {
       data: new ConfirmDialogModel('Error', message, [], true),
     });
 
-    return throwError(err);
+    return throwError(() => err);
   }
 
   public confirmation(title: string, message: string) {

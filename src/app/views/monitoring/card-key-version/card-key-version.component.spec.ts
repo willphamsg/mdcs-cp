@@ -346,7 +346,7 @@ describe('ViewCardKeyVersionComponent', () => {
 
       component.reloadHandler();
 
-      expect(component.dataSource.length).toBe(1);
+      expect(component.dataSource).toHaveSize(1);
     });
 
     it('should not update dataSource when the search response status is not 200', () => {

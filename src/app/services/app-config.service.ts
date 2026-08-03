@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { environment } from '@env/environment';
 
 @Injectable({
@@ -16,8 +17,7 @@ export class AppConfigService {
   ) {}
 
   loadConfig(): Promise<void> {
-    return this.http.get('/assets/app-config.json')
-      .toPromise()
+    return firstValueFrom(this.http.get('/assets/app-config.json'))
       .then((config: any) => {
         this.config = config;
 

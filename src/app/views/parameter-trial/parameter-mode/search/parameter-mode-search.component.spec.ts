@@ -482,7 +482,7 @@ describe('ParameterModeSearchComponent', () => {
 
       const payload = component['buildValidationPayload'](selections);
 
-      expect(payload.length).toBe(1);
+      expect(payload).toHaveSize(1);
       expect(payload[0]).toEqual(
         jasmine.objectContaining({ param_master_id: 1, depot_id: 1, parameter_name: 'A' })
       );
@@ -537,7 +537,7 @@ describe('ParameterModeSearchComponent', () => {
 
       const merged = component['mergeValidatedStatuses'](validated, originalSelections);
 
-      expect(merged.length).toBe(1);
+      expect(merged).toHaveSize(1);
       expect(merged[0].parameter_name).toBe('Merged');
       expect(merged[0].depot_name).toBe('Depot A');
     });
@@ -555,7 +555,7 @@ describe('ParameterModeSearchComponent', () => {
 
       const merged = component['mergeValidatedStatuses'](validated, originalSelections);
 
-      expect(merged.length).toBe(2);
+      expect(merged).toHaveSize(2);
       const synthesized = merged.find(item => item.parameter_name === 'Unmatched');
       expect(synthesized).toBeTruthy();
       expect(synthesized!.chk).toBeFalse();

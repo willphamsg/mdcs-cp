@@ -46,7 +46,7 @@ describe('requestLogInterceptor', () => {
     req.flush({ data: 'test' });
 
     const logs = getRequestLogs();
-    expect(logs.length).toBe(beforeCount + 1);
+    expect(logs).toHaveSize(beforeCount + 1);
 
     const entry = logs[logs.length - 1];
     expect(entry.request.method).toBe('GET');
@@ -90,7 +90,7 @@ describe('requestLogInterceptor', () => {
       statusText: 'Internal Server Error',
     });
 
-    expect(getRequestLogs().length).toBe(beforeCount);
+    expect(getRequestLogs()).toHaveSize(beforeCount);
   });
 
   it('should export accumulated logs (covering null, string, number and object cell values) as a CSV download', () => {

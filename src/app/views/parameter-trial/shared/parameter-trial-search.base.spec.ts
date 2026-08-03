@@ -238,7 +238,7 @@ describe('ParameterTrialSearchBase (via a minimal concrete test subclass)', () =
       expect(component.params.search_select_filter?.['svc_prov_id']).toEqual([7]);
 
       component['addSelection']({ id: 1, chk: false, depot_id: 1, depot_name: 'A' });
-      expect(component.selection.length).toBe(1);
+      expect(component.selection).toHaveSize(1);
     });
   });
 
@@ -289,7 +289,7 @@ describe('ParameterTrialSearchBase (via a minimal concrete test subclass)', () =
       tick(150);
 
       expect(reloadSpy).not.toHaveBeenCalled();
-      expect(component.depots.length).toBe(0);
+      expect(component.depots).toHaveSize(0);
     }));
 
     it('should filter out depot 999, load filter values only on the first non-empty load, and reload', fakeAsync(() => {
@@ -300,7 +300,7 @@ describe('ParameterTrialSearchBase (via a minimal concrete test subclass)', () =
       filterValuesSubject.next({});
       tick(150);
 
-      expect(component.depots.length).toBe(2);
+      expect(component.depots).toHaveSize(2);
       expect(component.depots.some(d => (d as any).depot_id === 999)).toBeFalse();
       expect(mockFilterService.updateFilterConfigs).toHaveBeenCalledTimes(1);
       expect(component.params.search_text).toBe('bus-1');
@@ -333,7 +333,7 @@ describe('ParameterTrialSearchBase (via a minimal concrete test subclass)', () =
       component.depots = mockDepots.slice(0, 2);
       component.loadFilterValues();
 
-      expect(component.filterConfigs.length).toBe(2);
+      expect(component.filterConfigs).toHaveSize(2);
       expect(mockFilterService.updateFilterConfigs).toHaveBeenCalledWith(
         component.filterConfigs
       );
@@ -422,7 +422,7 @@ describe('ParameterTrialSearchBase (via a minimal concrete test subclass)', () =
       component.reloadHandler();
 
       expect(mockParameterService.search).toHaveBeenCalled();
-      expect(component.dataSource.length).toBe(1);
+      expect(component.dataSource).toHaveSize(1);
       expect(component.rowCount).toBe(1);
     });
 
@@ -515,14 +515,14 @@ describe('ParameterTrialSearchBase (via a minimal concrete test subclass)', () =
     it('checkAllHandler(true) should select every row on the page', () => {
       component.checkAllHandler({ checked: true } as MatCheckboxChange);
       expect(component.dataSource.every(i => i.chk)).toBeTrue();
-      expect(component.testSelections.length).toBe(2);
+      expect(component.testSelections).toHaveSize(2);
     });
 
     it('checkAllHandler(false) should clear every row on the page', () => {
       component.checkAllHandler({ checked: true } as MatCheckboxChange);
       component.checkAllHandler({ checked: false } as MatCheckboxChange);
       expect(component.dataSource.every(i => !i.chk)).toBeTrue();
-      expect(component.testSelections.length).toBe(0);
+      expect(component.testSelections).toHaveSize(0);
     });
 
     it('chkAll should stay false when there is no data', () => {
@@ -683,7 +683,7 @@ describe('ParameterTrialSearchBase (via a minimal concrete test subclass)', () =
 
       component['refreshActionHistoryForPendingIds']();
 
-      expect(component.dataSource.length).toBe(1);
+      expect(component.dataSource).toHaveSize(1);
     });
 
     it('should not touch the data source when not on the History tab even on success', () => {
@@ -696,7 +696,7 @@ describe('ParameterTrialSearchBase (via a minimal concrete test subclass)', () =
 
       component['refreshActionHistoryForPendingIds']();
 
-      expect(component.dataSource.length).toBe(0);
+      expect(component.dataSource).toHaveSize(0);
     });
 
     it('should log and not throw when the refresh errors', () => {
@@ -782,7 +782,7 @@ describe('ParameterTrialSearchBase (via a minimal concrete test subclass)', () =
 
       expect(component['isDestroyed']).toBeTrue();
       expect(stopSpy).toHaveBeenCalled();
-      expect(component.testSelections.length).toBe(0);
+      expect(component.testSelections).toHaveSize(0);
     });
   });
 });
