@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormControl } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -7,7 +8,7 @@ import { ManageDailyBusListService } from '@app/services/manage-daily-bus-list.s
 import { CommonService } from '@app/services/common.service';
 import { MessageService } from '@app/services/message.service';
 import { AuthService } from '@app/services/auth.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { ViewComponent } from './view.component';
 
 describe('DailyBusList ViewComponent', () => {
@@ -32,7 +33,10 @@ describe('DailyBusList ViewComponent', () => {
       depoList$: of([{ depot_id: '1', depot_name: 'Depot A' }]),
     });
     mockDailyBusService = jasmine.createSpyObj('ManageDailyBusListService', ['manage', 'add']);
-    mockCommonService = jasmine.createSpyObj('CommonService', ['getDepotIds']);
+    mockCommonService = jasmine.createSpyObj('CommonService', [
+      'getDepotIds',
+      'validateBusNumber',
+    ]);
     mockMessage = jasmine.createSpyObj('MessageService', ['confirmation', 'MessageResponse', 'multiError']);
     mockDialog = jasmine.createSpyObj('MatDialog', ['closeAll']);
     mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
@@ -278,5 +282,423 @@ describe('DailyBusList ViewComponent', () => {
       'TUE',
       'WED',
     ]);
+  });
+
+  describe('ngOnInit action detection', () => {
+    const selectionElement = {
+      id: 1,
+      version: 0,
+      depot_id: '1',
+      depot_name: 'Depot A',
+      bus_num: 'SBS1234',
+      service_num: '25',
+      svc_prov_id: 1,
+      day_type: ['MON'],
+      day: '',
+      est_arrival_time: '08:00',
+      est_arrival_count: 1,
+      updated_on: '',
+    };
+
+    it('sets up a delete dialog, popping the action column', () => {
+      const deleteFixture = TestBed.createComponent(ViewComponent);
+      const deleteComponent = deleteFixture.componentInstance;
+      (deleteComponent as any).data = {
+        title: 'Daily Bus List',
+        action: 'delete',
+        selection: [selectionElement],
+      };
+
+      deleteFixture.detectChanges();
+
+      expect(deleteComponent.isDelete).toBeTrue();
+      expect(deleteComponent.displayedColumns).not.toContain('action');
+      expect(deleteComponent.items).toHaveSize(1);
+    });
+
+    it('sets up an update dialog, removing the action column via splice', () => {
+      const updateFixture = TestBed.createComponent(ViewComponent);
+      const updateComponent = updateFixture.componentInstance;
+      (updateComponent as any).data = {
+        title: 'Daily Bus List',
+        action: 'update',
+        selection: [selectionElement],
+      };
+
+      updateFixture.detectChanges();
+
+      expect(updateComponent.isUpdate).toBeTrue();
+      expect(updateComponent.displayedColumns).not.toContain('action');
+      expect(updateComponent.items).toHaveSize(1);
+    });
+  });
+
+  describe('OnDestroy', () => {
+    it('closes all dialogs', () => {
+      component.OnDestroy();
+      expect(mockDialog.closeAll).toHaveBeenCalled();
+    });
+  });
+
+  describe('getDepotName', () => {
+    it('returns undefined when no depot matches', () => {
+      component.depots = [{ depot_id: '1', depot_name: 'Depot A' } as any];
+      expect(component.getDepotName('999')).toBeUndefined();
+    });
+  });
+
+  describe('getDayTypeDisplay', () => {
+    it('returns an empty string for a non-array input', () => {
+      expect(component.getDayTypeDisplay(null as any)).toBe('');
+    });
+
+    it('joins matching option labels for known day type ids', () => {
+      const display = component.getDayTypeDisplay(['1']);
+      expect(typeof display).toBe('string');
+    });
+
+    it('filters out unmatched ids and only joins the found labels', () => {
+      const display = component.getDayTypeDisplay(['does-not-exist']);
+      expect(display).toBe('');
+    });
+  });
+
+  describe('removeItem', () => {
+    it('does not remove the last remaining item', () => {
+      expect(component.items).toHaveSize(1);
+      component.removeItem(0);
+      expect(component.items).toHaveSize(1);
+    });
+
+    it('removes an item when more than one is present', () => {
+      component.addItem();
+      expect(component.items).toHaveSize(2);
+      component.removeItem(0);
+      expect(component.items).toHaveSize(1);
+    });
+  });
+
+  describe('handleSvcValidate additional branch', () => {
+    it('rejects when neither charCode nor a matching key is present', () => {
+      const event = {
+        which: 0,
+        target: { value: '' },
+        preventDefault: jasmine.createSpy('preventDefault'),
+      };
+      const result = component.handleSvcValidate(event);
+      expect(result).toBeFalse();
+    });
+  });
+
+  describe('handleBusValidate', () => {
+    it('delegates to commonService.validateBusNumber', () => {
+      mockCommonService.validateBusNumber.and.returnValue(false);
+      const event = {} as any;
+      const result = component.handleBusValidate(event);
+      expect(mockCommonService.validateBusNumber).toHaveBeenCalledWith(event);
+      expect(result).toBeFalse();
+    });
+  });
+
+  describe('onBusIdInput', () => {
+    it('marks bus_num as touched and revalidates duplicates', () => {
+      const busNumControl = component.items.at(0).get('bus_num');
+      expect(busNumControl?.touched).toBeFalse();
+
+      component.onBusIdInput(0);
+
+      expect(busNumControl?.touched).toBeTrue();
+    });
+  });
+
+  describe('duplicateBusIdValidator (via bus_num control)', () => {
+    it('returns null when depot or day_type is missing', () => {
+      const busNumControl = component.items.at(0).get('bus_num');
+      busNumControl?.setValue('SBS1234');
+      busNumControl?.updateValueAndValidity();
+      expect(busNumControl?.errors).toBeNull();
+    });
+
+    it('flags a duplicate combination across two items with an overlapping day_type', () => {
+      component.items.at(0).get('depot_id')?.setValue('1');
+      component.items.at(0).get('bus_num')?.setValue('SBS1234');
+      component.items.at(0).get('day_type')?.setValue(['1']);
+
+      component.addItem();
+      component.items.at(1).get('depot_id')?.setValue('1');
+      component.items.at(1).get('bus_num')?.setValue('SBS1234');
+      component.items.at(1).get('day_type')?.setValue(['1']);
+
+      component.items.at(0).get('bus_num')?.updateValueAndValidity();
+      component.items.at(1).get('bus_num')?.updateValueAndValidity();
+
+      expect(component.items.at(0).get('bus_num')?.errors).toEqual(
+        jasmine.objectContaining({ duplicateCombination: true })
+      );
+    });
+
+    it('does not flag non-overlapping day types as duplicates', () => {
+      component.items.at(0).get('depot_id')?.setValue('1');
+      component.items.at(0).get('bus_num')?.setValue('SBS1234');
+      component.items.at(0).get('day_type')?.setValue(['1']);
+
+      component.addItem();
+      component.items.at(1).get('depot_id')?.setValue('1');
+      component.items.at(1).get('bus_num')?.setValue('SBS1234');
+      component.items.at(1).get('day_type')?.setValue(['2']);
+
+      component.items.at(0).get('bus_num')?.updateValueAndValidity();
+
+      expect(component.items.at(0).get('bus_num')?.errors).toBeNull();
+    });
+  });
+
+  describe('arrayNotEmptyValidator (via day_type control)', () => {
+    it('flags an empty array as invalid', () => {
+      const dayTypeControl = component.items.at(0).get('day_type');
+      dayTypeControl?.setValue([]);
+      expect(dayTypeControl?.errors).toEqual(
+        jasmine.objectContaining({ arrayEmpty: true })
+      );
+    });
+
+    it('flags a non-array value as invalid', () => {
+      // The day_type control is bound to a real mat-select[multiple] in the
+      // template, so Angular Material's own MatSelect.writeValue() throws
+      // "Value must be an array in multiple-selection mode" the instant a
+      // non-array value is set via setValue() - before our custom validator
+      // ever runs. Invoke the validator function directly instead so we can
+      // exercise the non-array branch without routing through the real
+      // UI-bound control.
+      const result = component['arrayNotEmptyValidator'](
+        new FormControl('not-an-array')
+      );
+      expect(result).toEqual({ arrayEmpty: true });
+    });
+
+    it('passes validation for a non-empty array', () => {
+      const dayTypeControl = component.items.at(0).get('day_type');
+      dayTypeControl?.setValue(['1']);
+      expect(dayTypeControl?.errors).toBeNull();
+    });
+  });
+
+  describe('checkDuplicate day handling', () => {
+    it('uses the `day` field for edit/delete mode combinations', () => {
+      const deleteFixture = TestBed.createComponent(ViewComponent);
+      const deleteComponent = deleteFixture.componentInstance;
+      (deleteComponent as any).data = {
+        title: 'Daily Bus List',
+        action: 'delete',
+        selection: [
+          {
+            id: 1,
+            version: 0,
+            depot_id: '1',
+            depot_name: 'Depot A',
+            bus_num: 'SBS1234',
+            service_num: '25',
+            svc_prov_id: 1,
+            day_type: ['1'],
+            day: 'Monday',
+            est_arrival_time: '08:00',
+            est_arrival_count: 1,
+            updated_on: '',
+          },
+          {
+            id: 2,
+            version: 0,
+            depot_id: '1',
+            depot_name: 'Depot A',
+            bus_num: 'SBS1234',
+            service_num: '25',
+            svc_prov_id: 1,
+            day_type: ['1'],
+            day: 'Monday',
+            est_arrival_time: '08:00',
+            est_arrival_count: 1,
+            updated_on: '',
+          },
+        ],
+      };
+
+      deleteFixture.detectChanges();
+      const result = deleteComponent.checkDuplicate();
+
+      expect(result.isDuplicate).toBeTrue();
+    });
+  });
+
+  describe('isNotAllowedSubmit', () => {
+    it('blocks submission when there are duplicate entries', () => {
+      component.items.at(0).patchValue({
+        depot_id: '1',
+        bus_num: 'SBS1234',
+        day_type: ['1'],
+        est_arrival_time: '08:00',
+        est_arrival_count: 1,
+      });
+      component.addItem();
+      component.items.at(1).patchValue({
+        depot_id: '1',
+        bus_num: 'SBS1234',
+        day_type: ['1'],
+        est_arrival_time: '09:00',
+        est_arrival_count: 2,
+      });
+
+      expect(component.isNotAllowedSubmit()).toBeTrue();
+    });
+
+    it('blocks submission when the form has validation errors', () => {
+      component.items.at(0).patchValue({ bus_num: '', depot_id: null });
+      expect(component.isNotAllowedSubmit()).toBeTrue();
+    });
+
+    it('blocks submission when there are no items', () => {
+      component.removeItem(0);
+      // removeItem guards against removing the last item, so force it directly.
+      component.items.clear();
+      expect(component.isNotAllowedSubmit()).toBeTrue();
+    });
+
+    it('allows submission for a single valid, non-duplicate item', () => {
+      component.items.at(0).patchValue({
+        depot_id: '1',
+        bus_num: 'SBS1234',
+        day_type: ['1'],
+        est_arrival_time: '08:00',
+        est_arrival_count: 1,
+      });
+      expect(component.isNotAllowedSubmit()).toBeFalse();
+    });
+  });
+
+  describe('onSubmit', () => {
+    it('does nothing when the form is invalid', () => {
+      component.items.at(0).patchValue({ bus_num: '', depot_id: null });
+      component.onSubmit();
+      expect(mockDailyBusService.add).not.toHaveBeenCalled();
+      expect(component.submitAttempted).toBeTrue();
+    });
+
+    it('shows a warning when there are no items to submit', () => {
+      component.items.at(0).patchValue({
+        depot_id: '1',
+        bus_num: 'SBS1234',
+        day_type: ['1'],
+        est_arrival_time: '08:00',
+        est_arrival_count: 1,
+      });
+      spyOn(component.myForm, 'getRawValue').and.returnValue({ items: [] });
+
+      component.onSubmit();
+
+      expect(mockMessage.confirmation).toHaveBeenCalledWith(
+        'Warning',
+        'No Record To Save'
+      );
+      expect(mockDailyBusService.add).not.toHaveBeenCalled();
+    });
+
+    it('adds expanded items and closes the dialog on success (add action)', () => {
+      component.items.at(0).patchValue({
+        depot_id: '1',
+        bus_num: 'SBS1234',
+        day_type: ['1', '2'],
+        est_arrival_time: '08:00',
+        est_arrival_count: 1,
+      });
+      mockDailyBusService.add.and.returnValue(of({ status: 200 } as any));
+      mockMessage.MessageResponse.and.returnValue(true);
+
+      component.onSubmit();
+
+      expect(mockDailyBusService.add).toHaveBeenCalled();
+      expect(mockDialog.closeAll).toHaveBeenCalled();
+    });
+
+    it('reports a multiError when the add call fails', () => {
+      component.items.at(0).patchValue({
+        depot_id: '1',
+        bus_num: 'SBS1234',
+        day_type: ['1'],
+        est_arrival_time: '08:00',
+        est_arrival_count: 1,
+      });
+      mockDailyBusService.add.and.returnValue(
+        throwError(() => ({ status: 500 } as any))
+      );
+
+      component.onSubmit();
+
+      expect(mockMessage.multiError).toHaveBeenCalled();
+    });
+
+    it('calls manage and closes the dialog on success for update/delete actions', () => {
+      const updateFixture = TestBed.createComponent(ViewComponent);
+      const updateComponent = updateFixture.componentInstance;
+      (updateComponent as any).data = {
+        title: 'Daily Bus List',
+        action: 'update',
+        selection: [
+          {
+            id: 1,
+            version: 0,
+            depot_id: '1',
+            depot_name: 'Depot A',
+            bus_num: 'SBS1234',
+            service_num: '25',
+            svc_prov_id: 1,
+            day_type: ['1'],
+            day: 'Monday',
+            est_arrival_time: '08:00',
+            est_arrival_count: 1,
+            updated_on: '',
+          },
+        ],
+      };
+      updateFixture.detectChanges();
+      mockDailyBusService.manage.and.returnValue(of({ status: 200 } as any));
+      mockMessage.MessageResponse.and.returnValue(true);
+
+      updateComponent.onSubmit();
+
+      expect(mockDailyBusService.manage).toHaveBeenCalled();
+      expect(mockDialog.closeAll).toHaveBeenCalled();
+    });
+
+    it('reports a multiError when the manage (update/delete) call fails', () => {
+      const updateFixture = TestBed.createComponent(ViewComponent);
+      const updateComponent = updateFixture.componentInstance;
+      (updateComponent as any).data = {
+        title: 'Daily Bus List',
+        action: 'update',
+        selection: [
+          {
+            id: 1,
+            version: 0,
+            depot_id: '1',
+            depot_name: 'Depot A',
+            bus_num: 'SBS1234',
+            service_num: '25',
+            svc_prov_id: 1,
+            day_type: ['1'],
+            day: 'Monday',
+            est_arrival_time: '08:00',
+            est_arrival_count: 1,
+            updated_on: '',
+          },
+        ],
+      };
+      updateFixture.detectChanges();
+      mockDailyBusService.manage.and.returnValue(
+        throwError(() => ({ status: 500 } as any))
+      );
+
+      updateComponent.onSubmit();
+
+      expect(mockMessage.multiError).toHaveBeenCalled();
+    });
   });
 });

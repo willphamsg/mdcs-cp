@@ -164,4 +164,210 @@ describe('MessageDataImportExportService', () => {
     expect(req.request.method).toBe('POST');
     req.flush(mockResponse);
   });
+
+  describe('manage', () => {
+    it('should delegate to searchImport when type is "import"', () => {
+      environment.useDummyData = false;
+      spyOn(service, 'searchImport').and.callThrough();
+
+      service.manage(mockBusRequest, 'import').subscribe();
+
+      expect(service.searchImport).toHaveBeenCalledWith(mockBusRequest);
+      const req = httpMock.expectOne(`${environment.gateway}message-data/import/search`);
+      req.flush(mockResponse);
+    });
+
+    it('should delegate to searchExport for any other type', () => {
+      environment.useDummyData = false;
+      spyOn(service, 'searchExport').and.callThrough();
+
+      service.manage(mockBusRequest, 'export').subscribe();
+
+      expect(service.searchExport).toHaveBeenCalledWith(mockBusRequest);
+      const req = httpMock.expectOne(`${environment.gateway}message-data/export/search`);
+      req.flush(mockResponse);
+    });
+  });
+
+  it('should return dummy data from searchImport when useDummyData is true', () => {
+    environment.useDummyData = true;
+
+    service.searchImport(mockBusRequest).subscribe(response => {
+      expect(response.status).toBe(200);
+      expect(response.status_code).toBe('SUCCESS');
+    });
+  });
+
+  it('should propagate an error via MessageService.multiError from searchImport', () => {
+    environment.useDummyData = false;
+
+    service.searchImport(mockBusRequest).subscribe({
+      next: () => fail('should have errored'),
+      error: () => {
+        expect(mockMessageService.multiError).toHaveBeenCalled();
+      },
+    });
+
+    const req = httpMock.expectOne(`${environment.gateway}message-data/import/search`);
+    req.flush('boom', { status: 500, statusText: 'Server Error' });
+  });
+
+  it('should return dummy data from searchImportByGroupId when useDummyData is true', () => {
+    environment.useDummyData = true;
+
+    service.searchImportByGroupId('grp-1').subscribe(response => {
+      expect(response.status).toBe(200);
+      expect(response.status_code).toBe('INFO 2020');
+    });
+  });
+
+  it('should propagate an error via MessageService.multiError from searchImportByGroupId', () => {
+    environment.useDummyData = false;
+
+    service.searchImportByGroupId('grp-1').subscribe({
+      next: () => fail('should have errored'),
+      error: () => {
+        expect(mockMessageService.multiError).toHaveBeenCalled();
+      },
+    });
+
+    const req = httpMock.expectOne(`${environment.gateway}message-data/import/search`);
+    req.flush('boom', { status: 500, statusText: 'Server Error' });
+  });
+
+  it('should return dummy data from searchExport when useDummyData is true', () => {
+    environment.useDummyData = true;
+
+    service.searchExport(mockBusRequest).subscribe(response => {
+      expect(response.status).toBe(200);
+      expect(response.status_code).toBe('SUCCESS');
+    });
+  });
+
+  it('should propagate an error via MessageService.multiError from searchExport', () => {
+    environment.useDummyData = false;
+
+    service.searchExport(mockBusRequest).subscribe({
+      next: () => fail('should have errored'),
+      error: () => {
+        expect(mockMessageService.multiError).toHaveBeenCalled();
+      },
+    });
+
+    const req = httpMock.expectOne(`${environment.gateway}message-data/export/search`);
+    req.flush('boom', { status: 500, statusText: 'Server Error' });
+  });
+
+  it('should propagate an error via MessageService.multiError from import', () => {
+    const formData = new FormData();
+
+    service.import(formData).subscribe({
+      next: () => fail('should have errored'),
+      error: () => {
+        expect(mockMessageService.multiError).toHaveBeenCalled();
+      },
+    });
+
+    const req = httpMock.expectOne(`${environment.gateway}message-data/import/upload/zip`);
+    req.flush('boom', { status: 500, statusText: 'Server Error' });
+  });
+
+  it('should log and propagate an error via MessageService.multiError from export blob download', () => {
+    environment.useDummyData = false;
+    spyOn(console, 'error');
+
+    service.export([], true).subscribe({
+      next: () => fail('should have errored'),
+      error: () => {
+        expect(console.error).toHaveBeenCalled();
+        expect(mockMessageService.multiError).toHaveBeenCalled();
+      },
+    });
+
+    const req = httpMock.expectOne(`${environment.gateway}message-data/export/download/zip`);
+    // The request uses responseType: 'blob', so TestRequest.flush() can only
+    // auto-convert a real Blob/ArrayBuffer body (or null) — a plain string
+    // body throws "Automatic conversion to Blob is not supported". Flushing
+    // with a null body still triggers the error path being tested here.
+    req.flush(null, { status: 500, statusText: 'Server Error' });
+  });
+
+  it('should propagate an error via MessageService.multiError from export JSON download', () => {
+    environment.useDummyData = false;
+
+    service.export([]).subscribe({
+      next: () => fail('should have errored'),
+      error: () => {
+        expect(mockMessageService.multiError).toHaveBeenCalled();
+      },
+    });
+
+    const req = httpMock.expectOne(`${environment.gateway}message-data/export/download/zip`);
+    req.flush('boom', { status: 500, statusText: 'Server Error' });
+  });
+
+  describe('getDepotService', () => {
+    it('should return dummy depot data mapped with a value field when useDummyData is true', () => {
+      environment.useDummyData = true;
+
+      service.getDepotService().subscribe(response => {
+        expect(response.length).toBeGreaterThan(0);
+        expect(response[0].value).toBe(response[0].depot_name);
+      });
+    });
+
+    it('should send a GET request when useDummyData is false', () => {
+      environment.useDummyData = false;
+
+      service.getDepotService().subscribe(response => {
+        expect(response).toEqual([]);
+      });
+
+      const req = httpMock.expectOne('');
+      expect(req.request.method).toBe('GET');
+      req.flush([]);
+    });
+  });
+
+  describe('sendMessageExportRequest', () => {
+    it('should return dummy data when useDummyData is true', () => {
+      environment.useDummyData = true;
+
+      service.sendMessageExportRequest('2024-01-01').subscribe(response => {
+        expect(response.status).toBe(200);
+        expect(response.status_code).toBe('SUCCESS');
+      });
+    });
+
+    it('should send a POST request with the selected date when useDummyData is false', () => {
+      environment.useDummyData = false;
+
+      service.sendMessageExportRequest('2024-01-01').subscribe(response => {
+        expect(response).toEqual(mockResponse);
+      });
+
+      const req = httpMock.expectOne(
+        `${environment.gateway}message-data/export/send-message-request`
+      );
+      expect(req.request.method).toBe('POST');
+      expect(req.request.body).toEqual({ date_selected: '2024-01-01' });
+      req.flush(mockResponse);
+    });
+
+    it('should propagate an error via MessageService.multiError', () => {
+      environment.useDummyData = false;
+
+      service.sendMessageExportRequest('2024-01-01').subscribe({
+        next: () => fail('should have errored'),
+        error: () => {
+          expect(mockMessageService.multiError).toHaveBeenCalled();
+        },
+      });
+
+      const req = httpMock.expectOne(
+        `${environment.gateway}message-data/export/send-message-request`
+      );
+      req.flush('boom', { status: 500, statusText: 'Server Error' });
+    });
+  });
 });

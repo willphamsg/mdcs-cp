@@ -37,8 +37,10 @@ describe('FileImportExportService', () => {
   };
 
   const testUri = 'http://test/param/';
+  let originalUseDummyData: boolean;
 
   beforeEach(() => {
+    originalUseDummyData = environment.useDummyData;
     mockDynamicEndpoint = jasmine.createSpyObj('DynamicEndpoint', ['setDynamicEndpoint']);
     mockDynamicEndpoint.setDynamicEndpoint.and.returnValue(testUri);
     mockAuthService = jasmine.createSpyObj('AuthService', ['getToken']);
@@ -64,6 +66,7 @@ describe('FileImportExportService', () => {
 
   afterEach(() => {
     httpMock.verify();
+    environment.useDummyData = originalUseDummyData;
   });
 
   it('should be created', () => {
@@ -148,5 +151,145 @@ describe('FileImportExportService', () => {
     const req = httpMock.expectOne(`${testUri}export/search-export-status`);
     expect(req.request.method).toBe('POST');
     req.flush(mockPayloadResponse);
+  });
+
+  it('should send GET request from getDepotService', () => {
+    const mockDepots = DummyData.dagw_depot_list ?? [];
+
+    service.getDepotService().subscribe(response => {
+      expect(response).toEqual(mockDepots as any);
+    });
+
+    const req = httpMock.expectOne('');
+    expect(req.request.method).toBe('GET');
+    req.flush(mockDepots);
+  });
+
+  it('should call message.multiError when searchImport request fails', () => {
+    mockMessageService.multiError.and.returnValue(of('handled') as any);
+
+    service.searchImport(mockBusRequest).subscribe((response: any) => {
+      expect(response).toBe('handled');
+    });
+
+    const req = httpMock.expectOne(`${testUri}import/search`);
+    req.flush('error' as any, { status: 500, statusText: 'Server Error' });
+
+    expect(mockMessageService.multiError).toHaveBeenCalled();
+  });
+
+  it('should call message.multiError when searchExport request fails', () => {
+    mockMessageService.multiError.and.returnValue(of('handled') as any);
+
+    service.searchExport(mockBusRequest).subscribe((response: any) => {
+      expect(response).toBe('handled');
+    });
+
+    const req = httpMock.expectOne(`${testUri}export/search`);
+    req.flush('error' as any, { status: 500, statusText: 'Server Error' });
+
+    expect(mockMessageService.multiError).toHaveBeenCalled();
+  });
+
+  it('should call message.multiError when import request fails', () => {
+    mockMessageService.multiError.and.returnValue(of('handled') as any);
+    const formData = new FormData();
+
+    service.import(formData).subscribe((response: any) => {
+      expect(response).toBe('handled');
+    });
+
+    const req = httpMock.expectOne(`${testUri}import/upload/zip`);
+    req.flush('error' as any, { status: 500, statusText: 'Server Error' });
+
+    expect(mockMessageService.multiError).toHaveBeenCalled();
+  });
+
+  it('should call message.multiError when exportFileRequest fails', () => {
+    mockMessageService.multiError.and.returnValue(of('handled') as any);
+    const params = { file_id: '123' };
+
+    service.exportFileRequest(params).subscribe((response: any) => {
+      expect(response).toBe('handled');
+    });
+
+    const req = httpMock.expectOne(`${testUri}export/send-file-request`);
+    req.flush('error' as any, { status: 500, statusText: 'Server Error' });
+
+    expect(mockMessageService.multiError).toHaveBeenCalled();
+  });
+
+  it('should call message.multiError when exportStatus fails', () => {
+    mockMessageService.multiError.and.returnValue(of('handled') as any);
+    const params = { file_id: '123' };
+
+    service.exportStatus(params).subscribe((response: any) => {
+      expect(response).toBe('handled');
+    });
+
+    const req = httpMock.expectOne(`${testUri}export/search-export-status`);
+    req.flush('error' as any, { status: 500, statusText: 'Server Error' });
+
+    expect(mockMessageService.multiError).toHaveBeenCalled();
+  });
+
+  it('should extract filename from Content-Disposition header on export', () => {
+    const params = { file_id: '123' };
+    const dummyBlob = new Blob(['content'], { type: 'application/zip' });
+
+    service.export(params).subscribe((result: any) => {
+      expect(result.filename).toBe('my-export.zip');
+      expect(result.blob).toBeTruthy();
+    });
+
+    const req = httpMock.expectOne(`${testUri}export/download-zip`);
+    expect(req.request.method).toBe('POST');
+    req.flush(dummyBlob, {
+      headers: { 'Content-Disposition': 'attachment; filename="my-export.zip"' },
+    });
+  });
+
+  it('should use default filename when Content-Disposition header is missing on export', () => {
+    const params = { file_id: '123' };
+    const dummyBlob = new Blob(['content'], { type: 'application/zip' });
+
+    service.export(params).subscribe((result: any) => {
+      expect(result.filename).toBe('parameter-export.zip');
+      expect(result.blob).toBeTruthy();
+    });
+
+    const req = httpMock.expectOne(`${testUri}export/download-zip`);
+    req.flush(dummyBlob);
+  });
+
+  it('should use default filename when Content-Disposition header has no filename match', () => {
+    const params = { file_id: '123' };
+    const dummyBlob = new Blob(['content'], { type: 'application/zip' });
+
+    service.export(params).subscribe((result: any) => {
+      expect(result.filename).toBe('parameter-export.zip');
+    });
+
+    const req = httpMock.expectOne(`${testUri}export/download-zip`);
+    req.flush(dummyBlob, {
+      headers: { 'Content-Disposition': 'attachment' },
+    });
+  });
+
+  it('should call message.multiError when export request fails', () => {
+    mockMessageService.multiError.and.returnValue(of('handled') as any);
+    const params = { file_id: '123' };
+
+    service.export(params).subscribe(response => {
+      expect(response).toBe('handled');
+    });
+
+    const req = httpMock.expectOne(`${testUri}export/download-zip`);
+    // The real request uses responseType: 'blob', so TestRequest.flush() can
+    // only auto-convert an actual Blob/ArrayBuffer (or null) - a plain string
+    // body throws "Automatic conversion to Blob is not supported".
+    req.flush(null, { status: 500, statusText: 'Server Error' });
+
+    expect(mockMessageService.multiError).toHaveBeenCalled();
   });
 });

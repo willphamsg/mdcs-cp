@@ -30,8 +30,33 @@ describe('ManageBusOperationService', () => {
     message: 'Dummy data fetched successfully',
     payload: DummyData,
   };
+  const mockBusTransferList: IBusTransferList[] = [
+    {
+      chk: false,
+      id: 1,
+      version: 1,
+      bus_id: 'SBS0225U',
+      bus_num: '12',
+      current_depot: ['12'],
+      current_depot_name: ['TEST DEPOT'],
+      current_operator: 'SBSTransit',
+      current_operator_name: 'TEST OPERATOR NAME',
+      current_effective_date: '2024-07-01T11:00:00',
+      future_depot: ['Hougang'],
+      future_depot_name: ['TEST FUTURE DEPOT NAME'],
+      future_operator: 'Go Ahead Singapore',
+      future_operator_name: 'TEST FUTURE OEPRATOR NAME',
+      status: 'approved',
+      future_effective_date: '2024-07-01T13:00:00',
+      target_effective_date: '2024-07-01T13:00:00',
+      target_effective_time: '2024-07-01T13:00:00',
+    },
+  ];
+
+  let originalUseDummyData: boolean;
 
   beforeEach(() => {
+    originalUseDummyData = environment.useDummyData;
     mockMessageService = jasmine.createSpyObj('MessageService', ['multiError']);
     mockDynamicEndpoint = jasmine.createSpyObj('DynamicEndpoint', [
       'setDynamicEndpoint',
@@ -54,6 +79,7 @@ describe('ManageBusOperationService', () => {
 
   afterEach(() => {
     httpMock.verify();
+    environment.useDummyData = originalUseDummyData;
   });
 
   it('should be created', () => {
@@ -81,6 +107,23 @@ describe('ManageBusOperationService', () => {
       expect(req.request.method).toBe('POST');
       req.flush(mockResponse);
     });
+
+    it('should route search errors through message.multiError', () => {
+      mockMessageService.multiError.and.returnValue(
+        throwError(() => new Error('Search failed'))
+      );
+
+      service.search(mockParams).subscribe({
+        error: (err: Error) => {
+          expect(err.message).toBe('Search failed');
+        },
+      });
+
+      const req = httpMock.expectOne(`${service['uri']}search`);
+      req.flush('Server Error', { status: 500, statusText: 'Internal Server Error' });
+
+      expect(mockMessageService.multiError).toHaveBeenCalled();
+    });
   });
 
   describe('import', () => {
@@ -106,32 +149,73 @@ describe('ManageBusOperationService', () => {
         },
       });
     });
+
+    it('should route real import errors through message.multiError', () => {
+      mockMessageService.multiError.and.returnValue(
+        throwError(() => new Error('Import failed'))
+      );
+
+      service.import({}).subscribe({
+        error: (err: Error) => {
+          expect(err.message).toBe('Import failed');
+        },
+      });
+
+      const req = httpMock.expectOne(`${service['uri']}import`);
+      req.flush('Server Error', { status: 500, statusText: 'Internal Server Error' });
+
+      expect(mockMessageService.multiError).toHaveBeenCalled();
+    });
+  });
+
+  describe('update', () => {
+    it('should send an update request and return the response when useDummyData is false', () => {
+      environment.useDummyData = false;
+
+      service.update(mockBusTransferList).subscribe((response: PayloadResponse) => {
+        expect(response).toEqual(mockResponse);
+      });
+
+      const req = httpMock.expectOne(`${service['uri']}update`);
+      expect(req.request.method).toBe('POST');
+      req.flush(mockResponse);
+    });
+
+    it('should route update errors through message.multiError when useDummyData is false', () => {
+      environment.useDummyData = false;
+      mockMessageService.multiError.and.returnValue(
+        throwError(() => new Error('Update failed'))
+      );
+
+      service.update(mockBusTransferList).subscribe({
+        error: (err: Error) => {
+          expect(err.message).toBe('Update failed');
+        },
+      });
+
+      const req = httpMock.expectOne(`${service['uri']}update`);
+      req.flush('Server Error', { status: 500, statusText: 'Internal Server Error' });
+
+      expect(mockMessageService.multiError).toHaveBeenCalled();
+    });
+
+    it('should fall back to dummy data on update error when useDummyData is true', () => {
+      environment.useDummyData = true;
+
+      let received: PayloadResponse | undefined;
+      service.update(mockBusTransferList).subscribe((response: PayloadResponse) => {
+        received = response;
+      });
+
+      const req = httpMock.expectOne(`${service['uri']}update`);
+      req.flush('Server Error', { status: 500, statusText: 'Internal Server Error' });
+
+      expect(received?.status_code).toBe('SUCCESS');
+      expect(received?.message).toBe('Updated successfully');
+    });
   });
 
   describe('manage', () => {
-    const mockBusTransferList: IBusTransferList[] = [
-      {
-        chk: false,
-        id: 1,
-        version: 1,
-        bus_id: 'SBS0225U',
-        bus_num: '12',
-        current_depot: ['12'],
-        current_depot_name: ['TEST DEPOT'],
-        current_operator: 'SBSTransit',
-        current_operator_name: 'TEST OPERATOR NAME',
-        current_effective_date: '2024-07-01T11:00:00',
-        future_depot: ['Hougang'],
-        future_depot_name: ['TEST FUTURE DEPOT NAME'],
-        future_operator: 'Go Ahead Singapore',
-        future_operator_name: 'TEST FUTURE OEPRATOR NAME',
-        status: 'approved',
-        future_effective_date: '2024-07-01T13:00:00',
-        target_effective_date: '2024-07-01T13:00:00',
-        target_effective_time: '2024-07-01T13:00:00',
-      },
-    ];
-
     it('should approve bus operations', () => {
       environment.useDummyData = false;
 
@@ -162,6 +246,74 @@ describe('ManageBusOperationService', () => {
       service.manage(mockBusTransferList, 'update').subscribe((response: PayloadResponse) => {
         expect(response).toEqual(mockResponse);
       });
+    });
+  });
+
+  describe('approve (real invocation, error paths)', () => {
+    it('should route approve errors through message.multiError when useDummyData is false', () => {
+      environment.useDummyData = false;
+      mockMessageService.multiError.and.returnValue(
+        throwError(() => new Error('Approve failed'))
+      );
+
+      service.approve(mockBusTransferList).subscribe({
+        error: (err: Error) => {
+          expect(err.message).toBe('Approve failed');
+        },
+      });
+
+      const req = httpMock.expectOne(`${service['uri']}approved`);
+      req.flush('Server Error', { status: 500, statusText: 'Internal Server Error' });
+
+      expect(mockMessageService.multiError).toHaveBeenCalled();
+    });
+
+    it('should fall back to dummy data on approve error when useDummyData is true', () => {
+      environment.useDummyData = true;
+
+      let received: PayloadResponse | undefined;
+      service.approve(mockBusTransferList).subscribe((response: PayloadResponse) => {
+        received = response;
+      });
+
+      const req = httpMock.expectOne(`${service['uri']}approved`);
+      req.flush('Server Error', { status: 500, statusText: 'Internal Server Error' });
+
+      expect(received?.status_code).toBe('SUCCESS');
+    });
+  });
+
+  describe('reject (real invocation, error paths)', () => {
+    it('should route reject errors through message.multiError when useDummyData is false', () => {
+      environment.useDummyData = false;
+      mockMessageService.multiError.and.returnValue(
+        throwError(() => new Error('Reject failed'))
+      );
+
+      service.reject(mockBusTransferList).subscribe({
+        error: (err: Error) => {
+          expect(err.message).toBe('Reject failed');
+        },
+      });
+
+      const req = httpMock.expectOne(`${service['uri']}reject`);
+      req.flush('Server Error', { status: 500, statusText: 'Internal Server Error' });
+
+      expect(mockMessageService.multiError).toHaveBeenCalled();
+    });
+
+    it('should fall back to dummy data on reject error when useDummyData is true', () => {
+      environment.useDummyData = true;
+
+      let received: PayloadResponse | undefined;
+      service.reject(mockBusTransferList).subscribe((response: PayloadResponse) => {
+        received = response;
+      });
+
+      const req = httpMock.expectOne(`${service['uri']}reject`);
+      req.flush('Server Error', { status: 500, statusText: 'Internal Server Error' });
+
+      expect(received?.status_code).toBe('SUCCESS');
     });
   });
 });

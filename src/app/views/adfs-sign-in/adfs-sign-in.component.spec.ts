@@ -6,6 +6,7 @@ import { of, Subject } from 'rxjs';
 import { AdfsSignInComponent } from './adfs-sign-in.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { PayloadResponse } from '@app/models/common';
+import { CookieService } from 'ngx-cookie-service';
 
 describe('AdfsSignInComponent', () => {
   let component: AdfsSignInComponent;
@@ -13,6 +14,7 @@ describe('AdfsSignInComponent', () => {
   let mockAuthService: jasmine.SpyObj<AuthService>;
   let mockUserService: jasmine.SpyObj<UserService>;
   let mockRouter: jasmine.SpyObj<Router>;
+  let mockCookieService: jasmine.SpyObj<CookieService>;
   let queryParamsSubject: Subject<any>;
 
   const mockProfileResponse: PayloadResponse = {
@@ -30,15 +32,18 @@ describe('AdfsSignInComponent', () => {
       'isDagw',
       'saveToken',
       'saveProfile',
+      'saveRefreshToken',
       'getUserRoles',
       'getSVCProvider',
     ]);
     mockUserService = jasmine.createSpyObj('UserService', ['userProfile']);
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
+    mockCookieService = jasmine.createSpyObj('CookieService', ['get']);
 
     mockAuthService.isDagw.and.returnValue(true);
     mockAuthService.getUserRoles.and.returnValue(['ope']);
     mockUserService.userProfile.and.returnValue(of(mockProfileResponse));
+    mockCookieService.get.and.returnValue('');
 
     TestBed.configureTestingModule({
       imports: [AdfsSignInComponent],
@@ -52,7 +57,16 @@ describe('AdfsSignInComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      // AdfsSignInComponent declares CookieService as a component-level
+      // provider, which shadows a module-level TestBed provider for the same
+      // token - override the component's own provider directly so the mock
+      // actually reaches it (see sign-in.component.spec.ts for the same
+      // pattern/reasoning).
+      .overrideComponent(AdfsSignInComponent, {
+        set: { providers: [{ provide: CookieService, useValue: mockCookieService }] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -76,6 +90,20 @@ describe('AdfsSignInComponent', () => {
     component.applyDevToken('valid-token');
     expect(mockAuthService.saveToken).toHaveBeenCalledWith('valid-token');
     expect(mockUserService.userProfile).toHaveBeenCalled();
+  });
+
+  it('does not save a refresh token when the REFRESHTOKENID cookie is absent', () => {
+    mockCookieService.get.and.returnValue('');
+    fixture.detectChanges();
+    component.applyDevToken('valid-token');
+    expect(mockAuthService.saveRefreshToken).not.toHaveBeenCalled();
+  });
+
+  it('saves the refresh token when the REFRESHTOKENID cookie is present', () => {
+    mockCookieService.get.and.returnValue('cookie-refresh-token');
+    fixture.detectChanges();
+    component.applyDevToken('valid-token');
+    expect(mockAuthService.saveRefreshToken).toHaveBeenCalledWith('cookie-refresh-token');
   });
 
   it('should redirect dagw admin to change-password', () => {

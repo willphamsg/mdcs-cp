@@ -13,8 +13,12 @@ import { ParameterService } from '@app/services/parameter.service';
 import { ParameterSelectionService } from '@app/services/parameter-selection.service';
 import { WebSocketService } from '@app/services/web-socket.service';
 import { Store } from '@ngrx/store';
-import { of, Subject } from 'rxjs';
+import { of, Subject, throwError } from 'rxjs';
 import { ParameterModeSearchComponent } from './parameter-mode-search.component';
+import {
+  IParameterMode,
+  IValidatedParameterStatus,
+} from '@models/parameter-trial';
 
 describe('ParameterModeSearchComponent', () => {
   let component: ParameterModeSearchComponent;
@@ -70,6 +74,8 @@ describe('ParameterModeSearchComponent', () => {
       'searchHistory',
       'getTrialSchedulerRateSeconds',
       'searchParameterModeErrors',
+      'validateLive',
+      'validateTrial',
     ]);
     mockDepoService = jasmine.createSpyObj('DepoService', [
       'depoList$',
@@ -161,6 +167,12 @@ describe('ParameterModeSearchComponent', () => {
     fixture = TestBed.createComponent(ParameterModeSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    // mockDialog is a module-level object shared across every test in this
+    // file, so its `open` spy accumulates calls from earlier tests unless
+    // explicitly reset here. Without this, assertions like
+    // `expect(mockDialog.open).not.toHaveBeenCalled()` can fail purely due
+    // to a prior test having already opened the dialog.
+    mockDialog.open.calls.reset();
   });
 
   afterEach(() => {
@@ -327,6 +339,313 @@ describe('ParameterModeSearchComponent', () => {
 
     it('returns an empty string for any other action', () => {
       expect(component['getUpdateViewTitle']('other')).toBe('');
+    });
+  });
+
+  describe('updateView', () => {
+    it('should warn and skip the dialog when no selections are made', () => {
+      mockSelectionService.getParameterModeSelections.and.returnValue([]);
+
+      component.updateView('view');
+
+      expect(mockStore.dispatch).toHaveBeenCalled();
+      expect(mockDialog.open).not.toHaveBeenCalled();
+    });
+
+    it("should validate selections for the 'live' action instead of opening the dialog directly", () => {
+      mockSelectionService.getParameterModeSelections.and.returnValue([
+        { param_master_id: 1, depot_id: 1, parameter_name: 'P1', parameter_version: 'v1', chk: false } as any,
+      ]);
+      mockParameterService.validateLive.and.returnValue(
+        of({ status: 200, message: 'ok', payload: { validated_parameter_status: [] } } as any)
+      );
+
+      component.updateView('live');
+
+      expect(mockParameterService.validateLive).toHaveBeenCalled();
+      expect(mockParameterService.validateTrial).not.toHaveBeenCalled();
+    });
+
+    it("should validate selections for the 'trial' action", () => {
+      mockSelectionService.getParameterModeSelections.and.returnValue([
+        { param_master_id: 1, depot_id: 1, parameter_name: 'P1', parameter_version: 'v1', chk: false } as any,
+      ]);
+      mockParameterService.validateTrial.and.returnValue(
+        of({ status: 200, message: 'ok', payload: { validated_parameter_status: [] } } as any)
+      );
+
+      component.updateView('trial');
+
+      expect(mockParameterService.validateTrial).toHaveBeenCalled();
+      expect(mockParameterService.validateLive).not.toHaveBeenCalled();
+    });
+
+    it('should open the view dialog directly for non-live/trial actions', () => {
+      mockSelectionService.getParameterModeSelections.and.returnValue([
+        { param_master_id: 1, depot_id: 1, parameter_name: 'P1', parameter_version: 'v1', chk: false } as any,
+      ]);
+
+      component.updateView('view');
+
+      expect(mockDialog.open).toHaveBeenCalled();
+      const dialogArgs = mockDialog.open.calls.mostRecent().args[1];
+      expect(dialogArgs.data.userActionType).toBe('NONE');
+    });
+  });
+
+  describe('validateSelectionsFor (via updateView)', () => {
+    it('should warn and skip validation when the payload is empty', () => {
+      mockSelectionService.getParameterModeSelections.and.returnValue([
+        { param_master_id: 1, depot_id: 'not-a-number', parameter_name: 'P1', chk: false } as any,
+      ]);
+
+      component.updateView('live');
+
+      expect(mockParameterService.validateLive).not.toHaveBeenCalled();
+      expect(mockStore.dispatch).toHaveBeenCalled();
+    });
+
+    it('should show the server message when validation responds with a non-200 status', () => {
+      mockSelectionService.getParameterModeSelections.and.returnValue([
+        { param_master_id: 1, depot_id: 1, parameter_name: 'P1', chk: false } as any,
+      ]);
+      mockParameterService.validateLive.and.returnValue(
+        of({ status: 400, message: 'Server said no', payload: {} } as any)
+      );
+
+      component.updateView('live');
+
+      expect(mockDialog.open).not.toHaveBeenCalled();
+      expect(mockStore.dispatch).toHaveBeenCalled();
+    });
+
+    it('should fall back to a default message when validation fails without a server message', () => {
+      mockSelectionService.getParameterModeSelections.and.returnValue([
+        { param_master_id: 1, depot_id: 1, parameter_name: 'P1', chk: false } as any,
+      ]);
+      mockParameterService.validateLive.and.returnValue(
+        of({ status: 400, message: '', payload: {} } as any)
+      );
+
+      component.updateView('live');
+
+      expect(mockStore.dispatch).toHaveBeenCalled();
+    });
+
+    it('should open the dialog with merged selections when validation succeeds', () => {
+      const selections: IParameterMode[] = [
+        { param_master_id: 1, depot_id: 1, depot_name: 'Depot A', parameter_name: 'P1', parameter_version: 'v1', chk: false, id: 1, version: 1 },
+      ];
+      mockSelectionService.getParameterModeSelections.and.returnValue(selections);
+      const validatedStatuses: IValidatedParameterStatus[] = [
+        {
+          parameter_status: { param_master_id: 1, depot_id: 1, parameter_name: 'P1-validated' },
+          scenario_details: { user_action_type: 'OK' },
+        },
+      ];
+      mockParameterService.validateLive.and.returnValue(
+        of({ status: 200, message: 'ok', payload: { validated_parameter_status: validatedStatuses } } as any)
+      );
+
+      component.updateView('live');
+
+      expect(mockDialog.open).toHaveBeenCalled();
+      const dialogArgs = mockDialog.open.calls.mostRecent().args[1];
+      expect(dialogArgs.data.userActionType).toBe('OK');
+      expect(dialogArgs.data.selection[0].parameter_name).toBe('P1-validated');
+    });
+
+    it('should dispatch an error notification when validation errors out', () => {
+      mockSelectionService.getParameterModeSelections.and.returnValue([
+        { param_master_id: 1, depot_id: 1, parameter_name: 'P1', chk: false } as any,
+      ]);
+      mockParameterService.validateLive.and.returnValue(
+        throwError(() => new Error('network down'))
+      );
+
+      component.updateView('live');
+
+      expect(mockStore.dispatch).toHaveBeenCalled();
+      expect(mockDialog.open).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('buildValidationPayload', () => {
+    it('should include only selections with a numeric param_master_id and a numeric depot_id', () => {
+      const selections: any[] = [
+        { param_master_id: 1, depot_id: 1, parameter_name: 'A', parameter_version: 'v1' },
+        { param_master_id: undefined, depot_id: 1, parameter_name: 'B' },
+        { param_master_id: 2, depot_id: undefined, parameter_name: 'C' },
+        { param_master_id: 3, depot_id: 'not-numeric', parameter_name: 'D' },
+        { param_master_id: '4', depot_id: 1, parameter_name: 'E' },
+      ];
+
+      const payload = component['buildValidationPayload'](selections);
+
+      expect(payload.length).toBe(1);
+      expect(payload[0]).toEqual(
+        jasmine.objectContaining({ param_master_id: 1, depot_id: 1, parameter_name: 'A' })
+      );
+    });
+
+    it('should return an empty array when nothing qualifies', () => {
+      const payload = component['buildValidationPayload']([
+        { param_master_id: undefined, depot_id: undefined } as any,
+      ]);
+
+      expect(payload).toEqual([]);
+    });
+  });
+
+  describe('mergeValidatedStatuses', () => {
+    const originalSelections: IParameterMode[] = [
+      {
+        id: 1,
+        version: 1,
+        param_master_id: 1,
+        depot_id: 1,
+        depot_name: 'Depot A',
+        parameter_name: 'Original',
+        parameter_version: 'v1',
+        chk: false,
+      },
+    ];
+
+    it('should return the original selections unchanged when there are no validated statuses', () => {
+      expect(
+        component['mergeValidatedStatuses'](undefined as any, originalSelections)
+      ).toBe(originalSelections);
+      expect(component['mergeValidatedStatuses']([], originalSelections)).toBe(
+        originalSelections
+      );
+    });
+
+    it('should merge a matching validated status onto the original selection', () => {
+      component.depots = [
+        { depot_id: 1, depot_name: 'Depot A', depot_code: 'DA', version: 1 } as any,
+      ];
+      const validated: IValidatedParameterStatus[] = [
+        {
+          parameter_status: {
+            param_master_id: 1,
+            depot_id: 1,
+            parameter_name: 'Merged',
+            parameter_version: 'v2',
+          },
+        },
+      ];
+
+      const merged = component['mergeValidatedStatuses'](validated, originalSelections);
+
+      expect(merged.length).toBe(1);
+      expect(merged[0].parameter_name).toBe('Merged');
+      expect(merged[0].depot_name).toBe('Depot A');
+    });
+
+    it('should synthesize a new item when no source selection matches', () => {
+      const validated: IValidatedParameterStatus[] = [
+        {
+          parameter_status: {
+            param_master_id: 999,
+            depot_id: 1,
+            parameter_name: 'Unmatched',
+          },
+        },
+      ];
+
+      const merged = component['mergeValidatedStatuses'](validated, originalSelections);
+
+      expect(merged.length).toBe(2);
+      const synthesized = merged.find(item => item.parameter_name === 'Unmatched');
+      expect(synthesized).toBeTruthy();
+      expect(synthesized!.chk).toBeFalse();
+    });
+
+    it('should fall back to "Unknown Depot" when no depot can be resolved', () => {
+      component.depots = [];
+      const validated: IValidatedParameterStatus[] = [
+        {
+          parameter_status: {
+            param_master_id: 1,
+            depot_id: 777,
+            parameter_name: 'NoDepot',
+          },
+        },
+      ];
+
+      const merged = component['mergeValidatedStatuses'](validated, [
+        { ...originalSelections[0], depot_name: undefined as any },
+      ]);
+
+      expect(merged[0].depot_name).toBeDefined();
+    });
+
+    it('should keep unvalidated original selections that were not handled', () => {
+      const untouched: IParameterMode = {
+        id: 2,
+        version: 1,
+        param_master_id: 2,
+        depot_id: 2,
+        depot_name: 'Depot B',
+        parameter_name: 'Untouched',
+        parameter_version: 'v1',
+        chk: false,
+      };
+      const validated: IValidatedParameterStatus[] = [
+        { parameter_status: { param_master_id: 1, depot_id: 1, parameter_name: 'Merged' } },
+      ];
+
+      const merged = component['mergeValidatedStatuses'](validated, [
+        ...originalSelections,
+        untouched,
+      ]);
+
+      expect(merged.some(item => item.parameter_name === 'Untouched')).toBeTrue();
+    });
+
+    it('should always keep original selections without a numeric param_master_id', () => {
+      const nonNumeric: IParameterMode = {
+        id: 3,
+        version: 1,
+        param_master_id: undefined,
+        depot_id: 3,
+        depot_name: 'Depot C',
+        parameter_name: 'NonNumeric',
+        parameter_version: 'v1',
+        chk: false,
+      };
+      const validated: IValidatedParameterStatus[] = [
+        { parameter_status: { param_master_id: 1, depot_id: 1, parameter_name: 'Merged' } },
+      ];
+
+      const merged = component['mergeValidatedStatuses'](validated, [nonNumeric]);
+
+      expect(merged.some(item => item.parameter_name === 'NonNumeric')).toBeTrue();
+    });
+  });
+
+  describe('extractUserActionType', () => {
+    it('should return the discovered user_action_type', () => {
+      const validated: IValidatedParameterStatus[] = [
+        { parameter_status: {}, scenario_details: { user_action_type: 'YES_NO' } },
+      ];
+
+      expect(component['extractUserActionType'](validated)).toBe('YES_NO');
+    });
+
+    it("should fall back to 'NONE' when nothing matches", () => {
+      expect(component['extractUserActionType']([])).toBe('NONE');
+      expect(
+        component['extractUserActionType']([{ parameter_status: {} }] as any)
+      ).toBe('NONE');
+    });
+  });
+
+  describe('showSnackbarNotification', () => {
+    it("should default typeSnackbar to 'info' when not provided", () => {
+      component['showSnackbarNotification']('a message', 'a title');
+
+      expect(mockStore.dispatch).toHaveBeenCalled();
     });
   });
 });

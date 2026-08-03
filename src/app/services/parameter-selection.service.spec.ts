@@ -136,6 +136,26 @@ describe('ParameterSelectionService', () => {
       service.clearParameterModeSelections();
       expect(service.getParameterModeSelections()).toHaveSize(0);
     });
+
+    it('should remove parameter mode selection', () => {
+      service.addParameterModeSelection(mockParameterMode);
+      service.removeParameterModeSelection(mockParameterMode.id);
+      expect(service.getParameterModeSelections()).toHaveSize(0);
+      expect(service.isParameterModeSelected(mockParameterMode.id)).toBeFalse();
+    });
+
+    it('should add multiple parameter mode selections', () => {
+      const item2 = { ...mockParameterMode, id: 2 };
+      service.addMultipleParameterModeSelections([mockParameterMode, item2]);
+      expect(service.getParameterModeSelections()).toHaveSize(2);
+    });
+
+    it('should remove multiple parameter mode selections', () => {
+      const item2 = { ...mockParameterMode, id: 2 };
+      service.addMultipleParameterModeSelections([mockParameterMode, item2]);
+      service.removeMultipleParameterModeSelections(['1', '2']);
+      expect(service.getParameterModeSelections()).toHaveSize(0);
+    });
   });
 
   // End Trial tests
@@ -155,6 +175,26 @@ describe('ParameterSelectionService', () => {
       service.clearEndTrialSelections();
       expect(service.getEndTrialSelections()).toHaveSize(0);
     });
+
+    it('should remove end trial selection', () => {
+      service.addEndTrialSelection(mockEndTrial);
+      service.removeEndTrialSelection(mockEndTrial.id);
+      expect(service.getEndTrialSelections()).toHaveSize(0);
+      expect(service.isEndTrialSelected(mockEndTrial.id)).toBeFalse();
+    });
+
+    it('should add multiple end trial selections', () => {
+      const item2 = { ...mockEndTrial, id: 2 };
+      service.addMultipleEndTrialSelections([mockEndTrial, item2]);
+      expect(service.getEndTrialSelections()).toHaveSize(2);
+    });
+
+    it('should remove multiple end trial selections', () => {
+      const item2 = { ...mockEndTrial, id: 2 };
+      service.addMultipleEndTrialSelections([mockEndTrial, item2]);
+      service.removeMultipleEndTrialSelections(['1', '2']);
+      expect(service.getEndTrialSelections()).toHaveSize(0);
+    });
   });
 
   // Trial Device Selection tests
@@ -172,6 +212,26 @@ describe('ParameterSelectionService', () => {
     it('should clear trial device selections', () => {
       service.addTrialDeviceSelection(mockTrialDevice);
       service.clearTrialDeviceSelections();
+      expect(service.getTrialDeviceSelections()).toHaveSize(0);
+    });
+
+    it('should remove trial device selection', () => {
+      service.addTrialDeviceSelection(mockTrialDevice);
+      service.removeTrialDeviceSelection(mockTrialDevice.id);
+      expect(service.getTrialDeviceSelections()).toHaveSize(0);
+      expect(service.isTrialDeviceSelected(mockTrialDevice.id)).toBeFalse();
+    });
+
+    it('should add multiple trial device selections', () => {
+      const item2 = { ...mockTrialDevice, id: 2 };
+      service.addMultipleTrialDeviceSelections([mockTrialDevice, item2]);
+      expect(service.getTrialDeviceSelections()).toHaveSize(2);
+    });
+
+    it('should remove multiple trial device selections', () => {
+      const item2 = { ...mockTrialDevice, id: 2 };
+      service.addMultipleTrialDeviceSelections([mockTrialDevice, item2]);
+      service.removeMultipleTrialDeviceSelections(['1', '2']);
       expect(service.getTrialDeviceSelections()).toHaveSize(0);
     });
   });

@@ -162,5 +162,115 @@ describe('BusSelectionService', () => {
       service.clearVehicleSelections();
       expect(service.getVehicleSelectionCount()).toBe(0);
     });
+
+    it('should remove a vehicle selection using its master_bus_depot_id', () => {
+      service.addVehicleSelection(mockVehicle);
+      service.removeVehicleSelection(mockVehicle.master_bus_depot_id as number);
+      expect(service.isVehicleSelected(mockVehicle.master_bus_depot_id as number)).toBeFalse();
+    });
+
+    it('should add multiple vehicle selections keyed by master_bus_depot_id', () => {
+      const item2 = { ...mockVehicle, id: 2, master_bus_depot_id: 20 };
+      service.addMultipleVehicleSelections([mockVehicle, item2]);
+      expect(service.getVehicleSelectionCount()).toBe(2);
+    });
+
+    it('should remove multiple vehicle selections', () => {
+      const item2 = { ...mockVehicle, id: 2, master_bus_depot_id: 20 };
+      service.addMultipleVehicleSelections([mockVehicle, item2]);
+      service.removeMultipleVehicleSelections(['10', '20']);
+      expect(service.getVehicleSelectionCount()).toBe(0);
+    });
+
+    it('should report a vehicle as not selected before it is added', () => {
+      expect(service.isVehicleSelected(mockVehicle.master_bus_depot_id as number)).toBeFalse();
+    });
+
+    it('should fall back to item.id when adding a vehicle without a master_bus_depot_id', () => {
+      const noDepotVehicle = { ...mockVehicle, id: 99, master_bus_depot_id: undefined };
+      service.addVehicleSelection(noDepotVehicle);
+      expect(service.isVehicleSelected(99)).toBeTrue();
+    });
+  });
+
+  // Daily Bus List selection tests - remaining methods
+  describe('Daily Bus List selections (remaining methods)', () => {
+    it('should remove a daily bus list selection', () => {
+      service.addDailyBusListSelection(mockDailyBusList);
+      service.removeDailyBusListSelection(mockDailyBusList.id);
+      expect(service.isDailyBusListSelected(mockDailyBusList.id)).toBeFalse();
+    });
+
+    it('should add multiple daily bus list selections', () => {
+      const item2 = { ...mockDailyBusList, id: 2 };
+      service.addMultipleDailyBusListSelections([mockDailyBusList, item2]);
+      expect(service.getDailyBusListSelectionCount()).toBe(2);
+    });
+
+    it('should remove multiple daily bus list selections', () => {
+      const item2 = { ...mockDailyBusList, id: 2 };
+      service.addMultipleDailyBusListSelections([mockDailyBusList, item2]);
+      service.removeMultipleDailyBusListSelections(['1', '2']);
+      expect(service.getDailyBusListSelectionCount()).toBe(0);
+    });
+
+    it('should get all daily bus list selections', () => {
+      service.addDailyBusListSelection(mockDailyBusList);
+      expect(service.getDailyBusListSelections()).toEqual([mockDailyBusList]);
+    });
+
+    it('should get the daily bus list selection count', () => {
+      service.addDailyBusListSelection(mockDailyBusList);
+      expect(service.getDailyBusListSelectionCount()).toBe(1);
+    });
+
+    it('should emit daily bus list selection changes', (done) => {
+      service.dailyBusListSelection$.subscribe(selections => {
+        if (selections.length === 1) {
+          expect(selections[0].id).toBe(mockDailyBusList.id);
+          done();
+        }
+      });
+      service.addDailyBusListSelection(mockDailyBusList);
+    });
+  });
+
+  // Directly exercise the generic SelectionManager's selectItem/deselectItem,
+  // which are not reached through BusSelectionService's public wrapper methods.
+  describe('SelectionManager selectItem/deselectItem (accessed via private managers)', () => {
+    it('should select an item via selectItem (useDepotId=false)', () => {
+      const manager = (service as any).busTransferManager;
+      manager.selectItem(mockBusTransfer);
+      expect(manager.isSelected(mockBusTransfer.id)).toBeTrue();
+    });
+
+    it('should deselect an item via deselectItem (useDepotId=false)', () => {
+      const manager = (service as any).busTransferManager;
+      manager.selectItem(mockBusTransfer);
+      manager.deselectItem(mockBusTransfer);
+      expect(manager.isSelected(mockBusTransfer.id)).toBeFalse();
+    });
+
+    it('should select an item via selectItem (useDepotId=true, master_bus_depot_id present)', () => {
+      const manager = (service as any).vehicleManager;
+      manager.selectItem(mockVehicle, true);
+      expect(manager.isSelected(mockVehicle.master_bus_depot_id)).toBeTrue();
+    });
+
+    it('should deselect an item via deselectItem (useDepotId=true, master_bus_depot_id present)', () => {
+      const manager = (service as any).vehicleManager;
+      manager.selectItem(mockVehicle, true);
+      manager.deselectItem(mockVehicle, true);
+      expect(manager.isSelected(mockVehicle.master_bus_depot_id)).toBeFalse();
+    });
+
+    it('should deselect an item via deselectItem (useDepotId=true, master_bus_depot_id undefined falls back to id)', () => {
+      const manager = (service as any).vehicleManager;
+      const noDepotVehicle = { ...mockVehicle, id: 55, master_bus_depot_id: undefined };
+      manager.selectItem(noDepotVehicle, true);
+      expect(manager.isSelected(55)).toBeTrue();
+      manager.deselectItem(noDepotVehicle, true);
+      expect(manager.isSelected(55)).toBeFalse();
+    });
   });
 });
