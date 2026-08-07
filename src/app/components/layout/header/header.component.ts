@@ -7,7 +7,6 @@ import {
   OnDestroy,
   OnInit,
   ViewEncapsulation,
-  ViewChild,
   ElementRef,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -90,13 +89,10 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   expandedMenu: { [key: string]: boolean } = {};
   activeMenu: string = 'dashboard';
 
-  isOpenMobileMenu: boolean = false;
   settingDefault: any = null;
   userName: string = '';
   givenName: string = '';
   userInitial: string = '';
-
-  @ViewChild('mobileNav', { static: false }) mobileNav!: ElementRef;
 
   mdcsNavList: any = [
     {
@@ -499,17 +495,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   //   this.depoService.updateDepo(event.depot_id);
   // }
 
-  @HostListener('document:click', ['$event'])
-  onClick(event: Event) {
-    if (!this.isOpenMobileMenu) return;
-
-    const clickedInside = this.mobileNav?.nativeElement.contains(event.target);
-
-    if (!clickedInside) {
-      this.isOpenMobileMenu = false;
-    }
-  }
-
   menuHandler(status: string, menu: string) {
     // console.log(status, menu);
     if (status == 'open') {
@@ -525,11 +510,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   checkNavActive(routeLink: string): boolean {
     return this.router.url.includes(routeLink);
-  }
-
-  toggleMobileMenu(event: Event) {
-    event.stopPropagation();
-    this.isOpenMobileMenu = !this.isOpenMobileMenu;
   }
 
   logOut() {

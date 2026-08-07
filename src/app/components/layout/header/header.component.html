@@ -5,19 +5,8 @@
   
   <div class="header-container">
       <div class="item">
-        <button
-          type="button"
-          class="menu-icon-btn"
-          aria-label="Toggle menu"
-          (click)="toggleMobileMenu($event)">
-          <img
-            class="menu-icon"
-            [src]="
-              isOpenMobileMenu
-                ? 'assets/icons/menu-open.svg'
-                : 'assets/icons/menu-close.svg'
-            "
-            alt="" />
+        <button type="button" class="menu-icon-btn" aria-label="Toggle menu">
+          <span class="menu-icon" aria-hidden="true"></span>
         </button>
 
         @if (authService.hasAccess(['dashboard', 'home', 'view'], dagw ? 'dagw' : 'mdcs')) {
@@ -149,7 +138,7 @@
       </div>
     </div>
 
-    <nav class="mobile-nav" #mobileNav [ngClass]="{ hide: !isOpenMobileMenu }">
+    <nav class="mobile-nav">
       @for (nav of navList; track nav.value) {
         <mat-accordion multi>
           <div class="panel-wrapper">

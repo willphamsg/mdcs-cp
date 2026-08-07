@@ -30,23 +30,45 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease-in-out;
 
+  // Hidden by default; shown via the :has() hover rules below. Hovering the
+  // menu icon opens it, and hovering the panel itself keeps it open while
+  // moving around inside - moving off both closes it.
+  transform: translateX(-400px);
+  opacity: 0;
+  visibility: hidden;
+
   @include respond-to-min(xxl) {
     display: none;
   }
+}
 
-  &.hide {
-    transform: translateX(-400px);
-    opacity: 0;
-    visibility: hidden;
-  }
+mat-toolbar:has(.menu-icon-btn:hover) .mobile-nav,
+mat-toolbar:has(.mobile-nav:hover) .mobile-nav {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
 }
 
 .menu-icon {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
   padding-right: 8px;
   cursor: pointer;
+  background-image: url('/assets/icons/menu-close.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-origin: content-box;
+  background-size: 36px 36px;
+
   @include respond-to-min(1280px) {
     display: none;
   }
+}
+
+mat-toolbar:has(.menu-icon-btn:hover) .menu-icon,
+mat-toolbar:has(.mobile-nav:hover) .menu-icon {
+  background-image: url('/assets/icons/menu-open.svg');
 }
 
 .menu-icon-btn {

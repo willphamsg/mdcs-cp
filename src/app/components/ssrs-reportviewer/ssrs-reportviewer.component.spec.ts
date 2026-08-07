@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { SSRSReportViewerComponent } from './ssrs-reportviewer.component';
 import { ReportService } from '@app/services/report.service';
 import { AuthService } from '@app/services/auth.service';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { PLATFORM_ID, SimpleChange } from '@angular/core';
+import { SimpleChange } from '@angular/core';
 
 describe('SSRSReportViewerComponent', () => {
   let component: SSRSReportViewerComponent;
@@ -23,7 +23,6 @@ describe('SSRSReportViewerComponent', () => {
       providers: [
         { provide: ReportService, useValue: reportServiceSpy },
         { provide: AuthService, useValue: authServiceSpy },
-        { provide: PLATFORM_ID, useValue: 'browser' },
         provideHttpClient(),
         provideHttpClientTesting(),
       ]
@@ -55,6 +54,7 @@ describe('SSRSReportViewerComponent', () => {
     });
     expect(reportServiceSpy.getReportURL).toHaveBeenCalled();
     expect(component.isIframeLoaded).toBeTrue();
+    expect(component.isReportRendering).toBeTrue();
     expect(component.sanitizedUrl).not.toBeNull();
   });
 
@@ -65,6 +65,7 @@ describe('SSRSReportViewerComponent', () => {
     });
     expect(component.sanitizedUrl).toBeNull();
     expect(component.isIframeLoaded).toBeFalse();
+    expect(component.isReportRendering).toBeFalse();
   });
 
   it('should not load report when depotid is null', () => {
@@ -95,12 +96,33 @@ describe('SSRSReportViewerComponent', () => {
     expect(time).toMatch(/^\d{2}:\d{2}:\d{2}$/);
   });
 
-  it('should emit isIframeLoadedEvent on iframe load', () => {
+  it('should not emit isIframeLoadedEvent immediately on iframe load (grace period pending)', () => {
     spyOn(component.isIframeLoadedEvent, 'emit');
     component.onIframeLoad();
-    expect(component.isIframeLoaded).toBeTrue();
-    expect(component.isIframeLoadedEvent.emit).toHaveBeenCalledWith(true);
+    expect(component.isIframeLoadedEvent.emit).not.toHaveBeenCalled();
   });
+
+  it('should emit isIframeLoadedEvent once the render grace period elapses', fakeAsync(() => {
+    spyOn(component.isIframeLoadedEvent, 'emit');
+    component.isReportRendering = true;
+
+    component.onIframeLoad();
+    tick(1500);
+
+    expect(component.isIframeLoaded).toBeTrue();
+    expect(component.isReportRendering).toBeFalse();
+    expect(component.isIframeLoadedEvent.emit).toHaveBeenCalledWith(true);
+  }));
+
+  it('should not emit isIframeLoadedEvent if destroyed during the render grace period', fakeAsync(() => {
+    spyOn(component.isIframeLoadedEvent, 'emit');
+    component.onIframeLoad();
+    component.ngOnDestroy();
+
+    tick(1500);
+
+    expect(component.isIframeLoadedEvent.emit).not.toHaveBeenCalled();
+  }));
 
   it('should clean up on destroy', () => {
     expect(() => component.ngOnDestroy()).not.toThrow();

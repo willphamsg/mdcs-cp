@@ -118,6 +118,7 @@
               matInput
               placeholder="Select Date"
               [matDatepicker]="pickerStart"
+              [max]="endDateSelected"
               [(ngModel)]="startDateSelected" />
             <mat-datepicker-toggle
               matIconSuffix
@@ -144,6 +145,7 @@
               matInput
               placeholder="Select Date"
               [matDatepicker]="pickerEnd"
+              [min]="startDateSelected"
               [(ngModel)]="endDateSelected" />
             <mat-datepicker-toggle
               matIconSuffix
@@ -172,13 +174,14 @@
           id="btndescription"
           [disabled]="
             isButtonClick ||
-            !depotSelected ||
+            !hasDepotSelected ||
             (!isAdhocReport && !businessDaySelected) ||
             (isAdhocReport &&
               (!currentOperatorSelected ||
                 !futureOperatorSelected ||
                 !startDateSelected ||
-                !endDateSelected))
+                !endDateSelected ||
+                isDateRangeInvalid))
           "
           class="btn description">
           <mat-icon>visibility</mat-icon>

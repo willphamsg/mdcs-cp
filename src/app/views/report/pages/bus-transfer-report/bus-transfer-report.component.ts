@@ -70,7 +70,8 @@ export class BusTransferReportComponent implements OnInit, OnDestroy {
   operators: IOperatorList[] = [];
   reportName: string = 'BusDataTransferReport';
 
-  depotSelected: string = '';
+  /** String when a single depot is picked; string[] when the multi-select (ad-hoc) mode is active. */
+  depotSelected: string | string[] = '';
   businessDaySelected: string = '';
   currentOperatorSelected: string = '';
   futureOperatorSelected: string = '';
@@ -165,14 +166,32 @@ export class BusTransferReportComponent implements OnInit, OnDestroy {
       });
   }
 
+  /** Depot selection is an array in multi-select (ad-hoc) mode, a string otherwise. */
+  get hasDepotSelected(): boolean {
+    return Array.isArray(this.depotSelected)
+      ? this.depotSelected.length > 0
+      : Boolean(this.depotSelected);
+  }
+
+  /** True once both future-effective dates are set and the end date precedes the start date. */
+  get isDateRangeInvalid(): boolean {
+    if (!this.startDateSelected || !this.endDateSelected) {
+      return false;
+    }
+    return new Date(this.endDateSelected) < new Date(this.startDateSelected);
+  }
+
   onViewReport() {
     if (
-      !this.depotSelected ||
-      (!this.isAdhocReport && !this.businessDaySelected)
+      !this.hasDepotSelected ||
+      (!this.isAdhocReport && !this.businessDaySelected) ||
+      (this.isAdhocReport && this.isDateRangeInvalid)
     ) {
       console.warn(
         this.isAdhocReport
-          ? 'Please select depot before viewing report'
+          ? this.isDateRangeInvalid
+            ? 'Future Effective End Date cannot be earlier than Future Effective Start Date'
+            : 'Please select depot before viewing report'
           : 'Please select depot and business day before viewing report'
       );
       return;
@@ -185,7 +204,9 @@ export class BusTransferReportComponent implements OnInit, OnDestroy {
       businessday: this.isAdhocReport
         ? null
         : this.formatDate(this.businessDaySelected),
-      depotid: this.depotSelected,
+      depotid: Array.isArray(this.depotSelected)
+        ? this.depotSelected.join(',')
+        : this.depotSelected,
       month: null,
       currenteffectivedatetime: this.isAdhocReport && this.startDateSelected
         ? this.formatDate(this.startDateSelected)
@@ -233,12 +254,15 @@ export class BusTransferReportComponent implements OnInit, OnDestroy {
 
   downloadReport(downloadFormat: 'pdf' | 'csv' | 'excel'): void {
     if (
-      !this.depotSelected ||
-      (!this.isAdhocReport && !this.businessDaySelected)
+      !this.hasDepotSelected ||
+      (!this.isAdhocReport && !this.businessDaySelected) ||
+      (this.isAdhocReport && this.isDateRangeInvalid)
     ) {
       console.warn(
         this.isAdhocReport
-          ? 'Please select depot before downloading'
+          ? this.isDateRangeInvalid
+            ? 'Future Effective End Date cannot be earlier than Future Effective Start Date'
+            : 'Please select depot before downloading'
           : 'Please select depot and business day before downloading'
       );
       return;
@@ -251,7 +275,12 @@ export class BusTransferReportComponent implements OnInit, OnDestroy {
         : this.formatDate(this.businessDaySelected),
       format: downloadFormat,
       svc_prov_id: Number.parseInt(this.svcProviderID!, 10),
-      depot_id: Number.parseInt(this.depotSelected, 10),
+      depot_id: Number.parseInt(
+        Array.isArray(this.depotSelected)
+          ? this.depotSelected[0]
+          : this.depotSelected,
+        10
+      ),
     };
 
     this.dailyReportService

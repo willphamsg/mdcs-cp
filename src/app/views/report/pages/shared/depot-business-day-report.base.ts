@@ -39,7 +39,8 @@ export abstract class DepotBusinessDayReportBase
   depots: IDepoList[] = [];
   operators: IOperatorList[] = [];
 
-  depotSelected: string = '';
+  /** String when a single depot is picked; string[] when the multi-select (ad-hoc) mode is active. */
+  depotSelected: string | string[] = '';
   businessDaySelected: string = '';
   spNameSelected: string = '';
 
@@ -124,7 +125,9 @@ export abstract class DepotBusinessDayReportBase
       businessday: this.isAdhocReport
         ? null
         : this.formatDate(this.businessDaySelected),
-      depotid: this.depotSelected,
+      depotid: Array.isArray(this.depotSelected)
+        ? this.depotSelected.join(',')
+        : this.depotSelected,
       month: null,
     };
   }
@@ -170,7 +173,12 @@ export abstract class DepotBusinessDayReportBase
         : this.formatDate(this.businessDaySelected),
       format: downloadFormat,
       svc_prov_id: Number.parseInt(this.svcProviderID!, 10),
-      depot_id: Number.parseInt(this.depotSelected, 10),
+      depot_id: Number.parseInt(
+        Array.isArray(this.depotSelected)
+          ? this.depotSelected[0]
+          : this.depotSelected,
+        10
+      ),
     };
 
     this.dailyReportService
@@ -199,10 +207,17 @@ export abstract class DepotBusinessDayReportBase
     window.URL.revokeObjectURL(url);
   }
 
+  /** Depot selection is an array in multi-select (ad-hoc) mode, a string otherwise. */
+  protected get hasDepotSelected(): boolean {
+    return Array.isArray(this.depotSelected)
+      ? this.depotSelected.length > 0
+      : Boolean(this.depotSelected);
+  }
+
   private canRunReport(): boolean {
-    return Boolean(
-      this.depotSelected &&
-        (this.isAdhocReport || this.businessDaySelected)
+    return (
+      this.hasDepotSelected &&
+      (this.isAdhocReport || Boolean(this.businessDaySelected))
     );
   }
 

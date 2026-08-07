@@ -1,8 +1,29 @@
+.report-container {
+  position: relative;
+}
+
 .active {
   display: block;
 }
 .hidden {
   display: none;
+}
+
+.report-loading-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  background-color: rgba(255, 255, 255, 0.85);
+
+  p {
+    font-size: 16px;
+    color: #828282;
+  }
 }
 
 .empty-depot-display {

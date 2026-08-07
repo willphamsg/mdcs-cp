@@ -160,18 +160,21 @@ describe('HeaderComponent', () => {
     expect(fixture.componentInstance.checkNavActive('notfound')).toBeFalse();
   });
 
-  it('should toggle mobile menu', async () => {
+  it('should render the mobile menu icon and nav panel as a pure-CSS hover toggle', async () => {
+    // The open/close interaction is implemented entirely in CSS (:has()), not
+    // component state, so there's no JS method to unit-test here - this just
+    // verifies the structure the CSS relies on: an icon button and the nav
+    // panel both present under the same <mat-toolbar>, with no leftover
+    // click/hover bindings or *ngIf gating the panel out of the DOM.
     const { fixture } = await createFixture();
     fixture.detectChanges();
-    const component = fixture.componentInstance;
-    const event = new Event('click');
-    spyOn(event, 'stopPropagation');
 
-    component.toggleMobileMenu(event);
-    expect(component.isOpenMobileMenu).toBeTrue();
+    const toolbar: HTMLElement = fixture.nativeElement.querySelector('mat-toolbar');
+    const menuBtn = toolbar.querySelector('.menu-icon-btn');
+    const mobileNav = toolbar.querySelector('.mobile-nav');
 
-    component.toggleMobileMenu(event);
-    expect(component.isOpenMobileMenu).toBeFalse();
+    expect(menuBtn).toBeTruthy();
+    expect(mobileNav).toBeTruthy();
   });
 
   it('should open logout confirmation dialog on logOut', async () => {
@@ -287,49 +290,6 @@ describe('HeaderComponent', () => {
       const busMenu = component.navList.find((n: any) => n.value === 'bus');
       const dailyBusList = busMenu?.subs.find((s: any) => s.value === 'daily-bus-list');
       expect(dailyBusList.href).toMatch(/^\/mdcs\//);
-    });
-  });
-
-  describe('onClick (document click outside handling)', () => {
-    it('should do nothing when the mobile menu is already closed', async () => {
-      const { fixture } = await createFixture();
-      fixture.detectChanges();
-      const component = fixture.componentInstance;
-      component.isOpenMobileMenu = false;
-      const containsSpy = spyOn(component.mobileNav.nativeElement, 'contains');
-
-      component.onClick({ target: document.body } as unknown as Event);
-
-      expect(containsSpy).not.toHaveBeenCalled();
-      expect(component.isOpenMobileMenu).toBeFalse();
-    });
-
-    it('should keep the mobile menu open when the click target is inside it', async () => {
-      const { fixture } = await createFixture();
-      fixture.detectChanges();
-      const component = fixture.componentInstance;
-      component.isOpenMobileMenu = true;
-      const insideEl = document.createElement('div');
-      component.mobileNav.nativeElement.appendChild(insideEl);
-
-      component.onClick({ target: insideEl } as unknown as Event);
-
-      expect(component.isOpenMobileMenu).toBeTrue();
-      component.mobileNav.nativeElement.removeChild(insideEl);
-    });
-
-    it('should close the mobile menu when the click target is outside it', async () => {
-      const { fixture } = await createFixture();
-      fixture.detectChanges();
-      const component = fixture.componentInstance;
-      component.isOpenMobileMenu = true;
-      const outsideEl = document.createElement('div');
-      document.body.appendChild(outsideEl);
-
-      component.onClick({ target: outsideEl } as unknown as Event);
-
-      expect(component.isOpenMobileMenu).toBeFalse();
-      document.body.removeChild(outsideEl);
     });
   });
 

@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   Input,
@@ -8,10 +7,9 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-  Inject,
-  PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {
   DomSanitizer,
   SafeHtml,
@@ -26,13 +24,21 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-ssrs-reportviewer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatProgressSpinnerModule],
   templateUrl: './ssrs-reportviewer.component.html',
   styleUrl: './ssrs-reportviewer.component.scss',
 })
 export class SSRSReportViewerComponent
-  implements OnInit, OnChanges, AfterViewInit, OnDestroy
+  implements OnInit, OnChanges, OnDestroy
 {
+  /**
+   * SSRS's HTML5 viewer finishes loading its page shell (firing the iframe's
+   * native `load` event) well before it finishes rendering the report body.
+   * This grace period is kept after `load` fires so the "View Report" button
+   * doesn't re-enable while SSRS is still rendering.
+   */
+  private static readonly REPORT_RENDER_GRACE_MS = 1500;
+
   sanitizedUrl: SafeResourceUrl | null = null;
   reportHtml: SafeHtml | null = null;
 
@@ -47,14 +53,16 @@ export class SSRSReportViewerComponent
   height: number = 100;
 
   isIframeLoaded: boolean = false;
+  /** True from the moment a report is requested until the render grace period elapses. */
+  isReportRendering: boolean = false;
 
   private readonly destroy$ = new Subject<void>();
+  private renderGraceTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     private readonly sanitizer: DomSanitizer,
     private readonly reportService: ReportService,
     private readonly authService: AuthService,
-    @Inject(PLATFORM_ID) private readonly platformId: object,
     private readonly http: HttpClient
   ) {}
 
@@ -70,30 +78,27 @@ export class SSRSReportViewerComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.clearRenderGraceTimeout();
+
     if (
       (changes['reportname'] || changes['parameter'] || changes['option']) &&
       this.parameter.businessday != 'NaN-NaN-NaN' &&
       this.parameter.depotid != null
     ) {
+      this.isReportRendering = true;
       this.loadReport();
       this.isIframeLoaded = true;
     } else {
       this.sanitizedUrl = null;
       this.isIframeLoaded = false;
+      this.isReportRendering = false;
     }
   }
 
   ngOnDestroy(): void {
+    this.clearRenderGraceTimeout();
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  ngAfterViewInit(): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
-    const iframe = document.querySelector('iframe');
-    iframe?.addEventListener('load', this.onIframeLoad.bind(this));
   }
 
   loadReport() {
@@ -199,8 +204,19 @@ export class SSRSReportViewerComponent
   }
 
   onIframeLoad(): void {
-    this.isIframeLoaded = true;
-    this.isIframeLoadedEvent.emit(this.isIframeLoaded);
+    this.clearRenderGraceTimeout();
+    this.renderGraceTimeout = setTimeout(() => {
+      this.isIframeLoaded = true;
+      this.isReportRendering = false;
+      this.isIframeLoadedEvent.emit(true);
+    }, SSRSReportViewerComponent.REPORT_RENDER_GRACE_MS);
+  }
+
+  private clearRenderGraceTimeout(): void {
+    if (this.renderGraceTimeout !== null) {
+      clearTimeout(this.renderGraceTimeout);
+      this.renderGraceTimeout = null;
+    }
   }
 
   formatDateOffset(

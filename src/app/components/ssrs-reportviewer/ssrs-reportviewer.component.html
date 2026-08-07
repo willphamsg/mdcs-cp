@@ -6,6 +6,12 @@
       <p>No data to display.</p>
     </div>
   }
+  @if (isReportRendering) {
+    <div class="report-loading-overlay">
+      <mat-spinner diameter="56" color="primary"></mat-spinner>
+      <p>Loading report...</p>
+    </div>
+  }
   <div [ngClass]="{ active: isIframeLoaded, hidden: !isIframeLoaded }">
     <iframe
       [src]="sanitizedUrl"
