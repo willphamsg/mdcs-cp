@@ -110,11 +110,8 @@ describe('NewParameterApproval ViewComponent', () => {
     expect(mockParameterService.manage).not.toHaveBeenCalled();
   });
 
-  it('should stop reacting to depoList$ updates after destroy (no leaked subscription)', () => {
-    spyOn(component['destroy$'], 'next').and.callThrough();
-    spyOn(component['destroy$'], 'complete').and.callThrough();
+  it('should close open dialogs on destroy', () => {
     component.ngOnDestroy();
-    expect(component['destroy$'].next).toHaveBeenCalled();
-    expect(component['destroy$'].complete).toHaveBeenCalled();
+    expect(component.dialog.closeAll).toHaveBeenCalled();
   });
 });

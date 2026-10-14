@@ -47,7 +47,7 @@ import { ParameterService } from '@app/services/parameter.service';
 import { MessageService } from '@services/message.service';
 import { AppStore } from '@store/app.state';
 import { Store } from '@ngrx/store';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
     selector: 'app-view',
     templateUrl: './view.component.html',
@@ -75,7 +75,6 @@ import { Subject, takeUntil } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewComponent implements OnInit, OnDestroy {
-  private readonly destroy$ = new Subject<void>();
   @ViewChild(MatTable) _matTable: MatTable<any>;
   myForm: FormGroup;
   mode: string = '';
@@ -103,7 +102,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     private readonly store: Store<AppStore>
   ) {
     this.depoService.depoList$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed())
       .subscribe((value: IDepoList[]) => {
         this.depots = value;
       });
@@ -133,8 +132,6 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.dialog.closeAll();
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   get items(): FormArray {

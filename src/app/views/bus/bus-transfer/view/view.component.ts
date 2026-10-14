@@ -53,7 +53,7 @@ import { Store } from '@ngrx/store';
 import { showSnackbar } from '@store/snackbar/snackbar.actions';
 import { DD_MM_YYYY_FORMAT } from '@app/shared/utils/date-time';
 import { TimeInput24hDirective } from '@app/shared/directives/time-input-24h.directive';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-view',
@@ -88,7 +88,6 @@ import { Subject, takeUntil } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BusTransferViewComponent implements OnInit, OnDestroy {
-  private readonly destroy$ = new Subject<void>();
   @ViewChild(MatTable) _matTable: MatTable<any>;
   myForm: FormGroup;
   mode: string = '';
@@ -125,7 +124,7 @@ export class BusTransferViewComponent implements OnInit, OnDestroy {
     private readonly store: Store<AppStore>
   ) {
     this.depoService.depoList$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed())
       .subscribe((value: IDepoList[]) => {
         this.depots = value;
       });
@@ -158,8 +157,6 @@ export class BusTransferViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.dialog.closeAll();
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   get items(): FormArray {
