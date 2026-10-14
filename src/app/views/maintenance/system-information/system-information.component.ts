@@ -50,37 +50,36 @@ export class SystemInformationComponent implements OnInit, OnDestroy {
   constructor(private readonly sharedService: MaintenanceSharedService, private readonly authService: AuthService) {}
 
   ngOnInit(): void {
-    this.sharedService.selectedDepot$.subscribe(depot => {
-      if (depot) {
-        this.params = {
-          depot_id: depot?.depot_id || '',
-        };
-        this.depot = depot;
-        this.sharedService
-          .searchSystemInfo(this.params)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe({
-            next: (value: PayloadResponse) => {
-              if (value.status == 200) {
-                this.mdcsInformation = value.payload['mdcs-information'];
-                this.dagwInformation = value.payload['dagw-information'];
-                this.mdcsLastUpdate = value.payload['mdcs-last-updated'];
-                this.dagwLastUpdate = value.payload['dagw-last-updated'];
-                this.mdcsServiceDetails =
-                  value.payload['mdcs-service-details'] || {};
-                this.dagwServiceDetails =
-                  value.payload['dagw-service-details'] || {};
-                this.mdcsServiceNames = Object.keys(this.mdcsServiceDetails);
-                this.dagwServiceNames = Object.keys(this.dagwServiceDetails);
+    this.sharedService.selectedDepot$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(depot => {
+        if (depot) {
+          this.params = {
+            depot_id: depot?.depot_id || '',
+          };
+          this.depot = depot;
+          this.sharedService
+            .searchSystemInfo(this.params)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe({
+              next: (value: PayloadResponse) => {
+                if (value.status == 200) {
+                  this.mdcsInformation = value.payload['mdcs-information'];
+                  this.dagwInformation = value.payload['dagw-information'];
+                  this.mdcsLastUpdate = value.payload['mdcs-last-updated'];
+                  this.dagwLastUpdate = value.payload['dagw-last-updated'];
+                  this.mdcsServiceDetails =
+                    value.payload['mdcs-service-details'] || {};
+                  this.dagwServiceDetails =
+                    value.payload['dagw-service-details'] || {};
+                  this.mdcsServiceNames = Object.keys(this.mdcsServiceDetails);
+                  this.dagwServiceNames = Object.keys(this.dagwServiceDetails);
 
-
-                console.log('MDCS Information:', this.mdcsInformation);
-                console.log('DAGW Information:', this.dagwInformation);
-              }
-            },
-          });
-      }
-    });
+                }
+              },
+            });
+        }
+      });
   }
 
 

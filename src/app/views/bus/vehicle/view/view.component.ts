@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -55,6 +56,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CommonService } from '@app/services/common.service';
 import { DD_MM_YYYY_FORMAT } from '@app/shared/utils/date-time';
 import { TimeInput24hDirective } from '@app/shared/directives/time-input-24h.directive';
+import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-view',
   providers: [
@@ -84,7 +86,8 @@ import { TimeInput24hDirective } from '@app/shared/directives/time-input-24h.dir
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
 })
-export class ViewComponent implements OnInit {
+export class ViewComponent implements OnInit, OnDestroy {
+  private readonly destroy$ = new Subject<void>();
   myForm: FormGroup;
   @ViewChild(MatTable) _matTable: MatTable<any>;
   rowCount: number = 1;
@@ -120,13 +123,17 @@ export class ViewComponent implements OnInit {
     private readonly store: Store<AppStore>,
     @Inject(MAT_DIALOG_DATA) public readonly data: any
   ) {
-    this.depoService.depo$.subscribe((value: string) => {
-      this.depotId = value;
-    });
+    this.depoService.depo$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((value: string) => {
+        this.depotId = value;
+      });
 
-    this.depoService.depoList$.subscribe((value: IDepoList[]) => {
-      this.depots = value;
-    });
+    this.depoService.depoList$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((value: IDepoList[]) => {
+        this.depots = value;
+      });
   }
 
   ngOnInit() {
@@ -157,6 +164,11 @@ export class ViewComponent implements OnInit {
     if (!this.isDelete && !this.isEdit) {
       this.displayedColumns.push('action');
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   busHandler(index: number) {

@@ -12,14 +12,19 @@
       <p>Loading report...</p>
     </div>
   }
-  <div [ngClass]="{ active: isIframeLoaded, hidden: !isIframeLoaded }">
-    <iframe
-      [src]="sanitizedUrl"
-      width="100%"
-      height="600px"
-      title="SSRS report viewer"
-      style="border: 0"
-      allowfullscreen="false"
-      (load)="onIframeLoad()"></iframe>
-  </div>
+  <!-- Only once there is a report to show: an iframe with no src still costs
+       an about:blank document + frame, on every report route, whether or not
+       a report was ever generated. -->
+  @if (sanitizedUrl) {
+    <div [ngClass]="{ active: isIframeLoaded, hidden: !isIframeLoaded }">
+      <iframe
+        [src]="sanitizedUrl"
+        width="100%"
+        height="600px"
+        title="SSRS report viewer"
+        style="border: 0"
+        allowfullscreen="false"
+        (load)="onIframeLoad()"></iframe>
+    </div>
+  }
 </div>

@@ -63,6 +63,10 @@ describe('ParameterVersionSummary ViewComponent', () => {
     fixture = TestBed.createComponent(ViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    // NgxMatTimepickerModule's own DI tree resolves a real MatDialog for this
+    // standalone component's injector instead of the TestBed-level mock, so
+    // stub whatever instance actually landed here to keep ngOnDestroy safe.
+    spyOn(component.dialog, 'closeAll');
   });
 
   it('should create', () => {
@@ -84,5 +88,13 @@ describe('ParameterVersionSummary ViewComponent', () => {
   it('should have empty onSubmit (commented out)', () => {
     // onSubmit is effectively a no-op in this component
     expect(() => component.onSubmit()).not.toThrow();
+  });
+
+  it('should stop reacting to depoList$ updates after destroy (no leaked subscription)', () => {
+    spyOn(component['destroy$'], 'next').and.callThrough();
+    spyOn(component['destroy$'], 'complete').and.callThrough();
+    component.ngOnDestroy();
+    expect(component['destroy$'].next).toHaveBeenCalled();
+    expect(component['destroy$'].complete).toHaveBeenCalled();
   });
 });

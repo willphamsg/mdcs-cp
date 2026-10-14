@@ -1,6 +1,11 @@
 <mat-toolbar>
   @if (isDummy) {
-    <mat-slide-toggle (change)="toggleAutoClick($event)">Auto Click</mat-slide-toggle>
+    <mat-slide-toggle
+      data-auto-click-toggle
+      [checked]="isAutoClicking()"
+      (change)="toggleAutoClick($event)"
+      >Auto Click</mat-slide-toggle
+    >
   }
   
   <div class="header-container">
@@ -40,57 +45,62 @@
                 >expand_more</mat-icon
               >
             </button>
-            <mat-menu #sharedMenu="matMenu">
-              @if (nav.subs && nav.subs.length > 0) {
-                @for (sub of nav.subs; track sub.value) {
-                  @if (sub?.action === 'redirectToCDA') {
-                    <button
-                      mat-menu-item
-                      class="menu"
-                      (click)="redirectToCDA(); setActiveMu(nav.value)">
-                      {{ sub.label }}
-                    </button>
-                  } @else if (sub.subs && sub.subs.length > 0) {
-                    <button
-                      mat-menu-item
-                      routerLinkActive="active"
-                      [matMenuTriggerFor]="sharedSubMenu"
-                      class="menu">
-                      {{ sub.label }}
-                    </button>
-                    <mat-menu #sharedSubMenu="matMenu">
-                      @for (child of sub.subs; track child.value) {
-                        <button
-                          mat-menu-item
-                          [routerLink]="[child.href]"
-                          routerLinkActive="active"
-                          class="menu"
-                          (click)="setActiveMu(nav.value)">
-                          {{ child.label }}
-                        </button>
-                      }
-                    </mat-menu>
-                  } @else if (!!sub?.target) {
-                    <a
-                      mat-menu-item
-                      href="{{ sub.href }}"
-                      routerLinkActive="active"
-                      class="menu"
-                      [target]="sub.target">
-                      {{ sub.label }}
-                    </a>
-                  } @else if (!!sub?.href) {
-                    <button
-                      mat-menu-item
-                      [routerLink]="[sub.href]"
-                      routerLinkActive="active"
-                      class="menu"
-                      (click)="setActiveMu(nav.value)">
-                      {{ sub.label }}
-                    </button>
+            <mat-menu #sharedMenu="matMenu" appReleaseClosedPanel>
+              <ng-template matMenuContent>
+                @if (nav.subs && nav.subs.length > 0) {
+                  @for (sub of nav.subs; track sub.value) {
+                    @if (sub?.action === 'redirectToCDA') {
+                      <button
+                        mat-menu-item
+                        class="menu"
+                        data-opens-window
+                        (click)="redirectToCDA(); setActiveMu(nav.value)">
+                        {{ sub.label }}
+                      </button>
+                    } @else if (sub.subs && sub.subs.length > 0) {
+                      <button
+                        mat-menu-item
+                        routerLinkActive="active"
+                        [matMenuTriggerFor]="sharedSubMenu"
+                        class="menu">
+                        {{ sub.label }}
+                      </button>
+                      <mat-menu #sharedSubMenu="matMenu" appReleaseClosedPanel>
+                        <ng-template matMenuContent>
+                          @for (child of sub.subs; track child.value) {
+                            <a
+                              mat-menu-item
+                              [routerLink]="[child.href]"
+                              routerLinkActive="active"
+                              class="menu"
+                              (click)="setActiveMu(nav.value)">
+                              {{ child.label }}
+                            </a>
+                          }
+                        </ng-template>
+                      </mat-menu>
+                    } @else if (!!sub?.target) {
+                      <a
+                        mat-menu-item
+                        href="{{ sub.href }}"
+                        routerLinkActive="active"
+                        class="menu"
+                        [target]="sub.target">
+                        {{ sub.label }}
+                      </a>
+                    } @else if (!!sub?.href) {
+                      <a
+                        mat-menu-item
+                        [routerLink]="[sub.href]"
+                        routerLinkActive="active"
+                        class="menu"
+                        (click)="setActiveMu(nav.value)">
+                        {{ sub.label }}
+                      </a>
+                    }
                   }
                 }
-              }
+              </ng-template>
             </mat-menu>
           </div>
         }
@@ -104,36 +114,38 @@
           aria-label="Profile">
           <p>{{ userInitial }}</p>
         </button>
-        <mat-menu #profile="matMenu" yPosition="below">
-          <div style="width: 360px; padding: 20px 0; border-radius: 4px">
-            <h3 style="text-align: center; font-size: 24px; font-weight: bold">
-              {{ givenName || 'User' }}
-            </h3>
-            <p style="text-align: center; font-size: 16px; font-weight: bold">
-              {{ userName }}
-            </p>
-            @if (authService.hasAccess(['changePassword', 'view'], dagw ? 'dagw' : 'mdcs') && !dagw) {
-              <a
-                [href]="settingDefault?.change_password_url"
+        <mat-menu #profile="matMenu" yPosition="below" appReleaseClosedPanel>
+          <ng-template matMenuContent>
+            <div style="width: 360px; padding: 20px 0; border-radius: 4px">
+              <h3 style="text-align: center; font-size: 24px; font-weight: bold">
+                {{ givenName || 'User' }}
+              </h3>
+              <p style="text-align: center; font-size: 16px; font-weight: bold">
+                {{ userName }}
+              </p>
+              @if (authService.hasAccess(['changePassword', 'view'], dagw ? 'dagw' : 'mdcs') && !dagw) {
+                <a
+                  [href]="settingDefault?.change_password_url"
+                  mat-menu-item
+                  target="_blank"
+                  rel="noopener"
+                  style="border-top: 1px solid #eee; font-size: 16px">
+                  Change Password
+                </a>
+              }
+              <button
                 mat-menu-item
-                target="_blank"
-                rel="noopener"
-                style="border-top: 1px solid #eee; font-size: 16px">
-                Change Password
-              </a>
-            }
-            <button
-              mat-menu-item
-              type="button"
-              (click)="logOut()"
-              style="
-                border-top: 1px solid #eee;
-                font-size: 16px;
-                color: #9f0f0f;
-              ">
-              Log Out
-            </button>
-          </div>
+                type="button"
+                (click)="logOut()"
+                style="
+                  border-top: 1px solid #eee;
+                  font-size: 16px;
+                  color: #9f0f0f;
+                ">
+                Log Out
+              </button>
+            </div>
+          </ng-template>
         </mat-menu>
       </div>
     </div>
@@ -153,6 +165,7 @@
                     <button
                       mat-menu-item
                       class="menu"
+                      data-opens-window
                       [ngClass]="{
                         'nav-active': checkNavActive(sub.href || '')
                       }"
@@ -169,7 +182,7 @@
 
                       @for (child of sub.subs; track child.value) {
                         <div class="nav-item">
-                          <button
+                          <a
                             mat-menu-item
                             [routerLink]="[child.href]"
                             routerLinkActive="active"
@@ -179,7 +192,7 @@
                             }"
                             (click)="setActiveMu(nav.value)">
                             {{ child.label }}
-                          </button>
+                          </a>
                         </div>
                       }
                     </mat-expansion-panel>
@@ -197,7 +210,7 @@
                   </div>
                 } @else if (!!sub?.href) {
                   <div class="nav-item">
-                    <button
+                    <a
                       mat-menu-item
                       [routerLink]="[sub.href]"
                       routerLinkActive="active"
@@ -205,7 +218,7 @@
                       [ngClass]="{ 'nav-active': checkNavActive(sub.href) }"
                       (click)="setActiveMu(nav.value)">
                       {{ sub.label }}
-                    </button>
+                    </a>
                   </div>
                 }
               }

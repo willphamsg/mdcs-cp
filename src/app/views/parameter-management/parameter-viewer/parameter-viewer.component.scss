@@ -37,7 +37,7 @@ $font-white: #ffffff;
     height: 24px;
     background-size: contain;
     background-repeat: no-repeat;
-    background-image: url('../../../../assets/icons/folder-white.svg');
+    background-image: url('/assets/icons/folder-white.svg');
   }
 }
 
@@ -64,7 +64,7 @@ $font-white: #ffffff;
   margin-right: 10px;
   background-size: contain;
   background-repeat: no-repeat;
-  background-image: url('../../../../assets/icons/folder-item.svg');
+  background-image: url('/assets/icons/folder-item.svg');
 }
 
 .header-with-icon {
@@ -82,7 +82,7 @@ $font-white: #ffffff;
   height: 20px;
   background-size: contain;
   background-repeat: no-repeat;
-  background-image: url('../../../../assets/icons/folder-close.svg');
+  background-image: url('/assets/icons/folder-close.svg');
 }
 
 .header-with-icon-empty {
@@ -100,7 +100,7 @@ $font-white: #ffffff;
   height: 20px;
   background-size: contain;
   background-repeat: no-repeat;
-  background-image: url('../../../../assets/icons/folder.svg');
+  background-image: url('/assets/icons/folder.svg');
 }
 
 .selected-item {

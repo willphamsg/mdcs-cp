@@ -41,6 +41,40 @@ describe('SSRSReportViewerComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  describe('iframe rendering', () => {
+    // An iframe with no src is still an about:blank document + frame, on every
+    // report route, whether or not a report was ever generated.
+    it('renders no iframe until there is a report url', () => {
+      fixture.detectChanges();
+      expect((fixture.nativeElement as HTMLElement).querySelector('iframe')).toBeNull();
+    });
+
+    it('renders the iframe once a report url is set', () => {
+      component.parameter = { spid: 'SP1', businessday: '2025-01-01', depotid: 'D1' } as any;
+      component.ngOnChanges({
+        parameter: new SimpleChange(null, component.parameter, false),
+      });
+      fixture.detectChanges();
+      expect((fixture.nativeElement as HTMLElement).querySelector('iframe')).not.toBeNull();
+    });
+
+    it('removes the iframe again when the report url is cleared', () => {
+      component.parameter = { spid: 'SP1', businessday: '2025-01-01', depotid: 'D1' } as any;
+      component.ngOnChanges({
+        parameter: new SimpleChange(null, component.parameter, false),
+      });
+      fixture.detectChanges();
+
+      component.parameter = { spid: '', businessday: null, depotid: null } as any;
+      component.ngOnChanges({
+        parameter: new SimpleChange(null, component.parameter, false),
+      });
+      fixture.detectChanges();
+
+      expect((fixture.nativeElement as HTMLElement).querySelector('iframe')).toBeNull();
+    });
+  });
+
   it('should set sanitizedUrl to null when parameter has null businessday and depotid', () => {
     component.ngOnInit();
     expect(component.sanitizedUrl).toBeNull();

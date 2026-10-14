@@ -25,4 +25,17 @@ describe('DepotDropdownComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should stop emitting depotChange after destroy (no leaked subscription)', () => {
+    const emitSpy = spyOn(component.depotChange, 'emit');
+
+    component.depotControl.setValue('1');
+    expect(emitSpy).toHaveBeenCalledWith('1');
+
+    component.ngOnDestroy();
+    emitSpy.calls.reset();
+
+    component.depotControl.setValue('2');
+    expect(emitSpy).not.toHaveBeenCalled();
+  });
 });

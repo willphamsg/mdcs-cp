@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -14,6 +14,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { SvgIconCacheService } from './services/svg-icon-cache.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,5 +35,7 @@ export const appConfig: ApplicationConfig = {
       useValue: { subscriptSizing: 'dynamic', appearance: 'outline' },
     },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } },
+    // Fire-and-forget: doesn't hold up bootstrap, just warms the icon set.
+    provideAppInitializer(() => inject(SvgIconCacheService).preload()),
   ],
 };

@@ -9,7 +9,10 @@ import { AuthService } from '@app/services/auth.service';
 import { DailyReportService } from '@app/services/daily-report.service';
 import { DepoService } from '@app/services/depo.service';
 import { of } from 'rxjs';
-import { DailyReportComponent } from './daily-report-search.component';
+import {
+  DailyReportComponent,
+  PREVIEW_WINDOW_NAME,
+} from './daily-report-search.component';
 
 describe('DailyReportComponent', () => {
   let component: DailyReportComponent;
@@ -134,6 +137,54 @@ describe('DailyReportComponent', () => {
     component.businessDaySelected = '';
     component.exportCSV();
     expect(mockDailyReportService.download).not.toHaveBeenCalled();
+  });
+
+  describe('report preview window', () => {
+    let openSpy: jasmine.Spy;
+    let revokeSpy: jasmine.Spy;
+
+    beforeEach(() => {
+      openSpy = spyOn(window, 'open').and.returnValue({} as Window);
+      revokeSpy = spyOn(window.URL, 'revokeObjectURL');
+      spyOn(window.URL, 'createObjectURL').and.returnValues(
+        'blob:first',
+        'blob:second'
+      );
+    });
+
+    it('reuses one named window instead of opening a tab per report', () => {
+      component.viewPdfInBrowser(new Blob());
+      component.viewPdfInBrowser(new Blob());
+
+      expect(openSpy.calls.allArgs()).toEqual([
+        ['blob:first', PREVIEW_WINDOW_NAME],
+        ['blob:second', PREVIEW_WINDOW_NAME],
+      ]);
+    });
+
+    it('releases the report the new one replaces, not the new one', () => {
+      component.viewPdfInBrowser(new Blob());
+      expect(revokeSpy).not.toHaveBeenCalled();
+
+      component.viewPdfInBrowser(new Blob());
+      expect(revokeSpy.calls.allArgs()).toEqual([['blob:first']]);
+    });
+
+    it('releases the last report on destroy', () => {
+      component.viewPdfInBrowser(new Blob());
+      component.ngOnDestroy();
+      expect(revokeSpy.calls.allArgs()).toEqual([['blob:first']]);
+
+      // Destroying twice must not revoke a URL that is already gone.
+      component.ngOnDestroy();
+      expect(revokeSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('releases the report when the window is blocked', () => {
+      openSpy.and.returnValue(null);
+      component.viewPdfInBrowser(new Blob());
+      expect(revokeSpy.calls.allArgs()).toEqual([['blob:first']]);
+    });
   });
 
   it('should unsubscribe on destroy', () => {

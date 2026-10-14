@@ -83,4 +83,15 @@ describe('MaintenanceComponent', () => {
     expect(component['destroy$'].next).toHaveBeenCalled();
     expect(component['destroy$'].complete).toHaveBeenCalled();
   });
+
+  it('should release the shared FormGroup on ngOnDestroy so the destroyed page is not retained', () => {
+    let current: unknown;
+    const sub = sharedService.formGroup$.subscribe(fg => (current = fg));
+    expect(current).toBeTruthy();
+
+    component.ngOnDestroy();
+
+    expect(current).toBeNull();
+    sub.unsubscribe();
+  });
 });

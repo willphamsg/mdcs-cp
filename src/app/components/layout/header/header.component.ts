@@ -38,6 +38,7 @@ import { environment } from '../../../../environments/environment';
 import { downloadLogsAsCsv } from '@app/services/request-log.interceptor';
  // @ts-ignore
 import * as autoClicker from '../../../../tools/auto-clicker.js';
+import { ReleaseClosedMenuPanelDirective } from '@app/shared/directives/release-closed-menu-panel.directive';
 
 @Component({
   selector: 'app-header',
@@ -46,6 +47,7 @@ import * as autoClicker from '../../../../tools/auto-clicker.js';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    ReleaseClosedMenuPanelDirective,
     MatExpansionModule,
     RouterModule,
     MatSelectModule,
@@ -519,7 +521,13 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   redirectToCDA() {
     const cdaLink = this.authService.getCDALink();
     if (cdaLink) {
-      window.open(cdaLink, '_blank');
+      // Named target (not '_blank') so repeat clicks reuse/refresh the same
+      // tab instead of each spawning a new one that's never closed - that
+      // accumulated documents/frames over long sessions. Can't pair this
+      // with 'noopener': Chromium detaches noopener popups from the
+      // opener's named-window lookup, so every call would open a new tab
+      // regardless of sharing a name.
+      window.open(cdaLink, 'cda-window');
     }
   }
 
@@ -689,11 +697,23 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  // The clicker outlives this component (module-level state), so a header
+  // rebuilt mid-run must read the real state rather than default to "off".
+  isAutoClicking(): boolean {
+    return autoClicker.isAutoClickerRunning();
+  }
+
   toggleAutoClick(event: MatSlideToggleChange) {
     if (event.checked) {
       autoClicker.startAutoClicker();
     } else {
-      autoClicker.stopAutoClicker();
+      autoClicker.stopAutoClicker().then(() => {
+        const startUrl = autoClicker.getAutoClickerStartUrl();
+        if (startUrl && this.router.url !== startUrl) {
+          // Best effort: if that page can't be reopened, just stay put.
+          this.router.navigateByUrl(startUrl).catch(() => undefined);
+        }
+      });
       downloadLogsAsCsv();
     }
   }

@@ -924,3 +924,36 @@ button[mat-unelevated-button]:disabled {
     color: #828282 !important;
   }
 }
+
+/**
+ * Print just one section of the page.
+ *
+ * A view that wants this adds `print-section-only` to <body> for the duration
+ * of window.print() and marks the part to print with id="print-section".
+ * Everything else is hidden for the print job only - nothing is detached, so
+ * Angular keeps its references and the page stays live afterwards. (The old
+ * approach assigned document.body.innerHTML, which orphaned every node the
+ * framework held and needed a full page reload to recover.)
+ */
+@media print {
+  body.print-section-only {
+    background: #fff;
+  }
+
+  body.print-section-only * {
+    visibility: hidden;
+  }
+
+  body.print-section-only #print-section,
+  body.print-section-only #print-section * {
+    visibility: visible;
+  }
+
+  body.print-section-only #print-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: none;
+  }
+}

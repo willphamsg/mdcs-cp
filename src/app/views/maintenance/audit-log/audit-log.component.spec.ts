@@ -10,7 +10,7 @@ import { FilterService } from '@app/services/filter.service';
 import { MaintenanceSharedService } from '@app/services/maintenance-shared.service';
 import { PaginationService } from '@app/services/pagination.service';
 import DummyData from '@data/db.json';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { AuditLogComponent } from './audit-log.component';
 
 describe('AuditLogComponent', () => {
@@ -83,5 +83,28 @@ describe('AuditLogComponent', () => {
   it('should load filter values and configurations', () => {
     component.loadFilterValues();
     expect(component.filterConfigs.length).toBeGreaterThan(0);
+  });
+
+  it('should stop reacting to depoList$ updates after destroy (no leaked subscription)', () => {
+    spyOn(component['destroy$'], 'next').and.callThrough();
+    spyOn(component['destroy$'], 'complete').and.callThrough();
+    component.ngOnDestroy();
+    expect(component['destroy$'].next).toHaveBeenCalled();
+    expect(component['destroy$'].complete).toHaveBeenCalled();
+  });
+
+  it('should not update dataSource from a viewAuditTrail response that arrives after destroy (no stale update on a torn-down component)', () => {
+    const viewAuditTrailSubject = new Subject<any>();
+    mockSharedService.viewAuditTrail.and.returnValue(viewAuditTrailSubject.asObservable());
+
+    component.reloadHandler();
+    component.ngOnDestroy();
+
+    viewAuditTrailSubject.next({
+      status: 200,
+      payload: { 'audit-log-items': [{ id: 1 }], records_count: 1 },
+    });
+
+    expect(component.rowCount).toBe(0);
   });
 });

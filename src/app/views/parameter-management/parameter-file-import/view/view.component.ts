@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -52,6 +53,7 @@ import { AppStore } from '@app/store/app.state';
 import { showSnackbar } from '@app/store/snackbar/snackbar.actions';
 import { Store } from '@ngrx/store';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-view',
@@ -81,7 +83,8 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewComponent implements OnInit {
+export class ViewComponent implements OnInit, OnDestroy {
+  private readonly destroy$ = new Subject<void>();
   @ViewChild(MatTable) _matTable: MatTable<any>;
   myForm: FormGroup;
   isUpdate: boolean = false;
@@ -114,12 +117,16 @@ export class ViewComponent implements OnInit {
     private readonly _snackBar: MatSnackBar,
     private readonly store: Store<AppStore>
   ) {
-    this.depoService.depo$.subscribe((value: string) => {
-      this.depotId = value;
-    });
-    this.depoService.depoList$.subscribe((value: IDepoList[]) => {
-      this.depots = value;
-    });
+    this.depoService.depo$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((value: string) => {
+        this.depotId = value;
+      });
+    this.depoService.depoList$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((value: IDepoList[]) => {
+        this.depots = value;
+      });
   }
 
   title: string;
@@ -165,7 +172,9 @@ export class ViewComponent implements OnInit {
     }
   }
 
-  OnDestroy(): void {
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
     this.dialog.closeAll();
   }
 

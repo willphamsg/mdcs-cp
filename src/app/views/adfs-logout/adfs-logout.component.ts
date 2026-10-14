@@ -3,6 +3,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonService } from '@app/services/common.service';
 import { Subject, takeUntil } from 'rxjs';
 
+const REDIRECT_DELAY_MS = 5000;
+
 @Component({
   selector: 'app-adfs-logout',
   standalone: true,
@@ -16,6 +18,7 @@ export class ADFSLogoutComponent implements OnInit, OnDestroy {
   settingDefault: any = null;
   sanitizedUrl: SafeResourceUrl | null = null;
   redirect: string;
+  private redirectTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     private readonly sanitizer: DomSanitizer,
@@ -32,9 +35,9 @@ export class ADFSLogoutComponent implements OnInit, OnDestroy {
           this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.settingDefault?.logout_url); // NOSONAR
           this.redirect = this.settingDefault?.authenticate_adfs_url;
           
-          setTimeout(() => {
+          this.redirectTimer = setTimeout(() => {
             window.location.href = this.redirect;
-          }, 5000)
+          }, REDIRECT_DELAY_MS);
         },
       });
 
@@ -43,6 +46,11 @@ export class ADFSLogoutComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    // Leaving this armed navigates the window out of whatever replaced us.
+    if (this.redirectTimer !== null) {
+      clearTimeout(this.redirectTimer);
+      this.redirectTimer = null;
+    }
   }
 
 }

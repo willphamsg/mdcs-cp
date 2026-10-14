@@ -290,6 +290,31 @@ describe('WebSocketService', () => {
       expect(() => client.onWebSocketClose({ code: 1000 })).not.toThrow();
       expect((service as any).connecting).toBeFalse();
     });
+
+    it('should unsubscribe tracked subscriptions (not just clear the map) on disconnect and socket close', () => {
+      mockAuthService.isWebSocketEnabled.and.returnValue(true);
+      mockAuthService.wsUrl.and.returnValue('wss://host/ws');
+      spyOn(Client.prototype, 'activate');
+      spyOn(console, 'log');
+      spyOn(console, 'warn');
+      spyOn(console, 'error');
+
+      service.connect();
+      const client: any = (service as any).client;
+
+      const subscriptions: Map<string, any> = (service as any).subscriptions;
+      const onDisconnectSub = { unsubscribe: jasmine.createSpy('unsub1') };
+      subscriptions.set(WS_TOPICS.busTransfer, onDisconnectSub);
+      client.onDisconnect();
+      expect(onDisconnectSub.unsubscribe).toHaveBeenCalled();
+      expect(subscriptions.size).toBe(0);
+
+      const onCloseSub = { unsubscribe: jasmine.createSpy('unsub2') };
+      subscriptions.set(WS_TOPICS.eodProcess, onCloseSub);
+      client.onWebSocketClose({ code: 1000 });
+      expect(onCloseSub.unsubscribe).toHaveBeenCalled();
+      expect(subscriptions.size).toBe(0);
+    });
   });
 
   describe('disconnect', () => {

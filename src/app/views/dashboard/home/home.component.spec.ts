@@ -89,7 +89,7 @@ describe('HomeComponent', () => {
 
   it('should return chart config for a connected bus', () => {
     const connectedBus = { depot_name: 'Test', total: 5, bus_details: [] } as any;
-    const config = component.chartConfig(connectedBus);
+    const config = component['chartConfig'](connectedBus);
     expect(config.title).toBe('Test');
     expect(config.subtitle).toBe('Bus in Depot: 5');
   });
@@ -101,9 +101,33 @@ describe('HomeComponent', () => {
         { time: '09:00', num_of_buses: 5 },
       ],
     } as any;
-    const result = component.transformChartData(connectedBus);
+    const result = component['transformChartData'](connectedBus);
     expect(result).toHaveSize(2);
     expect(result[0]).toEqual({ x: '08:00', y: 3 });
+  });
+
+  it('should precompute chartsRendered alongside busesRendered instead of recomputing per render', () => {
+    mockDashboardService.search.and.returnValue(of({
+      status: 200,
+      status_code: 'SUCCESS',
+      timestamp: Date.now(),
+      message: 'OK',
+      payload: {
+        depot_bus_count: [
+          { depot_id: 1, captured_at: '2026-01-01 08:00:00', nos_of_buses: 3 },
+        ],
+      },
+    }));
+
+    component['generateBusesRendered']();
+
+    expect(component.chartsRendered).toHaveSize(component.busesRendered.length);
+    expect(component.chartsRendered[0].depotId).toBe(component.busesRendered[0].depot_id);
+    expect(component.chartsRendered[0].data).toEqual([{ x: '08:00:00', y: 3 }]);
+
+    const firstReference = component.chartsRendered[0].data;
+    fixture.detectChanges();
+    expect(component.chartsRendered[0].data).toBe(firstReference);
   });
 
   it('should clear interval and unsubscribe on destroy', () => {

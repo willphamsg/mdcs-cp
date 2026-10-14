@@ -90,4 +90,12 @@ describe('BusTransferViewComponent', () => {
   it('should set mode from action', () => {
     expect(component.mode).toBe('update');
   });
+
+  it('should stop reacting to depoList$ updates after destroy (no leaked subscription)', () => {
+    spyOn(component['destroy$'], 'next').and.callThrough();
+    spyOn(component['destroy$'], 'complete').and.callThrough();
+    component.ngOnDestroy();
+    expect(component['destroy$'].next).toHaveBeenCalled();
+    expect(component['destroy$'].complete).toHaveBeenCalled();
+  });
 });

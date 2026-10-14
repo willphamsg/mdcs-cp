@@ -318,7 +318,7 @@
             type="button"
             class="btn local-primary"
             mat-button
-            cdkFocusInitial
+            [attr.cdkFocusInitial]="isNotAllowedSubmit() ? null : ''"
             (click)="onSubmit()"
             [disabled]="isNotAllowedSubmit()">
             Submit

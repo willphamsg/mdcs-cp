@@ -6,6 +6,8 @@ import { CommonService } from '@app/services/common.service';
 import { PLATFORM_ID } from '@angular/core';
 import { of, BehaviorSubject } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
+import { MatMenu } from '@angular/material/menu';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
@@ -41,8 +43,25 @@ describe('FooterComponent', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    // ngAfterViewInit starts a real setInterval; destroying the fixture
+    // (which triggers ngOnDestroy) prevents it from ticking for the rest
+    // of the Karma run.
+    fixture.destroy();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render the system connection menu lazily', () => {
+    const menu = fixture.debugElement.query(By.directive(MatMenu)).injector.get(MatMenu);
+    expect(menu.lazyContent).toBeDefined();
+  });
+
+  it('should render Event History as a real link', () => {
+    const link = (fixture.nativeElement as HTMLElement).querySelector('.event');
+    expect(link?.tagName).toBe('A');
   });
 
   it('should set version from profile on init', () => {
@@ -144,6 +163,22 @@ describe('FooterComponent', () => {
       const before = component.currentDate;
       component.ngAfterViewInit();
       expect(component.currentDate).toBe(before);
+    });
+
+    it('should stop updating currentDate after destroy (interval cleared, no leaked timer)', () => {
+      jasmine.clock().install();
+      try {
+        component.ngAfterViewInit();
+        jasmine.clock().tick(1000);
+        const beforeDestroy = component.currentDate;
+
+        component.ngOnDestroy();
+        jasmine.clock().tick(5000);
+
+        expect(component.currentDate).toBe(beforeDestroy);
+      } finally {
+        jasmine.clock().uninstall();
+      }
     });
   });
 

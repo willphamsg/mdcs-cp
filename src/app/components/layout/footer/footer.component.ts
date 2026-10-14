@@ -19,6 +19,7 @@ import { IDepoList } from '@app/models/depo';
 import { AuthService } from '@app/services/auth.service';
 import { UserProfile } from '@app/models/user';
 import { CommonService } from '@app/services/common.service';
+import { ReleaseClosedMenuPanelDirective } from '@app/shared/directives/release-closed-menu-panel.directive';
 
 @Component({
   selector: 'app-footer',
@@ -29,6 +30,7 @@ import { CommonService } from '@app/services/common.service';
     MatButtonModule,
     MatSelectModule,
     MatMenuModule,
+    ReleaseClosedMenuPanelDirective,
     RouterModule,
   ],
   templateUrl: './footer.component.html',
@@ -94,15 +96,20 @@ export class FooterComponent implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
+  private clockIntervalId: ReturnType<typeof setInterval> | null = null;
+
   ngAfterViewInit(): void {
     if (this.isBrowser()) {
-      setInterval(() => {
+      this.clockIntervalId = setInterval(() => {
         this.currentDate = new Date();
       }, 1000);
     }
   }
 
   ngOnDestroy(): void {
+    if (this.clockIntervalId !== null) {
+      clearInterval(this.clockIntervalId);
+    }
     this.destroy$.next();
     this.destroy$.complete();
   }

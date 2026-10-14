@@ -207,7 +207,6 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
   }
 
   onValuesChange(values: { [key: string]: string }): void {
-    console.log('Values: ', values);
     this.selectedDepot = values['depot'];
     this.layoutConfigService.updateFieldValues({ depot: values['depot'] });
 

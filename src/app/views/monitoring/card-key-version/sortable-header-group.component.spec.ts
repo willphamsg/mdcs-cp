@@ -8,6 +8,7 @@ describe('SortableHeaderGroupComponent', () => {
     component = new SortableHeaderGroupComponent();
     mockGridApi = jasmine.createSpyObj('GridApi', [
       'addEventListener',
+      'removeEventListener',
       'applyColumnState',
       'getColumnState',
     ]);
@@ -156,6 +157,29 @@ describe('SortableHeaderGroupComponent', () => {
       sortChangedHandler();
 
       expect(component.sortState).toBeNull();
+    });
+  });
+
+  describe('ngOnDestroy', () => {
+    it('removes the sortChanged listener from gridApi so a destroyed header instance is not kept alive', () => {
+      component.agInit({
+        displayName: 'Device ID',
+        sortable: true,
+        sortField: 'device_id',
+        api: mockGridApi,
+      } as any);
+      const registeredHandler = mockGridApi.addEventListener.calls.mostRecent().args[1];
+
+      component.ngOnDestroy();
+
+      expect(mockGridApi.removeEventListener).toHaveBeenCalledWith(
+        'sortChanged',
+        registeredHandler
+      );
+    });
+
+    it('does nothing when gridApi was never set', () => {
+      expect(() => component.ngOnDestroy()).not.toThrow();
     });
   });
 });

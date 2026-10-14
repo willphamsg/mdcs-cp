@@ -757,4 +757,14 @@ describe('ViewCardKeyVersionComponent', () => {
       });
     });
   });
+
+  describe('ngOnDestroy', () => {
+    it('should stop reacting to searchControl updates after destroy (no leaked subscription)', () => {
+      spyOn(component['destroy$'], 'next').and.callThrough();
+      spyOn(component['destroy$'], 'complete').and.callThrough();
+      component.ngOnDestroy();
+      expect(component['destroy$'].next).toHaveBeenCalled();
+      expect(component['destroy$'].complete).toHaveBeenCalled();
+    });
+  });
 });

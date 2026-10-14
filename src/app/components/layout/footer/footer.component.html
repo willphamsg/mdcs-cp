@@ -34,22 +34,24 @@
           </div>
         </button>
 
-        <mat-menu #menu="matMenu">
-          <div class="sys-list">
-            @for (sys of systems; track sys.name) {
-              <div class="sys-item">
-                <p>{{ sys.name }}:</p>
-                <span>
-                  <mat-icon
-                    [style.color]="sys.status === 1 ? '#009e73' : '#9f0f0f'"
-                    >{{
-                      sys.status === 1 ? 'check_circle' : 'cancel'
-                    }}</mat-icon
-                  >
-                </span>
-              </div>
-            }
-          </div>
+        <mat-menu #menu="matMenu" appReleaseClosedPanel>
+          <ng-template matMenuContent>
+            <div class="sys-list">
+              @for (sys of systems; track sys.name) {
+                <div class="sys-item">
+                  <p>{{ sys.name }}:</p>
+                  <span>
+                    <mat-icon
+                      [style.color]="sys.status === 1 ? '#009e73' : '#9f0f0f'"
+                      >{{
+                        sys.status === 1 ? 'check_circle' : 'cancel'
+                      }}</mat-icon
+                    >
+                  </span>
+                </div>
+              }
+            </div>
+          </ng-template>
         </mat-menu>
       </div>
     </div>
@@ -69,11 +71,11 @@
       </div>
       @if (!isDagw) {
         <div class="item">
-          <div class="event" [routerLink]="['event-history']">
+          <a class="event" [routerLink]="['event-history']">
             <img src="assets/icons/eye.svg" alt="eye icon" /><span
               >Event History</span
             >
-          </div>
+          </a>
         </div>
       }
     </div>

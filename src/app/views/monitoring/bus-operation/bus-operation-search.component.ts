@@ -123,13 +123,13 @@ export class BusOperationSearchComponent implements OnInit, OnDestroy {
   }
 
   startAutoRefresh(): void {
-    console.log('[Bus Operation] auto refresh started');
-
     this.webSocketService
       .refreshTrigger(WS_TOPICS.busOperationStatus, POLLING_INTERVAL)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(message => {
-        console.log('[Bus Operation] refresh triggered:', message);
+      .subscribe(() => {
+        // Deliberately not logged: this fires every POLLING_INTERVAL for as
+        // long as the page is open, and anything handed to console.* is kept
+        // alive by the inspector's console storage while DevTools is open.
         this.reloadHandler();
       });
   }

@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { FilterService } from '@app/services/filter.service';
 import { IFilterConfig } from '@app/shared/utils/form-utils';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('FilterComponent', () => {
@@ -275,6 +275,20 @@ describe('FilterComponent', () => {
     expect(filterService.updateSearchValue).toHaveBeenCalledWith('');
   });
 
+  it('should clear FilterService.formGroupSubject on destroy (root singleton must not retain a destroyed component\'s FormGroup)', () => {
+    (filterService.updateFormGroup as jasmine.Spy).calls.reset();
+    component.ngOnDestroy();
+    expect(filterService.updateFormGroup).toHaveBeenCalledWith(null);
+  });
+
+  it('should stop reacting to FilterService updates after destroy (no leaked subscription)', () => {
+    spyOn(component['destroy$'], 'next').and.callThrough();
+    spyOn(component['destroy$'], 'complete').and.callThrough();
+    component.ngOnDestroy();
+    expect(component['destroy$'].next).toHaveBeenCalled();
+    expect(component['destroy$'].complete).toHaveBeenCalled();
+  });
+
   it('should classify depot, formArray, radio, dateRange and default branches and call FilterService with exact args', () => {
     const startDate = new Date(2026, 6, 1);
 
@@ -366,6 +380,40 @@ describe('FilterComponent', () => {
       'eventDateTime',
       { startDate: endDate, endDate }
     );
+  });
+
+  it('should stop syncing searchControl from FilterService.searchValue$ after destroy (proves the subscription is actually torn down)', () => {
+    const searchValueSubject = new Subject<string>();
+    const isolatedFilterServiceSpy = jasmine.createSpyObj('FilterService', [
+      'updateSearchValue',
+      'updateFormGroup',
+      'updateSelectedFilters',
+      'updateFilterConfigs',
+      'updateFilterValues',
+      'updateDateRangeFilter',
+      'clearSelectedFilters',
+    ], {
+      searchValue$: searchValueSubject.asObservable(),
+    });
+
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      imports: [BrowserAnimationsModule, ReactiveFormsModule],
+      providers: [{ provide: FilterService, useValue: isolatedFilterServiceSpy }],
+    }).compileComponents();
+
+    const isolatedFixture = TestBed.createComponent(FilterComponent);
+    const isolatedComponent = isolatedFixture.componentInstance;
+    isolatedComponent.filterConfigs = mockFilterConfigs;
+    isolatedFixture.detectChanges();
+
+    searchValueSubject.next('before-destroy');
+    expect(isolatedComponent.searchControl.value).toBe('before-destroy');
+
+    isolatedComponent.ngOnDestroy();
+    searchValueSubject.next('after-destroy');
+
+    expect(isolatedComponent.searchControl.value).toBe('before-destroy');
   });
 
   it('should not call updateFilterValues when no formArray checkboxes are checked', () => {

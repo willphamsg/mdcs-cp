@@ -31,7 +31,6 @@ export class ReportService {
   // }
 
   getReportURL(reportFileName: string, params: string): string {
-    console.log('getReportURL', { reportFileName, params });
     if (environment.useDummyData) {
       return `https://ec2-13-250-26-197.ap-southeast-1.compute.amazonaws.com/ReportServer/Pages/ReportViewer.aspx?/BusAuditTrailReport&rs:Embed=true&rs:Format=HTML5&rs:Command=Render&rc:Toolbar=true&rc:Parameters=false&SPId=16&BusinessDay=2026-04-17&DepotId=970&DepotId=971&DepotId=972&DepotId=973&DepotId=974&DepotId=975&Username=daily-report`;
     }

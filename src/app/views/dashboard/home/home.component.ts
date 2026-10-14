@@ -111,6 +111,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   taskList: { desc: string; tasks: number; link: string }[] = [];
 
   busesRendered: IConnectedBus[] = [];
+  chartsRendered: {
+    depotId?: string;
+    data: ReturnType<HomeComponent['transformChartData']>;
+    config: LineChartConfig;
+  }[] = [];
 
   public lineChartType: ChartType = 'line';
   public lineChartData: ChartConfiguration['data'] = {
@@ -218,7 +223,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.depots = value;
       });
 
-    console.log('🚀 this.depots:', );
 
     this.startPolling();
     this.startDashboardRefresh();
@@ -411,6 +415,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     this.busesRendered = Object.values(mappingByDepotId);
+    this.chartsRendered = this.busesRendered.map(bus => ({
+      depotId: bus.depot_id,
+      data: this.transformChartData(bus),
+      config: this.chartConfig(bus),
+    }));
     // console.log('🚀 mapping:', this.busesRendered);
   }
 
@@ -420,14 +429,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.startPolling();
   }
 
-  transformChartData(connectedBus: IConnectedBus) {
+  private transformChartData(connectedBus: IConnectedBus) {
     return connectedBus.bus_details.map((bus: IBusDetails) => ({
       x: bus.time,
       y: bus.num_of_buses,
     }));
   }
 
-  chartConfig(connectedBus: IConnectedBus): LineChartConfig {
+  private chartConfig(connectedBus: IConnectedBus): LineChartConfig {
     return {
       title: connectedBus.depot_name,
       subtitle: `Bus in Depot: ${connectedBus.total}`,

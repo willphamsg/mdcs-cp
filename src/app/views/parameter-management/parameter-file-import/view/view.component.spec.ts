@@ -151,4 +151,12 @@ describe('ParameterFileImportViewComponent', () => {
     const depotName = component.getDepotName('1');
     expect(depotName).toBe('Hougang Depot');
   });
+
+  it('should stop reacting to depo$/depoList$ updates after destroy (no leaked subscription)', () => {
+    spyOn(component['destroy$'], 'next').and.callThrough();
+    spyOn(component['destroy$'], 'complete').and.callThrough();
+    component.ngOnDestroy();
+    expect(component['destroy$'].next).toHaveBeenCalled();
+    expect(component['destroy$'].complete).toHaveBeenCalled();
+  });
 });

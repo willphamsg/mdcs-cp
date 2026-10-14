@@ -7,6 +7,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { IMessage } from '@app/models/message';
+import { ReleaseClosedMenuPanelDirective } from '@app/shared/directives/release-closed-menu-panel.directive';
 
 @Component({
     selector: 'app-notification',
@@ -16,6 +17,7 @@ import { IMessage } from '@app/models/message';
         CommonModule,
         RouterModule,
         MatMenuModule,
+        ReleaseClosedMenuPanelDirective,
         MatBadgeModule,
         MatButtonModule,
     ],

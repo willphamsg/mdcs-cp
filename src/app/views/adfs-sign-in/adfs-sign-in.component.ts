@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageLoaderComponent } from '@app/components/page-loader/page-loader.component';
 import { PayloadResponse } from '@app/models/common';
@@ -7,6 +7,7 @@ import { AuthService } from '@app/services/auth.service';
 import { UserService } from '@app/services/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { REFRESH_TOKEN_COOKIE } from '@app/shared/utils/constants';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -15,7 +16,8 @@ import { REFRESH_TOKEN_COOKIE } from '@app/shared/utils/constants';
   providers: [CookieService],
   templateUrl: './adfs-sign-in.component.html',
 })
-export class AdfsSignInComponent implements OnInit {
+export class AdfsSignInComponent implements OnInit, OnDestroy {
+  private readonly destroy$ = new Subject<void>();
   redirect = this.authService.isDagw()
     ? '/dagw/bus-operation'
     : '/mdcs/dashboard';
@@ -28,9 +30,16 @@ export class AdfsSignInComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(param => {
-      this.applyDevToken(param['token']);
-    });
+    this.route.queryParams
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(param => {
+        this.applyDevToken(param['token']);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   // applyDevToken(token: string) {

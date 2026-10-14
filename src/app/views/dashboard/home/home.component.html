@@ -90,10 +90,8 @@
           <div
             class="chart-container"
             [ngClass]="!depotSelected ? 'hour-selected-' + hourSelected : ''">
-            @for (bus of busesRendered; let index = $index; track index) {
-              <app-line-chart
-                [data]="transformChartData(bus)"
-                [config]="chartConfig(bus)">
+            @for (chart of chartsRendered; track chart.depotId) {
+              <app-line-chart [data]="chart.data" [config]="chart.config">
               </app-line-chart>
             }
           </div>

@@ -158,8 +158,9 @@ export class BusSearchComponent implements OnInit, OnDestroy {
     this.webSocketService
       .refreshTrigger(WS_TOPICS.masterBusList, POLLING_INTERVAL)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(message => {
-        console.log('[Daily Bus] refresh triggered:', message);
+      .subscribe(() => {
+        // Not logged - see the note in BusOperationSearchComponent: this fires
+        // on a timer and every logged payload is retained by DevTools.
         this.reloadHandler();
       });
   }

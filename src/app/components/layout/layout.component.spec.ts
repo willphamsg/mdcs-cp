@@ -70,4 +70,16 @@ describe('LayoutComponent', () => {
     );
   });
 
+  it('should stop reacting to store updates and router events after destroy (no leaked subscriptions)', () => {
+    const snackBar = TestBed.inject(MatSnackBar);
+    spyOn(snackBar, 'openFromComponent');
+
+    component.ngOnDestroy();
+
+    store.setState({ snackbar: { show: true, message: 'late message', title: 't', typeSnackbar: 'success' } });
+    store.refreshState();
+
+    expect(snackBar.openFromComponent).not.toHaveBeenCalled();
+  });
+
 });

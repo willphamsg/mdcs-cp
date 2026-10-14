@@ -102,6 +102,10 @@ export class MaintenanceComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    // MaintenanceSharedService is a root singleton - drop its reference to
+    // this page's FormGroup, whose FormControlName callbacks otherwise keep
+    // this destroyed component and its whole DOM alive until the next visit.
+    this.sharedService.setFormGroup(null);
   }
 
   loadDepotsAndInitForm(): void {

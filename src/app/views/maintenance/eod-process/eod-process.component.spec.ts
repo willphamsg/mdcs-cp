@@ -123,6 +123,15 @@ describe('EodProcessComponent', () => {
     expect(component.stopPolling).toHaveBeenCalled();
   });
 
+  it('should stop reacting to selectedDepot$ updates after destroy (no leaked subscription)', () => {
+    component.ngOnDestroy();
+    mockSharedService.eodCheckStatus.calls.reset();
+
+    selectedDepotSubject.next(mockDepot);
+
+    expect(mockSharedService.eodCheckStatus).not.toHaveBeenCalled();
+  });
+
   it('should not stop polling for non-NavigationStart router events', () => {
     spyOn(component, 'stopPolling');
 

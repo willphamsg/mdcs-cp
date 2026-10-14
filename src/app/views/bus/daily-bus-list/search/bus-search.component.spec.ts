@@ -16,6 +16,7 @@ import { of, Subject } from 'rxjs';
 import { environment } from '@env/environment';
 import { BusSearchComponent } from './bus-search.component';
 import { PaginationService } from '@app/services/pagination.service';
+import { WebSocketService } from '@app/services/web-socket.service';
 
 describe('BusSearchComponent', () => {
   let component: BusSearchComponent;
@@ -98,6 +99,22 @@ describe('BusSearchComponent', () => {
     fixture = TestBed.createComponent(BusSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  it('does not log anything on a refresh tick', () => {
+    const webSocketService = TestBed.inject(WebSocketService);
+    const ticks = new Subject<unknown>();
+    spyOn(webSocketService, 'refreshTrigger').and.returnValue(ticks.asObservable());
+    spyOn(component, 'reloadHandler');
+    const logSpy = spyOn(console, 'log');
+
+    component.startAutoRefresh();
+    ticks.next({ payload: 'a message big enough to matter' });
+
+    expect(component.reloadHandler).toHaveBeenCalled();
+    // This fires every POLLING_INTERVAL for as long as the page is open, and
+    // DevTools retains every logged argument for the life of the tab.
+    expect(logSpy).not.toHaveBeenCalled();
   });
 
   it('should create the component', () => {

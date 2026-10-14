@@ -8,7 +8,7 @@ import {
 } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { AppConfigService } from './services/app-config.service';
-import { filter, map, mergeMap } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +34,10 @@ export class AppComponent implements OnInit {
           while (route.firstChild) route = route.firstChild;
           return route;
         }),
-        mergeMap(route => route.data)
+        // switchMap, not mergeMap: each navigation must drop the previous
+        // route's data subscription, or every NavigationEnd adds another
+        // observer (and root-subscriber finalizer) that lives for the session.
+        switchMap(route => route.data)
       )
       .subscribe(data => {
         const appMode = this.configService.appMode?.toLowerCase();

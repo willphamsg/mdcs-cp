@@ -5,6 +5,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -13,7 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { IDepoList } from '@app/models/depo';
 import { DepoService } from '@app/services/depo.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-depot-dropdown',
@@ -22,7 +23,8 @@ import { Observable } from 'rxjs';
   templateUrl: './depot-dropdown.component.html',
   styleUrl: './depot-dropdown.component.scss',
 })
-export class DepotDropdownComponent implements OnInit, AfterViewInit {
+export class DepotDropdownComponent implements OnInit, AfterViewInit, OnDestroy {
+  private readonly destroy$ = new Subject<void>();
   @Output() depotChange = new EventEmitter<string>();
   @Input() dropdownLabel: string;
   @Input() depotVaue: string;
@@ -38,14 +40,21 @@ export class DepotDropdownComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.depots$ = this.depotService.depoList$;
 
-    this.depotControl.valueChanges.subscribe(selectedDepot => {
-      this.depotChange.emit(selectedDepot);
-    });
+    this.depotControl.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(selectedDepot => {
+        this.depotChange.emit(selectedDepot);
+      });
   }
 
   ngAfterViewInit(): void {
     this.depotControl.setValue(this.depotVaue);
     this.cdr.detectChanges();
     console.log({ DEPOT: this.depotVaue });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

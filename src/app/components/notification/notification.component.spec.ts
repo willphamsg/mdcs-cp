@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { provideRouter } from '@angular/router';
+import { By } from '@angular/platform-browser';
+import { MatMenu } from '@angular/material/menu';
 import { IMessage } from '@app/models/message';
 import { NotificationComponent } from './notification.component';
 
@@ -27,6 +29,11 @@ describe('NotificationComponent', () => {
 
   it('should create the component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render the notification menu lazily', () => {
+    const menu = fixture.debugElement.query(By.directive(MatMenu)).injector.get(MatMenu);
+    expect(menu.lazyContent).toBeDefined();
   });
 
   it('should initialize with 3 default notifications', () => {

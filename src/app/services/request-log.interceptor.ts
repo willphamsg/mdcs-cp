@@ -15,7 +15,51 @@ export interface RequestLogEntry {
 
 const CSV_HEADERS = ['requestTimestamp', 'method', 'url', 'params', 'body', 'responseTimestamp', 'response'];
 
+// Bounded so a long-running session (e.g. the auto-clicker QA tool) can't grow this
+// array, and every logged response body it retains, without limit for the life of the tab.
+// The entry count alone is not a memory bound: 500 list responses measured ~2 MB of
+// retained payloads in a soak test, so the newest entries are kept within a byte
+// budget as well.
+const MAX_LOG_ENTRIES = 500;
+const MAX_LOG_BYTES = 512 * 1024;
+
 const logs: RequestLogEntry[] = [];
+// Sizes live beside the entries rather than in a parallel array, so callers
+// that mutate the exported array (tests, manual clearing) can't desync them.
+const entrySizes = new WeakMap<RequestLogEntry, number>();
+
+/** Rough retained size of a logged payload; only used to bound the buffer. */
+function approximateSize(value: unknown): number {
+  if (value === null || value === undefined) {
+    return 0;
+  }
+  if (typeof value === 'string') {
+    return value.length * 2;
+  }
+  try {
+    return (JSON.stringify(value)?.length ?? 0) * 2;
+  } catch {
+    // Circular or otherwise unserialisable: assume it is worth trimming for.
+    return MAX_LOG_BYTES;
+  }
+}
+
+function retainedBytes(): number {
+  let total = 0;
+  for (const entry of logs) {
+    total += entrySizes.get(entry) ?? 0;
+  }
+  return total;
+}
+
+function trimLogs(): void {
+  while (logs.length > MAX_LOG_ENTRIES) {
+    logs.shift();
+  }
+  while (logs.length > 1 && retainedBytes() > MAX_LOG_BYTES) {
+    logs.shift();
+  }
+}
 
 function escapeCsvCell(value: unknown): string {
   let str: string;
@@ -65,6 +109,8 @@ export function downloadLogsAsCsv(filename = 'request-log.csv'): void {
   anchor.download = filename;
   anchor.click();
   URL.revokeObjectURL(url);
+
+  logs.length = 0;
 }
 
 export const requestLogInterceptor: HttpInterceptorFn = (req, next) => {
@@ -99,6 +145,12 @@ export const requestLogInterceptor: HttpInterceptorFn = (req, next) => {
             responseTimestamp,
             response: event.body,
           });
+          const entry = logs[logs.length - 1];
+          entrySizes.set(
+            entry,
+            approximateSize(event.body) + approximateSize(requestSnapshot.body)
+          );
+          trimLogs();
         }
       },
     })

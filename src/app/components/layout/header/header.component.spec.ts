@@ -9,6 +9,8 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { of } from 'rxjs';
 import { provideRouter, Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
+import { MatMenu } from '@angular/material/menu';
 
 interface FixtureOverrides {
   isDagw?: boolean;
@@ -253,6 +255,27 @@ describe('HeaderComponent', () => {
       expect(dams.action).toBe('redirectToCDA');
     });
 
+    it('should mark the DAMS link as opening a new window so the auto-clicker skips it', async () => {
+      const { fixture } = await createFixture({ hasAccessFn: () => true, cdaLink: 'https://cda.example.com' });
+      fixture.detectChanges();
+      // The mobile nav renders its menu items eagerly, unlike the desktop mat-menu.
+      const dams = Array.from(
+        (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLElement>('.mobile-nav button')
+      ).find(b => b.textContent?.includes('DAMS'));
+      expect(dams).toBeTruthy();
+      expect(dams!.hasAttribute('data-opens-window')).toBeTrue();
+    });
+
+    it('should render every menu lazily so a closed panel is not kept alive by its items', async () => {
+      const { fixture } = await createFixture({ hasAccessFn: () => true, cdaLink: 'https://cda.example.com' });
+      fixture.detectChanges();
+      const menus = fixture.debugElement.queryAll(By.directive(MatMenu)).map(d => d.injector.get(MatMenu));
+      expect(menus.length).toBeGreaterThan(0);
+      for (const menu of menus) {
+        expect(menu.lazyContent).withContext(menu.panelId).toBeDefined();
+      }
+    });
+
     it('should exclude the DAMS link when no CDA link is configured', async () => {
       const { fixture } = await createFixture({ hasAccessFn: () => true, cdaLink: '' });
       fixture.detectChanges();
@@ -301,7 +324,7 @@ describe('HeaderComponent', () => {
 
       fixture.componentInstance.redirectToCDA();
 
-      expect(openSpy).toHaveBeenCalledWith('https://cda.example.com', '_blank');
+      expect(openSpy).toHaveBeenCalledWith('https://cda.example.com', 'cda-window');
     });
 
     it('should not open a window when no CDA link is present', async () => {
@@ -312,6 +335,20 @@ describe('HeaderComponent', () => {
       fixture.componentInstance.redirectToCDA();
 
       expect(openSpy).not.toHaveBeenCalled();
+    });
+
+    it('should reuse the same named target on repeat calls instead of opening a new tab each time', async () => {
+      const { fixture } = await createFixture({ cdaLink: 'https://cda.example.com' });
+      fixture.detectChanges();
+      const openSpy = spyOn(window, 'open');
+
+      fixture.componentInstance.redirectToCDA();
+      fixture.componentInstance.redirectToCDA();
+      fixture.componentInstance.redirectToCDA();
+
+      expect(openSpy).toHaveBeenCalledTimes(3);
+      const targets = openSpy.calls.allArgs().map(args => args[1]);
+      expect(new Set(targets).size).toBe(1);
     });
   });
 
@@ -397,8 +434,75 @@ describe('HeaderComponent', () => {
           fixture.componentInstance.toggleAutoClick({ checked: true } as MatSlideToggleChange)
         ).not.toThrow();
       } finally {
+        fixture.componentInstance.toggleAutoClick({ checked: false } as MatSlideToggleChange);
         jasmine.clock().uninstall();
       }
+    });
+
+    it('should report the real clicker state so a rebuilt header does not show "off" mid-run', async () => {
+      const { fixture } = await createFixture();
+      fixture.detectChanges();
+      const component = fixture.componentInstance;
+      jasmine.clock().install();
+      try {
+        expect(component.isAutoClicking()).toBeFalse();
+        component.toggleAutoClick({ checked: true } as MatSlideToggleChange);
+        expect(component.isAutoClicking()).toBeTrue();
+
+        // A second header instance (layout rebuilt after /unauthorized) must agree.
+        const rebuilt = TestBed.createComponent(HeaderComponent);
+        expect(rebuilt.componentInstance.isAutoClicking()).toBeTrue();
+
+        component.toggleAutoClick({ checked: false } as MatSlideToggleChange);
+        expect(component.isAutoClicking()).toBeFalse();
+      } finally {
+        component.toggleAutoClick({ checked: false } as MatSlideToggleChange);
+        jasmine.clock().uninstall();
+      }
+    });
+
+    it('should return to the page the run started on when toggled off', async () => {
+      const { fixture } = await createFixture();
+      fixture.detectChanges();
+      const component = fixture.componentInstance;
+      const router = TestBed.inject(Router);
+      const navigate = spyOn(router, 'navigateByUrl').and.resolveTo(true);
+      const url = spyOnProperty(router, 'url', 'get');
+      const startUrl = location.pathname + location.search + location.hash;
+
+      jasmine.clock().install();
+      try {
+        component.toggleAutoClick({ checked: true } as MatSlideToggleChange);
+      } finally {
+        jasmine.clock().uninstall();
+      }
+      url.and.returnValue('/mdcs/bus-list');
+      component.toggleAutoClick({ checked: false } as MatSlideToggleChange);
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(navigate).toHaveBeenCalledOnceWith(startUrl);
+    });
+
+    it('should not navigate on stop when already on the start page', async () => {
+      const { fixture } = await createFixture();
+      fixture.detectChanges();
+      const component = fixture.componentInstance;
+      const router = TestBed.inject(Router);
+      const navigate = spyOn(router, 'navigateByUrl').and.resolveTo(true);
+      spyOnProperty(router, 'url', 'get').and.returnValue(
+        location.pathname + location.search + location.hash
+      );
+
+      jasmine.clock().install();
+      try {
+        component.toggleAutoClick({ checked: true } as MatSlideToggleChange);
+      } finally {
+        jasmine.clock().uninstall();
+      }
+      component.toggleAutoClick({ checked: false } as MatSlideToggleChange);
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(navigate).not.toHaveBeenCalled();
     });
 
     it('should stop the auto clicker and attempt to download logs when toggled off', async () => {

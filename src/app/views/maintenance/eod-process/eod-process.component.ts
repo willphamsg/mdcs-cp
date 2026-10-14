@@ -95,17 +95,19 @@ export class EodProcessComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.sharedService.selectedDepot$.subscribe(depot => {
-      if (depot) {
-        this.eodDateHandler();
-        this.params = {
-          depot_id: depot?.depot_id || '',
-        };
-        this.depot = depot;
-        // Only call reloadHandler once initially, no automatic polling
-        this.reloadHandler();
-      }
-    });
+    this.sharedService.selectedDepot$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(depot => {
+        if (depot) {
+          this.eodDateHandler();
+          this.params = {
+            depot_id: depot?.depot_id || '',
+          };
+          this.depot = depot;
+          // Only call reloadHandler once initially, no automatic polling
+          this.reloadHandler();
+        }
+      });
   }
 
   eodDateHandler(): void {

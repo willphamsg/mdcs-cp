@@ -40,11 +40,6 @@ export class WebSocketService {
     const wsEnabled = this.authService.isWebSocketEnabled();
     const wsUrl = this.authService.wsUrl();
 
-    console.log('[WebSocket] enabled check:', {
-      wsEnabled,
-      wsUrl,
-    });
-
     return Boolean(wsEnabled && wsUrl);
   }
 
@@ -55,12 +50,6 @@ export class WebSocketService {
   ): Observable<unknown> {
     const enabled = this.isEnabled();
 
-    console.log('[WebSocket] refreshTrigger:', {
-      topic: topic,
-      enabled,
-      fallbackIntervalMs,
-    });
-
     const source$ = enabled
       ? this.watch(topic)
       : interval(fallbackIntervalMs);
@@ -69,8 +58,6 @@ export class WebSocketService {
   }
 
   watch(topic: WebSocketTopic): Observable<unknown> {
-    console.log('[WebSocket] watch topic:', topic);
-
     this.requestedTopics.add(topic);
 
     const subject = this.getSubject(topic);
@@ -96,11 +83,6 @@ export class WebSocketService {
     }
 
     if (this.connecting || this.client?.active || this.client?.connected) {
-      console.log('[WebSocket] skipped: already connecting/active/connected', {
-        connecting: this.connecting,
-        active: this.client?.active,
-        connected: this.client?.connected,
-      });
       return;
     }
 
@@ -128,16 +110,17 @@ export class WebSocketService {
         return new SockJS(sockJsEndpoint) as unknown as WebSocket;
       },
 
-      debug: message => {
-        console.log('[WebSocket STOMP]', message);
-      },
+      // No per-frame debug output: the client logs every frame and heartbeat,
+      // and with DevTools attached the inspector keeps every logged value
+      // alive for the life of the tab.
+      debug: () => undefined,
 
       onConnect: () => {
         this.zone.run(() => {
           console.log('[WebSocket] Connected successfully');
 
           this.connecting = false;
-          this.subscriptions.clear();
+          this.clearSubscriptions();
 
           this.requestedTopics.forEach(topic => {
             this.subscribeTopic(topic);
@@ -148,23 +131,23 @@ export class WebSocketService {
       onDisconnect: () => {
         this.zone.run(() => {
           console.warn('[WebSocket] disconnected');
-          this.subscriptions.clear();
+          this.clearSubscriptions();
         });
       },
 
       onStompError: frame => {
-        console.error('[WebSocket] STOMP error:', frame.headers, frame.body);
+        console.error(`[WebSocket] STOMP error: ${frame.headers?.['message'] ?? ''} ${frame.body ?? ''}`);
       },
 
       onWebSocketError: event => {
-        console.error('[WebSocket] transport error:', event);
+        console.error(`[WebSocket] transport error (${event?.type ?? 'unknown'})`);
       },
 
       onWebSocketClose: event => {
         this.zone.run(() => {
-          console.warn('[WebSocket] closed:', event);
+          console.warn(`[WebSocket] closed (code ${event?.code ?? 'n/a'})`);
           this.connecting = false;
-          this.subscriptions.clear();
+          this.clearSubscriptions();
         });
       },
     });
@@ -175,14 +158,18 @@ export class WebSocketService {
   }
 
   disconnect(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    this.subscriptions.clear();
+    this.clearSubscriptions();
 
     if (this.client?.active || this.client?.connected) {
       this.client.deactivate();
     }
 
     this.connecting = false;
+  }
+
+  private clearSubscriptions(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.clear();
   }
 
   private subscribeTopic(topic: string): void {
@@ -192,22 +179,19 @@ export class WebSocketService {
     }
 
     if (this.subscriptions.has(topic)) {
-      console.log('[WebSocket] already subscribed:', topic);
       return;
     }
 
     const subscription = this.client.subscribe(topic, (message: IMessage) => {
       this.zone.run(() => {
-        console.log('[WebSocket] message received:', {
-          topic,
-          body: message.body,
-        });
-
+        // Deliberately not logging the message: topics tick every few seconds
+        // all session long, and anything passed to console.* is retained by
+        // the inspector while DevTools is open - thousands of payload objects
+        // over a long session.
         this.getSubject(topic).next(this.parseMessage(message.body));
       });
     });
 
-    console.log('[WebSocket] subscribed:', topic);
     this.subscriptions.set(topic, subscription);
   }
 

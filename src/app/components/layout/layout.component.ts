@@ -8,6 +8,7 @@ import { AppStore } from '@store/app.state';
 import { Store } from '@ngrx/store';
 import { showSnackbar } from '@store/snackbar/snackbar.actions';
 import { InactivityTimeoutService } from '@app/services/inactivity-timeout.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-layout',
@@ -23,37 +24,42 @@ import { InactivityTimeoutService } from '@app/services/inactivity-timeout.servi
 export class LayoutComponent implements OnInit, OnDestroy {
   @ViewChild('container') container: ElementRef;
 
+  private readonly destroy$ = new Subject<void>();
+
   constructor(
     private readonly snackBar: MatSnackBar,
     private readonly store: Store<AppStore>,
     private readonly router: Router,
     private readonly inactivityTimeoutService: InactivityTimeoutService
   ) {
-    this.store.select(state => state.snackbar).subscribe((state: any) => {
-      // console.log('state', state);
-      if (state?.show) {
-        this.snackBar.openFromComponent(SnackbarComponent, {
-          data: {
-            message: state?.message,
-            type: state?.typeSnackbar,
-            title: state?.title,
-          },
-          duration: 3000,
-          panelClass: [
-            'custom-snackbar',
-            `${state?.typeSnackbar === 'success' ? 'custom-snackbar-success' : 'custom-snackbar-error'}`,
-          ],
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-      }
-    });
+    this.store
+      .select(state => state.snackbar)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((state: any) => {
+        // console.log('state', state);
+        if (state?.show) {
+          this.snackBar.openFromComponent(SnackbarComponent, {
+            data: {
+              message: state?.message,
+              type: state?.typeSnackbar,
+              title: state?.title,
+            },
+            duration: 3000,
+            panelClass: [
+              'custom-snackbar',
+              `${state?.typeSnackbar === 'success' ? 'custom-snackbar-success' : 'custom-snackbar-error'}`,
+            ],
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+        }
+      });
   }
 
   ngOnInit(): void {
     this.inactivityTimeoutService.start();
 
-    this.router.events.subscribe(() => {
+    this.router.events.pipe(takeUntil(this.destroy$)).subscribe(() => {
       if (this.container) {
         this.container.nativeElement.scrollTop = 0;
         this.container.nativeElement.scrollLeft = 0;
@@ -63,6 +69,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.inactivityTimeoutService.stop();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   openSnackBar(isArray?: boolean) {

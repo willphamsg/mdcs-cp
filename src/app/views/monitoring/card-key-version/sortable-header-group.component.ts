@@ -1,6 +1,6 @@
 import type { IHeaderGroupAngularComp } from 'ag-grid-angular';
 import type { IHeaderGroupParams } from 'ag-grid-community';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 
 interface SortableHeaderGroupParams extends IHeaderGroupParams {
   sortable?: boolean;
@@ -48,7 +48,7 @@ interface SortableHeaderGroupParams extends IHeaderGroupParams {
     `,
   ],
 })
-export class SortableHeaderGroupComponent implements IHeaderGroupAngularComp {
+export class SortableHeaderGroupComponent implements IHeaderGroupAngularComp, OnDestroy {
   displayName = '';
   sortable = false;
   sortField = '';
@@ -56,6 +56,7 @@ export class SortableHeaderGroupComponent implements IHeaderGroupAngularComp {
 
   private params: SortableHeaderGroupParams;
   private gridApi: any;
+  private readonly sortChangedHandler = (): void => this.updateSortState();
 
   get sortIcon(): string {
     return 'assets/icons/sort.svg';
@@ -70,9 +71,15 @@ export class SortableHeaderGroupComponent implements IHeaderGroupAngularComp {
 
     // Listen for sort changes to update icon state
     if (this.gridApi) {
-      this.gridApi.addEventListener('sortChanged', () => {
-        this.updateSortState();
-      });
+      this.gridApi.addEventListener('sortChanged', this.sortChangedHandler);
+    }
+  }
+
+  ngOnDestroy(): void {
+    // gridApi outlives each header instance across column/header re-renders,
+    // so the listener must be removed explicitly or it keeps this component alive.
+    if (this.gridApi) {
+      this.gridApi.removeEventListener('sortChanged', this.sortChangedHandler);
     }
   }
 

@@ -44,6 +44,9 @@ import { MatInputModule } from '@angular/material/input';
 import { ReportService } from '@services/report.service';
 import { DD_MM_YYYY_FORMAT } from '@app/shared/utils/date-time';
 
+const PRINT_SECTION_ID = 'print-section';
+const PRINT_BODY_CLASS = 'print-section-only';
+
 @Component({
   selector: 'app-bus-arrival-exception-list',
   standalone: true,
@@ -241,15 +244,35 @@ export class DAGWBusArrivalExceptionListComponent implements OnInit, OnDestroy {
     link.click();
   }
 
+  /**
+   * Prints #print-section only, via the print stylesheet in global.scss.
+   *
+   * Never swap document.body.innerHTML to do this: that detaches every node
+   * Angular is holding, so the page goes dead (clicks and navigation stop
+   * doing anything, while the old tree stays in memory) and only a full
+   * reload brings it back.
+   */
   print(): void {
-    const printContents = document.getElementById('print-section')?.innerHTML;
-    const originalContents = document.body.innerHTML;
+    if (!document.getElementById(PRINT_SECTION_ID)) {
+      return;
+    }
 
-    if (printContents) {
-      document.body.innerHTML = printContents;
+    let cleanedUp = false;
+    const cleanUp = () => {
+      if (cleanedUp) return;
+      cleanedUp = true;
+      document.body.classList.remove(PRINT_BODY_CLASS);
+      window.removeEventListener('afterprint', cleanUp);
+    };
+
+    document.body.classList.add(PRINT_BODY_CLASS);
+    // Chrome blocks in print() until the dialog closes; browsers that return
+    // straight away fire afterprint instead.
+    window.addEventListener('afterprint', cleanUp);
+    try {
       window.print();
-      document.body.innerHTML = originalContents;
-      location.reload(); // to restore event bindings after print
+    } finally {
+      cleanUp();
     }
   }
 }

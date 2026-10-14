@@ -147,4 +147,13 @@ describe('SystemInformationComponent', () => {
     expect(mockSharedService.updateSelectedDepot).toHaveBeenCalledWith(null);
     expect(mockSharedService.resetFormGroup).toHaveBeenCalled();
   });
+
+  it('should stop reacting to selectedDepot$ updates after destroy (no leaked subscription)', () => {
+    component.ngOnDestroy();
+    mockSharedService.searchSystemInfo.calls.reset();
+
+    selectedDepotSubject.next(mockDepot);
+
+    expect(mockSharedService.searchSystemInfo).not.toHaveBeenCalled();
+  });
 });

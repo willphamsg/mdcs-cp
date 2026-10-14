@@ -160,4 +160,14 @@ describe('AdfsSignInComponent', () => {
     component.applyDevToken(undefined as any);
     expect(window.alert).toHaveBeenCalledWith('Token invalid or expired');
   });
+
+  it('should stop reacting to queryParams after destroy (no leaked subscription)', () => {
+    spyOn(component, 'applyDevToken');
+    fixture.detectChanges();
+
+    component.ngOnDestroy();
+    queryParamsSubject.next({ token: 'late-token' });
+
+    expect(component.applyDevToken).not.toHaveBeenCalled();
+  });
 });

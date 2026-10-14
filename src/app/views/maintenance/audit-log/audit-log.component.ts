@@ -97,9 +97,11 @@ export class AuditLogComponent implements OnInit, OnDestroy {
     private readonly authService: AuthService,
     private readonly cdr: ChangeDetectorRef
   ) {
-    this.depoService.depoList$.subscribe((value: IDepoList[]) => {
-      this.depots = value;
-    });
+    this.depoService.depoList$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((value: IDepoList[]) => {
+        this.depots = value;
+      });
   }
 
   ngOnInit(): void {
@@ -187,13 +189,16 @@ export class AuditLogComponent implements OnInit, OnDestroy {
 
   reloadHandler(): void {
     if (this.depots) {
-      this.sharedService.viewAuditTrail(this.params).subscribe({
-        next: value => {
-          if (value.status === 200) {
-            this.updateDataSource(value.payload);
-          }
-        },
-      });
+      this.sharedService
+        .viewAuditTrail(this.params)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: value => {
+            if (value.status === 200) {
+              this.updateDataSource(value.payload);
+            }
+          },
+        });
     }
   }
 

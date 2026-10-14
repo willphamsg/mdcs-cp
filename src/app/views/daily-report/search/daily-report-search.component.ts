@@ -36,6 +36,9 @@ import { AuthService } from '@app/services/auth.service';
 import { DailyReportService } from '@services/daily-report.service';
 import { DD_MM_YYYY_FORMAT } from '@app/shared/utils/date-time';
 
+/** Target name of the single window every report preview is opened into. */
+export const PREVIEW_WINDOW_NAME = 'mdcs-report-preview';
+
 export const tabsKeys = {
   bus_arrival_exception_list: 'bus_arrival_exception_list',
   bus_list_audit_trail: 'bus_list_audit_trail',
@@ -136,6 +139,8 @@ export class DailyReportComponent implements OnInit, OnDestroy {
   isButtonClick: boolean = false;
   expandedMenu: boolean = false;
 
+  private previewUrl: string | null = null;
+
   constructor(
     private readonly depoService: DepoService,
     public readonly dialog: MatDialog,
@@ -150,6 +155,7 @@ export class DailyReportComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+    this.releasePreviewUrl();
   }
   onTabChange(event: MatTabChangeEvent) {
     this.report_type = event.tab.textLabel;
@@ -310,11 +316,25 @@ export class DailyReportComponent implements OnInit, OnDestroy {
 
   viewPdfInBrowser(blob: Blob): void {
     const url = window.URL.createObjectURL(blob);
-    window.open(url, '_blank');
+    // One reused window: a fresh `_blank` tab per click leaves a same-origin
+    // blob document behind in this renderer, so Documents/Frames climb for the
+    // rest of the session and never come back down.
+    const preview = window.open(url, PREVIEW_WINDOW_NAME);
 
-    // Clean up after a delay to ensure the PDF loads
-    setTimeout(() => {
+    // Release the report this one replaces. A timer cannot be used here: it
+    // fires while the window may still be fetching the blob it was handed.
+    this.releasePreviewUrl();
+    if (preview) {
+      this.previewUrl = url;
+    } else {
       window.URL.revokeObjectURL(url);
-    }, 1000);
+    }
+  }
+
+  private releasePreviewUrl(): void {
+    if (this.previewUrl) {
+      window.URL.revokeObjectURL(this.previewUrl);
+      this.previewUrl = null;
+    }
   }
 }

@@ -11,6 +11,6 @@ export class Top0Component implements OnInit {
   @Input() data: any;
 
   ngOnInit(): void {
-    console.log('Top0component ', this.data);
+    // Intentionally empty: kept so the lifecycle hook stays declared.
   }
 }

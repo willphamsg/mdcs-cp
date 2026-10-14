@@ -401,7 +401,7 @@ export class ViewCardKeyVersionComponent implements OnInit, OnDestroy {
     this.loadFilterValues();
 
     this.searchControl.valueChanges
-      .pipe(debounceTime(1000), distinctUntilChanged())
+      .pipe(debounceTime(1000), distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe(value => {
         // if (value)
         this.searchText(value);
@@ -594,7 +594,6 @@ export class ViewCardKeyVersionComponent implements OnInit, OnDestroy {
     this.resizeListener = () => {
       if (this.gridApi) {
         const minWidth = window.innerWidth > 992 ? undefined : 100;
-        console.log('Viewport resized, updating column minWidth to:', minWidth);
         this.gridApi.setGridOption('defaultColDef', {
           ...this.gridOptions.defaultColDef,
           minWidth,

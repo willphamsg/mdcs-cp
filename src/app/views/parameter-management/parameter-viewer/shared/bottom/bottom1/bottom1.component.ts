@@ -22,7 +22,6 @@ export class Bottom1Component implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log('Bottom 1 ', this.data);
     this.columns = this.data?.column;
     this.dataSource = this.data?.dataSource;
   }

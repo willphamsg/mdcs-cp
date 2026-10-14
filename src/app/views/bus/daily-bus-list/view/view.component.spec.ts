@@ -69,6 +69,33 @@ describe('DailyBusList ViewComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  describe('Submit button initial focus', () => {
+    function submitButton(blocked: boolean): HTMLButtonElement {
+      spyOn(ViewComponent.prototype, 'isNotAllowedSubmit').and.returnValue(blocked);
+      const f = TestBed.createComponent(ViewComponent);
+      f.detectChanges();
+      const buttons = Array.from(
+        (f.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('button.local-primary')
+      );
+      return buttons.find(b => b.textContent?.includes('Submit'))!;
+    }
+
+    // A disabled cdkFocusInitial target can't take focus: CDK logs it with
+    // console.warn(element), and with DevTools open that keeps every closed
+    // dialog's DOM alive.
+    it('does not mark a disabled Submit as the initial focus target', () => {
+      const btn = submitButton(true);
+      expect(btn.disabled).toBeTrue();
+      expect(btn.hasAttribute('cdkFocusInitial')).toBeFalse();
+    });
+
+    it('marks an enabled Submit as the initial focus target', () => {
+      const btn = submitButton(false);
+      expect(btn.disabled).toBeFalse();
+      expect(btn.hasAttribute('cdkFocusInitial')).toBeTrue();
+    });
+  });
+
   it('should set title from dialog data', () => {
     expect(component.title).toBe('Daily Bus List');
   });
@@ -333,10 +360,18 @@ describe('DailyBusList ViewComponent', () => {
     });
   });
 
-  describe('OnDestroy', () => {
+  describe('ngOnDestroy', () => {
     it('closes all dialogs', () => {
-      component.OnDestroy();
+      component.ngOnDestroy();
       expect(mockDialog.closeAll).toHaveBeenCalled();
+    });
+
+    it('should stop reacting to depoList$ updates after destroy (no leaked subscription)', () => {
+      spyOn(component['destroy$'], 'next').and.callThrough();
+      spyOn(component['destroy$'], 'complete').and.callThrough();
+      component.ngOnDestroy();
+      expect(component['destroy$'].next).toHaveBeenCalled();
+      expect(component['destroy$'].complete).toHaveBeenCalled();
     });
   });
 

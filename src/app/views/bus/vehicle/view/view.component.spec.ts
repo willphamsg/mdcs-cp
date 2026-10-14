@@ -69,6 +69,33 @@ describe('Vehicle ViewComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  describe('Submit button initial focus', () => {
+    function submitButton(blocked: boolean): HTMLButtonElement {
+      spyOn(ViewComponent.prototype, 'isNotAllowedSubmit').and.returnValue(blocked);
+      const f = TestBed.createComponent(ViewComponent);
+      f.detectChanges();
+      const buttons = Array.from(
+        (f.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('button.local-primary')
+      );
+      return buttons.find(b => b.textContent?.includes('Submit'))!;
+    }
+
+    // A disabled cdkFocusInitial target can't take focus: CDK logs it with
+    // console.warn(element), and with DevTools open that keeps every closed
+    // dialog's DOM alive.
+    it('does not mark a disabled Submit as the initial focus target', () => {
+      const btn = submitButton(true);
+      expect(btn.disabled).toBeTrue();
+      expect(btn.hasAttribute('cdkFocusInitial')).toBeFalse();
+    });
+
+    it('marks an enabled Submit as the initial focus target', () => {
+      const btn = submitButton(false);
+      expect(btn.disabled).toBeFalse();
+      expect(btn.hasAttribute('cdkFocusInitial')).toBeTrue();
+    });
+  });
+
   it('should initialize as add action', () => {
     expect(component.isAdd).toBeTrue();
     expect(component.isDelete).toBeFalse();
@@ -626,6 +653,16 @@ describe('Vehicle ViewComponent', () => {
   describe('isBusTransferNeeded', () => {
     it('returns false when status_value control does not indicate a transfer', () => {
       expect(component.isBusTransferNeeded(0)).toBeFalse();
+    });
+  });
+
+  describe('ngOnDestroy', () => {
+    it('should stop reacting to depo$/depoList$ updates after destroy (no leaked subscription)', () => {
+      spyOn(component['destroy$'], 'next').and.callThrough();
+      spyOn(component['destroy$'], 'complete').and.callThrough();
+      component.ngOnDestroy();
+      expect(component['destroy$'].next).toHaveBeenCalled();
+      expect(component['destroy$'].complete).toHaveBeenCalled();
     });
   });
 });

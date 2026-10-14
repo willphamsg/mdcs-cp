@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -46,6 +47,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CommonService } from '@app/services/common.service';
 import { AuthService } from '@app/services/auth.service';
 import { TimeInput24hDirective } from '@app/shared/directives/time-input-24h.directive';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-view',
@@ -74,7 +76,8 @@ import { TimeInput24hDirective } from '@app/shared/directives/time-input-24h.dir
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewComponent implements OnInit {
+export class ViewComponent implements OnInit, OnDestroy {
+  private readonly destroy$ = new Subject<void>();
   @ViewChild(MatTable) _matTable: MatTable<any>;
   myForm: FormGroup;
   isUpdate: boolean = false;
@@ -120,9 +123,11 @@ export class ViewComponent implements OnInit {
     // this.depoService.depo$.subscribe((value: string) => {
     //   this.depotId = value;
     // });
-    this.depoService.depoList$.subscribe((value: IDepoList[]) => {
-      this.depots = value;
-    });
+    this.depoService.depoList$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((value: IDepoList[]) => {
+        this.depots = value;
+      });
   }
 
   title: string;
@@ -165,8 +170,10 @@ export class ViewComponent implements OnInit {
     }
   }
 
-  OnDestroy(): void {
+  ngOnDestroy(): void {
     this.dialog.closeAll();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   get items(): FormArray {

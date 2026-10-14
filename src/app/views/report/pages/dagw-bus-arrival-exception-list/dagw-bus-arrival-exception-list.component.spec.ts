@@ -235,50 +235,65 @@ describe('DAGWBusArrivalExceptionListComponent', () => {
   });
 
   describe('print', () => {
-    // `location.reload` is not writable/configurable in this Karma/Chrome
-    // environment: `spyOn(location, 'reload')` throws immediately, and
-    // replacing `window.location` itself via `Object.defineProperty` (even
-    // with `configurable: true` requested) only ever succeeds once per
-    // browser session - later redefinition attempts (including a restore in
-    // afterEach) throw "Cannot redefine property: location", leaving
-    // window.location permanently broken for every other spec sharing this
-    // browser tab. Worse, if the fake silently fails to take effect, the real
-    // `print()` calling the real `location.reload()` would trigger an actual
-    // page reload inside the Karma runner tab, crashing the entire test run -
-    // not just this file. Kept only so the pending body below still
-    // type-checks - never actually invoked.
-    function stubWindowLocation(): { reload: jasmine.Spy } {
-      return { reload: jasmine.createSpy('reload') };
+    afterEach(() => {
+      document.body.classList.remove('print-section-only');
+      document.getElementById('print-section')?.remove();
+    });
+
+    function addPrintSection(): HTMLElement {
+      const section = document.createElement('div');
+      section.id = 'print-section';
+      document.body.appendChild(section);
+      return section;
     }
 
     it('should do nothing when no print-section element exists', () => {
-      // print()'s printContents guard returns before ever touching
-      // location.reload() in this branch, so this scenario is safely
-      // testable without faking window.location at all.
       const printSpy = spyOn(window, 'print');
-      spyOn(document, 'getElementById').and.returnValue(null);
 
       component.print();
 
       expect(printSpy).not.toHaveBeenCalled();
+      expect(document.body.classList.contains('print-section-only')).toBeFalse();
     });
 
-    // Skipped: exercising this branch requires faking window.location.reload,
-    // which this environment cannot do reliably (see comment above) without
-    // risking a real page reload that would crash the whole test run.
-    xit('should swap body content, print, and reload when a print-section element exists', () => {
-      const printSpy = spyOn(window, 'print');
-      const { reload: reloadSpy } = stubWindowLocation();
-      const fakeSection = { innerHTML: '<p>Printable Report</p>' } as unknown as HTMLElement;
-      spyOn(document, 'getElementById').and.returnValue(fakeSection);
-      const fakeBody = { innerHTML: '<div id="app-root">original</div>' } as unknown as HTMLElement;
-      spyOnProperty(document, 'body', 'get').and.returnValue(fakeBody);
+    it('should print with the body flagged, and unflag it again', () => {
+      addPrintSection();
+      let flaggedDuringPrint = false;
+      const printSpy = spyOn(window, 'print').and.callFake(() => {
+        flaggedDuringPrint = document.body.classList.contains('print-section-only');
+      });
 
       component.print();
 
-      expect(fakeBody.innerHTML).toBe('<div id="app-root">original</div>');
       expect(printSpy).toHaveBeenCalled();
-      expect(reloadSpy).toHaveBeenCalled();
+      expect(flaggedDuringPrint).toBeTrue();
+      expect(document.body.classList.contains('print-section-only')).toBeFalse();
+    });
+
+    // The old implementation assigned document.body.innerHTML, which detached
+    // every node Angular was holding: the page stopped responding to clicks
+    // and navigation, and only the location.reload() it fired afterwards
+    // brought it back.
+    it('should leave the document untouched', () => {
+      const section = addPrintSection();
+      section.innerHTML = '<p>Printable Report</p>';
+      spyOn(window, 'print');
+      const before = document.body.innerHTML;
+
+      component.print();
+
+      expect(document.body.innerHTML).toBe(before);
+      expect(document.getElementById('print-section')).toBe(section);
+    });
+
+    it('should unflag the body when the browser prints asynchronously', () => {
+      addPrintSection();
+      spyOn(window, 'print');
+
+      component.print();
+      window.dispatchEvent(new Event('afterprint'));
+
+      expect(document.body.classList.contains('print-section-only')).toBeFalse();
     });
   });
 });

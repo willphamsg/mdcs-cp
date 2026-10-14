@@ -56,11 +56,11 @@
 }
 
 .prev-arrow {
-  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.0219 2L11 2.97452L5.95617 8L11 13.0255L10.0219 14L4 8L10.0219 2Z' fill='white'/%3E%3C/svg%3E");
+  background-image: url('/assets/icons/prev_arrow_white.svg');
 }
 
 .next-arrow {
-  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M5.97808 14L5 13.0255L10.0438 8L5 2.97452L5.97808 2L12 8L5.97808 14Z' fill='white'/%3E%3C/svg%3E");
+  background-image: url('/assets/icons/next_arrow_white.svg');
 }
 
 .prev-arrow:disabled,
@@ -71,11 +71,11 @@
 }
 
 .prev-arrow:disabled {
-  background-image: url('../../../assets/icons/clear_prev_arrow.svg');
+  background-image: url('/assets/icons/clear_prev_arrow.svg');
 }
 
 .next-arrow:disabled {
-  background-image: url('../../../assets/icons/clear_next_arrow.svg');
+  background-image: url('/assets/icons/clear_next_arrow.svg');
 }
 
 .prev-arrow:hover:not(:disabled),
@@ -120,7 +120,7 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-image: url('../../../assets/icons/dropdown.svg');
+  background-image: url('/assets/icons/dropdown.svg');
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 16px;

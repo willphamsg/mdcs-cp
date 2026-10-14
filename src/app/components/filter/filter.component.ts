@@ -51,7 +51,7 @@ import {
   DD_MM_YYYY_FORMAT,
   DdMmYyyyDateAdapter,
 } from '@app/shared/utils/date-time';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-filter',
@@ -82,6 +82,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterComponent implements OnInit, OnChanges, OnDestroy {
+  private readonly destroy$ = new Subject<void>();
   @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger;
   accordion = viewChild.required(MatAccordion);
 
@@ -114,27 +115,38 @@ export class FilterComponent implements OnInit, OnChanges, OnDestroy {
     this.initializeForm();
 
     this.searchControl.valueChanges
-      .pipe(debounceTime(1000), distinctUntilChanged())
+      .pipe(debounceTime(1000), distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe(value => {
         // if (value)
         this.filterService.updateSearchValue(value);
       });
 
     // Subscribe to search value changes from service to sync the search control
-    this.filterService.searchValue$.subscribe(value => {
-      if (this.searchControl.value !== value) {
-        this.searchControl.setValue(value || '', { emitEvent: false });
-        this.cdr.detectChanges();
-      }
-    });
+    this.filterService.searchValue$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(value => {
+        if (this.searchControl.value !== value) {
+          this.searchControl.setValue(value || '', { emitEvent: false });
+          this.cdr.detectChanges();
+        }
+      });
   }
 
   ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
     this.cdr.detach();
     this.filterService.updateSearchValue('');
     if (this.filterForm) {
       this.filterForm.reset();
     }
+    // FilterService is a root singleton - clear its reference to this
+    // instance's FormGroup, otherwise formGroupSubject keeps retaining it
+    // (and everything reachable from it: controls, validators, and the
+    // DOM this component is being destroyed right now) for the app's
+    // entire lifetime, since nothing else ever overwrites it once this
+    // is the last page that used the filter.
+    this.filterService.updateFormGroup(null);
   }
 
   initializeForm(): void {
