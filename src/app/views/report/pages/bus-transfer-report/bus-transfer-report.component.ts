@@ -181,19 +181,23 @@ export class BusTransferReportComponent implements OnInit, OnDestroy {
     return new Date(this.endDateSelected) < new Date(this.startDateSelected);
   }
 
+  /** Why the report can't be produced yet, or null once the selection is complete. */
+  private getSelectionError(action: string): string | null {
+    if (!this.isAdhocReport) {
+      return this.hasDepotSelected && this.businessDaySelected
+        ? null
+        : `Please select depot and business day before ${action}`;
+    }
+    if (this.isDateRangeInvalid) {
+      return 'Future Effective End Date cannot be earlier than Future Effective Start Date';
+    }
+    return this.hasDepotSelected ? null : `Please select depot before ${action}`;
+  }
+
   onViewReport() {
-    if (
-      !this.hasDepotSelected ||
-      (!this.isAdhocReport && !this.businessDaySelected) ||
-      (this.isAdhocReport && this.isDateRangeInvalid)
-    ) {
-      console.warn(
-        this.isAdhocReport
-          ? this.isDateRangeInvalid
-            ? 'Future Effective End Date cannot be earlier than Future Effective Start Date'
-            : 'Please select depot before viewing report'
-          : 'Please select depot and business day before viewing report'
-      );
+    const selectionError = this.getSelectionError('viewing report');
+    if (selectionError) {
+      console.warn(selectionError);
       return;
     }
 
@@ -253,18 +257,9 @@ export class BusTransferReportComponent implements OnInit, OnDestroy {
   }
 
   downloadReport(downloadFormat: 'pdf' | 'csv' | 'excel'): void {
-    if (
-      !this.hasDepotSelected ||
-      (!this.isAdhocReport && !this.businessDaySelected) ||
-      (this.isAdhocReport && this.isDateRangeInvalid)
-    ) {
-      console.warn(
-        this.isAdhocReport
-          ? this.isDateRangeInvalid
-            ? 'Future Effective End Date cannot be earlier than Future Effective Start Date'
-            : 'Please select depot before downloading'
-          : 'Please select depot and business day before downloading'
-      );
+    const selectionError = this.getSelectionError('downloading');
+    if (selectionError) {
+      console.warn(selectionError);
       return;
     }
 

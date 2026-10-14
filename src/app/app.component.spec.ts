@@ -55,6 +55,6 @@ describe('AppComponent', () => {
     }
 
     const dataSubject = (deepestRoute() as any).dataSubject;
-    expect(dataSubject.observers.length).toBe(1);
+    expect(dataSubject.observers).toHaveSize(1);
   });
 });

@@ -161,7 +161,7 @@ export class WebSocketService {
     this.clearSubscriptions();
 
     if (this.client?.active || this.client?.connected) {
-      this.client.deactivate();
+      void this.client.deactivate();
     }
 
     this.connecting = false;

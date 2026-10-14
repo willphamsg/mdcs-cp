@@ -171,7 +171,7 @@ export class SignInComponent implements OnInit {
     const roles = this.authService.getUserRoles();
     const redirectUrl = this.resolveRedirectUrl(isDagw, roles);
 
-    this.router.navigate([redirectUrl]);
+    void this.router.navigate([redirectUrl]);
   }
 
   private resolveRedirectUrl(isDagw: boolean, roles: string[]): string {

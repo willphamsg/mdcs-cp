@@ -12,14 +12,14 @@ export const RoleGuard: CanActivateFn = (route, state) => {
 
   if (!expectedRoles || expectedRoles.length === 0) {
     console.warn(`⚠️ No roles defined for route: ${state.url}`);
-    router.navigate(['/unauthorized']);
+    void router.navigate(['/unauthorized']);
     return false;
   }
 
   const hasAccess = expectedRoles.some(role => userRoles.includes(role));
 
   if (!hasAccess) {
-    router.navigate(['/unauthorized']);
+    void router.navigate(['/unauthorized']);
   }
 
   return hasAccess;

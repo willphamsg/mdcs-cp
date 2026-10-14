@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UserTableComponent } from '../../components/user-table/user-table.component';
 
 @Component({
@@ -7,10 +7,6 @@ import { UserTableComponent } from '../../components/user-table/user-table.compo
   imports: [UserTableComponent],
   templateUrl: './top0.component.html',
 })
-export class Top0Component implements OnInit {
+export class Top0Component {
   @Input() data: any;
-
-  ngOnInit(): void {
-    // Intentionally empty: kept so the lifecycle hook stays declared.
-  }
 }

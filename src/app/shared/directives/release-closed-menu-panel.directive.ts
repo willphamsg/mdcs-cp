@@ -46,7 +46,7 @@ export class ReleaseClosedMenuPanelDirective {
   // pulling content out of a panel that is still fading.
   private releaseOnceDetached(polls: number): void {
     clearTimeout(this.timer);
-    const anchor = this.lazyContent()?.elementRef.nativeElement as Node | undefined;
+    const anchor = this.lazyContent()?.elementRef.nativeElement as ChildNode | undefined;
     if (!anchor?.parentNode) {
       return;
     }
@@ -62,6 +62,6 @@ export class ReleaseClosedMenuPanelDirective {
     if (outlet instanceof HTMLElement && outlet.childNodes.length === 0) {
       outlet.remove();
     }
-    anchor.parentNode.removeChild(anchor);
+    anchor.remove();
   }
 }

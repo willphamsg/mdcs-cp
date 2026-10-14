@@ -139,13 +139,13 @@ export const requestLogInterceptor: HttpInterceptorFn = (req, next) => {
       next: (event) => {
         if (event instanceof HttpResponse) {
           const responseTimestamp = new Date().toISOString();
-          logs.push({
+          const entry: RequestLogEntry = {
             requestTimestamp,
             request: requestSnapshot,
             responseTimestamp,
             response: event.body,
-          });
-          const entry = logs[logs.length - 1];
+          };
+          logs.push(entry);
           entrySizes.set(
             entry,
             approximateSize(event.body) + approximateSize(requestSnapshot.body)

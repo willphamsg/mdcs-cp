@@ -88,7 +88,7 @@ export class WelComeComponent implements OnInit {
                 const profile = value.payload as UserProfile;
                 this.authService.saveProfile(profile);
                 // this.redirectBasedOnRole();
-                this.router.navigate([this.route]);
+                void this.router.navigate([this.route]);
               }
             },
           });
@@ -103,7 +103,7 @@ export class WelComeComponent implements OnInit {
             const profile = value.payload as UserProfile;
             this.authService.saveProfile(profile);
             // this.redirectBasedOnRole();
-            this.router.navigate([this.route]);
+            void this.router.navigate([this.route]);
           }
         },
       });
@@ -128,7 +128,7 @@ export class WelComeComponent implements OnInit {
           this.authService.saveProfile(profile);
           // console.log(this.redirectBasedOnRole());
           // this.redirectBasedOnRole();
-          this.router.navigate([this.route]);
+          void this.router.navigate([this.route]);
         }
       },
     });

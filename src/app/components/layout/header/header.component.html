@@ -87,6 +87,7 @@
                         class="menu"
                         [target]="sub.target">
                         {{ sub.label }}
+                        <span class="cdk-visually-hidden">(opens in new tab)</span>
                       </a>
                     } @else if (!!sub?.href) {
                       <a

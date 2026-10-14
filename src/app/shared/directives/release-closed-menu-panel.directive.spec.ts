@@ -53,14 +53,14 @@ describe('ReleaseClosedMenuPanelDirective', () => {
   it('moves the host-owned nodes out of the dead panel once it has left the page', fakeAsync(() => {
     const panel = open();
     const content = panel.querySelector('.mat-mdc-menu-content')!;
-    expect(content.querySelectorAll('.item').length).toBe(2);
+    expect(content.querySelectorAll('.item')).toHaveSize(2);
 
     close();
 
     expect(panel.isConnected).toBeFalse();
     // Nothing the host view still owns may be left inside the closed panel,
     // or that panel (and every listener on it) can never be collected.
-    expect(content.childNodes.length).toBe(0);
+    expect(content.childNodes).toHaveSize(0);
   }));
 
   it('still renders the items when the menu is reopened', fakeAsync(() => {
@@ -69,7 +69,7 @@ describe('ReleaseClosedMenuPanelDirective', () => {
 
     const panel = open();
 
-    expect(panel.querySelectorAll('.item').length).toBe(2);
+    expect(panel.querySelectorAll('.item')).toHaveSize(2);
     close();
   }));
 

@@ -77,7 +77,7 @@ export class AdfsSignInComponent implements OnInit, OnDestroy {
             const roles = this.authService.getUserRoles();
             const redirectUrl = this.resolveRedirectUrl(isDagw, roles);
 
-            this.router.navigate([redirectUrl]);
+            void this.router.navigate([redirectUrl]);
           }
         },
       });

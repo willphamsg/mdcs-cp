@@ -7,7 +7,7 @@ export const DagwGuard: CanActivateFn = () => {
   if (authService.isDagw()) {
     return true;
   } else {
-    inject(Router).navigate(['/']);
+    void inject(Router).navigate(['/']);
     return false;
   }
 };
@@ -15,7 +15,7 @@ export const DagwGuard: CanActivateFn = () => {
 export const MdcsGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   if (authService.isDagw()) {
-    inject(Router).navigate(['/']);
+    void inject(Router).navigate(['/']);
     return false;
   } else {
     return true;

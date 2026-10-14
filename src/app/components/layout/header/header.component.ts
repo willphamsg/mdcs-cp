@@ -707,14 +707,17 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     if (event.checked) {
       autoClicker.startAutoClicker();
     } else {
-      autoClicker.stopAutoClicker().then(() => {
-        const startUrl = autoClicker.getAutoClickerStartUrl();
-        if (startUrl && this.router.url !== startUrl) {
-          // Best effort: if that page can't be reopened, just stay put.
-          this.router.navigateByUrl(startUrl).catch(() => undefined);
-        }
-      });
+      void this.stopAutoClickAndReturn();
       downloadLogsAsCsv();
+    }
+  }
+
+  private async stopAutoClickAndReturn(): Promise<void> {
+    await autoClicker.stopAutoClicker();
+    const startUrl = autoClicker.getAutoClickerStartUrl();
+    if (startUrl && this.router.url !== startUrl) {
+      // Best effort: if that page can't be reopened, just stay put.
+      await this.router.navigateByUrl(startUrl).catch(() => undefined);
     }
   }
 

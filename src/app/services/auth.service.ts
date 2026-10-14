@@ -57,7 +57,7 @@ export class AuthService {
 
   private navigateToLoginPage() {
     // Deferred: remember current URL before navigating to login.
-    this.router.navigateByUrl('/');
+    void this.router.navigateByUrl('/');
   }
 
   constructor() {
@@ -156,7 +156,7 @@ export class AuthService {
           console.log(
             `There was state of ${this.oAuthService.state}, so we are sending you to: ${stateUrl}`
           );
-          this.router.navigateByUrl(stateUrl);
+          void this.router.navigateByUrl(stateUrl);
         }
       })
       .catch(() => {
@@ -241,18 +241,18 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       this.cookieService.delete(REFRESH_TOKEN_COOKIE, '/');
     }
-    this.oAuthService.revokeTokenAndLogout();
+    void this.oAuthService.revokeTokenAndLogout();
     this.oAuthService.logOut();
   }
 
   getProfile() {
-    this.oAuthService.loadUserProfile().then((res: any) => {
+    void this.oAuthService.loadUserProfile().then((res: any) => {
       return res.info['unique_name'];
     });
   }
 
   updatePassword() {
-    this.oAuthService.loadUserProfile().then((res: any) => {
+    void this.oAuthService.loadUserProfile().then((res: any) => {
       const uri = `${environment.issuer}/portal/updatepassword/?UserName=${res.info['unique_name']}`;
       window.open(uri, '_blank');
     });
